@@ -4,6 +4,4 @@ __pycache__/*
 .idea/
 .ipynb_checkpoints/
 logs/
-*bert*.py
-BERT/
 *.npy
