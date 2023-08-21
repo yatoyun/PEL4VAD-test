@@ -7,8 +7,13 @@ import random
 from configs import build_config
 from utils import setup_seed
 from log import get_logger
+
+from model import XModel
 from dataset import *
 
+from train import train_func
+from test import test_func
+from infer import infer_func
 import argparse
 import copy
 
@@ -43,73 +48,44 @@ def train(model, train_loader, test_loader, gt, logger):
 
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
-    
-    # original
-    # optimizer = optim.Adam(model.parameters(), lr=cfg.lr)
-    # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
-
-    # logger.info('Model:{}\n'.format(model))
-    # logger.info('Optimizer:{}\n'.format(optimizer))
-    
-    ##############TEST################
-    # two optimizers
-    optimizer = torch.optim.Adam([
-    {'params': model.self_attention.parameters()},
-    {'params': model.classifier.parameters()},
-    {'params': model.logit_scale}
-    ], lr=cfg.lr)
-    
-    optimizer_bert = torch.optim.Adagrad([
-    {'params': model.bert.parameters()},
-    {'params': model.fc1_2.parameters()},
-    {'params': model.fc2_2.parameters()},
-    {'params': model.fc3_2.parameters()},
-    ], lr=1e-4, weight_decay=0.0010000000474974513)
-    
+    optimizer = optim.Adam(model.parameters(), lr=cfg.lr)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
-    scheduler_bert = optim.lr_scheduler.MultiStepLR(optimizer_bert, milestones=[50,200])
 
-    
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
-    logger.info('Optimizer_bert:{}\n'.format(optimizer_bert))
-    ##############################
-    
-    initial_auc, n_far, initial_auc2 = test_func(test_loader, model, gt, cfg.dataset)
-    logger.info('Random initialize {}:{:.4f} initial_AUC2:{:.4f} FAR:{:.5f}'.format(cfg.metrics, initial_auc, initial_auc2, n_far))
+
+    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+    logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
-    auc_far = 0.0
+    auc_ab_auc = 0.0
 
     st = time.time()
     for epoch in range(cfg.max_epoch):
-        loss1, loss2, total_loss = train_func(train_loader, model, optimizer, optimizer_bert, criterion, criterion2, cfg.lamda, cfg.beta)
+        loss1, loss2 = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
         scheduler.step()
-        # added
-        scheduler_bert.step()
 
-        log_writer.add_scalar('loss', total_loss, epoch)
+        log_writer.add_scalar('loss', loss1, epoch)
 
-        auc, far, auc2 = test_func(test_loader, model, gt, cfg.dataset)
+        auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
         if auc >= best_auc:
             best_auc = auc
-            auc_far = far
-            best_auc2 = auc2
+            auc_ab_auc = ab_auc
             best_model_wts = copy.deepcopy(model.state_dict())
             torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
         log_writer.add_scalar('AUC', auc, epoch)
-        log_writer.add_scalar('AUC2', auc2, epoch)
 
-        logger.info('[Epoch:{}/{}]: loss1:{:.4f} loss2:{:.4f} main_loss:{:.4f} | AUC:{:.4f} AUC2:{:.4f} FAR:{:.5f}'.format(
-            epoch + 1, cfg.max_epoch, loss1, loss2, total_loss, auc, best_auc2, far))
+        logger.info('[Epoch:{}/{}]: loss1:{:.4f} loss2:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+            epoch + 1, cfg.max_epoch, loss1, loss2, auc, ab_auc))
+
+
 
     time_elapsed = time.time() - st
     model.load_state_dict(best_model_wts)
     torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_' + str(round(best_auc, 4)).split('.')[1] + '.pkl')
-    logger.info('Training completes in {:.0f}m {:.0f}s | best {}:{:.4f} FAR:{:.5f}\n'.
-                format(time_elapsed // 60, time_elapsed % 60, cfg.metrics, best_auc, auc_far))
-    
+    logger.info('Training completes in {:.0f}m {:.0f}s | best AUC{}:{:.4f} Anomaly AUC:{:.4f}\n'.
+                format(time_elapsed // 60, time_elapsed % 60, cfg.metrics, best_auc, auc_ab_auc))
 
 
 def main(cfg):
@@ -168,19 +144,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     cfg = build_config(args.dataset)
 
-    savepath = './logs/{}_{}_{}_{}_bert{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.bert)
+    savepath = './logs/{}_{}_{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs)
     os.makedirs(savepath,exist_ok=True)
     log_writer = SummaryWriter(savepath)
-
-    if cfg.bert:
-        from model_bert import XModel
-        from train_bert import train_func
-        from test_bert import test_func
-        from infer_bert import infer_func
-    else:
-        from model import XModel
-        from train import train_func
-        from test import test_func
-        from infer import infer_func        
+            
 
     main(cfg)
