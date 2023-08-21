@@ -11441,3 +11441,4 @@ Parameter Group 0
 )
 
 [2023-08-21 21:01:31,054][main.py][line:58][INFO] Random initialize AUCAUC:0.4984 Anomaly AUC:0.51606
+[2023-08-21 21:04:44,119][main.py][line:79][INFO] [Epoch:1/100]: loss1:0.4626 loss2:1.2024 | AUC:0.8174 Anomaly AUC:0.6256
