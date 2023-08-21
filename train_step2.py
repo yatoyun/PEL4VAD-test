@@ -3,7 +3,7 @@ from loss import *
 from utils import *
 
 
-def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
+def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0, beta=0.1):
     t_loss = []
     s_loss = []
     with torch.set_grad_enabled(True):
@@ -24,7 +24,7 @@ def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
             ground_truth = torch.tensor(gen_label(video_labels), dtype=v_feat.dtype).cuda()
             loss2 = KLV_loss(v2t_logits, ground_truth, criterion2)
 
-            loss1 = CLAS2(logits, label, seq_len, criterion)
+            loss1 = CLAS3(logits, label, seq_len, criterion, beta)
             loss = loss1 + lamda * loss2
 
             optimizer.zero_grad()
@@ -33,4 +33,8 @@ def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
 
             t_loss.append(loss1)
             s_loss.append(loss2)
+
     return sum(t_loss) / len(t_loss), sum(s_loss) / len(s_loss)
+
+
+        

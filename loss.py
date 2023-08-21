@@ -19,6 +19,38 @@ def CLAS2(logits, label, seq_len, criterion):
     clsloss = criterion(ins_logits, label)
     return clsloss
 
+def CLAS3(logits, label, seq_len, criterion, beta=0.1):
+    logits = logits.squeeze()
+    ins_logits = torch.zeros(0).cuda()  # tensor([])
+    max_seq_len = torch.max(seq_len)
+    labels = torch.zeros(0).cuda()
+    for i in range(logits.shape[0]):
+        if label[i] == 0:
+            tmp, _ = torch.topk(logits[i][:seq_len[i]], k=1, largest=True)
+        else:
+            tmp, _ = torch.topk(logits[i][:seq_len[i]], k=int(seq_len[i]//16+1), largest=True)
+        # tmp = torch.mean(tmp).view(1)
+        psesudo_label = convert_gt(tmp, label[i], beta)
+        psesudo_label = F.pad(psesudo_label, (0, max_seq_len-len(psesudo_label)), mode='constant', value=0)
+        labels = torch.cat((labels, psesudo_label.unsqueeze(0)))
+        
+        tmp = F.pad(tmp, (0, max_seq_len-len(tmp)), mode='constant', value=0)
+        ins_logits = torch.cat((ins_logits, tmp.unsqueeze(0)))
+    
+
+    clsloss = criterion(ins_logits, labels)
+    return clsloss    
+
+def convert_gt(ins_logits, video_label, beta=0.1):
+    pesudo_label = []
+    for i, logits in enumerate(ins_logits):
+        if logits < beta and video_label == 1:
+            pesudo_label.append(0)
+        else:
+            pesudo_label.append(video_label)
+    pesudo_label = torch.tensor(pesudo_label).cuda()
+    return pesudo_label                
+
 
 def KLV_loss(preds, label, criterion):
     preds = F.softmax(preds, dim=1)
