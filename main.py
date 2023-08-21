@@ -42,7 +42,7 @@ def load_checkpoint(model, ckpt_path, logger):
         logger.info('Not found pretrained checkpoint file.')
 
 
-def train(model, train_loader, test_loader, gt, logger):
+def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     if not os.path.exists(cfg.save_dir):
         os.makedirs(cfg.save_dir)
 
@@ -63,7 +63,7 @@ def train(model, train_loader, test_loader, gt, logger):
 
     st = time.time()
     for epoch in range(cfg.max_epoch):
-        loss1, loss2 = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
+        loss1, loss2 = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, cfg.lamda)
         scheduler.step()
 
         log_writer.add_scalar('loss', loss1, epoch)
@@ -94,8 +94,10 @@ def main(cfg):
     logger.info('Config:{}'.format(cfg.__dict__))
 
     if cfg.dataset == 'ucf-crime':
-        train_data = UCFDataset(cfg, test_mode=False)
+        train_normal_data = UCFDataset(cfg, test_mode=False)
+        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True)
         test_data = UCFDataset(cfg, test_mode=True)
+        
     elif cfg.dataset == 'xd-violence':
         train_data = XDataset(cfg, test_mode=False)
         test_data = XDataset(cfg, test_mode=True)
@@ -104,8 +106,12 @@ def main(cfg):
         test_data = SHDataset(cfg, test_mode=True)
     else:
         raise RuntimeError("Do not support this dataset!")
+    
+    print(len(train_normal_data), len(train_anomaly_data), len(test_data))
 
-    train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
+    train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
+                              num_workers=cfg.workers, pin_memory=True)
+    train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
 
     test_loader = DataLoader(test_data, batch_size=cfg.test_bs, shuffle=False,
@@ -121,7 +127,7 @@ def main(cfg):
 
     if args.mode == 'train':
         logger.info('Training Mode')
-        train(model, train_loader, test_loader, gt, logger)
+        train(model, train_nloader, train_aloader, test_loader, gt, logger)
 
     elif args.mode == 'infer':
         logger.info('Test Mode')

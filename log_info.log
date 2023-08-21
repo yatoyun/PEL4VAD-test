@@ -11097,3 +11097,347 @@ Parameter Group 0
 [2023-07-22 11:46:43,402][main_bert_v2.py][line:27][INFO] loading pretrained checkpoint from ./ckpt/bert_current.pkl.
 [2023-07-22 11:47:04,663][infer_bert_v2.py][line:70][INFO] offline AUC:0.8681 AUC2:0.8676 AP:0.3320 FAR:0.0050 | Complete in 0m 21s
 
+[2023-08-21 18:10:41,056][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 18:10:41,157][main.py][line:120][INFO] total params:1.2091M
+[2023-08-21 18:10:41,157][main.py][line:123][INFO] Training Mode
+[2023-08-21 18:10:41,157][main.py][line:54][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-08-21 18:10:41,157][main.py][line:55][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-21 18:11:33,067][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 18:11:33,160][main.py][line:120][INFO] total params:1.2091M
+[2023-08-21 18:11:33,160][main.py][line:123][INFO] Training Mode
+[2023-08-21 18:11:33,161][main.py][line:54][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-08-21 18:11:33,161][main.py][line:55][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-21 18:42:46,239][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 18:43:34,870][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 18:45:12,918][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 18:46:06,383][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 18:46:24,920][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 32, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 18:47:05,726][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 32, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 18:48:16,614][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 32, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 18:48:16,689][main.py][line:126][INFO] total params:0.8156M
+[2023-08-21 18:48:16,689][main.py][line:129][INFO] Training Mode
+[2023-08-21 20:49:21,258][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 32, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 20:49:21,330][main.py][line:126][INFO] total params:0.8156M
+[2023-08-21 20:49:21,330][main.py][line:129][INFO] Training Mode
+[2023-08-21 20:49:21,330][main.py][line:54][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=32, bias=True)
+      (k): Linear(in_features=1024, out_features=32, bias=True)
+      (v): Linear(in_features=1024, out_features=32, bias=True)
+      (o): Linear(in_features=32, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-08-21 20:49:21,330][main.py][line:55][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-21 20:55:09,587][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 32, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 20:55:09,663][main.py][line:126][INFO] total params:0.8156M
+[2023-08-21 20:55:09,664][main.py][line:129][INFO] Training Mode
+[2023-08-21 20:55:09,664][main.py][line:54][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=32, bias=True)
+      (k): Linear(in_features=1024, out_features=32, bias=True)
+      (v): Linear(in_features=1024, out_features=32, bias=True)
+      (o): Linear(in_features=32, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-08-21 20:55:09,664][main.py][line:55][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-21 20:58:58,676][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 32, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 20:58:58,751][main.py][line:126][INFO] total params:0.8156M
+[2023-08-21 20:58:58,751][main.py][line:129][INFO] Training Mode
+[2023-08-21 20:58:58,751][main.py][line:54][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=32, bias=True)
+      (k): Linear(in_features=1024, out_features=32, bias=True)
+      (v): Linear(in_features=1024, out_features=32, bias=True)
+      (o): Linear(in_features=32, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-08-21 20:58:58,751][main.py][line:55][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-21 20:59:34,705][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 32, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 20:59:34,776][main.py][line:126][INFO] total params:0.8156M
+[2023-08-21 20:59:34,776][main.py][line:129][INFO] Training Mode
+[2023-08-21 20:59:34,777][main.py][line:54][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=32, bias=True)
+      (k): Linear(in_features=1024, out_features=32, bias=True)
+      (v): Linear(in_features=1024, out_features=32, bias=True)
+      (o): Linear(in_features=32, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-08-21 20:59:34,777][main.py][line:55][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-21 21:00:49,663][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 32, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 21:00:49,736][main.py][line:126][INFO] total params:0.8156M
+[2023-08-21 21:00:49,736][main.py][line:129][INFO] Training Mode
+[2023-08-21 21:00:49,736][main.py][line:54][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=32, bias=True)
+      (k): Linear(in_features=1024, out_features=32, bias=True)
+      (v): Linear(in_features=1024, out_features=32, bias=True)
+      (o): Linear(in_features=32, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-08-21 21:00:49,736][main.py][line:55][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-21 21:01:05,612][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 32, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 21:01:05,705][main.py][line:126][INFO] total params:0.8156M
+[2023-08-21 21:01:05,705][main.py][line:129][INFO] Training Mode
+[2023-08-21 21:01:05,705][main.py][line:54][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=32, bias=True)
+      (k): Linear(in_features=1024, out_features=32, bias=True)
+      (v): Linear(in_features=1024, out_features=32, bias=True)
+      (o): Linear(in_features=32, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-08-21 21:01:05,705][main.py][line:55][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-21 21:01:10,471][main.py][line:58][INFO] Random initialize AUCAUC:0.4984 Anomaly AUC:0.51606
+[2023-08-21 21:01:25,712][main.py][line:94][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 32, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-21 21:01:25,797][main.py][line:126][INFO] total params:0.8156M
+[2023-08-21 21:01:25,797][main.py][line:129][INFO] Training Mode
+[2023-08-21 21:01:25,797][main.py][line:54][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=32, bias=True)
+      (k): Linear(in_features=1024, out_features=32, bias=True)
+      (v): Linear(in_features=1024, out_features=32, bias=True)
+      (o): Linear(in_features=32, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-08-21 21:01:25,797][main.py][line:55][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-21 21:01:31,054][main.py][line:58][INFO] Random initialize AUCAUC:0.4984 Anomaly AUC:0.51606

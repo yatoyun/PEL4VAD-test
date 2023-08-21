@@ -88,7 +88,7 @@ def build_config(dataset):
     # base settings
     cfg.feat_dim = 1024
     cfg.head_num = 1
-    cfg.hid_dim = 128
+    cfg.hid_dim = 32
     cfg.out_dim = 300
     cfg.lr = 5e-4
     cfg.dropout = 0.1
