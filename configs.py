@@ -90,7 +90,7 @@ def build_config(dataset):
     cfg.head_num = 1
     cfg.hid_dim = 128
     cfg.out_dim = 300
-    cfg.lr = 5e-4
+    cfg.lr = 0.001#5e-4
     cfg.dropout = 0.1
     cfg.train_bs = 32
     cfg.max_seqlen = 200

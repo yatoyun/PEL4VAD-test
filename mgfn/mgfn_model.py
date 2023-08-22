@@ -192,8 +192,8 @@ class mgfn(nn.Module):
             if exists(conv):
                 x_f = conv(x_f)
 
-        x_f = x_f.permute(0, 2, 1)
-        x = self.to_logits(x_f)
+        x = x_f.permute(0, 2, 1)
+        # x = self.to_logits(x_f)
         # score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude, scores  = MSNSD(x,scores,bs,self.batch_size,self.drop_out,ncrops,k)
 
         return x

@@ -49,7 +49,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
     optimizer = optim.Adam(model.parameters(), lr=cfg.lr)
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
+    # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
 
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
@@ -64,7 +64,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     st = time.time()
     for epoch in range(cfg.max_epoch):
         loss1, loss2 = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, cfg.lamda)
-        scheduler.step()
+        # scheduler.step()
 
         log_writer.add_scalar('loss', loss1, epoch)
 
