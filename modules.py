@@ -3,6 +3,7 @@ import torch.nn.init as torch_init
 import torch.nn as nn
 
 from layers import *
+from mgfn.mgfn_model import mgfn
 
 
 class XEncoder(nn.Module):
@@ -17,10 +18,15 @@ class XEncoder(nn.Module):
         self.dropout2 = nn.Dropout(dropout)
         self.norm = nn.LayerNorm(d_model)
         self.loc_adj = DistanceAdj(gamma, bias)
+        self.mgfn = mgfn(dropout=dropout)
 
     def forward(self, x, seq_len):
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
+        
+        # add
+        x = self.mgfn(x)
+        
         x = x + self.self_attn(x, mask, adj)
         x = self.norm(x).permute(0, 2, 1)
         x = self.dropout1(F.gelu(self.linear1(x)))
