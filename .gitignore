@@ -1,6 +1,7 @@
 ckpt/
 data/
 __pycache__/*
+*/__pycache__/
 .idea/
 .ipynb_checkpoints/
 logs/
