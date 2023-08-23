@@ -100,13 +100,14 @@ def get_cas(x_v, x_t, logits, labels, scale=10):
     video_feat = torch.zeros(0).cuda()  # tensor([])
     token_feat = torch.zeros(0).cuda()  # tensor([])
     video_labels = torch.zeros(0).cuda()  # tensor([])
-    bg_label = torch.tensor([0]).cuda()
+    bg_label = torch.tensor([0])#.cuda()
 
     abn_logits = (scale * logits).exp() - 1
     abn_logits = F.normalize(abn_logits, p=1, dim=1)
     nor_logits = (scale * (1. - logits)).exp() - 1
     nor_logits = F.normalize(nor_logits, p=1, dim=1)
-
+    print(abn_logits.shape, nor_logits.shape, x_v.shape, x_t.shape, labels.shape)
+    
     abn_feat = torch.matmul(abn_logits.permute(0, 2, 1), x_v)
     nor_feat = torch.matmul(nor_logits.permute(0, 2, 1), x_v)
 
