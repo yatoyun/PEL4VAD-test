@@ -2,6 +2,7 @@
 import torch
 from modules import *
 import torch.nn.init as torch_init
+from mgfn.mgfn_model import MSNSD
 
 
 def weight_init(m):
@@ -29,13 +30,22 @@ class XModel(nn.Module):
         self.classifier = nn.Conv1d(cfg.out_dim, 1, self.t, padding=0)
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / cfg.temp))
         self.apply(weight_init)
+        self.dropout = nn.Dropout(0.7)
 
     def forward(self, x, seq_len):
+        k = 3
+        bs, t, c = x.size()
+        ncrops = 1
         x_e, x_v = self.self_attention(x, seq_len)
         logits = F.pad(x_e, (self.t - 1, 0))
         logits = self.classifier(logits)
 
         logits = logits.permute(0, 2, 1)
         logits = torch.sigmoid(logits)
+        
+        if self.training:
+            score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude, scores = MSNSD(x_v,logits,bs,bs//2,self.dropout,ncrops,k)
+
+            x_v = (x_v, score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude)
 
         return logits, x_v

@@ -20,10 +20,10 @@ def MSNSD(features,scores,bs,batch_size,drop_out,ncrops,k):
     scores = scores.view(bs, ncrops, -1).mean(1)  # (B,32)
     scores = scores.unsqueeze(dim=2)  # (B,32,1)
 
-    normal_features = features[0:batch_size * 10]  # [b/2*ten,32,1024]
+    normal_features = features[0:batch_size]  # [b/2*ten,32,1024]
     normal_scores = scores[0:batch_size]  # [b/2, 32,1]
 
-    abnormal_features = features[batch_size * 10:]
+    abnormal_features = features[batch_size:]
     abnormal_scores = scores[batch_size:]
 
     feat_magnitudes = torch.norm(features, p=2, dim=2)  # [b*ten,32]
@@ -48,7 +48,7 @@ def MSNSD(features,scores,bs,batch_size,drop_out,ncrops,k):
     abnormal_features = abnormal_features.view(n_size, ncrops, t, f)
     abnormal_features = abnormal_features.permute(1, 0, 2, 3)
 
-    total_select_abn_feature = torch.zeros(0)
+    total_select_abn_feature = torch.zeros(0).cuda()
     for abnormal_feature in abnormal_features:
         feat_select_abn = torch.gather(abnormal_feature, 1,
                                        idx_abn_feat)
@@ -68,7 +68,7 @@ def MSNSD(features,scores,bs,batch_size,drop_out,ncrops,k):
     normal_features = normal_features.view(n_size, ncrops, t, f)
     normal_features = normal_features.permute(1, 0, 2, 3)
 
-    total_select_nor_feature = torch.zeros(0)
+    total_select_nor_feature = torch.zeros(0).cuda()
     for nor_fea in normal_features:
         feat_select_normal = torch.gather(nor_fea, 1,
                                           idx_normal_feat)
@@ -129,15 +129,15 @@ class mgfn(nn.Module):
         self,
         *,
         classes=0,
-        dims = (64, 128, 1024),
-        depths = (3, 3, 2),
-        mgfn_types = ('gb', 'fb', 'fb'),
+        dims = (128, 1024),
+        depths = (3, 2),
+        mgfn_types = ('gb', 'fb'),
         lokernel = 5,
         channels = 1024,
         ff_repe = 4,
         dim_head = 64,
-        dropout = 0.1,
-        attention_dropout = 0.1
+        dropout = 0.7,
+        attention_dropout = 0.7
     ):
         super().__init__()
         init_dim, *_, last_dim = dims
@@ -193,7 +193,8 @@ class mgfn(nn.Module):
                 x_f = conv(x_f)
 
         x = x_f.permute(0, 2, 1)
-        # x = self.to_logits(x_f)
+
+        x = self.to_logits(x)
         # score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude, scores  = MSNSD(x,scores,bs,self.batch_size,self.drop_out,ncrops,k)
 
         return x

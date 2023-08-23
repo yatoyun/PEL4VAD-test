@@ -27,12 +27,12 @@ class XEncoder(nn.Module):
         
         x_mgfn = self.mgfn(x.clone().detach())
         
-        x = x_mgfn#x[:, :, :1024]
-        x = x + self.self_attn(x, mask, adj)
+        x = x[:, :, :1024]
+        # x = x + self.self_attn(x, mask, adj)
+        x = x_mgfn + self.self_attn(x, mask, adj)
         
-        x = torch.cat((x, x_mgfn), dim=2)
-        
-        x = self.concat(x)
+        # x = torch.cat((x, x_mgfn), dim=2)
+        # x = self.concat(x)
         
         x = self.norm(x).permute(0, 2, 1)
         x = self.dropout1(F.gelu(self.linear1(x)))

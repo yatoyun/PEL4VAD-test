@@ -48,7 +48,13 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
-    optimizer = optim.Adam(model.parameters(), lr=cfg.lr)
+    PEL_params = [p for n, p in model.named_parameters() if 'mgfn' not in n]
+    MGFN_params = model.self_attention.mgfn.parameters()
+    
+    optimizer = optim.Adam([
+    {'params': PEL_params, 'lr': 5e-4},
+    {'params': MGFN_params, 'lr': cfg.lr}
+    ])
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
 
     logger.info('Model:{}\n'.format(model))

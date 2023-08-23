@@ -1,6 +1,7 @@
 import torch
 from loss import *
 from utils import *
+from mgfn.loss import *
 
 
 def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, lamda=0):
@@ -25,15 +26,30 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             multi_label = multi_label.cuda(non_blocking=True)
 
             logits, v_feat = model(v_input, seq_len)
+            
+            v_feat, score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude = v_feat
             # Prompt-Enhanced Learning
             logit_scale = model.logit_scale.exp()
             video_feat, token_feat, video_labels = get_cas(v_feat, t_input, logits, multi_label)
             v2t_logits, v2v_logits = create_logits(video_feat, token_feat, logit_scale)
             ground_truth = torch.tensor(gen_label(video_labels), dtype=v_feat.dtype).cuda()
             loss2 = KLV_loss(v2t_logits, ground_truth, criterion2)
+            
+            
+            batch_size = v_input.shape[0] // 2
+            loss_sparse = sparsity(logits[:batch_size,:,:].view(-1), batch_size, 8e-3)
+            
+            loss_smooth = smooth(logits,8e-4)
+
+            logits = logits.view(batch_size * 32 * 2, -1)
+            logits = logits.squeeze()
+
+            loss_criterion = mgfn_loss(0.0001)
+
+            cost = loss_criterion(score_normal, score_abnormal, nlabel, alabel, nor_feamagnitude, abn_feamagnitude) + loss_smooth + loss_sparse
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
-            loss = loss1 + lamda * loss2
+            loss = loss1 + lamda * loss2 + cost
 
             optimizer.zero_grad()
             loss.backward()
