@@ -129,15 +129,15 @@ class mgfn(nn.Module):
         self,
         *,
         classes=0,
-        dims = (128, 1024),
-        depths = (3, 2),
-        mgfn_types = ('gb', 'fb'),
+        dims = (64, 128, 1024),
+        depths = (3, 3, 2),
+        mgfn_types = ('gb', 'fb', 'fb'),
         lokernel = 5,
         channels = 1024,
         ff_repe = 4,
         dim_head = 64,
-        dropout = 0.7,
-        attention_dropout = 0.7
+        dropout = 0.,
+        attention_dropout = 0.
     ):
         super().__init__()
         init_dim, *_, last_dim = dims
@@ -182,10 +182,10 @@ class mgfn(nn.Module):
         # bs, ncrops, t, c = video.size()
         x = video.permute(0, 2, 1)
         x_f = x[:,:1024,:]
-        x_m = x[:,1024:,:]
+        # x_m = x[:,1024:,:]
         x_f = self.to_tokens(x_f)
-        x_m = self.to_mag(x_m)
-        x_f = x_f+0.1*x_m
+        # x_m = self.to_mag(x_m)
+        # x_f = x_f+0.1*x_m
         
         for backbone, conv in self.stages:
             x_f = backbone(x_f)
@@ -194,7 +194,7 @@ class mgfn(nn.Module):
 
         x = x_f.permute(0, 2, 1)
 
-        x = self.to_logits(x)
+        # x = self.to_logits(x)
         # score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude, scores  = MSNSD(x,scores,bs,self.batch_size,self.drop_out,ncrops,k)
 
         return x

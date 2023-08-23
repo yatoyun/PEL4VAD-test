@@ -43,9 +43,9 @@ class XModel(nn.Module):
         logits = logits.permute(0, 2, 1)
         logits = torch.sigmoid(logits)
         
-        if self.training:
-            score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude, scores = MSNSD(x_v,logits,bs,bs//2,self.dropout,ncrops,k)
+        # if self.training:
+        #     score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude, scores = MSNSD(x_v,logits,bs,bs//2,self.dropout,ncrops,k)
 
-            x_v = (x_v, score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude)
+        #     x_v = (x_v, score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude)
 
         return logits, x_v

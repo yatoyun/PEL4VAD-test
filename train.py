@@ -27,7 +27,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             logits, v_feat = model(v_input, seq_len)
             
-            v_feat, score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude = v_feat
+            # v_feat, score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude = v_feat
             # Prompt-Enhanced Learning
             logit_scale = model.logit_scale.exp()
             video_feat, token_feat, video_labels = get_cas(v_feat, t_input, logits, multi_label)
@@ -36,20 +36,20 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             loss2 = KLV_loss(v2t_logits, ground_truth, criterion2)
             
             
-            batch_size = v_input.shape[0] // 2
-            loss_sparse = sparsity(logits[:batch_size,:,:].view(-1), batch_size, 8e-3)
+            # batch_size = v_input.shape[0] // 2
+            # loss_sparse = sparsity(logits[:batch_size,:,:].view(-1), batch_size, 8e-3)
             
-            loss_smooth = smooth(logits,8e-4)
+            # loss_smooth = smooth(logits,8e-4)
 
-            logits = logits.view(batch_size * 32 * 2, -1)
-            logits = logits.squeeze()
+            # logits = logits.view(batch_size * 32 * 2, -1)
+            # logits = logits.squeeze()
 
-            loss_criterion = mgfn_loss(0.0001)
+            # loss_criterion = mgfn_loss(0.0001)
 
-            cost = loss_criterion(score_normal, score_abnormal, nlabel, alabel, nor_feamagnitude, abn_feamagnitude) + loss_smooth + loss_sparse
+            # cost = loss_criterion(score_normal, score_abnormal, nlabel, alabel, nor_feamagnitude, abn_feamagnitude) + loss_smooth + loss_sparse
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
-            loss = loss1 + lamda * loss2 + cost
+            loss = loss1 + lamda * loss2# + cost
 
             optimizer.zero_grad()
             loss.backward()

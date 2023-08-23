@@ -18386,3 +18386,2216 @@ Parameter Group 1
 )
 
 [2023-08-23 12:00:13,590][main.py][line:64][INFO] Random initialize AUCAUC:0.5079 Anomaly AUC:0.48225
+[2023-08-23 12:04:31,253][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:04:31,492][main.py][line:132][INFO] total params:31.8628M
+[2023-08-23 12:04:31,492][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:04:31,493][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(128, 384, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:04:31,493][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:04:40,534][main.py][line:64][INFO] Random initialize AUCAUC:0.5079 Anomaly AUC:0.48225
+[2023-08-23 12:05:01,328][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:05:01,565][main.py][line:132][INFO] total params:31.8628M
+[2023-08-23 12:05:01,565][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:05:01,566][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(128, 384, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:05:01,566][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:05:09,693][main.py][line:64][INFO] Random initialize AUCAUC:0.5079 Anomaly AUC:0.48225
+[2023-08-23 12:05:50,111][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:05:50,355][main.py][line:132][INFO] total params:31.8628M
+[2023-08-23 12:05:50,355][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:05:50,355][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(128, 384, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:05:50,355][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:05:59,114][main.py][line:64][INFO] Random initialize AUCAUC:0.5079 Anomaly AUC:0.48225
+[2023-08-23 12:06:50,819][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:06:51,065][main.py][line:132][INFO] total params:31.8628M
+[2023-08-23 12:06:51,065][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:06:51,065][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(128, 384, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:06:51,065][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:06:59,815][main.py][line:64][INFO] Random initialize AUCAUC:0.5079 Anomaly AUC:0.48225
+[2023-08-23 12:09:02,390][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:09:02,643][main.py][line:132][INFO] total params:31.8628M
+[2023-08-23 12:09:02,643][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:09:02,644][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(128, 384, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:09:02,644][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:09:11,086][main.py][line:64][INFO] Random initialize AUCAUC:0.5087 Anomaly AUC:0.51898
+[2023-08-23 12:10:44,562][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:10:44,798][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:10:44,798][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:10:44,799][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:10:44,799][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:10:54,132][main.py][line:64][INFO] Random initialize AUCAUC:0.4951 Anomaly AUC:0.42579
+[2023-08-23 12:10:59,539][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:10:59,771][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:10:59,771][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:10:59,772][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:10:59,772][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:11:08,888][main.py][line:64][INFO] Random initialize AUCAUC:0.4951 Anomaly AUC:0.42579
+[2023-08-23 12:11:36,721][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:11:36,963][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:11:36,963][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:11:36,964][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:11:36,964][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:11:41,814][main.py][line:64][INFO] Random initialize AUCAUC:0.5380 Anomaly AUC:0.46431
+[2023-08-23 12:12:05,777][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:12:06,029][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:12:06,029][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:12:06,030][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:12:06,030][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:12:11,423][main.py][line:64][INFO] Random initialize AUCAUC:0.5380 Anomaly AUC:0.46431
+[2023-08-23 12:12:37,125][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:12:37,370][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:12:37,370][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:12:37,371][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:12:37,371][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:12:42,273][main.py][line:64][INFO] Random initialize AUCAUC:0.5380 Anomaly AUC:0.46431
+[2023-08-23 12:23:56,160][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:23:56,408][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:23:56,408][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:23:56,408][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:23:56,408][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:24:01,098][main.py][line:64][INFO] Random initialize AUCAUC:0.5380 Anomaly AUC:0.46431
+[2023-08-23 12:27:00,188][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:27:00,430][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:27:00,430][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:27:00,431][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:27:00,431][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:27:06,007][main.py][line:64][INFO] Random initialize AUCAUC:0.5380 Anomaly AUC:0.46431
+[2023-08-23 12:28:49,289][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:28:49,536][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:28:49,536][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:28:49,537][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:28:49,537][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:28:54,246][main.py][line:64][INFO] Random initialize AUCAUC:0.5380 Anomaly AUC:0.46431
+[2023-08-23 12:29:22,118][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:29:22,359][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:29:22,359][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:29:22,360][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:29:22,360][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:29:27,116][main.py][line:64][INFO] Random initialize AUCAUC:0.5380 Anomaly AUC:0.46431
+[2023-08-23 12:30:20,465][main.py][line:85][INFO] [Epoch:1/50]: loss1:0.3283 loss2:0.9883 | AUC:0.8307 Anomaly AUC:0.6599
+[2023-08-23 12:31:15,326][main.py][line:85][INFO] [Epoch:2/50]: loss1:0.1163 loss2:0.7613 | AUC:0.8246 Anomaly AUC:0.6487
+[2023-08-23 12:32:26,361][main.py][line:85][INFO] [Epoch:3/50]: loss1:0.0523 loss2:0.6460 | AUC:0.8289 Anomaly AUC:0.6505
+[2023-08-23 12:33:11,522][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:33:11,786][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:33:11,787][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:33:11,787][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:33:11,788][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:33:18,862][main.py][line:64][INFO] Random initialize AUCAUC:0.5380 Anomaly AUC:0.46431
+[2023-08-23 12:33:42,574][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 12:33:42,827][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 12:33:42,827][main.py][line:135][INFO] Training Mode
+[2023-08-23 12:33:42,827][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 12:33:42,827][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 12:33:54,789][main.py][line:64][INFO] Random initialize AUCAUC:0.4951 Anomaly AUC:0.42579
+[2023-08-23 12:35:11,550][main.py][line:85][INFO] [Epoch:1/50]: loss1:0.4526 loss2:1.0572 | AUC:0.8180 Anomaly AUC:0.6408
+[2023-08-23 12:36:24,419][main.py][line:85][INFO] [Epoch:2/50]: loss1:0.2722 loss2:0.9257 | AUC:0.8366 Anomaly AUC:0.6615
+[2023-08-23 12:37:55,188][main.py][line:85][INFO] [Epoch:3/50]: loss1:0.2043 loss2:0.8762 | AUC:0.8234 Anomaly AUC:0.6336
+[2023-08-23 12:39:09,427][main.py][line:85][INFO] [Epoch:4/50]: loss1:0.1645 loss2:0.8418 | AUC:0.8253 Anomaly AUC:0.6332
+[2023-08-23 12:40:57,322][main.py][line:85][INFO] [Epoch:5/50]: loss1:0.1287 loss2:0.8114 | AUC:0.8349 Anomaly AUC:0.6591
+[2023-08-23 12:42:35,077][main.py][line:85][INFO] [Epoch:6/50]: loss1:0.1156 loss2:0.7760 | AUC:0.8441 Anomaly AUC:0.6770
+[2023-08-23 12:44:26,024][main.py][line:85][INFO] [Epoch:7/50]: loss1:0.0994 loss2:0.7288 | AUC:0.8364 Anomaly AUC:0.6547
+[2023-08-23 12:45:59,181][main.py][line:85][INFO] [Epoch:8/50]: loss1:0.0926 loss2:0.6939 | AUC:0.8418 Anomaly AUC:0.6545
+[2023-08-23 12:47:22,424][main.py][line:85][INFO] [Epoch:9/50]: loss1:0.0805 loss2:0.6599 | AUC:0.8440 Anomaly AUC:0.6691
+[2023-08-23 12:48:40,623][main.py][line:85][INFO] [Epoch:10/50]: loss1:0.0656 loss2:0.6315 | AUC:0.8363 Anomaly AUC:0.6521
+[2023-08-23 12:50:27,315][main.py][line:85][INFO] [Epoch:11/50]: loss1:0.0680 loss2:0.6213 | AUC:0.8292 Anomaly AUC:0.6376
+[2023-08-23 12:51:39,829][main.py][line:85][INFO] [Epoch:12/50]: loss1:0.0545 loss2:0.5922 | AUC:0.8441 Anomaly AUC:0.6534
+[2023-08-23 12:53:16,843][main.py][line:85][INFO] [Epoch:13/50]: loss1:0.0456 loss2:0.5663 | AUC:0.8385 Anomaly AUC:0.6509
+[2023-08-23 12:55:01,404][main.py][line:85][INFO] [Epoch:14/50]: loss1:0.0468 loss2:0.5530 | AUC:0.8316 Anomaly AUC:0.6464
+[2023-08-23 12:56:07,298][main.py][line:85][INFO] [Epoch:15/50]: loss1:0.0422 loss2:0.5420 | AUC:0.8251 Anomaly AUC:0.6524
+[2023-08-23 12:57:46,729][main.py][line:85][INFO] [Epoch:16/50]: loss1:0.0381 loss2:0.5264 | AUC:0.8348 Anomaly AUC:0.6513
+[2023-08-23 12:59:36,446][main.py][line:85][INFO] [Epoch:17/50]: loss1:0.0364 loss2:0.5150 | AUC:0.8113 Anomaly AUC:0.6403
+[2023-08-23 13:01:04,218][main.py][line:85][INFO] [Epoch:18/50]: loss1:0.0349 loss2:0.4926 | AUC:0.8391 Anomaly AUC:0.6511
+[2023-08-23 13:03:32,343][main.py][line:85][INFO] [Epoch:19/50]: loss1:0.0253 loss2:0.2780 | AUC:0.8063 Anomaly AUC:0.6414
+[2023-08-23 13:04:57,617][main.py][line:85][INFO] [Epoch:20/50]: loss1:0.0422 loss2:0.4752 | AUC:0.7996 Anomaly AUC:0.6305
+[2023-08-23 13:06:25,599][main.py][line:85][INFO] [Epoch:21/50]: loss1:0.0304 loss2:0.4516 | AUC:0.8195 Anomaly AUC:0.6405
+[2023-08-23 13:07:55,798][main.py][line:85][INFO] [Epoch:22/50]: loss1:0.0257 loss2:0.4317 | AUC:0.8308 Anomaly AUC:0.6484
+[2023-08-23 13:09:32,449][main.py][line:85][INFO] [Epoch:23/50]: loss1:0.0250 loss2:0.4057 | AUC:0.8264 Anomaly AUC:0.6323
+[2023-08-23 13:10:06,477][main.py][line:100][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'ckpt_bert_path': './ckpt/bert_current.pkl', 'bert': True, 'beta': 0.5, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.001, 'dropout': 0.1, 'train_bs': 32, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-23 13:10:06,751][main.py][line:132][INFO] total params:31.7625M
+[2023-08-23 13:10:06,751][main.py][line:135][INFO] Training Mode
+[2023-08-23 13:10:06,752][main.py][line:60][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (mgfn): mgfn(
+      (to_tokens): Conv1d(1024, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+      (stages): ModuleList(
+        (0): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): GLANCE(
+                  (norm): LayerNorm()
+                  (to_qkv): Conv1d(64, 192, kernel_size=(1,), stride=(1,), bias=False)
+                  (to_out): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(64, 256, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(256, 64, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (1): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-2): 3 x ModuleList(
+                (0): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(128, 128, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(2, 2, kernel_size=(5,), stride=(1,), padding=(2,), groups=2)
+                  (to_out): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(128, 512, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(512, 128, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): Sequential(
+            (0): LayerNorm()
+            (1): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+          )
+        )
+        (2): ModuleList(
+          (0): Backbone(
+            (layers): ModuleList(
+              (0-1): 2 x ModuleList(
+                (0): Conv1d(1024, 1024, kernel_size=(3,), stride=(1,), padding=(1,))
+                (1): FOCUS(
+                  (norm): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (to_v): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,), bias=False)
+                  (rel_pos): Conv1d(16, 16, kernel_size=(5,), stride=(1,), padding=(2,), groups=16)
+                  (to_out): Conv1d(1024, 1024, kernel_size=(1,), stride=(1,))
+                )
+                (2): Sequential(
+                  (0): LayerNorm()
+                  (1): Conv1d(1024, 4096, kernel_size=(1,), stride=(1,))
+                  (2): GELU(approximate='none')
+                  (3): Dropout(p=0.1, inplace=False)
+                  (4): Conv1d(4096, 1024, kernel_size=(1,), stride=(1,))
+                )
+              )
+            )
+          )
+          (1): None
+        )
+      )
+      (to_logits): Sequential(
+        (0): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      )
+      (to_mag): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    )
+    (concat): Linear(in_features=2048, out_features=1024, bias=True)
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.7, inplace=False)
+)
+
+[2023-08-23 13:10:06,752][main.py][line:61][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.001
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-08-23 13:10:15,831][main.py][line:64][INFO] Random initialize AUCAUC:0.4951 Anomaly AUC:0.42579
+[2023-08-23 13:11:46,964][main.py][line:85][INFO] [Epoch:1/50]: loss1:0.4526 loss2:1.0572 | AUC:0.8180 Anomaly AUC:0.6408
+[2023-08-23 13:13:05,615][main.py][line:85][INFO] [Epoch:2/50]: loss1:0.2778 loss2:0.9282 | AUC:0.8294 Anomaly AUC:0.6475
+[2023-08-23 13:14:22,539][main.py][line:85][INFO] [Epoch:3/50]: loss1:0.2129 loss2:0.8841 | AUC:0.8240 Anomaly AUC:0.6346
+[2023-08-23 13:15:31,022][main.py][line:85][INFO] [Epoch:4/50]: loss1:0.1666 loss2:0.8454 | AUC:0.8332 Anomaly AUC:0.6453
+[2023-08-23 13:16:40,233][main.py][line:85][INFO] [Epoch:5/50]: loss1:0.1250 loss2:0.8134 | AUC:0.8363 Anomaly AUC:0.6453
+[2023-08-23 13:17:44,651][main.py][line:85][INFO] [Epoch:6/50]: loss1:0.1053 loss2:0.7923 | AUC:0.8232 Anomaly AUC:0.6744
+[2023-08-23 13:18:53,995][main.py][line:85][INFO] [Epoch:7/50]: loss1:0.1172 loss2:0.7657 | AUC:0.8442 Anomaly AUC:0.6587
+[2023-08-23 13:20:05,850][main.py][line:85][INFO] [Epoch:8/50]: loss1:0.0858 loss2:0.7160 | AUC:0.8338 Anomaly AUC:0.6486
+[2023-08-23 13:21:29,042][main.py][line:85][INFO] [Epoch:9/50]: loss1:0.0766 loss2:0.6784 | AUC:0.8239 Anomaly AUC:0.6378
+[2023-08-23 13:23:05,838][main.py][line:85][INFO] [Epoch:10/50]: loss1:0.0644 loss2:0.6510 | AUC:0.8432 Anomaly AUC:0.6679
+[2023-08-23 13:24:13,376][main.py][line:85][INFO] [Epoch:11/50]: loss1:0.0476 loss2:0.6195 | AUC:0.8442 Anomaly AUC:0.6706
+[2023-08-23 13:25:26,818][main.py][line:85][INFO] [Epoch:12/50]: loss1:0.0492 loss2:0.6079 | AUC:0.8376 Anomaly AUC:0.6736
+[2023-08-23 13:26:51,107][main.py][line:85][INFO] [Epoch:13/50]: loss1:0.0382 loss2:0.5744 | AUC:0.8380 Anomaly AUC:0.6636
+[2023-08-23 13:28:10,854][main.py][line:85][INFO] [Epoch:14/50]: loss1:0.0346 loss2:0.5567 | AUC:0.8439 Anomaly AUC:0.6841
+[2023-08-23 13:29:11,713][main.py][line:85][INFO] [Epoch:15/50]: loss1:0.0294 loss2:0.5388 | AUC:0.8498 Anomaly AUC:0.6777
+[2023-08-23 13:30:31,014][main.py][line:85][INFO] [Epoch:16/50]: loss1:0.0283 loss2:0.5247 | AUC:0.8266 Anomaly AUC:0.6517
+[2023-08-23 13:32:05,880][main.py][line:85][INFO] [Epoch:17/50]: loss1:0.0210 loss2:0.4944 | AUC:0.8152 Anomaly AUC:0.6501
+[2023-08-23 13:33:13,962][main.py][line:85][INFO] [Epoch:18/50]: loss1:0.0313 loss2:0.4869 | AUC:0.8319 Anomaly AUC:0.6466
+[2023-08-23 13:34:20,211][main.py][line:85][INFO] [Epoch:19/50]: loss1:0.0229 loss2:0.4618 | AUC:0.8498 Anomaly AUC:0.6691
+[2023-08-23 13:35:35,425][main.py][line:85][INFO] [Epoch:20/50]: loss1:0.0221 loss2:0.4330 | AUC:0.8399 Anomaly AUC:0.6739
+[2023-08-23 13:36:46,010][main.py][line:85][INFO] [Epoch:21/50]: loss1:0.0222 loss2:0.4139 | AUC:0.8318 Anomaly AUC:0.6580
+[2023-08-23 13:37:55,925][main.py][line:85][INFO] [Epoch:22/50]: loss1:0.0184 loss2:0.3837 | AUC:0.8477 Anomaly AUC:0.6728
+[2023-08-23 13:39:09,798][main.py][line:85][INFO] [Epoch:23/50]: loss1:0.0124 loss2:0.3497 | AUC:0.8264 Anomaly AUC:0.6485
+[2023-08-23 13:40:29,734][main.py][line:85][INFO] [Epoch:24/50]: loss1:0.0110 loss2:0.3362 | AUC:0.8343 Anomaly AUC:0.6653
+[2023-08-23 13:42:10,623][main.py][line:85][INFO] [Epoch:25/50]: loss1:0.0096 loss2:0.3059 | AUC:0.8345 Anomaly AUC:0.6562
+[2023-08-23 13:43:06,282][main.py][line:85][INFO] [Epoch:26/50]: loss1:0.0104 loss2:0.2847 | AUC:0.8344 Anomaly AUC:0.6700
+[2023-08-23 13:44:33,177][main.py][line:85][INFO] [Epoch:27/50]: loss1:0.0115 loss2:0.2725 | AUC:0.8512 Anomaly AUC:0.6789
+[2023-08-23 13:46:16,422][main.py][line:85][INFO] [Epoch:28/50]: loss1:0.0123 loss2:0.2452 | AUC:0.8466 Anomaly AUC:0.6736
+[2023-08-23 13:47:17,125][main.py][line:85][INFO] [Epoch:29/50]: loss1:0.0117 loss2:0.2375 | AUC:0.8418 Anomaly AUC:0.6663
+[2023-08-23 13:48:36,918][main.py][line:85][INFO] [Epoch:30/50]: loss1:0.0099 loss2:0.2187 | AUC:0.8402 Anomaly AUC:0.6589
+[2023-08-23 13:49:56,139][main.py][line:85][INFO] [Epoch:31/50]: loss1:0.0085 loss2:0.1983 | AUC:0.8397 Anomaly AUC:0.6612
+[2023-08-23 13:51:07,655][main.py][line:85][INFO] [Epoch:32/50]: loss1:0.0065 loss2:0.1808 | AUC:0.8462 Anomaly AUC:0.6696
+[2023-08-23 13:52:14,641][main.py][line:85][INFO] [Epoch:33/50]: loss1:0.0043 loss2:0.1559 | AUC:0.8479 Anomaly AUC:0.6716
+[2023-08-23 13:53:27,379][main.py][line:85][INFO] [Epoch:34/50]: loss1:0.0031 loss2:0.1447 | AUC:0.8418 Anomaly AUC:0.6602
+[2023-08-23 13:54:24,310][main.py][line:85][INFO] [Epoch:35/50]: loss1:0.0059 loss2:0.1420 | AUC:0.8435 Anomaly AUC:0.6685
+[2023-08-23 13:55:30,669][main.py][line:85][INFO] [Epoch:36/50]: loss1:0.0058 loss2:0.1289 | AUC:0.8468 Anomaly AUC:0.6704
+[2023-08-23 13:56:31,910][main.py][line:85][INFO] [Epoch:37/50]: loss1:0.0055 loss2:0.1129 | AUC:0.8418 Anomaly AUC:0.6676

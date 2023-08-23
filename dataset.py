@@ -55,13 +55,13 @@ class UCFDataset(data.Dataset):
             t_feat = self.tranform(t_feat)
 
         if self.test_mode:
-            mag = np.linalg.norm(v_feat, axis=1)[:, np.newaxis]
-            v_feat = np.concatenate((v_feat,mag),axis = 1)
+            # mag = np.linalg.norm(v_feat, axis=1)[:, np.newaxis]
+            # v_feat = np.concatenate((v_feat,mag),axis = 1)
             return v_feat, label  # ano_idx , video_name
         else:
             v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
-            mag = np.linalg.norm(v_feat, axis=1)[:, np.newaxis]
-            v_feat = np.concatenate((v_feat,mag),axis = 1)
+            # mag = np.linalg.norm(v_feat, axis=1)[:, np.newaxis]
+            # v_feat = np.concatenate((v_feat,mag),axis = 1)
             return v_feat, t_feat, label, ano_idx
 
     def __len__(self):

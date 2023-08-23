@@ -25,11 +25,10 @@ class XEncoder(nn.Module):
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
         
-        x_mgfn = self.mgfn(x.clone().detach())
-        
-        x = x[:, :, :1024]
         # x = x + self.self_attn(x, mask, adj)
-        x = x_mgfn + self.self_attn(x, mask, adj)
+        x = x + self.self_attn(x, mask, adj)
+        
+        x = self.mgfn(x)
         
         # x = torch.cat((x, x_mgfn), dim=2)
         # x = self.concat(x)
