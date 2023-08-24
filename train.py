@@ -29,7 +29,6 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             logits, v_feat = model(v_input, seq_len)
             
-            v_feat, abn_feamagnitude, nor_feamagnitude = v_feat
             # Prompt-Enhanced Learning
             logit_scale = model.logit_scale.exp()
             video_feat, token_feat, video_labels = get_cas(v_feat, t_input, logits, multi_label)

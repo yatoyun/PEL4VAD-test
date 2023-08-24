@@ -49,21 +49,21 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
-    PEL_params = [p for n, p in model.named_parameters() if 'mgfn' not in n]
-    MGFN_params = model.self_attention.mgfn.parameters()
+    # PEL_params = [p for n, p in model.named_parameters() if 'mgfn' not in n]
+    # MGFN_params = model.self_attention.mgfn.parameters()
     
-    optimizer = optim.Adam([
-    {'params': PEL_params, 'lr': 1e-3},
-    {'params': MGFN_params, 'lr': cfg.lr}
-    ])
-    # optimizer = optim.Adam(model.parameters(), 5e-4)#lr=cfg.lr)
+    # optimizer = optim.Adam([
+    # {'params': PEL_params, 'lr': 1e-3},
+    # {'params': MGFN_params, 'lr': cfg.lr}
+    # ])
+    optimizer = optim.Adam(model.parameters(), 5e-4)#lr=cfg.lr)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
 
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
 
-    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-    logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
+    # initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+    # logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
