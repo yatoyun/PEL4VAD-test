@@ -1,7 +1,6 @@
 import torch
 from loss import *
 from utils import *
-from mgfn.loss import *
 
 
 def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, lamda=0):
@@ -37,20 +36,9 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             v2t_logits, v2v_logits = create_logits(video_feat, token_feat, logit_scale)
             ground_truth = torch.tensor(gen_label(video_labels), dtype=v_feat.dtype).cuda()
             loss2 = KLV_loss(v2t_logits, ground_truth, criterion2)
-            
-            
-            # batch_size = v_input.shape[0] // 2
-            # loss_sparse = sparsity(logits[:batch_size,:,:].view(-1), batch_size, 8e-3)
-            
-            # loss_smooth = smooth(logits,8e-4)
-
-            loss_criterion = mgfn_loss(0.0001)
-
-            cost = loss_criterion(nor_feamagnitude, abn_feamagnitude) #+ loss_smooth + loss_sparse
-            # cost = loss_smooth + loss_sparse
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
-            loss = loss1 + lamda * loss2 + 0.001 * cost
+            loss = loss1 + lamda * loss2
 
             optimizer.zero_grad()
             loss.backward()
@@ -58,6 +46,6 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             t_loss.append(loss1)
             s_loss.append(loss2)
-            u_loss.append(cost)
+            # u_loss.append()
 
-    return sum(t_loss) / len(t_loss), sum(s_loss) / len(s_loss), sum(u_loss) / len(u_loss)
+    return sum(t_loss) / len(t_loss), sum(s_loss) / len(s_loss), sum(u_loss) #/ len(u_loss)
