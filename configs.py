@@ -25,12 +25,12 @@ def build_config(dataset):
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
         cfg.kappa = 7  # smooth window
-        cfg.ckpt_path = './ckpt/ucf__8636.pkl'#'./ckpt/ucf__8636.pkl'
-        cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
+        cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
+        # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
 
-        # bert
-        cfg.bert = True
-        cfg.beta = 0.5
+        # # bert
+        # cfg.bert = True
+        # cfg.beta = 0.5
 
     elif dataset in ['xd', 'xd-violence']:
         cfg.dataset = 'xd-violence'
@@ -90,9 +90,9 @@ def build_config(dataset):
     cfg.head_num = 1
     cfg.hid_dim = 128
     cfg.out_dim = 300
-    cfg.lr = 0.001#5e-4
+    cfg.lr = 5e-3#5e-4
     cfg.dropout = 0.1
-    cfg.train_bs = 32
+    cfg.train_bs = 64
     cfg.max_seqlen = 200
     cfg.max_epoch = 50
     cfg.workers = 8

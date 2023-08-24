@@ -12,7 +12,7 @@ class UCFDataset(data.Dataset):
         else:
             self.list_file = cfg.train_list
         
-        self.is_abnormal = is_abnormal
+        # self.is_abnormal = is_abnormal
         self.max_seqlen = cfg.max_seqlen
         self.tranform = transform
         self.test_mode = test_mode
@@ -25,11 +25,11 @@ class UCFDataset(data.Dataset):
 
     def _parse_list(self):
         self.list = list(open(self.list_file))
-        if not self.test_mode:
-            if self.is_abnormal:
-                self.list = self.list[:8100]
-            else:
-                self.list = self.list[8100:]
+        # if not self.test_mode:
+        #     if self.is_abnormal:
+        #         self.list = self.list[:8100]
+        #     else:
+        #         self.list = self.list[8100:]
 
     def __getitem__(self, index):
         # video_name = self.list[index].strip('\n').split('/')[-1][:-4]

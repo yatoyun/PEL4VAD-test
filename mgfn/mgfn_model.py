@@ -12,75 +12,39 @@ def attention(q, k, v):
     out = einsum('b i j, b j d -> b i d', attn, v)
     return out
 
-def MSNSD(features,scores,bs,batch_size,drop_out,ncrops,k):
+def MSNSD(features, batch_size, drop_out, k):
     #magnitude selection and score prediction
-    features = features  # (B*10crop,32,1024)
-    bc, t, f = features.size()
-
-    scores = scores.view(bs, ncrops, -1).mean(1)  # (B,32)
-    scores = scores.unsqueeze(dim=2)  # (B,32,1)
-
-    normal_features = features[0:batch_size]  # [b/2*ten,32,1024]
-    normal_scores = scores[0:batch_size]  # [b/2, 32,1]
-
+    t, f = features.shape[1:3]
+    
+    normal_features = features[:batch_size]
     abnormal_features = features[batch_size:]
-    abnormal_scores = scores[batch_size:]
 
-    feat_magnitudes = torch.norm(features, p=2, dim=2)  # [b*ten,32]
-    feat_magnitudes = feat_magnitudes.view(bs, ncrops, -1).mean(1)  # [b,32]
-    nfea_magnitudes = feat_magnitudes[0:batch_size]  # [b/2,32]  # normal feature magnitudes
-    afea_magnitudes = feat_magnitudes[batch_size:]  # abnormal feature magnitudes
-    n_size = nfea_magnitudes.shape[0]  # b/2
+    feat_magnitudes = torch.norm(features, p=2, dim=2)  # [B,32]
+    nfea_magnitudes = feat_magnitudes[:batch_size]
+    afea_magnitudes = feat_magnitudes[batch_size:]
 
     if nfea_magnitudes.shape[0] == 1:  # this is for inference
         afea_magnitudes = nfea_magnitudes
-        abnormal_scores = normal_scores
         abnormal_features = normal_features
 
-    select_idx = torch.ones_like(nfea_magnitudes).cuda()
-    select_idx = drop_out(select_idx)
-
+    select_idx = drop_out(torch.ones_like(nfea_magnitudes).cuda())
 
     afea_magnitudes_drop = afea_magnitudes * select_idx
     idx_abn = torch.topk(afea_magnitudes_drop, k, dim=1)[1]
-    idx_abn_feat = idx_abn.unsqueeze(2).expand([-1, -1, abnormal_features.shape[2]])
+    idx_abn_feat = idx_abn.unsqueeze(2).expand([-1, -1, f])
+    feat_select_abn = torch.gather(abnormal_features, 1, idx_abn_feat)
+    idx_abn_score = idx_abn.unsqueeze(2)
+    # score_abnormal = torch.mean(torch.gather(abnormal_scores, 1, idx_abn_score), dim=1)
 
-    abnormal_features = abnormal_features.view(n_size, ncrops, t, f)
-    abnormal_features = abnormal_features.permute(1, 0, 2, 3)
-
-    total_select_abn_feature = torch.zeros(0).cuda()
-    for abnormal_feature in abnormal_features:
-        feat_select_abn = torch.gather(abnormal_feature, 1,
-                                       idx_abn_feat)
-        total_select_abn_feature = torch.cat((total_select_abn_feature, feat_select_abn))  #
-
-    idx_abn_score = idx_abn.unsqueeze(2).expand([-1, -1, abnormal_scores.shape[2]])  #
-    score_abnormal = torch.mean(torch.gather(abnormal_scores, 1, idx_abn_score),
-                                dim=1)
-
-
-    select_idx_normal = torch.ones_like(nfea_magnitudes).cuda()
-    select_idx_normal = drop_out(select_idx_normal)
+    select_idx_normal = drop_out(torch.ones_like(nfea_magnitudes).cuda())
     nfea_magnitudes_drop = nfea_magnitudes * select_idx_normal
     idx_normal = torch.topk(nfea_magnitudes_drop, k, dim=1)[1]
-    idx_normal_feat = idx_normal.unsqueeze(2).expand([-1, -1, normal_features.shape[2]])
-
-    normal_features = normal_features.view(n_size, ncrops, t, f)
-    normal_features = normal_features.permute(1, 0, 2, 3)
-
-    total_select_nor_feature = torch.zeros(0).cuda()
-    for nor_fea in normal_features:
-        feat_select_normal = torch.gather(nor_fea, 1,
-                                          idx_normal_feat)
-        total_select_nor_feature = torch.cat((total_select_nor_feature, feat_select_normal))
-
-    idx_normal_score = idx_normal.unsqueeze(2).expand([-1, -1, normal_scores.shape[2]])
-    score_normal = torch.mean(torch.gather(normal_scores, 1, idx_normal_score), dim=1)
-
-    abn_feamagnitude = total_select_abn_feature
-    nor_feamagnitude = total_select_nor_feature
-
-    return score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude, scores
+    idx_normal_feat = idx_normal.unsqueeze(2).expand([-1, -1, f])
+    feat_select_normal = torch.gather(normal_features, 1, idx_normal_feat)
+    idx_normal_score = idx_normal.unsqueeze(2)
+    # score_normal = torch.mean(torch.gather(normal_scores, 1, idx_normal_score), dim=1)
+    
+    return feat_select_abn, feat_select_normal
 
 class Backbone(nn.Module):
     def __init__(
@@ -129,15 +93,15 @@ class mgfn(nn.Module):
         self,
         *,
         classes=0,
-        dims = (64, 128, 1024),
+        dims = (32, 128, 1024),
         depths = (3, 3, 2),
         mgfn_types = ('gb', 'fb', 'fb'),
         lokernel = 5,
         channels = 1024,
         ff_repe = 4,
-        dim_head = 64,
-        dropout = 0.,
-        attention_dropout = 0.
+        dim_head = 32,
+        dropout = 0.1,
+        attention_dropout = 0.1
     ):
         super().__init__()
         init_dim, *_, last_dim = dims
@@ -181,9 +145,9 @@ class mgfn(nn.Module):
         # k = 3
         # bs, ncrops, t, c = video.size()
         x = video.permute(0, 2, 1)
-        x_f = x[:,:1024,:]
+        # x_f = x[:,:1024,:]
         # x_m = x[:,1024:,:]
-        x_f = self.to_tokens(x_f)
+        x_f = self.to_tokens(x)
         # x_m = self.to_mag(x_m)
         # x_f = x_f+0.1*x_m
         

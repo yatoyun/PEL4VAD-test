@@ -43,6 +43,7 @@ def load_checkpoint(model, ckpt_path, logger):
 
 
 def train(model, train_nloader, train_aloader, test_loader, gt, logger):
+# def train(model, train_loader, test_loader, gt, logger):
     if not os.path.exists(cfg.save_dir):
         os.makedirs(cfg.save_dir)
 
@@ -52,9 +53,10 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     MGFN_params = model.self_attention.mgfn.parameters()
     
     optimizer = optim.Adam([
-    {'params': PEL_params, 'lr': 5e-4},
+    {'params': PEL_params, 'lr': 1e-3},
     {'params': MGFN_params, 'lr': cfg.lr}
     ])
+    # optimizer = optim.Adam(model.parameters(), 5e-4)#lr=cfg.lr)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
 
     logger.info('Model:{}\n'.format(model))
@@ -69,7 +71,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
     st = time.time()
     for epoch in range(cfg.max_epoch):
-        loss1, loss2 = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, cfg.lamda)
+        loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, cfg.lamda)
+        # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
         scheduler.step()
 
         log_writer.add_scalar('loss', loss1, epoch)
@@ -82,8 +85,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
         log_writer.add_scalar('AUC', auc, epoch)
 
-        logger.info('[Epoch:{}/{}]: loss1:{:.4f} loss2:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-            epoch + 1, cfg.max_epoch, loss1, loss2, auc, ab_auc))
+        logger.info('[Epoch:{}/{}]: loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+            epoch + 1, cfg.max_epoch, loss1, loss2, cost, auc, ab_auc))
 
 
 
@@ -102,6 +105,7 @@ def main(cfg):
     if cfg.dataset == 'ucf-crime':
         train_normal_data = UCFDataset(cfg, test_mode=False)
         train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True)
+        # train_data = UCFDataset(cfg, test_mode=False)
         test_data = UCFDataset(cfg, test_mode=True)
         
     elif cfg.dataset == 'xd-violence':
@@ -119,6 +123,9 @@ def main(cfg):
                               num_workers=cfg.workers, pin_memory=True)
     train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
+    
+    # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
+    #                           num_workers=cfg.workers, pin_memory=True)
 
     test_loader = DataLoader(test_data, batch_size=cfg.test_bs, shuffle=False,
                              num_workers=cfg.workers, pin_memory=True)
@@ -134,6 +141,7 @@ def main(cfg):
     if args.mode == 'train':
         logger.info('Training Mode')
         train(model, train_nloader, train_aloader, test_loader, gt, logger)
+        # train(model, train_loader, test_loader, gt, logger)
 
     elif args.mode == 'infer':
         logger.info('Test Mode')

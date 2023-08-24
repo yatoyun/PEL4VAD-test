@@ -35,7 +35,6 @@ class XModel(nn.Module):
     def forward(self, x, seq_len):
         k = 3
         bs, t, c = x.size()
-        ncrops = 1
         x_e, x_v = self.self_attention(x, seq_len)
         logits = F.pad(x_e, (self.t - 1, 0))
         logits = self.classifier(logits)
@@ -43,9 +42,9 @@ class XModel(nn.Module):
         logits = logits.permute(0, 2, 1)
         logits = torch.sigmoid(logits)
         
-        # if self.training:
-        #     score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude, scores = MSNSD(x_v,logits,bs,bs//2,self.dropout,ncrops,k)
+        if self.training:
+            abn_feamagnitude, nor_feamagnitude = MSNSD(x_v,bs//2,self.dropout,k)
 
-        #     x_v = (x_v, score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude)
+            x_v = (x_v, abn_feamagnitude, nor_feamagnitude)
 
         return logits, x_v

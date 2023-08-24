@@ -49,16 +49,9 @@ class mgfn_loss(torch.nn.Module):
 
 
 
-    def forward(self, score_normal, score_abnormal, nlabel, alabel, nor_feamagnitude, abn_feamagnitude):
-        label = torch.cat((nlabel, alabel), 0)
-        score_abnormal = score_abnormal
-        score_normal = score_normal
-        score = torch.cat((score_normal, score_abnormal), 0)
-        score = score.squeeze()
-        label = label.cuda()
+    def forward(self, nor_feamagnitude, abn_feamagnitude):
         seperate = len(abn_feamagnitude) / 2
 
-        # loss_cls = self.criterion(score, label)
         loss_con = self.contrastive(torch.norm(abn_feamagnitude, p=1, dim=2), torch.norm(nor_feamagnitude, p=1, dim=2),
                                     1)  # try tp separate normal and abnormal
         loss_con_n = self.contrastive(torch.norm(nor_feamagnitude[int(seperate):], p=1, dim=2),
@@ -66,6 +59,6 @@ class mgfn_loss(torch.nn.Module):
                                       0)  # try to cluster the same class
         loss_con_a = self.contrastive(torch.norm(abn_feamagnitude[int(seperate):], p=1, dim=2),
                                       torch.norm(abn_feamagnitude[:int(seperate)], p=1, dim=2), 0)
-        loss_total = 0.001 * (0.001 * loss_con + loss_con_a + loss_con_n )
+        loss_total = 0.00001 * (0.001 * loss_con + loss_con_a + loss_con_n )
         
         return loss_total

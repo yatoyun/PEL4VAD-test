@@ -5,8 +5,10 @@ from mgfn.loss import *
 
 
 def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, lamda=0):
+# def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
     t_loss = []
     s_loss = []
+    u_loss = []
     with torch.set_grad_enabled(True):
         model.train()
         for i, ((v_ninput, t_ninput, nlabel, multi_nlabel), (v_ainput, t_ainput, alabel, multi_alabel)) \
@@ -16,6 +18,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             t_input = torch.cat((t_ninput, t_ainput), 0)
             label = torch.cat((nlabel, alabel), 0)
             multi_label = torch.cat((multi_nlabel, multi_alabel), 0)
+        # for i, (v_input, t_input, label, multi_label) in enumerate(dataloader):
             
             
             seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
@@ -27,7 +30,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             logits, v_feat = model(v_input, seq_len)
             
-            # v_feat, score_abnormal, score_normal, abn_feamagnitude, nor_feamagnitude = v_feat
+            v_feat, abn_feamagnitude, nor_feamagnitude = v_feat
             # Prompt-Enhanced Learning
             logit_scale = model.logit_scale.exp()
             video_feat, token_feat, video_labels = get_cas(v_feat, t_input, logits, multi_label)
@@ -41,15 +44,13 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             
             # loss_smooth = smooth(logits,8e-4)
 
-            # logits = logits.view(batch_size * 32 * 2, -1)
-            # logits = logits.squeeze()
+            loss_criterion = mgfn_loss(0.0001)
 
-            # loss_criterion = mgfn_loss(0.0001)
-
-            # cost = loss_criterion(score_normal, score_abnormal, nlabel, alabel, nor_feamagnitude, abn_feamagnitude) + loss_smooth + loss_sparse
+            cost = loss_criterion(nor_feamagnitude, abn_feamagnitude) #+ loss_smooth + loss_sparse
+            # cost = loss_smooth + loss_sparse
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
-            loss = loss1 + lamda * loss2# + cost
+            loss = loss1 + lamda * loss2 + 0.001 * cost
 
             optimizer.zero_grad()
             loss.backward()
@@ -57,5 +58,6 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             t_loss.append(loss1)
             s_loss.append(loss2)
+            u_loss.append(cost)
 
-    return sum(t_loss) / len(t_loss), sum(s_loss) / len(s_loss)
+    return sum(t_loss) / len(t_loss), sum(s_loss) / len(s_loss), sum(u_loss) / len(u_loss)
