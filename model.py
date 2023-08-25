@@ -31,8 +31,6 @@ class XModel(nn.Module):
         self.apply(weight_init)
 
     def forward(self, x, seq_len):
-        k = 3
-        bs, t, c = x.size()
         x_e, x_v = self.self_attention(x, seq_len)
         logits = F.pad(x_e, (self.t - 1, 0))
         logits = self.classifier(logits)

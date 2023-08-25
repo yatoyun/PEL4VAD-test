@@ -17,6 +17,9 @@ from infer import infer_func
 import argparse
 import copy
 
+from DR_DMU.loss import AD_Loss
+from pytorch_lamb import Lamb
+
 import os
 from tensorboardX import SummaryWriter
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
@@ -49,21 +52,23 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
-    # PEL_params = [p for n, p in model.named_parameters() if 'mgfn' not in n]
-    # MGFN_params = model.self_attention.mgfn.parameters()
+    criterion3 = AD_Loss()
+    PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
+    DR_DMU_params = model.self_attention.DR_DMU.parameters()
     
-    # optimizer = optim.Adam([
-    # {'params': PEL_params, 'lr': 1e-3},
-    # {'params': MGFN_params, 'lr': cfg.lr}
-    # ])
-    optimizer = optim.Adam(model.parameters(), 5e-4)#lr=cfg.lr)
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
+    optimizer = optim.Adam([
+    {'params': PEL_params, 'lr': 5e-4},
+    {'params': DR_DMU_params, 'lr': 7e-4, 'weight_decay': 5e-5}
+    ])
+    # optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
+    # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
+    # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
 
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
 
-    # initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-    # logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
+    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+    logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
@@ -71,9 +76,9 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
     st = time.time()
     for epoch in range(cfg.max_epoch):
-        loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, cfg.lamda)
+        loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, cfg.lamda)
         # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
-        scheduler.step()
+        # scheduler.step()
 
         log_writer.add_scalar('loss', loss1, epoch)
 
@@ -85,8 +90,9 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
         log_writer.add_scalar('AUC', auc, epoch)
 
-        logger.info('[Epoch:{}/{}]: loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-            epoch + 1, cfg.max_epoch, loss1, loss2, cost, auc, ab_auc))
+        lr = optimizer.param_groups[0]['lr']
+        logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+            epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
 
 
 
@@ -104,7 +110,7 @@ def main(cfg):
 
     if cfg.dataset == 'ucf-crime':
         train_normal_data = UCFDataset(cfg, test_mode=False)
-        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True)
+        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
         # train_data = UCFDataset(cfg, test_mode=False)
         test_data = UCFDataset(cfg, test_mode=True)
         

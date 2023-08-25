@@ -2,8 +2,7 @@ import torch
 from loss import *
 from utils import *
 
-
-def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, lamda=0):
+def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, lamda=0):
 # def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
     t_loss = []
     s_loss = []
@@ -27,7 +26,10 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             label = label.float().cuda(non_blocking=True)
             multi_label = multi_label.cuda(non_blocking=True)
 
-            logits, v_feat = model(v_input, seq_len)
+            logits, x_k = model(v_input, seq_len)
+            
+            v_feat = x_k["x"]
+            x_k["frame"] = logits
             
             # Prompt-Enhanced Learning
             logit_scale = model.logit_scale.exp()
@@ -37,7 +39,9 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             loss2 = KLV_loss(v2t_logits, ground_truth, criterion2)
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
-            loss = loss1 + lamda * loss2
+            
+            UR_loss = criterion3(x_k, label)
+            loss = loss1 + lamda * loss2 + UR_loss[0]
 
             optimizer.zero_grad()
             loss.backward()
@@ -45,6 +49,6 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             t_loss.append(loss1)
             s_loss.append(loss2)
-            # u_loss.append()
+            u_loss.append(UR_loss[0])
 
-    return sum(t_loss) / len(t_loss), sum(s_loss) / len(s_loss), sum(u_loss) #/ len(u_loss)
+    return sum(t_loss) / len(t_loss), sum(s_loss) / len(s_loss), sum(u_loss) / len(u_loss)
