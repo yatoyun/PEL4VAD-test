@@ -63,14 +63,16 @@ def process_feat2_torch(feat, length, is_random=False):
     return new_feat
 
 def gen_label(labels):
-    num = len(labels)
-    gt = np.zeros(shape=(num, num))
-    for i, label in enumerate(labels):
-        for k in range(num):
-            if labels[k] == label:
-                gt[i, k] = 1
+    # num = len(labels)
+    # gt = np.zeros(shape=(num, num))
+    # for i, label in enumerate(labels):
+    #     for k in range(num):
+    #         if labels[k] == label:
+    #             gt[i, k] = 1
+    # return gt
+    labels = labels.view(-1, 1)
+    gt = (labels == labels.t()).float()
     return gt
-
 
 def create_logits(x1, x2, logit_scale):
     x2 = x2.squeeze(dim=1)

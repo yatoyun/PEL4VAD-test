@@ -18,7 +18,11 @@ import argparse
 import copy
 
 from DR_DMU.loss import AD_Loss
-from pytorch_lamb import Lamb
+# from pytorch_lamb import Lamb
+from timm.scheduler import CosineLRScheduler
+
+# tune
+import optuna
 
 import os
 from tensorboardX import SummaryWriter
@@ -57,12 +61,14 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     DR_DMU_params = model.self_attention.DR_DMU.parameters()
     
     optimizer = optim.Adam([
-    {'params': PEL_params, 'lr': 5e-4},
-    {'params': DR_DMU_params, 'lr': 7e-4, 'weight_decay': 5e-5}
+    {'params': PEL_params, 'lr': 0.0008},
+    {'params': DR_DMU_params, 'lr': 0.0007, 'weight_decay': 5e-5}
     ])
     # optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
+    # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
+    #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
 
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
@@ -78,6 +84,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     for epoch in range(cfg.max_epoch):
         loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, cfg.lamda)
         # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
+        # scheduler.step(epoch + 1)
         # scheduler.step()
 
         log_writer.add_scalar('loss', loss1, epoch)
@@ -146,6 +153,7 @@ def main(cfg):
 
     if args.mode == 'train':
         logger.info('Training Mode')
+        
         train(model, train_nloader, train_aloader, test_loader, gt, logger)
         # train(model, train_loader, test_loader, gt, logger)
 

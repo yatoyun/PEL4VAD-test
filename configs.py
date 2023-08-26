@@ -19,7 +19,7 @@ def build_config(dataset):
         cfg.t_step = 9
         # training settings
         cfg.temp = 0.09
-        cfg.lamda = 0.8#1.0
+        cfg.lamda = 0.288#1.0
         cfg.seed = 2023 #9
         # test settings
         cfg.test_bs = 10

@@ -35,13 +35,14 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             logit_scale = model.logit_scale.exp()
             video_feat, token_feat, video_labels = get_cas(v_feat, t_input, logits, multi_label)
             v2t_logits, v2v_logits = create_logits(video_feat, token_feat, logit_scale)
-            ground_truth = torch.tensor(gen_label(video_labels), dtype=v_feat.dtype).cuda()
+            
+            ground_truth = gen_label(video_labels)
             loss2 = KLV_loss(v2t_logits, ground_truth, criterion2)
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
             
             UR_loss = criterion3(x_k, label)
-            loss = loss1 + lamda * loss2 + UR_loss[0]
+            loss = loss1 + lamda * loss2 + 0.489 * UR_loss[0]
 
             optimizer.zero_grad()
             loss.backward()

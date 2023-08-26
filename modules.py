@@ -27,7 +27,7 @@ class XEncoder(nn.Module):
 
         x = x + self.self_attn(x, mask, adj)
         
-        self.norm(x)
+        x = self.norm(x)
         if self.training:
             x_k = self.DR_DMU(x)
             x = x_k["x"]
@@ -39,7 +39,9 @@ class XEncoder(nn.Module):
                 x_k = torch.cat((x_k, x_k_split["x"]), 0)
             x = x_k
         
-        # x = x + self_att
+        # x = self.norm(x)
+        # self_att = self.norm(self_att)
+        # x = self.cat(torch.cat((x, self_att), -1))
         
         x = self.norm(x).permute(0, 2, 1)
         x = self.dropout1(F.gelu(self.linear1(x)))
