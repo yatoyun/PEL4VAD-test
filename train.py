@@ -27,10 +27,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             label = label.float().cuda(non_blocking=True)
             multi_label = multi_label.cuda(non_blocking=True)
 
-            logits, x_k = model(v_input, seq_len)
-            
-            v_feat = x_k["x"]
-            x_k["frame"] = logits
+            logits, v_feat, ur_out = model(v_input, seq_len)
             
             # Prompt-Enhanced Learning
             logit_scale = model.logit_scale.exp()
@@ -42,7 +39,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
             
-            UR_loss = criterion3(x_k, label)
+            UR_loss = criterion3(ur_out, label)
             if lamda + alpha == 0:
                 # 86.9
                 lamda = 0.492

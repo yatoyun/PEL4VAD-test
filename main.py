@@ -59,14 +59,14 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
     criterion3 = AD_Loss()
-    PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
-    DR_DMU_params = model.self_attention.DR_DMU.parameters()
+    # PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
+    # DR_DMU_params = model.self_attention.DR_DMU.parameters()
     
-    optimizer = optim.Adam([
-    {'params': PEL_params, 'lr': 0.001},
-    {'params': DR_DMU_params, 'lr': 0.0005, 'weight_decay': 5e-5}
-    ])
-    # optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
+    # optimizer = optim.Adam([
+    # {'params': PEL_params, 'lr': 0.001},
+    # {'params': DR_DMU_params, 'lr': 0.0005, 'weight_decay': 5e-5}
+    # ])
+    optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
     # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 

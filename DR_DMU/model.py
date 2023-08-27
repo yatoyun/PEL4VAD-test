@@ -3,6 +3,9 @@ import torch.nn as nn
 from torch.nn.modules.module import Module
 from .memory import Memory_Unit
 from .translayer import Transformer
+import sys
+sys.path.append('..')
+from modules import XEncoder
 
 def norm(data):
     l2 = torch.norm(data, p = 2, dim = -1, keepdim = True)
@@ -30,20 +33,41 @@ class ADCLS_head(Module):
         return self.mlp(x)
 
 class WSAD(Module):
-    def __init__(self, input_size, a_nums, n_nums):
+    def __init__(self, input_size, a_nums, n_nums, cfg):
         super().__init__()
         self.a_nums = a_nums
         self.n_nums = n_nums
 
         self.embedding = Temporal(input_size,512)
         self.triplet = nn.TripletMarginLoss(margin=1)
-        # self.cls_head = ADCLS_head(1024, 1)
         self.Amemory = Memory_Unit(nums=a_nums, dim=512)
         self.Nmemory = Memory_Unit(nums=n_nums, dim=512)
         self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = 0.5)
-        self.encoder_mu = nn.Sequential(nn.Linear(512, 512))
-        self.encoder_var = nn.Sequential(nn.Linear(512, 512))
+        # self.encoder_mu = nn.Sequential(nn.Linear(512, 512))
+        # self.encoder_var = nn.Sequential(nn.Linear(512, 512))
         self.relu = nn.ReLU()
+        self.encoder_mu = XEncoder(
+            d_model=512,
+            hid_dim=cfg.hid_dim//2,
+            out_dim=cfg.out_dim//2,
+            n_heads=cfg.head_num,
+            win_size=cfg.win_size,
+            dropout=cfg.dropout,
+            gamma=cfg.gamma,
+            bias=cfg.bias,
+            norm=cfg.norm,
+        )
+        self.encoder_var = XEncoder(
+            d_model=512,
+            hid_dim=cfg.hid_dim//2,
+            out_dim=cfg.out_dim//2,
+            n_heads=cfg.head_num,
+            win_size=cfg.win_size,
+            dropout=cfg.dropout,
+            gamma=cfg.gamma,
+            bias=cfg.bias,
+            norm=cfg.norm,
+        )
     def _reparameterize(self, mu, logvar):
         std = torch.exp(logvar).sqrt()
         epsilon = torch.randn_like(std)
@@ -53,7 +77,7 @@ class WSAD(Module):
         kl_loss = torch.mean(-0.5 * torch.sum(1 + var - mu ** 2 - var.exp(), dim = 1))
         return kl_loss
 
-    def forward(self, x):
+    def forward(self, x, seq_len):
         if len(x.size()) == 4:
             b, n, t, d = x.size()
             x = x.reshape(b * n, t, d)
@@ -65,6 +89,9 @@ class WSAD(Module):
         if self.training:
             N_x = x[:b*n//2]                  #### Normal part
             A_x = x[b*n//2:]                  #### Abnormal part
+            N_seq_len = seq_len[:b*n//2]
+            A_seq_len = seq_len[b*n//2:]
+            
             A_att, A_aug = self.Amemory(A_x)   ###bt,btd,   anomaly video --->>>>> Anomaly memeory  at least 1 [1,0,0,...,1]
             N_Aatt, N_Aaug = self.Nmemory(A_x) ###bt,btd,   anomaly video --->>>>> Normal memeory   at least 0 [0,1,1,...,1]
 
@@ -82,19 +109,19 @@ class WSAD(Module):
                
             triplet_margin_loss = self.triplet(norm(anchor_nx), norm(positivte_nx), norm(negative_ax))
 
-            N_aug_mu = self.encoder_mu(N_aug)
-            N_aug_var = self.encoder_var(N_aug)
+            N_aug_mu = self.encoder_mu(N_aug, N_seq_len)
+            N_aug_var = self.encoder_var(N_aug, N_seq_len)
             N_aug_new = self._reparameterize(N_aug_mu, N_aug_var)
             
             anchor_nx_new = torch.gather(N_aug_new, 1, N_index.unsqueeze(2).expand([-1, -1, x.size(-1)])).mean(1).reshape(b//2,n,-1).mean(1)
 
-            A_aug_new = self.encoder_mu(A_aug)
+            A_aug_new = self.encoder_mu(A_aug, A_seq_len)
             negative_ax_new = torch.gather(A_aug_new, 1, A_index.unsqueeze(2).expand([-1, -1, x.size(-1)])).mean(1).reshape(b//2,n,-1).mean(1)
             
             kl_loss = self.latent_loss(N_aug_mu, N_aug_var)
 
-            A_Naug = self.encoder_mu(A_Naug)
-            N_Aaug = self.encoder_mu(N_Aaug)
+            A_Naug = self.encoder_mu(A_Naug, A_seq_len)
+            N_Aaug = self.encoder_mu(N_Aaug, A_seq_len)
           
             distance = torch.relu(100 - torch.norm(negative_ax_new, p=2, dim=-1) + torch.norm(anchor_nx_new, p=2, dim=-1)).mean()
             x = torch.cat((x, (torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0))), dim=-1)
@@ -109,21 +136,21 @@ class WSAD(Module):
                     "N_att": N_att.reshape((b//2, n, -1)).mean(1),
                     "A_Natt": A_Natt.reshape((b//2, n, -1)).mean(1),
                     "N_Aatt": N_Aatt.reshape((b//2, n, -1)).mean(1),
-                    "x":x
+                    "x": x
                 }
         else:           
             _, A_aug = self.Amemory(x)
             _, N_aug = self.Nmemory(x)  
 
-            A_aug = self.encoder_mu(A_aug)
-            N_aug = self.encoder_mu(N_aug)
+            A_aug = self.encoder_mu(A_aug, seq_len)
+            N_aug = self.encoder_mu(N_aug, seq_len)
 
             x = torch.cat([x, A_aug + N_aug], dim=-1)
            
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
             return {
                     # "frame": pre_att, 
-                    "x":x}
+                    "x": x}
     
 
 if __name__ == "__main__":

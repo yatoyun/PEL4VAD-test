@@ -34,7 +34,7 @@ def test_func(dataloader, model, gt, dataset):
                 v_input = v_input.float().cuda(non_blocking=True)
                 seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
 
-                logits, _ = model(v_input, seq_len)
+                logits, _, _ = model(v_input, seq_len)
                 logits = torch.mean(logits, 0)
                 pred = torch.cat((pred, logits))
                 if sum(label) == len(label):
