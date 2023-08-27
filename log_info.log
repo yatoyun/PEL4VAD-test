@@ -40903,3 +40903,101 @@ Parameter Group 0
     weight_decay: 5e-05
 )
 
+[2023-08-27 20:55:53,469][main.py][line:118][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 15, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-27 20:55:53,586][main.py][line:154][INFO] total params:6.9119M
+[2023-08-27 20:55:53,586][main.py][line:157][INFO] Training Mode
+[2023-08-27 20:55:53,587][main.py][line:75][INFO] Model:XModel(
+  (net): WSAD(
+    (embedding): Temporal(
+      (conv_1): Sequential(
+        (0): Conv1d(1024, 512, kernel_size=(3,), stride=(1,), padding=(1,))
+        (1): ReLU()
+      )
+    )
+    (triplet): TripletMarginLoss()
+    (Amemory): Memory_Unit(
+      (sig): Sigmoid()
+    )
+    (Nmemory): Memory_Unit(
+      (sig): Sigmoid()
+    )
+    (selfatt): Transformer(
+      (layers): ModuleList(
+        (0-1): 2 x ModuleList(
+          (0): PreNorm(
+            (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+            (fn): Attention(
+              (attend): Softmax(dim=-1)
+              (to_qkv): Linear(in_features=512, out_features=2048, bias=False)
+              (to_out): Sequential(
+                (0): Linear(in_features=1024, out_features=512, bias=True)
+                (1): Dropout(p=0.5, inplace=False)
+              )
+            )
+          )
+          (1): PreNorm(
+            (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+            (fn): FeedForward(
+              (net): Sequential(
+                (0): Linear(in_features=512, out_features=512, bias=True)
+                (1): GELU(approximate='none')
+                (2): Dropout(p=0.5, inplace=False)
+                (3): Linear(in_features=512, out_features=512, bias=True)
+                (4): Dropout(p=0.5, inplace=False)
+              )
+            )
+          )
+        )
+      )
+    )
+    (relu): ReLU()
+    (encoder_mu): XEncoder(
+      (self_attn): TCA(
+        (q): Linear(in_features=512, out_features=64, bias=True)
+        (k): Linear(in_features=512, out_features=64, bias=True)
+        (v): Linear(in_features=512, out_features=64, bias=True)
+        (o): Linear(in_features=64, out_features=512, bias=True)
+        (act): Softmax(dim=-1)
+      )
+      (loc_adj): DistanceAdj()
+    )
+    (encoder_var): XEncoder(
+      (self_attn): TCA(
+        (q): Linear(in_features=512, out_features=64, bias=True)
+        (k): Linear(in_features=512, out_features=64, bias=True)
+        (v): Linear(in_features=512, out_features=64, bias=True)
+        (o): Linear(in_features=64, out_features=512, bias=True)
+        (act): Softmax(dim=-1)
+      )
+      (loc_adj): DistanceAdj()
+    )
+  )
+  (classifier): ADCLS_head(
+    (mlp): Sequential(
+      (0): Linear(in_features=1024, out_features=128, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=128, out_features=1, bias=True)
+      (3): Sigmoid()
+    )
+  )
+  (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+  (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+  (dropout1): Dropout(p=0.1, inplace=False)
+  (dropout2): Dropout(p=0.1, inplace=False)
+)
+
+[2023-08-27 20:55:53,587][main.py][line:76][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0005
+    maximize: False
+    weight_decay: 5e-05
+)
+

@@ -51,23 +51,33 @@ def load_checkpoint(model, ckpt_path, logger):
         logger.info('Not found pretrained checkpoint file.')
 
 
-def train(trial, model, train_nloader, train_aloader, test_loader, gt, logger, initial_model_state):
+def train(trial, train_nloader, train_aloader, test_loader, gt, logger):
 # def train(model, train_loader, test_loader, gt, logger):
     if not os.path.exists(cfg.save_dir):
         os.makedirs(cfg.save_dir)
     
-    model.load_state_dict(initial_model_state)
+    model = XModel(cfg)
+    device = torch.device("cuda")
+    model = model.to(device)
+    
+    
 
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
     criterion3 = AD_Loss()
-    # PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
-    # DR_DMU_params = model.self_attention.DR_DMU.parameters()
+    PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
+    DR_DMU_params = model.self_attention.DR_DMU.parameters()
     
-    lr = trial.suggest_float('lr', 1e-4, 1e-3, step=1e-4)
+    PEL_lr = trial.suggest_float('PEL_lr', 1e-4, 1e-3, step=1e-4)
+    DR_DMU_lr = trial.suggest_float('DR_DMU_lr', 1e-4, 1e-3, step=1e-4)
     lamda = trial.suggest_float('lamda', 0.005, 1, step=0.001)
     alpha = trial.suggest_float('alpha', 0.005, 1, step=0.001)
-    optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
+    
+    optimizer = optim.Adam([
+    {'params': PEL_params, 'lr': PEL_lr},
+    {'params': DR_DMU_params, 'lr': DR_DMU_lr, 'weight_decay': 5e-5}
+    ])
+    # optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
     # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
@@ -95,7 +105,6 @@ def train(trial, model, train_nloader, train_aloader, test_loader, gt, logger, i
         if auc >= best_auc:
             best_auc = auc
             auc_ab_auc = ab_auc
-            best_model_wts = copy.deepcopy(model.state_dict())
             # torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
         log_writer.add_scalar('AUC', auc, epoch)
 
@@ -106,7 +115,6 @@ def train(trial, model, train_nloader, train_aloader, test_loader, gt, logger, i
 
 
     time_elapsed = time.time() - st
-    model.load_state_dict(best_model_wts)
     # torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_' + str(round(best_auc, 4)).split('.')[1] + '.pkl')
     logger.info('Training completes in {:.0f}m {:.0f}s | best AUC{}:{:.4f} Anomaly AUC:{:.4f}\n'.
                 format(time_elapsed // 60, time_elapsed % 60, cfg.metrics, best_auc, auc_ab_auc))
@@ -154,38 +162,34 @@ def main(cfg):
     test_loader = DataLoader(test_data, batch_size=cfg.test_bs, shuffle=False,
                              num_workers=cfg.workers, pin_memory=True)
 
-    model = XModel(cfg)
     gt = np.load(cfg.gt)
-    device = torch.device("cuda")
-    model = model.to(device)
-    initial_model_state = copy.deepcopy(model.state_dict())
-    
-    param = sum(p.numel() for p in model.parameters())
-    logger.info('total params:{:.4f}M'.format(param / (1000 ** 2)))
+
+    # param = sum(p.numel() for p in model.parameters())
+    # logger.info('total params:{:.4f}M'.format(param / (1000 ** 2)))
 
     if args.mode == 'train':
         logger.info('Training Mode')
         # for auto tune
         study = optuna.create_study(direction='maximize')
         from functools import partial
-        objective = partial(train, model=model, train_nloader=train_nloader, train_aloader=train_aloader, 
-                   test_loader=test_loader, gt=gt, logger=logger, initial_model_state=initial_model_state)
+        objective = partial(train, train_nloader=train_nloader, train_aloader=train_aloader, 
+                   test_loader=test_loader, gt=gt, logger=logger)
         study.optimize(objective, n_trials=50)
         print(study.best_params)
         
         # train(model, train_nloader, train_aloader, test_loader, gt, logger)
         # train(model, train_loader, test_loader, gt, logger)
 
-    elif args.mode == 'infer':
-        logger.info('Test Mode')
-        if cfg.ckpt_path is not None:
-            load_checkpoint(model, cfg.ckpt_path, logger)
-        else:
-            logger.info('infer from random initialization')
-        infer_func(model, test_loader, gt, logger, cfg)
+    # elif args.mode == 'infer':
+    #     logger.info('Test Mode')
+    #     if cfg.ckpt_path is not None:
+    #         load_checkpoint(model, cfg.ckpt_path, logger)
+    #     else:
+    #         logger.info('infer from random initialization')
+    #     infer_func(model, test_loader, gt, logger, cfg)
 
-    else:
-        raise RuntimeError('Invalid status!')
+    # else:
+    #     raise RuntimeError('Invalid status!')
 
 
 if __name__ == '__main__':
