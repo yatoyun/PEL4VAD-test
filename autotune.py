@@ -28,8 +28,8 @@ study.optimize(objective, n_trials=1)
 
 # 最良のハイパーパラメータを表示
 print(study.best_params)
-[2023-08-28 00:26:35,615][main-autotune.py][line:103][INFO] [Epoch:1/2]: lr:0.00050 | loss1:0.4189 loss2:1.2099 loss3:0.2794 | AUC:0.7970 Anomaly AUC:0.5909
-[2023-08-28 00:27:02,875][main-autotune.py][line:103][INFO] [Epoch:2/2]: lr:0.00050 | loss1:0.2427 loss2:1.0579 loss3:0.1092 | AUC:0.8234 Anomaly AUC:0.6212
-[2023-08-28 00:27:02,876][main-autotune.py][line:111][INFO] Training completes in 0m 54s | best AUC:0.8234 Anomaly AUC:0.6212
+# [2023-08-28 00:26:35,615][main-autotune.py][line:103][INFO] [Epoch:1/2]: lr:0.00050 | loss1:0.4189 loss2:1.2099 loss3:0.2794 | AUC:0.7970 Anomaly AUC:0.5909
+# [2023-08-28 00:27:02,875][main-autotune.py][line:103][INFO] [Epoch:2/2]: lr:0.00050 | loss1:0.2427 loss2:1.0579 loss3:0.1092 | AUC:0.8234 Anomaly AUC:0.6212
+# [2023-08-28 00:27:02,876][main-autotune.py][line:111][INFO] Training completes in 0m 54s | best AUC:0.8234 Anomaly AUC:0.6212
 
-[I 2023-08-28 00:27:03,603] Trial 0 finished with value: 0.8233690783684862 and parameters: {'lr': 0.0005, 'lamda': 0.055, 'alpha': 0.529}. Best is trial 0 with value: 0.8233690783684862.
+# [I 2023-08-28 00:27:03,603] Trial 0 finished with value: 0.8233690783684862 and parameters: {'lr': 0.0005, 'lamda': 0.055, 'alpha': 0.529}. Best is trial 0 with value: 0.8233690783684862.
