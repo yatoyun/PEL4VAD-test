@@ -17,7 +17,7 @@ class XModel(nn.Module):
         super(XModel, self).__init__()
         self.t = cfg.t_step
         self.net = WSAD(cfg.feat_dim, 60, 60, cfg)
-        self.classifier = ADCLS_head(1024, 1)
+        self.classifier = nn.Conv1d(cfg.out_dim, 1, self.t, padding=0)#ADCLS_head(1024, 1)
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / cfg.temp))
         self.apply(weight_init)
         self.norm = nn.LayerNorm(1024)
@@ -38,7 +38,6 @@ class XModel(nn.Module):
         x_e = self.dropout2(F.gelu(self.linear2(x)))
         
         logits = F.pad(x_e, (self.t - 1, 0))
-        print(logits.shape) 
         logits = self.classifier(logits)
 
         logits = logits.permute(0, 2, 1)

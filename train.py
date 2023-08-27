@@ -29,6 +29,8 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             logits, v_feat, ur_out = model(v_input, seq_len)
             
+            ur_out["frame"] = logits
+            
             # Prompt-Enhanced Learning
             logit_scale = model.logit_scale.exp()
             video_feat, token_feat, video_labels = get_cas(v_feat, t_input, logits, multi_label)
@@ -42,8 +44,8 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             UR_loss = criterion3(ur_out, label)
             if lamda + alpha == 0:
                 # 86.9
-                lamda = 0.492
-                alpha = 0.489#0.127 #0.489
+                lamda = 0.055
+                alpha = 0.529#0.127 #0.489
             loss = loss1 + lamda * loss2 + alpha * UR_loss[0]
 
             optimizer.zero_grad()

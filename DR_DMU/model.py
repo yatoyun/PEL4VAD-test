@@ -85,7 +85,16 @@ class WSAD(Module):
             b, t, d = x.size()
             n = 1
         x = self.embedding(x)
-        x = self.selfatt(x)
+        
+        if not self.training:
+            out = torch.zeros(0).cuda()
+            for data in x:
+                data = data.unsqueeze(0)
+                out = torch.cat((out, self.selfatt(data)), dim=0)
+            x = out
+        else:
+            x = self.selfatt(x)
+        
         if self.training:
             N_x = x[:b*n//2]                  #### Normal part
             A_x = x[b*n//2:]                  #### Abnormal part
