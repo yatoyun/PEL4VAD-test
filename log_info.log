@@ -40135,3 +40135,5 @@ Parameter Group 1
 )
 
 [2023-08-27 20:33:31,027][main.py][line:79][INFO] Random initialize AUCAUC:0.5390 Anomaly AUC:0.54581
+[2023-08-27 20:33:51,611][main.py][line:103][INFO] [Epoch:1/30]: lr:0.00040 | loss1:0.3663 loss2:1.0031 loss3:0.3563 | AUC:0.8135 Anomaly AUC:0.6628
+[2023-08-27 20:34:12,919][main.py][line:103][INFO] [Epoch:2/30]: lr:0.00040 | loss1:0.1132 loss2:0.7355 loss3:0.2724 | AUC:0.8219 Anomaly AUC:0.6513
