@@ -23,12 +23,12 @@ from timm.scheduler import CosineLRScheduler
 
 # tune
 import optuna
+# torch.backends.cudnn.benchmark = True
+from torch.cuda.amp import GradScaler
 
 import os
 from tensorboardX import SummaryWriter
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
-
-from torch.cuda.amp import GradScaler
 
 
 def load_checkpoint(model, ckpt_path, logger):
@@ -51,10 +51,12 @@ def load_checkpoint(model, ckpt_path, logger):
         logger.info('Not found pretrained checkpoint file.')
 
 
-def train(model, train_nloader, train_aloader, test_loader, gt, logger):
+def train(trial, model, train_nloader, train_aloader, test_loader, gt, logger, initial_model_state):
 # def train(model, train_loader, test_loader, gt, logger):
     if not os.path.exists(cfg.save_dir):
         os.makedirs(cfg.save_dir)
+    
+    model.load_state_dict(initial_model_state)
 
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
@@ -62,9 +64,14 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
     DR_DMU_params = model.self_attention.DR_DMU.parameters()
     
+    PEL_lr = trial.suggest_float('PEL_lr', 1e-4, 1e-3, step=1e-4)
+    DR_DMU_lr = trial.suggest_float('DR_DMU_lr', 1e-4, 1e-3, step=1e-4)
+    lamda = trial.suggest_float('lamda', 0.005, 1, step=0.001)
+    alpha = trial.suggest_float('alpha', 0.005, 1, step=0.001)
+    
     optimizer = optim.Adam([
-    {'params': PEL_params, 'lr': 0.001},
-    {'params': DR_DMU_params, 'lr': 0.0005, 'weight_decay': 5e-5}
+    {'params': PEL_params, 'lr': PEL_lr},
+    {'params': DR_DMU_params, 'lr': DR_DMU_lr, 'weight_decay': 5e-5}
     ])
     # optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
@@ -72,11 +79,11 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
     #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
 
-    logger.info('Model:{}\n'.format(model))
-    logger.info('Optimizer:{}\n'.format(optimizer))
+    # logger.info('Model:{}\n'.format(model))
+    # logger.info('Optimizer:{}\n'.format(optimizer))
 
-    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-    logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
+    # initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+    # logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
@@ -84,9 +91,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
     st = time.time()
     for epoch in range(cfg.max_epoch):
-        loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3)
+        loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, lamda, alpha)
         # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
-        # scheduler.step(epoch + 1)
         # scheduler.step()
 
         log_writer.add_scalar('loss', loss1, epoch)
@@ -96,7 +102,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             best_auc = auc
             auc_ab_auc = ab_auc
             best_model_wts = copy.deepcopy(model.state_dict())
-            torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
+            # torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
         log_writer.add_scalar('AUC', auc, epoch)
 
         lr = optimizer.param_groups[0]['lr']
@@ -107,9 +113,10 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
     time_elapsed = time.time() - st
     model.load_state_dict(best_model_wts)
-    torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_' + str(round(best_auc, 4)).split('.')[1] + '.pkl')
+    # torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_' + str(round(best_auc, 4)).split('.')[1] + '.pkl')
     logger.info('Training completes in {:.0f}m {:.0f}s | best AUC{}:{:.4f} Anomaly AUC:{:.4f}\n'.
                 format(time_elapsed // 60, time_elapsed % 60, cfg.metrics, best_auc, auc_ab_auc))
+    return best_auc
 
 
 def main(cfg):
@@ -132,6 +139,14 @@ def main(cfg):
     else:
         raise RuntimeError("Do not support this dataset!")
     
+    # for auto tune
+    # from torch.utils.data import random_split
+    # subset_length_normal = int(0.3 * len(train_normal_data))
+    # train_normal_data, _ = random_split(train_normal_data, [subset_length_normal, len(train_normal_data) - subset_length_normal])
+
+    # subset_length_anomaly = int(0.3 * len(train_anomaly_data))
+    # train_anomaly_data, _ = random_split(train_anomaly_data, [subset_length_anomaly, len(train_anomaly_data) - subset_length_anomaly])
+    
     print(len(train_normal_data), len(train_anomaly_data), len(test_data))
 
     train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
@@ -149,14 +164,22 @@ def main(cfg):
     gt = np.load(cfg.gt)
     device = torch.device("cuda")
     model = model.to(device)
-
+    initial_model_state = copy.deepcopy(model.state_dict())
+    
     param = sum(p.numel() for p in model.parameters())
     logger.info('total params:{:.4f}M'.format(param / (1000 ** 2)))
 
     if args.mode == 'train':
         logger.info('Training Mode')
+        # for auto tune
+        study = optuna.create_study(direction='maximize')
+        from functools import partial
+        objective = partial(train, model=model, train_nloader=train_nloader, train_aloader=train_aloader, 
+                   test_loader=test_loader, gt=gt, logger=logger, initial_model_state=initial_model_state)
+        study.optimize(objective, n_trials=50)
+        print(study.best_params)
         
-        train(model, train_nloader, train_aloader, test_loader, gt, logger)
+        # train(model, train_nloader, train_aloader, test_loader, gt, logger)
         # train(model, train_loader, test_loader, gt, logger)
 
     elif args.mode == 'infer':

@@ -2,7 +2,8 @@ import torch
 from loss import *
 from utils import *
 
-def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, lamda=0):
+# def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, lamda=0):
+def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, lamda=0, alpha=0):
 # def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
     t_loss = []
     s_loss = []
@@ -42,7 +43,11 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             loss1 = CLAS2(logits, label, seq_len, criterion)
             
             UR_loss = criterion3(x_k, label)
-            loss = loss1 + lamda * loss2 + 0.489 * UR_loss[0]
+            if lamda + alpha == 0:
+                # 86.9
+                lamda = 0.492
+                alpha = 0.489#0.127 #0.489
+            loss = loss1 + lamda * loss2 + alpha * UR_loss[0]
 
             optimizer.zero_grad()
             loss.backward()

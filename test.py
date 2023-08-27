@@ -1,6 +1,7 @@
 from sklearn.metrics import auc, roc_curve, confusion_matrix, precision_recall_curve
 import numpy as np
 import torch
+from torch.cuda.amp import autocast
 
 
 def cal_false_alarm(gt, preds, threshold=0.5):
@@ -29,14 +30,15 @@ def test_func(dataloader, model, gt, dataset):
         ab_pred = torch.zeros(0).cuda()
 
         for i, (v_input, label) in enumerate(dataloader):
-            v_input = v_input.float().cuda(non_blocking=True)
-            seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
+            with autocast():
+                v_input = v_input.float().cuda(non_blocking=True)
+                seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
 
-            logits, _ = model(v_input, seq_len)
-            logits = torch.mean(logits, 0)
-            pred = torch.cat((pred, logits))
-            if sum(label) == len(label):
-                ab_pred = torch.cat((ab_pred, logits))
+                logits, _ = model(v_input, seq_len)
+                logits = torch.mean(logits, 0)
+                pred = torch.cat((pred, logits))
+                if sum(label) == len(label):
+                    ab_pred = torch.cat((ab_pred, logits))
             # labels = gt_tmp[: seq_len[0] * 16]
             # if torch.sum(labels) == 0:
             #     normal_labels = torch.cat((normal_labels, labels))
@@ -50,8 +52,8 @@ def test_func(dataloader, model, gt, dataset):
         # n_far = cal_false_alarm(normal_labels, normal_preds)
         fpr, tpr, _ = roc_curve(list(gt), np.repeat(pred, 16))
         roc_auc = auc(fpr, tpr)
-        pre, rec, _ = precision_recall_curve(list(gt), np.repeat(pred, 16))
-        pr_auc = auc(rec, pre)
+        # pre, rec, _ = precision_recall_curve(list(gt), np.repeat(pred, 16))
+        # pr_auc = auc(rec, pre)
         
         ab_pred = list(ab_pred.cpu().detach().numpy())
         fpr, tpr, _ = roc_curve(list(gt)[:len(ab_pred)*16], np.repeat(ab_pred, 16))

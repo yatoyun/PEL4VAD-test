@@ -26,6 +26,7 @@ class XEncoder(nn.Module):
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
 
         x = x + self.self_attn(x, mask, adj)
+        # self_att = x + self.self_attn(x, mask, adj)
         
         x = self.norm(x)
         if self.training:
