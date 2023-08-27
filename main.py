@@ -63,8 +63,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     DR_DMU_params = model.self_attention.DR_DMU.parameters()
     
     optimizer = optim.Adam([
-    {'params': PEL_params, 'lr': 0.001},
-    {'params': DR_DMU_params, 'lr': 0.0005, 'weight_decay': 5e-5}
+    {'params': PEL_params, 'lr': 0.0004},
+    {'params': DR_DMU_params, 'lr': 0.0003, 'weight_decay': 5e-5}
     ])
     # optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
