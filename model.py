@@ -38,6 +38,7 @@ class XModel(nn.Module):
         x_e = self.dropout2(F.gelu(self.linear2(x)))
         
         logits = F.pad(x_e, (self.t - 1, 0))
+        print(logits.shape) 
         logits = self.classifier(logits)
 
         logits = logits.permute(0, 2, 1)
