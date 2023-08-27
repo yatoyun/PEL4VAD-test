@@ -63,11 +63,11 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     DR_DMU_params = model.self_attention.DR_DMU.parameters()
     
     optimizer = optim.Adam([
-    {'params': PEL_params, 'lr': 0.0004},
-    {'params': DR_DMU_params, 'lr': 0.00030000000000000003, 'weight_decay': 5e-5}
+    {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
+    {'params': DR_DMU_params, 'lr': args.DR_lr},#0.00030000000000000003, 'weight_decay': 5e-5}
     ])
-    lamda = 0.982#0.492
-    alpha = 0.432#0.489#0.127
+    # lamda = 0.982#0.492
+    # alpha = 0.432#0.489#0.127
     # optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
@@ -86,7 +86,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
     st = time.time()
     for epoch in range(cfg.max_epoch):
-        loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, lamda, alpha)
+        loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, args.lamda, args.alpha)
         # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
         # scheduler.step(epoch + 1)
         # scheduler.step()
@@ -178,6 +178,10 @@ if __name__ == '__main__':
     parser.add_argument('--dataset', default='ucf', help='anomaly video dataset')
     parser.add_argument('--mode', default='train', help='model status: (train or infer)')
     parser.add_argument('--version', default='original', help='change log path name')
+    parser.add_argument('--PEL_lr', default=5e-3, type=float, help='learning rate')
+    parser.add_argument('--DR_lr', default=5e-3, type=float, help='learning rate')
+    parser.add_argument('--lamda', default=0.5, type=float, help='lamda')
+    parser.add_argument('--alpha', default=0.5, type=float, help='alpha')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)
