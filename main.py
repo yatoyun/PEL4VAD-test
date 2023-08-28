@@ -64,7 +64,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     
     optimizer = optim.Adam([
     {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
-    {'params': DR_DMU_params, 'lr': args.DR_lr},#0.00030000000000000003, 'weight_decay': 5e-5}
+    {'params': DR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
     ])
     # lamda = 0.982#0.492
     # alpha = 0.432#0.489#0.127
@@ -178,10 +178,10 @@ if __name__ == '__main__':
     parser.add_argument('--dataset', default='ucf', help='anomaly video dataset')
     parser.add_argument('--mode', default='train', help='model status: (train or infer)')
     parser.add_argument('--version', default='original', help='change log path name')
-    parser.add_argument('--PEL_lr', default=5e-3, type=float, help='learning rate')
-    parser.add_argument('--DR_lr', default=5e-3, type=float, help='learning rate')
-    parser.add_argument('--lamda', default=0.5, type=float, help='lamda')
-    parser.add_argument('--alpha', default=0.5, type=float, help='alpha')
+    parser.add_argument('--PEL_lr', default=0.0003, type=float, help='learning rate')
+    parser.add_argument('--UR_DMU_lr', default=0.0008, type=float, help='learning rate')
+    parser.add_argument('--lamda', default=0.19, type=float, help='lamda')
+    parser.add_argument('--alpha', default=0.523, type=float, help='alpha')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)

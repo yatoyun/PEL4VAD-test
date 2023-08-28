@@ -47,7 +47,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
                 # 86.9
                 lamda = 0.982#0.492
                 alpha = 0.432#0.489#0.127
-                # {'PEL_lr': 0.0004, 'DR_DMU_lr': 0.00030000000000000003, 'lamda': 0.982, 'alpha': 0.432}
+                # {'pel_lr': 0.00030000000000000003, 'ur_lr': 0.0008, 'lamda': 0.19, 'alpha': 0.523}
             loss = loss1 + lamda * loss2 + alpha * UR_loss[0]
 
             optimizer.zero_grad()
