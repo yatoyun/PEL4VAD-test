@@ -55,6 +55,10 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 # def train(model, train_loader, test_loader, gt, logger):
     if not os.path.exists(cfg.save_dir):
         os.makedirs(cfg.save_dir)
+        
+
+    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+    # logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
@@ -66,6 +70,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     # {'params': PEL_params, 'lr': 0.001},
     # {'params': DR_DMU_params, 'lr': 0.0005, 'weight_decay': 5e-5}
     # ])
+    
     optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=5e-5)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
@@ -74,9 +79,6 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
     # logger.info('Model:{}\n'.format(model))
     # logger.info('Optimizer:{}\n'.format(optimizer))
-
-    # initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-    # logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
@@ -101,6 +103,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
         lr = optimizer.param_groups[0]['lr']
         logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+            epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
+        print('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
             epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
 
 
@@ -152,7 +156,7 @@ def main(cfg):
     device = torch.device("cuda")
     model = model.to(device)
 
-    param = sum(p.numel() for p in model.parameters())
+    # param = sum(p.numel() for p in model.parameters())
     # logger.info('total params:{:.4f}M'.format(param / (1000 ** 2)))
 
     if args.mode == 'train':
@@ -188,6 +192,7 @@ if __name__ == '__main__':
     savepath = './logs/{}_{}_{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs)
     os.makedirs(savepath,exist_ok=True)
     log_writer = SummaryWriter(savepath)
+    print(args.lr, args.lamda, args.alpha)
             
 
     main(cfg)

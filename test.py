@@ -22,11 +22,11 @@ def test_func(dataloader, model, gt, dataset):
     with torch.no_grad():
         model.eval()
         pred = torch.zeros(0).cuda()
-        abnormal_preds = torch.zeros(0).cuda()
-        abnormal_labels = torch.zeros(0).cuda()
-        normal_preds = torch.zeros(0).cuda()
-        normal_labels = torch.zeros(0).cuda()
-        gt_tmp = torch.tensor(gt.copy()).cuda()
+        # abnormal_preds = torch.zeros(0).cuda()
+        # abnormal_labels = torch.zeros(0).cuda()
+        # normal_preds = torch.zeros(0).cuda()
+        # normal_labels = torch.zeros(0).cuda()
+        # gt_tmp = torch.tensor(gt.copy()).cuda()
         ab_pred = torch.zeros(0).cuda()
 
         for i, (v_input, label) in enumerate(dataloader):
@@ -61,6 +61,7 @@ def test_func(dataloader, model, gt, dataset):
 
         if dataset == 'ucf-crime':
             return roc_auc, ab_roc_auc
+            # return 0,0
         # elif dataset == 'xd-violence':
         #     return pr_auc, n_far
         # elif dataset == 'shanghaiTech':

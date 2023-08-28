@@ -43037,3 +43037,1525 @@ Parameter Group 0
 [2023-08-28 00:32:27,338][main-autotune.py][line:111][INFO] Training completes in 0m 56s | best AUC:0.8234 Anomaly AUC:0.6212
 
 [2023-08-28 00:41:18,734][main-autotune.py][line:103][INFO] [Epoch:1/2]: lr:0.00020 | loss1:0.3985 loss2:1.1009 loss3:0.3600 | AUC:0.8250 Anomaly AUC:0.6192
+[2023-08-28 00:49:33,943][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.3909 loss2:1.1778 loss3:0.3513 | AUC:0.8003 Anomaly AUC:0.5843
+[2023-08-28 00:50:02,565][main-autotune.py][line:103][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.1979 loss2:1.0327 loss3:0.2360 | AUC:0.7921 Anomaly AUC:0.5846
+[2023-08-28 00:50:27,700][main-autotune.py][line:103][INFO] [Epoch:3/25]: lr:0.00040 | loss1:0.0126 loss2:0.8529 loss3:0.2199 | AUC:0.7992 Anomaly AUC:0.6001
+[2023-08-28 00:50:58,419][main-autotune.py][line:103][INFO] [Epoch:4/25]: lr:0.00040 | loss1:0.0782 loss2:0.9515 loss3:0.2286 | AUC:0.7724 Anomaly AUC:0.5730
+[2023-08-28 00:51:23,777][main-autotune.py][line:103][INFO] [Epoch:5/25]: lr:0.00040 | loss1:0.0030 loss2:0.7879 loss3:0.1886 | AUC:0.7859 Anomaly AUC:0.6187
+[2023-08-28 00:51:51,800][main-autotune.py][line:103][INFO] [Epoch:6/25]: lr:0.00040 | loss1:0.0028 loss2:0.7224 loss3:0.1492 | AUC:0.7858 Anomaly AUC:0.6124
+[2023-08-28 00:52:17,195][main-autotune.py][line:103][INFO] [Epoch:7/25]: lr:0.00040 | loss1:0.0025 loss2:0.6809 loss3:0.1111 | AUC:0.7924 Anomaly AUC:0.6452
+[2023-08-28 00:52:47,845][main-autotune.py][line:103][INFO] [Epoch:8/25]: lr:0.00040 | loss1:0.0024 loss2:0.6415 loss3:0.0916 | AUC:0.7780 Anomaly AUC:0.6192
+[2023-08-28 00:53:13,440][main-autotune.py][line:103][INFO] [Epoch:9/25]: lr:0.00040 | loss1:0.0020 loss2:0.5969 loss3:0.0746 | AUC:0.7974 Anomaly AUC:0.6270
+[2023-08-28 00:53:41,813][main-autotune.py][line:103][INFO] [Epoch:10/25]: lr:0.00040 | loss1:0.0015 loss2:0.5510 loss3:0.0650 | AUC:0.7729 Anomaly AUC:0.6066
+[2023-08-28 00:54:07,380][main-autotune.py][line:103][INFO] [Epoch:11/25]: lr:0.00040 | loss1:0.0022 loss2:0.5378 loss3:0.0846 | AUC:0.7395 Anomaly AUC:0.5639
+[2023-08-28 00:54:33,154][main-autotune.py][line:103][INFO] [Epoch:12/25]: lr:0.00040 | loss1:0.0021 loss2:0.5263 loss3:0.0894 | AUC:0.7856 Anomaly AUC:0.6038
+[2023-08-28 00:54:58,820][main-autotune.py][line:103][INFO] [Epoch:13/25]: lr:0.00040 | loss1:0.0011 loss2:0.4652 loss3:0.0647 | AUC:0.7514 Anomaly AUC:0.5939
+[2023-08-28 00:55:27,135][main-autotune.py][line:103][INFO] [Epoch:14/25]: lr:0.00040 | loss1:0.0017 loss2:0.4319 loss3:0.0666 | AUC:0.7144 Anomaly AUC:0.6429
+[2023-08-28 00:55:52,784][main-autotune.py][line:103][INFO] [Epoch:15/25]: lr:0.00040 | loss1:0.0009 loss2:0.3551 loss3:0.0476 | AUC:0.7233 Anomaly AUC:0.5835
+[2023-08-28 00:56:22,624][main-autotune.py][line:103][INFO] [Epoch:16/25]: lr:0.00040 | loss1:0.0008 loss2:0.3146 loss3:0.0467 | AUC:0.6651 Anomaly AUC:0.5468
+[2023-08-28 00:56:48,123][main-autotune.py][line:103][INFO] [Epoch:17/25]: lr:0.00040 | loss1:0.0009 loss2:0.2601 loss3:0.0429 | AUC:0.7503 Anomaly AUC:0.5509
+[2023-08-28 00:57:16,644][main-autotune.py][line:103][INFO] [Epoch:18/25]: lr:0.00040 | loss1:0.4097 loss2:0.8279 loss3:0.1872 | AUC:0.7084 Anomaly AUC:0.5941
+[2023-08-28 00:57:42,249][main-autotune.py][line:103][INFO] [Epoch:19/25]: lr:0.00040 | loss1:0.6797 loss2:1.3393 loss3:0.2170 | AUC:0.7923 Anomaly AUC:0.5831
+[2023-08-28 00:58:11,205][main-autotune.py][line:103][INFO] [Epoch:20/25]: lr:0.00040 | loss1:0.3605 loss2:1.3392 loss3:0.1886 | AUC:0.7913 Anomaly AUC:0.5878
+[2023-08-28 00:58:36,849][main-autotune.py][line:103][INFO] [Epoch:21/25]: lr:0.00040 | loss1:0.2339 loss2:1.1465 loss3:0.1048 | AUC:0.7850 Anomaly AUC:0.5809
+[2023-08-28 00:59:02,512][main-autotune.py][line:103][INFO] [Epoch:22/25]: lr:0.00040 | loss1:0.1719 loss2:1.0543 loss3:0.0892 | AUC:0.7969 Anomaly AUC:0.5671
+[2023-08-28 00:59:31,633][main-autotune.py][line:103][INFO] [Epoch:23/25]: lr:0.00040 | loss1:0.1210 loss2:1.0172 loss3:0.0781 | AUC:0.8003 Anomaly AUC:0.5610
+[2023-08-28 00:59:57,440][main-autotune.py][line:103][INFO] [Epoch:24/25]: lr:0.00040 | loss1:0.0916 loss2:0.9895 loss3:0.0699 | AUC:0.7832 Anomaly AUC:0.5602
+[2023-08-28 01:00:23,076][main-autotune.py][line:103][INFO] [Epoch:25/25]: lr:0.00040 | loss1:0.0650 loss2:0.9546 loss3:0.0629 | AUC:0.7757 Anomaly AUC:0.5572
+[2023-08-28 01:00:23,077][main-autotune.py][line:111][INFO] Training completes in 11m 19s | best AUC:0.8003 Anomaly AUC:0.5843
+
+[2023-08-28 01:10:55,512][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4298 loss2:1.0254 loss3:0.3070 | AUC:0.8234 Anomaly AUC:0.6725
+[2023-08-28 01:11:25,548][main-autotune.py][line:103][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.2302 loss2:0.7865 loss3:0.1627 | AUC:0.8044 Anomaly AUC:0.6576
+[2023-08-28 01:11:51,869][main-autotune.py][line:103][INFO] [Epoch:3/25]: lr:0.00040 | loss1:0.1407 loss2:0.6795 loss3:0.0741 | AUC:0.8263 Anomaly AUC:0.6424
+[2023-08-28 01:12:20,557][main-autotune.py][line:103][INFO] [Epoch:4/25]: lr:0.00040 | loss1:0.0886 loss2:0.5897 loss3:0.0452 | AUC:0.8197 Anomaly AUC:0.6497
+[2023-08-28 01:12:48,047][main-autotune.py][line:103][INFO] [Epoch:5/25]: lr:0.00040 | loss1:0.0556 loss2:0.5154 loss3:0.0367 | AUC:0.8132 Anomaly AUC:0.6188
+[2023-08-28 01:13:15,374][main-autotune.py][line:103][INFO] [Epoch:6/25]: lr:0.00040 | loss1:0.0134 loss2:0.4126 loss3:0.0272 | AUC:0.8348 Anomaly AUC:0.6426
+[2023-08-28 01:13:42,812][main-autotune.py][line:103][INFO] [Epoch:7/25]: lr:0.00040 | loss1:0.0033 loss2:0.3051 loss3:0.0178 | AUC:0.8212 Anomaly AUC:0.6435
+[2023-08-28 01:14:09,967][main-autotune.py][line:103][INFO] [Epoch:8/25]: lr:0.00040 | loss1:0.0030 loss2:0.2344 loss3:0.0186 | AUC:0.8302 Anomaly AUC:0.6258
+[2023-08-28 01:14:37,054][main-autotune.py][line:103][INFO] [Epoch:9/25]: lr:0.00040 | loss1:0.0021 loss2:0.1714 loss3:0.0161 | AUC:0.8170 Anomaly AUC:0.6242
+[2023-08-28 01:15:02,479][main-autotune.py][line:103][INFO] [Epoch:10/25]: lr:0.00040 | loss1:0.0021 loss2:0.1344 loss3:0.0172 | AUC:0.8035 Anomaly AUC:0.6146
+[2023-08-28 01:15:29,523][main-autotune.py][line:103][INFO] [Epoch:11/25]: lr:0.00040 | loss1:0.0005 loss2:0.1059 loss3:0.0103 | AUC:0.8256 Anomaly AUC:0.6433
+[2023-08-28 01:15:55,124][main-autotune.py][line:103][INFO] [Epoch:12/25]: lr:0.00040 | loss1:0.0017 loss2:0.0991 loss3:0.0157 | AUC:0.8227 Anomaly AUC:0.6217
+[2023-08-28 01:16:21,202][main-autotune.py][line:103][INFO] [Epoch:13/25]: lr:0.00040 | loss1:0.0102 loss2:0.2610 loss3:0.0957 | AUC:0.7588 Anomaly AUC:0.6353
+[2023-08-28 01:16:47,693][main-autotune.py][line:103][INFO] [Epoch:14/25]: lr:0.00040 | loss1:0.0022 loss2:0.0826 loss3:0.0348 | AUC:0.8037 Anomaly AUC:0.6542
+[2023-08-28 01:17:13,982][main-autotune.py][line:103][INFO] [Epoch:15/25]: lr:0.00040 | loss1:0.0033 loss2:0.0992 loss3:0.0425 | AUC:0.8252 Anomaly AUC:0.6325
+[2023-08-28 01:17:40,214][main-autotune.py][line:103][INFO] [Epoch:16/25]: lr:0.00040 | loss1:0.0033 loss2:0.0821 loss3:0.0389 | AUC:0.7937 Anomaly AUC:0.6417
+[2023-08-28 01:18:06,474][main-autotune.py][line:103][INFO] [Epoch:17/25]: lr:0.00040 | loss1:0.0021 loss2:0.0565 loss3:0.0238 | AUC:0.7886 Anomaly AUC:0.6164
+[2023-08-28 01:18:32,674][main-autotune.py][line:103][INFO] [Epoch:18/25]: lr:0.00040 | loss1:0.0014 loss2:0.0482 loss3:0.0270 | AUC:0.7996 Anomaly AUC:0.6373
+[2023-08-28 01:18:58,734][main-autotune.py][line:103][INFO] [Epoch:19/25]: lr:0.00040 | loss1:0.0018 loss2:0.0661 loss3:0.0280 | AUC:0.7702 Anomaly AUC:0.6539
+[2023-08-28 01:19:24,870][main-autotune.py][line:103][INFO] [Epoch:20/25]: lr:0.00040 | loss1:0.0049 loss2:0.1066 loss3:0.0532 | AUC:0.7489 Anomaly AUC:0.5662
+[2023-08-28 01:19:50,959][main-autotune.py][line:103][INFO] [Epoch:21/25]: lr:0.00040 | loss1:0.0017 loss2:0.0430 loss3:0.0311 | AUC:0.7880 Anomaly AUC:0.6314
+[2023-08-28 01:20:16,982][main-autotune.py][line:103][INFO] [Epoch:22/25]: lr:0.00040 | loss1:0.0022 loss2:0.0400 loss3:0.0305 | AUC:0.7608 Anomaly AUC:0.6225
+[2023-08-28 01:20:43,261][main-autotune.py][line:103][INFO] [Epoch:23/25]: lr:0.00040 | loss1:0.0019 loss2:0.0327 loss3:0.0341 | AUC:0.7810 Anomaly AUC:0.6638
+[2023-08-28 01:21:09,534][main-autotune.py][line:103][INFO] [Epoch:24/25]: lr:0.00040 | loss1:0.0005 loss2:0.0170 loss3:0.0141 | AUC:0.8011 Anomaly AUC:0.6282
+[2023-08-28 01:21:35,792][main-autotune.py][line:103][INFO] [Epoch:25/25]: lr:0.00040 | loss1:0.0025 loss2:0.0219 loss3:0.0170 | AUC:0.8183 Anomaly AUC:0.6252
+[2023-08-28 01:21:35,793][main-autotune.py][line:111][INFO] Training completes in 11m 7s | best AUC:0.8348 Anomaly AUC:0.6426
+
+[2023-08-28 01:33:05,876][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4298 loss2:1.0254 loss3:0.3070 | AUC:0.8234 Anomaly AUC:0.6725
+[2023-08-28 01:33:36,899][main-autotune.py][line:103][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.2302 loss2:0.7865 loss3:0.1627 | AUC:0.8044 Anomaly AUC:0.6576
+[2023-08-28 01:34:07,136][main-autotune.py][line:103][INFO] [Epoch:3/25]: lr:0.00040 | loss1:0.1407 loss2:0.6795 loss3:0.0741 | AUC:0.8263 Anomaly AUC:0.6424
+[2023-08-28 01:35:13,426][main.py][line:118][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 25, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-28 01:35:13,533][main.py][line:154][INFO] total params:6.7833M
+[2023-08-28 01:35:13,533][main.py][line:157][INFO] Training Mode
+[2023-08-28 01:35:13,533][main.py][line:75][INFO] Model:XModel(
+  (net): WSAD(
+    (embedding): Temporal(
+      (conv_1): Sequential(
+        (0): Conv1d(1024, 512, kernel_size=(3,), stride=(1,), padding=(1,))
+        (1): ReLU()
+      )
+    )
+    (triplet): TripletMarginLoss()
+    (Amemory): Memory_Unit(
+      (sig): Sigmoid()
+    )
+    (Nmemory): Memory_Unit(
+      (sig): Sigmoid()
+    )
+    (selfatt): Transformer(
+      (layers): ModuleList(
+        (0-1): 2 x ModuleList(
+          (0): PreNorm(
+            (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+            (fn): Attention(
+              (attend): Softmax(dim=-1)
+              (to_qkv): Linear(in_features=512, out_features=2048, bias=False)
+              (to_out): Sequential(
+                (0): Linear(in_features=1024, out_features=512, bias=True)
+                (1): Dropout(p=0.5, inplace=False)
+              )
+            )
+          )
+          (1): PreNorm(
+            (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+            (fn): FeedForward(
+              (net): Sequential(
+                (0): Linear(in_features=512, out_features=512, bias=True)
+                (1): GELU(approximate='none')
+                (2): Dropout(p=0.5, inplace=False)
+                (3): Linear(in_features=512, out_features=512, bias=True)
+                (4): Dropout(p=0.5, inplace=False)
+              )
+            )
+          )
+        )
+      )
+    )
+    (relu): ReLU()
+    (encoder_mu): XEncoder(
+      (self_attn): TCA(
+        (q): Linear(in_features=512, out_features=64, bias=True)
+        (k): Linear(in_features=512, out_features=64, bias=True)
+        (v): Linear(in_features=512, out_features=64, bias=True)
+        (o): Linear(in_features=64, out_features=512, bias=True)
+        (act): Softmax(dim=-1)
+      )
+      (loc_adj): DistanceAdj()
+    )
+    (encoder_var): XEncoder(
+      (self_attn): TCA(
+        (q): Linear(in_features=512, out_features=64, bias=True)
+        (k): Linear(in_features=512, out_features=64, bias=True)
+        (v): Linear(in_features=512, out_features=64, bias=True)
+        (o): Linear(in_features=64, out_features=512, bias=True)
+        (act): Softmax(dim=-1)
+      )
+      (loc_adj): DistanceAdj()
+    )
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+  (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+  (dropout1): Dropout(p=0.1, inplace=False)
+  (dropout2): Dropout(p=0.1, inplace=False)
+)
+
+[2023-08-28 01:35:13,533][main.py][line:76][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0004
+    maximize: False
+    weight_decay: 5e-05
+)
+
+[2023-08-28 01:35:23,376][main.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 01:35:46,547][main.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 01:39:00,531][main.py][line:118][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 25, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-28 01:39:00,642][main.py][line:154][INFO] total params:6.7833M
+[2023-08-28 01:39:00,642][main.py][line:157][INFO] Training Mode
+[2023-08-28 01:39:00,642][main.py][line:75][INFO] Model:XModel(
+  (net): WSAD(
+    (embedding): Temporal(
+      (conv_1): Sequential(
+        (0): Conv1d(1024, 512, kernel_size=(3,), stride=(1,), padding=(1,))
+        (1): ReLU()
+      )
+    )
+    (triplet): TripletMarginLoss()
+    (Amemory): Memory_Unit(
+      (sig): Sigmoid()
+    )
+    (Nmemory): Memory_Unit(
+      (sig): Sigmoid()
+    )
+    (selfatt): Transformer(
+      (layers): ModuleList(
+        (0-1): 2 x ModuleList(
+          (0): PreNorm(
+            (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+            (fn): Attention(
+              (attend): Softmax(dim=-1)
+              (to_qkv): Linear(in_features=512, out_features=2048, bias=False)
+              (to_out): Sequential(
+                (0): Linear(in_features=1024, out_features=512, bias=True)
+                (1): Dropout(p=0.5, inplace=False)
+              )
+            )
+          )
+          (1): PreNorm(
+            (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+            (fn): FeedForward(
+              (net): Sequential(
+                (0): Linear(in_features=512, out_features=512, bias=True)
+                (1): GELU(approximate='none')
+                (2): Dropout(p=0.5, inplace=False)
+                (3): Linear(in_features=512, out_features=512, bias=True)
+                (4): Dropout(p=0.5, inplace=False)
+              )
+            )
+          )
+        )
+      )
+    )
+    (relu): ReLU()
+    (encoder_mu): XEncoder(
+      (self_attn): TCA(
+        (q): Linear(in_features=512, out_features=64, bias=True)
+        (k): Linear(in_features=512, out_features=64, bias=True)
+        (v): Linear(in_features=512, out_features=64, bias=True)
+        (o): Linear(in_features=64, out_features=512, bias=True)
+        (act): Softmax(dim=-1)
+      )
+      (loc_adj): DistanceAdj()
+    )
+    (encoder_var): XEncoder(
+      (self_attn): TCA(
+        (q): Linear(in_features=512, out_features=64, bias=True)
+        (k): Linear(in_features=512, out_features=64, bias=True)
+        (v): Linear(in_features=512, out_features=64, bias=True)
+        (o): Linear(in_features=64, out_features=512, bias=True)
+        (act): Softmax(dim=-1)
+      )
+      (loc_adj): DistanceAdj()
+    )
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+  (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+  (dropout1): Dropout(p=0.1, inplace=False)
+  (dropout2): Dropout(p=0.1, inplace=False)
+)
+
+[2023-08-28 01:39:00,642][main.py][line:76][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0004
+    maximize: False
+    weight_decay: 5e-05
+)
+
+[2023-08-28 01:39:10,449][main.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 01:39:33,318][main.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 01:40:29,315][main.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4298 loss2:1.0254 loss3:0.3070 | AUC:0.8234 Anomaly AUC:0.6725
+[2023-08-28 01:40:54,202][main.py][line:103][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.2302 loss2:0.7865 loss3:0.1627 | AUC:0.8044 Anomaly AUC:0.6576
+[2023-08-28 01:43:30,894][main-autotune.py][line:120][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 25, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-08-28 01:43:31,016][main-autotune.py][line:156][INFO] total params:6.7833M
+[2023-08-28 01:43:31,016][main-autotune.py][line:75][INFO] Model:XModel(
+  (net): WSAD(
+    (embedding): Temporal(
+      (conv_1): Sequential(
+        (0): Conv1d(1024, 512, kernel_size=(3,), stride=(1,), padding=(1,))
+        (1): ReLU()
+      )
+    )
+    (triplet): TripletMarginLoss()
+    (Amemory): Memory_Unit(
+      (sig): Sigmoid()
+    )
+    (Nmemory): Memory_Unit(
+      (sig): Sigmoid()
+    )
+    (selfatt): Transformer(
+      (layers): ModuleList(
+        (0-1): 2 x ModuleList(
+          (0): PreNorm(
+            (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+            (fn): Attention(
+              (attend): Softmax(dim=-1)
+              (to_qkv): Linear(in_features=512, out_features=2048, bias=False)
+              (to_out): Sequential(
+                (0): Linear(in_features=1024, out_features=512, bias=True)
+                (1): Dropout(p=0.5, inplace=False)
+              )
+            )
+          )
+          (1): PreNorm(
+            (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+            (fn): FeedForward(
+              (net): Sequential(
+                (0): Linear(in_features=512, out_features=512, bias=True)
+                (1): GELU(approximate='none')
+                (2): Dropout(p=0.5, inplace=False)
+                (3): Linear(in_features=512, out_features=512, bias=True)
+                (4): Dropout(p=0.5, inplace=False)
+              )
+            )
+          )
+        )
+      )
+    )
+    (relu): ReLU()
+    (encoder_mu): XEncoder(
+      (self_attn): TCA(
+        (q): Linear(in_features=512, out_features=64, bias=True)
+        (k): Linear(in_features=512, out_features=64, bias=True)
+        (v): Linear(in_features=512, out_features=64, bias=True)
+        (o): Linear(in_features=64, out_features=512, bias=True)
+        (act): Softmax(dim=-1)
+      )
+      (loc_adj): DistanceAdj()
+    )
+    (encoder_var): XEncoder(
+      (self_attn): TCA(
+        (q): Linear(in_features=512, out_features=64, bias=True)
+        (k): Linear(in_features=512, out_features=64, bias=True)
+        (v): Linear(in_features=512, out_features=64, bias=True)
+        (o): Linear(in_features=64, out_features=512, bias=True)
+        (act): Softmax(dim=-1)
+      )
+      (loc_adj): DistanceAdj()
+    )
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+  (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+  (dropout1): Dropout(p=0.1, inplace=False)
+  (dropout2): Dropout(p=0.1, inplace=False)
+)
+
+[2023-08-28 01:43:31,016][main-autotune.py][line:76][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0004
+    maximize: False
+    weight_decay: 5e-05
+)
+
+[2023-08-28 01:43:40,795][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 01:44:03,646][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 01:44:31,894][main-autotune.py][line:103][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.2574 loss2:0.8311 loss3:0.1632 | AUC:0.8291 Anomaly AUC:0.6542
+[2023-08-28 01:45:09,081][main-autotune.py][line:156][INFO] total params:6.7833M
+[2023-08-28 01:45:43,393][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4298 loss2:1.0254 loss3:0.3070 | AUC:0.8234 Anomaly AUC:0.6725
+[2023-08-28 01:46:50,687][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4298 loss2:1.0254 loss3:0.3070 | AUC:0.8234 Anomaly AUC:0.6725
+[2023-08-28 01:47:07,040][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 01:47:32,437][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 01:47:54,784][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6132 Anomaly AUC:0.51143
+[2023-08-28 01:48:24,392][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 01:50:31,245][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 01:50:57,462][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 01:59:28,085][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 01:59:54,522][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:00:57,480][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:02:16,046][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:02:42,341][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:03:04,980][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.0000 Anomaly AUC:0.00000
+[2023-08-28 02:03:39,066][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4298 loss2:1.0254 loss3:0.3070 | AUC:0.8234 Anomaly AUC:0.6725
+[2023-08-28 02:06:59,008][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:07:24,557][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:07:51,361][main-autotune.py][line:103][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.2574 loss2:0.8311 loss3:0.1632 | AUC:0.8291 Anomaly AUC:0.6542
+[2023-08-28 02:08:25,813][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.0000 Anomaly AUC:0.00000
+[2023-08-28 02:08:47,437][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.0000 Anomaly AUC:0.0000
+[2023-08-28 02:09:25,387][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.0000 Anomaly AUC:0.00000
+[2023-08-28 02:09:43,368][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4298 loss2:1.0254 loss3:0.3070 | AUC:0.0000 Anomaly AUC:0.0000
+[2023-08-28 02:10:40,841][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6132 Anomaly AUC:0.51143
+[2023-08-28 02:11:05,945][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:11:39,740][main-autotune.py][line:103][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.2574 loss2:0.8311 loss3:0.1632 | AUC:0.8305 Anomaly AUC:0.6581
+[2023-08-28 02:12:55,705][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.0000 Anomaly AUC:0.00000
+[2023-08-28 02:13:12,781][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.0000 Anomaly AUC:0.0000
+[2023-08-28 02:13:29,453][main-autotune.py][line:103][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.2574 loss2:0.8311 loss3:0.1632 | AUC:0.0000 Anomaly AUC:0.0000
+[2023-08-28 02:14:25,753][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.0000 Anomaly AUC:0.00000
+[2023-08-28 02:14:47,048][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.0000 Anomaly AUC:0.0000
+[2023-08-28 02:15:07,300][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.0000 Anomaly AUC:0.00000
+[2023-08-28 02:15:25,442][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4298 loss2:1.0254 loss3:0.3070 | AUC:0.0000 Anomaly AUC:0.0000
+[2023-08-28 02:18:22,358][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:18:48,936][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:19:39,988][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:20:07,471][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:23:45,980][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:24:08,900][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:25:30,940][main-autotune.py][line:79][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:25:57,212][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:26:27,283][main-autotune.py][line:103][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.2574 loss2:0.8311 loss3:0.1632 | AUC:0.8291 Anomaly AUC:0.6542
+[2023-08-28 02:29:51,973][main-autotune.py][line:60][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:30:17,832][main-autotune.py][line:103][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:31:03,080][main-autotune.py][line:60][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:31:30,383][main-autotune.py][line:105][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4053 loss2:1.0035 loss3:0.3456 | AUC:0.7839 Anomaly AUC:0.6218
+[2023-08-28 02:31:58,031][main-autotune.py][line:105][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.2121 loss2:0.7671 loss3:0.2163 | AUC:0.8254 Anomaly AUC:0.6408
+[2023-08-28 02:32:27,673][main-autotune.py][line:105][INFO] [Epoch:3/25]: lr:0.00040 | loss1:0.1115 loss2:0.6492 loss3:0.1325 | AUC:0.8342 Anomaly AUC:0.6474
+[2023-08-28 02:34:29,202][main-autotune.py][line:60][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:34:55,750][main-autotune.py][line:106][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:35:38,682][main-autotune.py][line:61][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:36:10,360][main-autotune.py][line:106][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:40:04,268][main-autotune.py][line:108][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:43:52,412][main-autotune.py][line:108][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:44:47,375][main-autotune.py][line:108][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4209 loss2:1.0286 loss3:0.3428 | AUC:0.7704 Anomaly AUC:0.6412
+[2023-08-28 02:45:15,644][main-autotune.py][line:108][INFO] [Epoch:2/25]: lr:0.00040 | loss1:0.2342 loss2:0.7997 loss3:0.2268 | AUC:0.8172 Anomaly AUC:0.6509
+[2023-08-28 02:46:08,867][main-autotune.py][line:104][INFO] [Epoch:1/25]: lr:0.00040 | loss1:0.4209 loss2:1.0286 loss3:0.3428 | AUC:0.7704 Anomaly AUC:0.6412
+[2023-08-28 02:46:56,403][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 02:47:50,394][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4421 loss2:1.1054 loss3:0.3117 | AUC:0.8257 Anomaly AUC:0.6449
+[2023-08-28 02:49:55,423][main-autotune.py][line:60][INFO] Random initialize AUCAUC:0.6130 Anomaly AUC:0.51121
+[2023-08-28 02:51:03,184][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00090 | loss1:0.5162 loss2:1.2083 loss3:0.2080 | AUC:0.8063 Anomaly AUC:0.6077
+[2023-08-28 02:52:12,104][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00070 | loss1:0.4832 loss2:1.1943 loss3:0.2693 | AUC:0.8044 Anomaly AUC:0.6189
+[2023-08-28 02:52:45,864][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00070 | loss1:0.2886 loss2:0.9815 loss3:0.1091 | AUC:0.8029 Anomaly AUC:0.6289
+[2023-08-28 02:53:11,197][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00070 | loss1:0.2328 loss2:0.9077 loss3:0.0643 | AUC:0.8032 Anomaly AUC:0.6611
+[2023-08-28 02:53:41,621][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00070 | loss1:0.1901 loss2:0.8596 loss3:0.0433 | AUC:0.8271 Anomaly AUC:0.6560
+[2023-08-28 02:54:07,098][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00070 | loss1:0.1336 loss2:0.7803 loss3:0.0315 | AUC:0.8110 Anomaly AUC:0.6159
+[2023-08-28 02:54:37,566][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00070 | loss1:0.1287 loss2:0.7535 loss3:0.0291 | AUC:0.8213 Anomaly AUC:0.6448
+[2023-08-28 02:55:08,475][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00070 | loss1:0.0887 loss2:0.7012 loss3:0.0224 | AUC:0.8032 Anomaly AUC:0.6253
+[2023-08-28 02:55:34,243][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00070 | loss1:0.0648 loss2:0.6648 loss3:0.0176 | AUC:0.8159 Anomaly AUC:0.6373
+[2023-08-28 02:56:03,081][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00070 | loss1:0.0374 loss2:0.6184 loss3:0.0135 | AUC:0.8179 Anomaly AUC:0.6399
+[2023-08-28 02:56:28,669][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00070 | loss1:0.0557 loss2:0.6124 loss3:0.0158 | AUC:0.7692 Anomaly AUC:0.5934
+[2023-08-28 02:56:57,023][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00070 | loss1:0.0361 loss2:0.5741 loss3:0.0127 | AUC:0.8235 Anomaly AUC:0.6560
+[2023-08-28 02:57:22,822][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00070 | loss1:0.0338 loss2:0.5459 loss3:0.0122 | AUC:0.7916 Anomaly AUC:0.6321
+[2023-08-28 02:57:52,935][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00070 | loss1:0.0249 loss2:0.5054 loss3:0.0105 | AUC:0.7907 Anomaly AUC:0.6072
+[2023-08-28 02:58:18,600][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00070 | loss1:0.0208 loss2:0.4739 loss3:0.0099 | AUC:0.7919 Anomaly AUC:0.6163
+[2023-08-28 02:58:48,752][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00070 | loss1:0.0123 loss2:0.4324 loss3:0.0083 | AUC:0.8167 Anomaly AUC:0.6088
+[2023-08-28 02:59:14,494][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00070 | loss1:0.0203 loss2:0.4248 loss3:0.0087 | AUC:0.7874 Anomaly AUC:0.6142
+[2023-08-28 02:59:43,078][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00070 | loss1:0.0165 loss2:0.3784 loss3:0.0084 | AUC:0.7692 Anomaly AUC:0.5766
+[2023-08-28 03:00:08,916][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00070 | loss1:0.0283 loss2:0.3403 loss3:0.0102 | AUC:0.8087 Anomaly AUC:0.6368
+[2023-08-28 03:00:34,482][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00070 | loss1:0.0120 loss2:0.2995 loss3:0.0076 | AUC:0.7949 Anomaly AUC:0.5942
+[2023-08-28 03:01:03,303][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00070 | loss1:0.0081 loss2:0.2395 loss3:0.0066 | AUC:0.7880 Anomaly AUC:0.5884
+[2023-08-28 03:01:03,304][main-autotune.py][line:112][INFO] Training completes in 9m 18s | best AUC:0.8271 Anomaly AUC:0.6560
+
+[2023-08-28 03:08:20,308][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 03:08:46,378][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2574 loss2:0.8311 loss3:0.1632 | AUC:0.8291 Anomaly AUC:0.6542
+[2023-08-28 03:09:14,513][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.1816 loss2:0.7490 loss3:0.1011 | AUC:0.8277 Anomaly AUC:0.6658
+[2023-08-28 03:10:10,239][main-autotune.py][line:104][INFO] [Epoch:1/1]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 03:10:10,239][main-autotune.py][line:112][INFO] Training completes in 0m 28s | best AUC:0.8292 Anomaly AUC:0.6400
+
+[2023-08-28 03:10:50,286][main-autotune.py][line:104][INFO] [Epoch:1/1]: lr:0.00020 | loss1:0.4042 loss2:1.2122 loss3:0.3381 | AUC:0.8065 Anomaly AUC:0.6096
+[2023-08-28 03:10:50,287][main-autotune.py][line:112][INFO] Training completes in 0m 28s | best AUC:0.8065 Anomaly AUC:0.6096
+
+[2023-08-28 03:11:49,096][main-autotune.py][line:104][INFO] [Epoch:1/1]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 03:11:49,096][main-autotune.py][line:114][INFO] Training completes in 0m 25s | best AUC:0.8292 Anomaly AUC:0.6400
+
+[2023-08-28 03:13:18,914][main-autotune.py][line:104][INFO] [Epoch:1/1]: lr:0.00020 | loss1:0.4042 loss2:1.2122 loss3:0.3381 | AUC:0.8065 Anomaly AUC:0.6096
+[2023-08-28 03:13:18,914][main-autotune.py][line:114][INFO] Training completes in 0m 30s | best AUC:0.8065 Anomaly AUC:0.6096
+
+[2023-08-28 03:14:32,360][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 03:14:57,633][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2574 loss2:0.8311 loss3:0.1632 | AUC:0.8291 Anomaly AUC:0.6542
+[2023-08-28 03:15:24,961][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.1816 loss2:0.7490 loss3:0.1011 | AUC:0.8277 Anomaly AUC:0.6658
+[2023-08-28 03:15:52,992][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00040 | loss1:0.1180 loss2:0.6612 loss3:0.0659 | AUC:0.8243 Anomaly AUC:0.6917
+[2023-08-28 03:16:18,591][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00040 | loss1:0.0944 loss2:0.6163 loss3:0.0406 | AUC:0.8194 Anomaly AUC:0.6632
+[2023-08-28 03:16:46,282][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00040 | loss1:0.0717 loss2:0.5554 loss3:0.0280 | AUC:0.8338 Anomaly AUC:0.6717
+[2023-08-28 03:17:14,822][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00040 | loss1:0.0482 loss2:0.4887 loss3:0.0201 | AUC:0.8258 Anomaly AUC:0.6704
+[2023-08-28 03:17:40,873][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00040 | loss1:0.0632 loss2:0.4865 loss3:0.0226 | AUC:0.8363 Anomaly AUC:0.6844
+[2023-08-28 03:18:08,302][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00040 | loss1:0.0328 loss2:0.3978 loss3:0.0163 | AUC:0.8491 Anomaly AUC:0.6665
+[2023-08-28 03:18:35,899][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00040 | loss1:0.0102 loss2:0.3134 loss3:0.0117 | AUC:0.8338 Anomaly AUC:0.6967
+[2023-08-28 03:19:09,084][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00040 | loss1:0.0425 loss2:0.3444 loss3:0.0177 | AUC:0.8401 Anomaly AUC:0.6621
+[2023-08-28 03:19:35,117][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00040 | loss1:0.0270 loss2:0.2720 loss3:0.0145 | AUC:0.8634 Anomaly AUC:0.7013
+[2023-08-28 03:20:02,393][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00040 | loss1:0.0160 loss2:0.2165 loss3:0.0123 | AUC:0.8475 Anomaly AUC:0.6874
+[2023-08-28 03:20:29,132][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00040 | loss1:0.0101 loss2:0.1609 loss3:0.0109 | AUC:0.8531 Anomaly AUC:0.6722
+[2023-08-28 03:20:55,069][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00040 | loss1:0.0560 loss2:0.2441 loss3:0.0183 | AUC:0.8511 Anomaly AUC:0.7041
+[2023-08-28 03:21:25,141][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00040 | loss1:0.0154 loss2:0.1313 loss3:0.0126 | AUC:0.8577 Anomaly AUC:0.6884
+[2023-08-28 03:21:50,927][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00040 | loss1:0.0164 loss2:0.1224 loss3:0.0121 | AUC:0.8542 Anomaly AUC:0.6889
+[2023-08-28 03:22:18,206][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00040 | loss1:0.0144 loss2:0.1036 loss3:0.0117 | AUC:0.8527 Anomaly AUC:0.7082
+[2023-08-28 03:22:44,110][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00040 | loss1:0.0112 loss2:0.0830 loss3:0.0109 | AUC:0.8458 Anomaly AUC:0.6568
+[2023-08-28 03:23:10,056][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00040 | loss1:0.0249 loss2:0.0870 loss3:0.0122 | AUC:0.8391 Anomaly AUC:0.6703
+[2023-08-28 03:23:10,057][main-autotune.py][line:114][INFO] Training completes in 9m 6s | best AUC:0.8634 Anomaly AUC:0.7013
+
+[2023-08-28 03:23:47,860][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00020 | loss1:0.4042 loss2:1.2122 loss3:0.3381 | AUC:0.8065 Anomaly AUC:0.6096
+[2023-08-28 03:24:15,081][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00020 | loss1:0.2246 loss2:0.9877 loss3:0.2194 | AUC:0.8113 Anomaly AUC:0.6299
+[2023-08-28 03:24:42,967][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00020 | loss1:0.1709 loss2:0.8911 loss3:0.1460 | AUC:0.8335 Anomaly AUC:0.6537
+[2023-08-28 03:25:08,353][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00020 | loss1:0.0952 loss2:0.8200 loss3:0.0973 | AUC:0.8316 Anomaly AUC:0.6679
+[2023-08-28 03:25:41,512][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00020 | loss1:0.0577 loss2:0.7746 loss3:0.0628 | AUC:0.8080 Anomaly AUC:0.6359
+[2023-08-28 03:26:06,798][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00020 | loss1:0.0477 loss2:0.7494 loss3:0.0386 | AUC:0.8146 Anomaly AUC:0.6290
+[2023-08-28 03:26:37,322][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00020 | loss1:0.0284 loss2:0.7196 loss3:0.0234 | AUC:0.8283 Anomaly AUC:0.6415
+[2023-08-28 03:27:02,779][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00020 | loss1:0.0300 loss2:0.6933 loss3:0.0195 | AUC:0.8159 Anomaly AUC:0.6587
+[2023-08-28 03:27:30,122][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00020 | loss1:0.0313 loss2:0.6876 loss3:0.0182 | AUC:0.8126 Anomaly AUC:0.6679
+[2023-08-28 03:27:57,420][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00020 | loss1:0.0212 loss2:0.6508 loss3:0.0151 | AUC:0.8116 Anomaly AUC:0.6361
+[2023-08-28 03:28:28,050][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00020 | loss1:0.0214 loss2:0.6432 loss3:0.0158 | AUC:0.8394 Anomaly AUC:0.6567
+[2023-08-28 03:28:53,827][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00020 | loss1:0.0318 loss2:0.6292 loss3:0.0206 | AUC:0.8201 Anomaly AUC:0.6549
+[2023-08-28 03:29:21,557][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00020 | loss1:0.0060 loss2:0.5834 loss3:0.0188 | AUC:0.8011 Anomaly AUC:0.6472
+[2023-08-28 03:29:47,466][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00020 | loss1:0.0076 loss2:0.5703 loss3:0.0228 | AUC:0.7131 Anomaly AUC:0.5247
+[2023-08-28 03:30:13,417][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00020 | loss1:0.0035 loss2:0.5378 loss3:0.0209 | AUC:0.8272 Anomaly AUC:0.6429
+[2023-08-28 03:30:42,599][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00020 | loss1:0.0004 loss2:0.4726 loss3:0.0094 | AUC:0.8317 Anomaly AUC:0.6329
+[2023-08-28 03:31:08,286][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00020 | loss1:0.0003 loss2:0.4241 loss3:0.0084 | AUC:0.8380 Anomaly AUC:0.6424
+[2023-08-28 03:31:33,912][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00020 | loss1:0.0026 loss2:0.3921 loss3:0.0139 | AUC:0.7411 Anomaly AUC:0.4863
+[2023-08-28 03:32:02,910][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00020 | loss1:0.0084 loss2:0.5164 loss3:0.0498 | AUC:0.7846 Anomaly AUC:0.5802
+[2023-08-28 03:32:28,610][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00020 | loss1:0.0035 loss2:0.4464 loss3:0.0350 | AUC:0.8056 Anomaly AUC:0.6036
+[2023-08-28 03:32:28,611][main-autotune.py][line:114][INFO] Training completes in 9m 6s | best AUC:0.8394 Anomaly AUC:0.6567
+
+[2023-08-28 03:33:08,519][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00010 | loss1:0.4287 loss2:1.0685 loss3:0.3564 | AUC:0.7894 Anomaly AUC:0.6181
+[2023-08-28 03:33:33,169][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00010 | loss1:0.2258 loss2:0.8103 loss3:0.2833 | AUC:0.8076 Anomaly AUC:0.6462
+[2023-08-28 03:34:00,232][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00010 | loss1:0.1539 loss2:0.7209 loss3:0.2281 | AUC:0.8202 Anomaly AUC:0.6605
+[2023-08-28 03:34:27,726][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00010 | loss1:0.0757 loss2:0.6442 loss3:0.1735 | AUC:0.7935 Anomaly AUC:0.6654
+[2023-08-28 03:34:53,007][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00010 | loss1:0.0452 loss2:0.5884 loss3:0.1317 | AUC:0.8370 Anomaly AUC:0.6641
+[2023-08-28 03:35:20,168][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00010 | loss1:0.0264 loss2:0.5367 loss3:0.1050 | AUC:0.8390 Anomaly AUC:0.6707
+[2023-08-28 03:35:48,279][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00010 | loss1:0.0448 loss2:0.5189 loss3:0.0945 | AUC:0.8156 Anomaly AUC:0.6579
+[2023-08-28 03:36:13,921][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00010 | loss1:0.0187 loss2:0.4749 loss3:0.0841 | AUC:0.8232 Anomaly AUC:0.6769
+[2023-08-28 03:36:41,060][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00010 | loss1:0.0031 loss2:0.4055 loss3:0.0698 | AUC:0.8323 Anomaly AUC:0.6669
+[2023-08-28 03:37:08,169][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00010 | loss1:0.0036 loss2:0.3669 loss3:0.0623 | AUC:0.8177 Anomaly AUC:0.6613
+[2023-08-28 03:37:33,701][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00010 | loss1:0.0022 loss2:0.3328 loss3:0.0524 | AUC:0.8269 Anomaly AUC:0.6660
+[2023-08-28 03:38:00,866][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00010 | loss1:0.0468 loss2:0.3572 loss3:0.0489 | AUC:0.8104 Anomaly AUC:0.6498
+[2023-08-28 03:38:26,992][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00010 | loss1:0.0131 loss2:0.3278 loss3:0.0395 | AUC:0.8362 Anomaly AUC:0.6537
+[2023-08-28 03:38:52,621][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00010 | loss1:0.0078 loss2:0.2876 loss3:0.0289 | AUC:0.8113 Anomaly AUC:0.6543
+[2023-08-28 03:39:21,405][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00010 | loss1:0.0018 loss2:0.2473 loss3:0.0205 | AUC:0.8170 Anomaly AUC:0.6489
+[2023-08-28 03:39:47,428][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00010 | loss1:0.0012 loss2:0.2270 loss3:0.0169 | AUC:0.8206 Anomaly AUC:0.6477
+[2023-08-28 03:40:13,009][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00010 | loss1:0.0013 loss2:0.2107 loss3:0.0149 | AUC:0.8246 Anomaly AUC:0.6543
+[2023-08-28 03:40:40,139][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00010 | loss1:0.0009 loss2:0.1957 loss3:0.0133 | AUC:0.8294 Anomaly AUC:0.6543
+[2023-08-28 03:41:06,217][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00010 | loss1:0.0008 loss2:0.1851 loss3:0.0121 | AUC:0.8244 Anomaly AUC:0.6474
+[2023-08-28 03:41:31,861][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00010 | loss1:0.0134 loss2:0.1932 loss3:0.0138 | AUC:0.7810 Anomaly AUC:0.6024
+[2023-08-28 03:41:31,862][main-autotune.py][line:114][INFO] Training completes in 8m 51s | best AUC:0.8390 Anomaly AUC:0.6707
+
+[2023-08-28 03:42:09,418][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00060 | loss1:0.4859 loss2:1.1818 loss3:0.2792 | AUC:0.8150 Anomaly AUC:0.6195
+[2023-08-28 03:42:36,521][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00060 | loss1:0.2950 loss2:0.9307 loss3:0.1133 | AUC:0.8150 Anomaly AUC:0.6559
+[2023-08-28 03:43:04,244][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00060 | loss1:0.2243 loss2:0.8324 loss3:0.0582 | AUC:0.8294 Anomaly AUC:0.6707
+[2023-08-28 03:43:29,431][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00060 | loss1:0.1575 loss2:0.7627 loss3:0.0404 | AUC:0.8319 Anomaly AUC:0.6562
+[2023-08-28 03:44:03,317][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00060 | loss1:0.1025 loss2:0.7041 loss3:0.0293 | AUC:0.8372 Anomaly AUC:0.6507
+[2023-08-28 03:44:28,809][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00060 | loss1:0.0737 loss2:0.6529 loss3:0.0225 | AUC:0.8346 Anomaly AUC:0.6636
+[2023-08-28 03:44:57,993][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00060 | loss1:0.0630 loss2:0.6124 loss3:0.0210 | AUC:0.8370 Anomaly AUC:0.6650
+[2023-08-28 03:45:25,723][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00060 | loss1:0.0360 loss2:0.5502 loss3:0.0163 | AUC:0.8359 Anomaly AUC:0.6612
+[2023-08-28 03:46:01,410][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00060 | loss1:0.0412 loss2:0.5108 loss3:0.0161 | AUC:0.8229 Anomaly AUC:0.6396
+[2023-08-28 03:46:28,969][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00060 | loss1:0.0309 loss2:0.4656 loss3:0.0151 | AUC:0.8272 Anomaly AUC:0.6629
+[2023-08-28 03:46:58,003][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00060 | loss1:0.0253 loss2:0.4212 loss3:0.0135 | AUC:0.8438 Anomaly AUC:0.6777
+[2023-08-28 03:47:23,618][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00060 | loss1:0.0163 loss2:0.3730 loss3:0.0118 | AUC:0.8325 Anomaly AUC:0.6655
+[2023-08-28 03:47:55,308][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00060 | loss1:0.0104 loss2:0.3150 loss3:0.0109 | AUC:0.8486 Anomaly AUC:0.6756
+[2023-08-28 03:48:20,873][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00060 | loss1:0.0230 loss2:0.3018 loss3:0.0124 | AUC:0.8334 Anomaly AUC:0.6643
+[2023-08-28 03:48:49,612][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00060 | loss1:0.0090 loss2:0.2176 loss3:0.0100 | AUC:0.8263 Anomaly AUC:0.6484
+[2023-08-28 03:49:15,109][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00060 | loss1:0.0273 loss2:0.2379 loss3:0.0131 | AUC:0.8336 Anomaly AUC:0.6735
+[2023-08-28 03:49:44,547][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00060 | loss1:0.0182 loss2:0.1991 loss3:0.0118 | AUC:0.8265 Anomaly AUC:0.6491
+[2023-08-28 03:50:10,015][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00060 | loss1:0.0198 loss2:0.1926 loss3:0.0125 | AUC:0.8192 Anomaly AUC:0.6521
+[2023-08-28 03:50:39,156][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00060 | loss1:0.0209 loss2:0.1738 loss3:0.0119 | AUC:0.8307 Anomaly AUC:0.6486
+[2023-08-28 03:51:04,773][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00060 | loss1:0.0143 loss2:0.1371 loss3:0.0105 | AUC:0.8314 Anomaly AUC:0.6571
+[2023-08-28 03:51:04,774][main-autotune.py][line:114][INFO] Training completes in 9m 20s | best AUC:0.8486 Anomaly AUC:0.6756
+
+[2023-08-28 03:51:44,885][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4095 loss2:1.1759 loss3:0.3055 | AUC:0.8093 Anomaly AUC:0.6082
+[2023-08-28 03:52:09,829][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2426 loss2:0.9659 loss3:0.1580 | AUC:0.8182 Anomaly AUC:0.6232
+[2023-08-28 03:52:37,487][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.2044 loss2:0.8931 loss3:0.1022 | AUC:0.8244 Anomaly AUC:0.6724
+[2023-08-28 03:53:05,251][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00040 | loss1:0.1315 loss2:0.8188 loss3:0.0620 | AUC:0.8185 Anomaly AUC:0.6576
+[2023-08-28 03:53:30,652][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00040 | loss1:0.0942 loss2:0.7702 loss3:0.0384 | AUC:0.8251 Anomaly AUC:0.6638
+[2023-08-28 03:53:59,569][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00040 | loss1:0.0808 loss2:0.7420 loss3:0.0277 | AUC:0.7906 Anomaly AUC:0.6658
+[2023-08-28 03:54:26,205][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00040 | loss1:0.0950 loss2:0.7516 loss3:0.0317 | AUC:0.8153 Anomaly AUC:0.6719
+[2023-08-28 03:54:54,214][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00040 | loss1:0.0567 loss2:0.7043 loss3:0.0204 | AUC:0.8376 Anomaly AUC:0.6741
+[2023-08-28 03:55:20,981][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00040 | loss1:0.0252 loss2:0.6662 loss3:0.0139 | AUC:0.8233 Anomaly AUC:0.6770
+[2023-08-28 03:55:46,568][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00040 | loss1:0.0631 loss2:0.6812 loss3:0.0218 | AUC:0.7813 Anomaly AUC:0.6792
+[2023-08-28 03:56:13,674][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00040 | loss1:0.0561 loss2:0.7907 loss3:0.0228 | AUC:0.8268 Anomaly AUC:0.6521
+[2023-08-28 03:56:40,003][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00040 | loss1:0.0304 loss2:0.7042 loss3:0.0145 | AUC:0.7888 Anomaly AUC:0.6789
+[2023-08-28 03:57:05,572][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00040 | loss1:0.0317 loss2:0.6612 loss3:0.0138 | AUC:0.8018 Anomaly AUC:0.6731
+[2023-08-28 03:57:36,293][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00040 | loss1:0.0207 loss2:0.6205 loss3:0.0117 | AUC:0.8266 Anomaly AUC:0.6514
+[2023-08-28 03:58:02,104][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00040 | loss1:0.0244 loss2:0.5970 loss3:0.0122 | AUC:0.8036 Anomaly AUC:0.6233
+[2023-08-28 03:58:31,340][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00040 | loss1:0.0128 loss2:0.5605 loss3:0.0102 | AUC:0.8306 Anomaly AUC:0.6817
+[2023-08-28 03:58:57,239][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00040 | loss1:0.0186 loss2:0.5497 loss3:0.0113 | AUC:0.8249 Anomaly AUC:0.6419
+[2023-08-28 03:59:26,381][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00040 | loss1:0.0206 loss2:0.5341 loss3:0.0127 | AUC:0.8174 Anomaly AUC:0.6601
+[2023-08-28 03:59:52,018][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00040 | loss1:0.0296 loss2:0.5473 loss3:0.0151 | AUC:0.8353 Anomaly AUC:0.6519
+[2023-08-28 04:00:22,601][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00040 | loss1:0.0291 loss2:0.5219 loss3:0.0139 | AUC:0.8058 Anomaly AUC:0.6311
+[2023-08-28 04:00:22,602][main-autotune.py][line:114][INFO] Training completes in 9m 5s | best AUC:0.8376 Anomaly AUC:0.6741
+
+[2023-08-28 04:01:05,326][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00020 | loss1:0.3967 loss2:1.0936 loss3:0.3681 | AUC:0.8094 Anomaly AUC:0.6204
+[2023-08-28 04:01:30,525][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00020 | loss1:0.1992 loss2:0.8418 loss3:0.3174 | AUC:0.8056 Anomaly AUC:0.6138
+[2023-08-28 04:02:00,248][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00020 | loss1:0.1138 loss2:0.7566 loss3:0.2737 | AUC:0.8172 Anomaly AUC:0.6303
+[2023-08-28 04:02:26,318][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00020 | loss1:0.0302 loss2:0.6569 loss3:0.2232 | AUC:0.8296 Anomaly AUC:0.6532
+[2023-08-28 04:02:56,743][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00020 | loss1:0.0091 loss2:0.5819 loss3:0.1876 | AUC:0.8223 Anomaly AUC:0.6294
+[2023-08-28 04:03:23,707][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00020 | loss1:0.0058 loss2:0.5130 loss3:0.1585 | AUC:0.8086 Anomaly AUC:0.6148
+[2023-08-28 04:03:51,308][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00020 | loss1:0.0066 loss2:0.4737 loss3:0.1490 | AUC:0.8156 Anomaly AUC:0.6446
+[2023-08-28 04:04:21,161][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00020 | loss1:0.0017 loss2:0.3966 loss3:0.1255 | AUC:0.8185 Anomaly AUC:0.6457
+[2023-08-28 04:04:46,996][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00020 | loss1:0.0029 loss2:0.3394 loss3:0.1050 | AUC:0.8328 Anomaly AUC:0.6398
+[2023-08-28 04:05:16,509][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00020 | loss1:0.0083 loss2:0.3576 loss3:0.1178 | AUC:0.8133 Anomaly AUC:0.6102
+[2023-08-28 04:05:42,401][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00020 | loss1:0.0021 loss2:0.2963 loss3:0.1162 | AUC:0.8180 Anomaly AUC:0.6466
+[2023-08-28 04:06:11,394][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00020 | loss1:0.0025 loss2:0.2422 loss3:0.0993 | AUC:0.8135 Anomaly AUC:0.6542
+[2023-08-28 04:06:38,186][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00020 | loss1:0.0013 loss2:0.1970 loss3:0.0880 | AUC:0.8307 Anomaly AUC:0.6665
+[2023-08-28 04:07:08,908][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00020 | loss1:0.0007 loss2:0.1546 loss3:0.0676 | AUC:0.8294 Anomaly AUC:0.6508
+[2023-08-28 04:07:35,032][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00020 | loss1:0.1729 loss2:0.6052 loss3:0.2192 | AUC:0.6817 Anomaly AUC:0.6198
+[2023-08-28 04:08:02,459][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00020 | loss1:0.0026 loss2:0.4876 loss3:0.2451 | AUC:0.8029 Anomaly AUC:0.6463
+[2023-08-28 04:08:28,951][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00020 | loss1:0.0022 loss2:0.2495 loss3:0.1388 | AUC:0.7805 Anomaly AUC:0.5847
+[2023-08-28 04:08:54,813][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00020 | loss1:0.0020 loss2:0.1825 loss3:0.1149 | AUC:0.7750 Anomaly AUC:0.5840
+[2023-08-28 04:09:23,696][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00020 | loss1:0.0018 loss2:0.1371 loss3:0.0895 | AUC:0.8179 Anomaly AUC:0.6281
+[2023-08-28 04:09:49,889][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00020 | loss1:0.0014 loss2:0.1233 loss3:0.0794 | AUC:0.7658 Anomaly AUC:0.5911
+[2023-08-28 04:09:49,890][main-autotune.py][line:114][INFO] Training completes in 9m 15s | best AUC:0.8328 Anomaly AUC:0.6398
+
+[2023-08-28 04:10:29,968][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4305 loss2:1.2473 loss3:0.2764 | AUC:0.7983 Anomaly AUC:0.5936
+[2023-08-28 04:10:54,904][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2356 loss2:1.0907 loss3:0.1269 | AUC:0.8084 Anomaly AUC:0.6128
+[2023-08-28 04:11:28,648][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.2021 loss2:1.0007 loss3:0.0747 | AUC:0.8294 Anomaly AUC:0.6560
+[2023-08-28 04:11:54,444][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00040 | loss1:0.1700 loss2:0.9449 loss3:0.0489 | AUC:0.8307 Anomaly AUC:0.6764
+[2023-08-28 04:12:27,349][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00040 | loss1:0.1163 loss2:0.8815 loss3:0.0305 | AUC:0.8353 Anomaly AUC:0.6693
+[2023-08-28 04:12:52,754][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00040 | loss1:0.0836 loss2:0.8482 loss3:0.0225 | AUC:0.8319 Anomaly AUC:0.6759
+[2023-08-28 04:13:24,454][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00040 | loss1:0.0588 loss2:0.8247 loss3:0.0171 | AUC:0.8156 Anomaly AUC:0.6648
+[2023-08-28 04:13:50,071][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00040 | loss1:0.0583 loss2:0.8235 loss3:0.0185 | AUC:0.8344 Anomaly AUC:0.6766
+[2023-08-28 04:14:20,443][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00040 | loss1:0.0357 loss2:0.7972 loss3:0.0128 | AUC:0.8368 Anomaly AUC:0.6603
+[2023-08-28 04:14:47,121][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00040 | loss1:0.0403 loss2:0.7923 loss3:0.0137 | AUC:0.8367 Anomaly AUC:0.6775
+[2023-08-28 04:15:16,206][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00040 | loss1:0.0349 loss2:0.7869 loss3:0.0129 | AUC:0.8323 Anomaly AUC:0.6656
+[2023-08-28 04:15:44,163][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00040 | loss1:0.0423 loss2:0.7882 loss3:0.0140 | AUC:0.8415 Anomaly AUC:0.6738
+[2023-08-28 04:16:12,969][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00040 | loss1:0.0359 loss2:0.7758 loss3:0.0122 | AUC:0.8321 Anomaly AUC:0.6784
+[2023-08-28 04:16:40,121][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00040 | loss1:0.0298 loss2:0.7715 loss3:0.0115 | AUC:0.8124 Anomaly AUC:0.6701
+[2023-08-28 04:17:05,794][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00040 | loss1:0.0239 loss2:0.7614 loss3:0.0104 | AUC:0.8286 Anomaly AUC:0.6740
+[2023-08-28 04:17:34,651][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00040 | loss1:0.0169 loss2:0.7525 loss3:0.0089 | AUC:0.8302 Anomaly AUC:0.6824
+[2023-08-28 04:18:01,016][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00040 | loss1:0.0222 loss2:0.7452 loss3:0.0095 | AUC:0.8153 Anomaly AUC:0.6494
+[2023-08-28 04:18:26,791][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00040 | loss1:0.0169 loss2:0.7409 loss3:0.0089 | AUC:0.8237 Anomaly AUC:0.6701
+[2023-08-28 04:18:57,192][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00040 | loss1:0.0347 loss2:0.7515 loss3:0.0121 | AUC:0.8034 Anomaly AUC:0.6584
+[2023-08-28 04:19:22,882][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00040 | loss1:0.0040 loss2:0.7062 loss3:0.0064 | AUC:0.8195 Anomaly AUC:0.6563
+[2023-08-28 04:19:22,883][main-autotune.py][line:114][INFO] Training completes in 9m 21s | best AUC:0.8415 Anomaly AUC:0.6738
+
+[2023-08-28 04:20:01,196][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00030 | loss1:0.3856 loss2:1.0838 loss3:0.3294 | AUC:0.8228 Anomaly AUC:0.6272
+[2023-08-28 04:20:28,796][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00030 | loss1:0.2109 loss2:0.8399 loss3:0.2202 | AUC:0.7985 Anomaly AUC:0.6184
+[2023-08-28 04:20:56,867][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00030 | loss1:0.1253 loss2:0.7702 loss3:0.1613 | AUC:0.8105 Anomaly AUC:0.6076
+[2023-08-28 04:21:22,923][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00030 | loss1:0.0311 loss2:0.6758 loss3:0.1296 | AUC:0.7824 Anomaly AUC:0.6270
+[2023-08-28 04:21:50,114][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00030 | loss1:0.0069 loss2:0.5957 loss3:0.0870 | AUC:0.8089 Anomaly AUC:0.6175
+[2023-08-28 04:22:19,315][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00030 | loss1:0.0094 loss2:0.5682 loss3:0.0791 | AUC:0.7574 Anomaly AUC:0.5609
+[2023-08-28 04:22:45,105][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00030 | loss1:0.0040 loss2:0.4821 loss3:0.0527 | AUC:0.8002 Anomaly AUC:0.5819
+[2023-08-28 04:23:15,799][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00030 | loss1:0.0030 loss2:0.4120 loss3:0.0362 | AUC:0.8069 Anomaly AUC:0.5919
+[2023-08-28 04:23:41,670][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00030 | loss1:0.0014 loss2:0.3340 loss3:0.0271 | AUC:0.8362 Anomaly AUC:0.6277
+[2023-08-28 04:24:11,066][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00030 | loss1:0.0026 loss2:0.3052 loss3:0.0328 | AUC:0.8190 Anomaly AUC:0.5960
+[2023-08-28 04:24:39,654][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00030 | loss1:0.0027 loss2:0.2725 loss3:0.0428 | AUC:0.7469 Anomaly AUC:0.5951
+[2023-08-28 04:25:05,465][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00030 | loss1:0.0026 loss2:0.2489 loss3:0.0406 | AUC:0.8079 Anomaly AUC:0.5783
+[2023-08-28 04:25:36,968][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00030 | loss1:0.0027 loss2:0.2013 loss3:0.0469 | AUC:0.8019 Anomaly AUC:0.5934
+[2023-08-28 04:26:03,044][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00030 | loss1:0.0026 loss2:0.1761 loss3:0.0431 | AUC:0.6979 Anomaly AUC:0.5377
+[2023-08-28 04:26:34,051][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00030 | loss1:0.0018 loss2:0.1394 loss3:0.0334 | AUC:0.7852 Anomaly AUC:0.5809
+[2023-08-28 04:26:59,961][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00030 | loss1:0.0009 loss2:0.0969 loss3:0.0213 | AUC:0.8135 Anomaly AUC:0.6109
+[2023-08-28 04:27:27,820][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00030 | loss1:0.0045 loss2:0.1424 loss3:0.0580 | AUC:0.6527 Anomaly AUC:0.5329
+[2023-08-28 04:27:54,095][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00030 | loss1:0.0017 loss2:0.1269 loss3:0.0394 | AUC:0.7781 Anomaly AUC:0.5867
+[2023-08-28 04:28:19,896][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00030 | loss1:0.0010 loss2:0.0653 loss3:0.0215 | AUC:0.7901 Anomaly AUC:0.5524
+[2023-08-28 04:28:49,787][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00030 | loss1:0.0012 loss2:0.0675 loss3:0.0191 | AUC:0.7925 Anomaly AUC:0.5905
+[2023-08-28 04:28:49,788][main-autotune.py][line:114][INFO] Training completes in 9m 14s | best AUC:0.8362 Anomaly AUC:0.6277
+
+[2023-08-28 04:29:29,679][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00020 | loss1:0.3960 loss2:1.2440 loss3:0.3421 | AUC:0.8053 Anomaly AUC:0.6021
+[2023-08-28 04:29:54,797][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00020 | loss1:0.2249 loss2:1.0324 loss3:0.2252 | AUC:0.8155 Anomaly AUC:0.6192
+[2023-08-28 04:30:22,291][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00020 | loss1:0.1395 loss2:0.9051 loss3:0.1425 | AUC:0.8222 Anomaly AUC:0.6388
+[2023-08-28 04:30:50,112][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00020 | loss1:0.0975 loss2:0.8514 loss3:0.0944 | AUC:0.8184 Anomaly AUC:0.6324
+[2023-08-28 04:31:15,914][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00020 | loss1:0.0831 loss2:0.8296 loss3:0.0684 | AUC:0.8092 Anomaly AUC:0.6403
+[2023-08-28 04:31:43,618][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00020 | loss1:0.0456 loss2:0.7927 loss3:0.0443 | AUC:0.8188 Anomaly AUC:0.6395
+[2023-08-28 04:32:11,735][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00020 | loss1:0.0318 loss2:0.7658 loss3:0.0257 | AUC:0.8255 Anomaly AUC:0.6626
+[2023-08-28 04:32:39,380][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00020 | loss1:0.0322 loss2:0.7538 loss3:0.0215 | AUC:0.8231 Anomaly AUC:0.6786
+[2023-08-28 04:33:09,971][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00020 | loss1:0.0198 loss2:0.7279 loss3:0.0160 | AUC:0.8215 Anomaly AUC:0.6646
+[2023-08-28 04:33:35,951][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00020 | loss1:0.0312 loss2:0.7241 loss3:0.0166 | AUC:0.7926 Anomaly AUC:0.6516
+[2023-08-28 04:34:03,292][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00020 | loss1:0.0322 loss2:0.7223 loss3:0.0178 | AUC:0.8132 Anomaly AUC:0.6270
+[2023-08-28 04:34:30,489][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00020 | loss1:0.0186 loss2:0.6871 loss3:0.0136 | AUC:0.8154 Anomaly AUC:0.6680
+[2023-08-28 04:34:56,993][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00020 | loss1:0.0165 loss2:0.6648 loss3:0.0131 | AUC:0.8407 Anomaly AUC:0.6778
+[2023-08-28 04:35:23,127][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00020 | loss1:0.0245 loss2:0.6647 loss3:0.0185 | AUC:0.7982 Anomaly AUC:0.6611
+[2023-08-28 04:35:51,988][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00020 | loss1:0.0104 loss2:0.6483 loss3:0.0223 | AUC:0.8137 Anomaly AUC:0.6716
+[2023-08-28 04:36:18,243][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00020 | loss1:0.0222 loss2:0.7136 loss3:0.0608 | AUC:0.7559 Anomaly AUC:0.5580
+[2023-08-28 04:36:44,112][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00020 | loss1:0.0031 loss2:0.6321 loss3:0.0160 | AUC:0.7932 Anomaly AUC:0.6054
+[2023-08-28 04:37:14,417][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00020 | loss1:0.0022 loss2:0.5845 loss3:0.0130 | AUC:0.8025 Anomaly AUC:0.5825
+[2023-08-28 04:37:40,295][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00020 | loss1:0.0010 loss2:0.5423 loss3:0.0105 | AUC:0.8048 Anomaly AUC:0.6049
+[2023-08-28 04:38:09,008][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00020 | loss1:0.0081 loss2:0.5526 loss3:0.0334 | AUC:0.5520 Anomaly AUC:0.4682
+[2023-08-28 04:38:09,009][main-autotune.py][line:114][INFO] Training completes in 9m 7s | best AUC:0.8407 Anomaly AUC:0.6778
+
+[2023-08-28 04:38:49,926][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00020 | loss1:0.4056 loss2:1.0915 loss3:0.3064 | AUC:0.8004 Anomaly AUC:0.6145
+[2023-08-28 04:39:14,945][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00020 | loss1:0.2309 loss2:0.8670 loss3:0.1550 | AUC:0.8097 Anomaly AUC:0.6334
+[2023-08-28 04:39:42,305][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00020 | loss1:0.1671 loss2:0.7883 loss3:0.0819 | AUC:0.8085 Anomaly AUC:0.6446
+[2023-08-28 04:40:09,408][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00020 | loss1:0.0850 loss2:0.7188 loss3:0.0421 | AUC:0.7924 Anomaly AUC:0.6665
+[2023-08-28 04:40:34,862][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00020 | loss1:0.0539 loss2:0.6776 loss3:0.0236 | AUC:0.8323 Anomaly AUC:0.6481
+[2023-08-28 04:41:04,947][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00020 | loss1:0.0484 loss2:0.6447 loss3:0.0181 | AUC:0.8070 Anomaly AUC:0.6398
+[2023-08-28 04:41:32,075][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00020 | loss1:0.0277 loss2:0.6016 loss3:0.0134 | AUC:0.8235 Anomaly AUC:0.6254
+[2023-08-28 04:41:57,703][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00020 | loss1:0.0316 loss2:0.5826 loss3:0.0132 | AUC:0.8228 Anomaly AUC:0.6529
+[2023-08-28 04:42:26,301][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00020 | loss1:0.0199 loss2:0.5364 loss3:0.0108 | AUC:0.8089 Anomaly AUC:0.6348
+[2023-08-28 04:42:52,547][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00020 | loss1:0.0316 loss2:0.5209 loss3:0.0124 | AUC:0.8286 Anomaly AUC:0.6373
+[2023-08-28 04:43:18,260][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00020 | loss1:0.0205 loss2:0.4844 loss3:0.0104 | AUC:0.8112 Anomaly AUC:0.6457
+[2023-08-28 04:43:45,296][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00020 | loss1:0.0180 loss2:0.4546 loss3:0.0099 | AUC:0.8271 Anomaly AUC:0.6229
+[2023-08-28 04:44:12,537][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00020 | loss1:0.0126 loss2:0.4199 loss3:0.0087 | AUC:0.8437 Anomaly AUC:0.6517
+[2023-08-28 04:44:38,269][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00020 | loss1:0.0064 loss2:0.3640 loss3:0.0077 | AUC:0.8156 Anomaly AUC:0.6043
+[2023-08-28 04:45:05,367][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00020 | loss1:0.0176 loss2:0.3559 loss3:0.0094 | AUC:0.8311 Anomaly AUC:0.6368
+[2023-08-28 04:45:32,505][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00020 | loss1:0.0008 loss2:0.2650 loss3:0.0063 | AUC:0.8349 Anomaly AUC:0.6446
+[2023-08-28 04:45:58,242][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00020 | loss1:0.0009 loss2:0.2261 loss3:0.0062 | AUC:0.8373 Anomaly AUC:0.6479
+[2023-08-28 04:46:28,097][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00020 | loss1:0.0006 loss2:0.1817 loss3:0.0059 | AUC:0.8366 Anomaly AUC:0.6239
+[2023-08-28 04:46:53,876][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00020 | loss1:0.0006 loss2:0.1454 loss3:0.0056 | AUC:0.8361 Anomaly AUC:0.6256
+[2023-08-28 04:47:23,758][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00020 | loss1:0.0004 loss2:0.1128 loss3:0.0054 | AUC:0.8290 Anomaly AUC:0.6071
+[2023-08-28 04:47:23,759][main-autotune.py][line:114][INFO] Training completes in 9m 2s | best AUC:0.8437 Anomaly AUC:0.6517
+
+[2023-08-28 04:48:03,556][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00050 | loss1:0.4434 loss2:1.1187 loss3:0.2981 | AUC:0.8210 Anomaly AUC:0.6308
+[2023-08-28 04:48:28,420][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00050 | loss1:0.2727 loss2:0.8950 loss3:0.1300 | AUC:0.8333 Anomaly AUC:0.6733
+[2023-08-28 04:48:55,485][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00050 | loss1:0.2082 loss2:0.7895 loss3:0.0890 | AUC:0.8327 Anomaly AUC:0.6838
+[2023-08-28 04:49:23,130][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00050 | loss1:0.1512 loss2:0.7181 loss3:0.0668 | AUC:0.8154 Anomaly AUC:0.6846
+[2023-08-28 04:49:48,441][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00050 | loss1:0.1108 loss2:0.6604 loss3:0.0477 | AUC:0.8400 Anomaly AUC:0.6683
+[2023-08-28 04:50:22,427][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00050 | loss1:0.0893 loss2:0.6103 loss3:0.0366 | AUC:0.8294 Anomaly AUC:0.6507
+[2023-08-28 04:50:49,405][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00050 | loss1:0.0652 loss2:0.5529 loss3:0.0285 | AUC:0.8417 Anomaly AUC:0.6828
+[2023-08-28 04:51:16,243][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00050 | loss1:0.0492 loss2:0.5023 loss3:0.0226 | AUC:0.8255 Anomaly AUC:0.6745
+[2023-08-28 04:51:42,669][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00050 | loss1:0.0490 loss2:0.4639 loss3:0.0230 | AUC:0.8349 Anomaly AUC:0.6720
+[2023-08-28 04:52:09,810][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00050 | loss1:0.0119 loss2:0.3651 loss3:0.0158 | AUC:0.8248 Anomaly AUC:0.6694
+[2023-08-28 04:52:37,725][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00050 | loss1:0.0299 loss2:0.3562 loss3:0.0187 | AUC:0.8422 Anomaly AUC:0.6861
+[2023-08-28 04:53:03,283][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00050 | loss1:0.0226 loss2:0.3099 loss3:0.0156 | AUC:0.8527 Anomaly AUC:0.6780
+[2023-08-28 04:53:30,143][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00050 | loss1:0.0199 loss2:0.2646 loss3:0.0146 | AUC:0.8456 Anomaly AUC:0.6605
+[2023-08-28 04:53:57,162][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00050 | loss1:0.0275 loss2:0.2453 loss3:0.0152 | AUC:0.8375 Anomaly AUC:0.6643
+[2023-08-28 04:54:22,995][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00050 | loss1:0.0207 loss2:0.2091 loss3:0.0135 | AUC:0.8449 Anomaly AUC:0.6645
+[2023-08-28 04:54:52,655][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00050 | loss1:0.0263 loss2:0.1956 loss3:0.0130 | AUC:0.8371 Anomaly AUC:0.6686
+[2023-08-28 04:55:18,227][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00050 | loss1:0.0155 loss2:0.1448 loss3:0.0112 | AUC:0.8392 Anomaly AUC:0.6801
+[2023-08-28 04:55:47,717][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00050 | loss1:0.0067 loss2:0.0969 loss3:0.0090 | AUC:0.8367 Anomaly AUC:0.6426
+[2023-08-28 04:56:13,310][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00050 | loss1:0.0114 loss2:0.0885 loss3:0.0095 | AUC:0.8487 Anomaly AUC:0.6757
+[2023-08-28 04:56:43,173][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00050 | loss1:0.0198 loss2:0.1134 loss3:0.0109 | AUC:0.8593 Anomaly AUC:0.6975
+[2023-08-28 04:56:43,174][main-autotune.py][line:114][INFO] Training completes in 9m 7s | best AUC:0.8593 Anomaly AUC:0.6975
+
+[2023-08-28 04:57:23,293][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00050 | loss1:0.4312 loss2:1.1141 loss3:0.2936 | AUC:0.8297 Anomaly AUC:0.6453
+[2023-08-28 04:57:48,457][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00050 | loss1:0.2726 loss2:0.8947 loss3:0.1207 | AUC:0.8260 Anomaly AUC:0.6567
+[2023-08-28 04:58:15,654][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00050 | loss1:0.2109 loss2:0.7972 loss3:0.0736 | AUC:0.8191 Anomaly AUC:0.6670
+[2023-08-28 04:58:45,170][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00050 | loss1:0.1706 loss2:0.7332 loss3:0.0446 | AUC:0.8460 Anomaly AUC:0.6722
+[2023-08-28 04:59:10,620][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00050 | loss1:0.1178 loss2:0.6663 loss3:0.0315 | AUC:0.8295 Anomaly AUC:0.6345
+[2023-08-28 04:59:42,790][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00050 | loss1:0.1033 loss2:0.6239 loss3:0.0278 | AUC:0.8404 Anomaly AUC:0.6697
+[2023-08-28 05:00:11,558][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00050 | loss1:0.0733 loss2:0.5685 loss3:0.0223 | AUC:0.8293 Anomaly AUC:0.6670
+[2023-08-28 05:00:38,205][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00050 | loss1:0.0530 loss2:0.5047 loss3:0.0175 | AUC:0.8340 Anomaly AUC:0.6817
+[2023-08-28 05:01:03,823][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00050 | loss1:0.0395 loss2:0.4563 loss3:0.0160 | AUC:0.8281 Anomaly AUC:0.6616
+[2023-08-28 05:01:34,746][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00050 | loss1:0.0336 loss2:0.4127 loss3:0.0150 | AUC:0.8304 Anomaly AUC:0.6646
+[2023-08-28 05:02:00,550][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00050 | loss1:0.0304 loss2:0.3704 loss3:0.0144 | AUC:0.8346 Anomaly AUC:0.6704
+[2023-08-28 05:02:32,258][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00050 | loss1:0.0262 loss2:0.3213 loss3:0.0130 | AUC:0.8322 Anomaly AUC:0.6586
+[2023-08-28 05:02:58,025][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00050 | loss1:0.0259 loss2:0.2682 loss3:0.0130 | AUC:0.8297 Anomaly AUC:0.6699
+[2023-08-28 05:03:27,795][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00050 | loss1:0.0108 loss2:0.2032 loss3:0.0108 | AUC:0.8250 Anomaly AUC:0.6427
+[2023-08-28 05:03:53,675][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00050 | loss1:0.0547 loss2:0.2466 loss3:0.0170 | AUC:0.8227 Anomaly AUC:0.6578
+[2023-08-28 05:04:20,863][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00050 | loss1:0.0154 loss2:0.1656 loss3:0.0111 | AUC:0.8424 Anomaly AUC:0.6788
+[2023-08-28 05:04:47,095][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00050 | loss1:0.0093 loss2:0.1273 loss3:0.0099 | AUC:0.8410 Anomaly AUC:0.6931
+[2023-08-28 05:05:12,931][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00050 | loss1:0.0211 loss2:0.1285 loss3:0.0112 | AUC:0.8162 Anomaly AUC:0.6838
+[2023-08-28 05:05:43,263][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00050 | loss1:0.0116 loss2:0.0967 loss3:0.0095 | AUC:0.8394 Anomaly AUC:0.6594
+[2023-08-28 05:06:08,986][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00050 | loss1:0.0175 loss2:0.1025 loss3:0.0099 | AUC:0.8376 Anomaly AUC:0.6683
+[2023-08-28 05:06:08,987][main-autotune.py][line:114][INFO] Training completes in 9m 14s | best AUC:0.8460 Anomaly AUC:0.6722
+
+[2023-08-28 05:06:47,168][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00050 | loss1:0.4631 loss2:1.1215 loss3:0.2660 | AUC:0.8338 Anomaly AUC:0.6453
+[2023-08-28 05:07:18,506][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00050 | loss1:0.2606 loss2:0.8826 loss3:0.1214 | AUC:0.8043 Anomaly AUC:0.6450
+[2023-08-28 05:07:45,317][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00050 | loss1:0.2114 loss2:0.8077 loss3:0.0807 | AUC:0.7914 Anomaly AUC:0.6692
+[2023-08-28 05:08:12,533][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00050 | loss1:0.1662 loss2:0.7448 loss3:0.0527 | AUC:0.8217 Anomaly AUC:0.6612
+[2023-08-28 05:08:42,222][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00050 | loss1:0.1176 loss2:0.6699 loss3:0.0372 | AUC:0.8068 Anomaly AUC:0.6661
+[2023-08-28 05:09:07,950][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00050 | loss1:0.0990 loss2:0.6203 loss3:0.0327 | AUC:0.8219 Anomaly AUC:0.6761
+[2023-08-28 05:09:35,063][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00050 | loss1:0.0816 loss2:0.5684 loss3:0.0264 | AUC:0.8271 Anomaly AUC:0.6615
+[2023-08-28 05:10:03,211][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00050 | loss1:0.0542 loss2:0.5055 loss3:0.0209 | AUC:0.8008 Anomaly AUC:0.6690
+[2023-08-28 05:10:28,932][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00050 | loss1:0.0572 loss2:0.4890 loss3:0.0210 | AUC:0.8324 Anomaly AUC:0.6573
+[2023-08-28 05:10:58,330][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00050 | loss1:0.0363 loss2:0.4110 loss3:0.0163 | AUC:0.8324 Anomaly AUC:0.6857
+[2023-08-28 05:11:24,077][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00050 | loss1:0.0321 loss2:0.3730 loss3:0.0148 | AUC:0.8234 Anomaly AUC:0.6952
+[2023-08-28 05:11:54,160][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00050 | loss1:0.0236 loss2:0.3090 loss3:0.0137 | AUC:0.8177 Anomaly AUC:0.6459
+[2023-08-28 05:12:20,172][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00050 | loss1:0.0364 loss2:0.3055 loss3:0.0164 | AUC:0.8098 Anomaly AUC:0.6907
+[2023-08-28 05:12:50,446][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00050 | loss1:0.0200 loss2:0.2317 loss3:0.0124 | AUC:0.8424 Anomaly AUC:0.6843
+[2023-08-28 05:13:16,533][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00050 | loss1:0.0252 loss2:0.2215 loss3:0.0136 | AUC:0.8048 Anomaly AUC:0.6769
+[2023-08-28 05:13:42,382][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00050 | loss1:0.0145 loss2:0.1598 loss3:0.0115 | AUC:0.7676 Anomaly AUC:0.6491
+[2023-08-28 05:14:12,294][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00050 | loss1:0.0250 loss2:0.1708 loss3:0.0136 | AUC:0.8412 Anomaly AUC:0.6862
+[2023-08-28 05:14:37,970][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00050 | loss1:0.0097 loss2:0.1108 loss3:0.0104 | AUC:0.8388 Anomaly AUC:0.6724
+[2023-08-28 05:15:08,293][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00050 | loss1:0.0265 loss2:0.1227 loss3:0.0130 | AUC:0.8322 Anomaly AUC:0.6658
+[2023-08-28 05:15:34,192][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00050 | loss1:0.0146 loss2:0.0949 loss3:0.0111 | AUC:0.7958 Anomaly AUC:0.6701
+[2023-08-28 05:15:34,193][main-autotune.py][line:114][INFO] Training completes in 9m 12s | best AUC:0.8424 Anomaly AUC:0.6843
+
+[2023-08-28 05:16:11,549][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00100 | loss1:0.5813 loss2:1.2328 loss3:0.2854 | AUC:0.8047 Anomaly AUC:0.6117
+[2023-08-28 05:16:38,770][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00100 | loss1:0.3535 loss2:0.9919 loss3:0.1325 | AUC:0.8034 Anomaly AUC:0.6183
+[2023-08-28 05:17:08,503][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00100 | loss1:0.2820 loss2:0.8751 loss3:0.0660 | AUC:0.8287 Anomaly AUC:0.6512
+[2023-08-28 05:17:33,777][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00100 | loss1:0.2255 loss2:0.7895 loss3:0.0475 | AUC:0.8211 Anomaly AUC:0.6352
+[2023-08-28 05:18:00,938][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00100 | loss1:0.1836 loss2:0.7263 loss3:0.0371 | AUC:0.8009 Anomaly AUC:0.5903
+[2023-08-28 05:18:27,661][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00100 | loss1:0.1434 loss2:0.6566 loss3:0.0304 | AUC:0.8112 Anomaly AUC:0.6504
+[2023-08-28 05:18:52,897][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00100 | loss1:0.1185 loss2:0.6055 loss3:0.0259 | AUC:0.7728 Anomaly AUC:0.6105
+[2023-08-28 05:19:23,796][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00100 | loss1:0.0842 loss2:0.5265 loss3:0.0205 | AUC:0.7971 Anomaly AUC:0.6476
+[2023-08-28 05:19:49,354][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00100 | loss1:0.0716 loss2:0.4824 loss3:0.0180 | AUC:0.7928 Anomaly AUC:0.6377
+[2023-08-28 05:20:17,079][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00100 | loss1:0.0522 loss2:0.4144 loss3:0.0148 | AUC:0.8013 Anomaly AUC:0.6278
+[2023-08-28 05:20:44,625][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00100 | loss1:0.0356 loss2:0.3486 loss3:0.0120 | AUC:0.8251 Anomaly AUC:0.6448
+[2023-08-28 05:21:10,048][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00100 | loss1:0.0322 loss2:0.3064 loss3:0.0110 | AUC:0.7839 Anomaly AUC:0.5915
+[2023-08-28 05:21:37,248][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00100 | loss1:0.0283 loss2:0.2688 loss3:0.0105 | AUC:0.7616 Anomaly AUC:0.6407
+[2023-08-28 05:22:02,995][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00100 | loss1:0.0242 loss2:0.2130 loss3:0.0097 | AUC:0.8068 Anomaly AUC:0.6394
+[2023-08-28 05:22:28,407][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00100 | loss1:0.0244 loss2:0.1980 loss3:0.0098 | AUC:0.7825 Anomaly AUC:0.6293
+[2023-08-28 05:22:57,548][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00100 | loss1:0.0213 loss2:0.1593 loss3:0.0087 | AUC:0.7775 Anomaly AUC:0.6237
+[2023-08-28 05:23:23,413][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00100 | loss1:0.0415 loss2:0.1613 loss3:0.0108 | AUC:0.7564 Anomaly AUC:0.5929
+[2023-08-28 05:23:48,871][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00100 | loss1:0.0118 loss2:0.1131 loss3:0.0072 | AUC:0.7648 Anomaly AUC:0.6116
+[2023-08-28 05:24:19,820][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00100 | loss1:0.0075 loss2:0.0654 loss3:0.0059 | AUC:0.7624 Anomaly AUC:0.6039
+[2023-08-28 05:24:45,252][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00100 | loss1:0.0088 loss2:0.0716 loss3:0.0064 | AUC:0.7640 Anomaly AUC:0.6260
+[2023-08-28 05:24:45,253][main-autotune.py][line:114][INFO] Training completes in 8m 59s | best AUC:0.8287 Anomaly AUC:0.6512
+
+[2023-08-28 05:25:23,072][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00010 | loss1:0.4406 loss2:1.0468 loss3:0.3501 | AUC:0.7948 Anomaly AUC:0.6153
+[2023-08-28 05:25:50,461][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00010 | loss1:0.2407 loss2:0.7930 loss3:0.2680 | AUC:0.8038 Anomaly AUC:0.6416
+[2023-08-28 05:26:18,396][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00010 | loss1:0.1554 loss2:0.6917 loss3:0.2056 | AUC:0.8164 Anomaly AUC:0.6415
+[2023-08-28 05:26:43,755][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00010 | loss1:0.0890 loss2:0.6204 loss3:0.1500 | AUC:0.7971 Anomaly AUC:0.6422
+[2023-08-28 05:27:19,314][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00010 | loss1:0.0471 loss2:0.5577 loss3:0.1115 | AUC:0.7981 Anomaly AUC:0.6466
+[2023-08-28 05:27:44,666][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00010 | loss1:0.0285 loss2:0.5056 loss3:0.0900 | AUC:0.8094 Anomaly AUC:0.6319
+[2023-08-28 05:28:13,925][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00010 | loss1:0.0315 loss2:0.4869 loss3:0.0794 | AUC:0.8072 Anomaly AUC:0.6355
+[2023-08-28 05:28:40,325][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00010 | loss1:0.0056 loss2:0.4125 loss3:0.0636 | AUC:0.8208 Anomaly AUC:0.6391
+[2023-08-28 05:29:05,868][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00010 | loss1:0.0043 loss2:0.3660 loss3:0.0524 | AUC:0.8248 Anomaly AUC:0.6526
+[2023-08-28 05:29:37,282][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00010 | loss1:0.0093 loss2:0.3430 loss3:0.0435 | AUC:0.7934 Anomaly AUC:0.6121
+[2023-08-28 05:30:02,803][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00010 | loss1:0.0692 loss2:0.4095 loss3:0.0446 | AUC:0.8222 Anomaly AUC:0.6252
+[2023-08-28 05:30:31,830][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00010 | loss1:0.0056 loss2:0.3017 loss3:0.0249 | AUC:0.8246 Anomaly AUC:0.6372
+[2023-08-28 05:30:57,977][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00010 | loss1:0.0023 loss2:0.2665 loss3:0.0182 | AUC:0.8196 Anomaly AUC:0.6356
+[2023-08-28 05:31:23,753][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00010 | loss1:0.0018 loss2:0.2440 loss3:0.0151 | AUC:0.8265 Anomaly AUC:0.6330
+[2023-08-28 05:31:54,446][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00010 | loss1:0.0015 loss2:0.2263 loss3:0.0132 | AUC:0.8234 Anomaly AUC:0.6190
+[2023-08-28 05:32:19,999][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00010 | loss1:0.0012 loss2:0.2112 loss3:0.0120 | AUC:0.8256 Anomaly AUC:0.6331
+[2023-08-28 05:32:49,250][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00010 | loss1:0.0011 loss2:0.1971 loss3:0.0111 | AUC:0.8268 Anomaly AUC:0.6320
+[2023-08-28 05:33:14,969][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00010 | loss1:0.0009 loss2:0.1853 loss3:0.0104 | AUC:0.8268 Anomaly AUC:0.6306
+[2023-08-28 05:33:40,525][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00010 | loss1:0.0009 loss2:0.1768 loss3:0.0098 | AUC:0.8255 Anomaly AUC:0.6309
+[2023-08-28 05:34:11,602][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00010 | loss1:0.0007 loss2:0.1652 loss3:0.0093 | AUC:0.8298 Anomaly AUC:0.6314
+[2023-08-28 05:34:11,603][main-autotune.py][line:114][INFO] Training completes in 9m 14s | best AUC:0.8298 Anomaly AUC:0.6314
+
+[2023-08-28 05:34:51,838][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00100 | loss1:0.5673 loss2:1.2179 loss3:0.2269 | AUC:0.8062 Anomaly AUC:0.6095
+[2023-08-28 05:35:16,840][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00100 | loss1:0.3265 loss2:0.9840 loss3:0.0599 | AUC:0.8027 Anomaly AUC:0.6146
+[2023-08-28 05:35:45,999][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00100 | loss1:0.2588 loss2:0.8968 loss3:0.0431 | AUC:0.7899 Anomaly AUC:0.6011
+[2023-08-28 05:36:12,935][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00100 | loss1:0.1982 loss2:0.8020 loss3:0.0310 | AUC:0.7664 Anomaly AUC:0.5795
+[2023-08-28 05:36:38,333][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00100 | loss1:0.1527 loss2:0.7430 loss3:0.0232 | AUC:0.7971 Anomaly AUC:0.5763
+[2023-08-28 05:37:07,297][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00100 | loss1:0.1278 loss2:0.6920 loss3:0.0188 | AUC:0.7927 Anomaly AUC:0.5860
+[2023-08-28 05:37:34,968][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00100 | loss1:0.1029 loss2:0.6303 loss3:0.0150 | AUC:0.7760 Anomaly AUC:0.5613
+[2023-08-28 05:38:04,280][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00100 | loss1:0.0702 loss2:0.5710 loss3:0.0103 | AUC:0.7739 Anomaly AUC:0.5864
+[2023-08-28 05:38:32,649][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00100 | loss1:0.0678 loss2:0.5389 loss3:0.0093 | AUC:0.8125 Anomaly AUC:0.6050
+[2023-08-28 05:38:58,284][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00100 | loss1:0.0480 loss2:0.4876 loss3:0.0071 | AUC:0.7704 Anomaly AUC:0.5989
+[2023-08-28 05:39:29,609][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00100 | loss1:0.0378 loss2:0.4418 loss3:0.0056 | AUC:0.7930 Anomaly AUC:0.6040
+[2023-08-28 05:39:55,638][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00100 | loss1:0.0378 loss2:0.3904 loss3:0.0052 | AUC:0.8104 Anomaly AUC:0.6224
+[2023-08-28 05:40:24,959][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00100 | loss1:0.0393 loss2:0.3843 loss3:0.0056 | AUC:0.7829 Anomaly AUC:0.6012
+[2023-08-28 05:40:50,944][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00100 | loss1:0.0218 loss2:0.2866 loss3:0.0035 | AUC:0.7885 Anomaly AUC:0.5898
+[2023-08-28 05:41:16,521][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00100 | loss1:0.0228 loss2:0.2933 loss3:0.0037 | AUC:0.7412 Anomaly AUC:0.5358
+[2023-08-28 05:41:43,557][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00100 | loss1:0.0219 loss2:0.2744 loss3:0.0036 | AUC:0.7095 Anomaly AUC:0.5469
+[2023-08-28 05:42:10,482][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00100 | loss1:0.0196 loss2:0.2213 loss3:0.0033 | AUC:0.7551 Anomaly AUC:0.5419
+[2023-08-28 05:42:36,136][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00100 | loss1:0.0105 loss2:0.2032 loss3:0.0026 | AUC:0.8022 Anomaly AUC:0.5826
+[2023-08-28 05:43:06,162][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00100 | loss1:0.0156 loss2:0.1646 loss3:0.0028 | AUC:0.8047 Anomaly AUC:0.5984
+[2023-08-28 05:43:31,967][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00100 | loss1:0.0137 loss2:0.1539 loss3:0.0027 | AUC:0.7754 Anomaly AUC:0.5657
+[2023-08-28 05:43:31,968][main-autotune.py][line:114][INFO] Training completes in 9m 8s | best AUC:0.8125 Anomaly AUC:0.6050
+
+[2023-08-28 05:44:11,640][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00030 | loss1:0.4087 loss2:1.0253 loss3:0.3598 | AUC:0.8208 Anomaly AUC:0.6418
+[2023-08-28 05:44:40,195][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00030 | loss1:0.2012 loss2:0.7649 loss3:0.2950 | AUC:0.8014 Anomaly AUC:0.6104
+[2023-08-28 05:45:09,272][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00030 | loss1:0.1253 loss2:0.6696 loss3:0.2579 | AUC:0.7995 Anomaly AUC:0.6452
+[2023-08-28 05:45:36,190][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00030 | loss1:0.0289 loss2:0.5364 loss3:0.2257 | AUC:0.7830 Anomaly AUC:0.6755
+[2023-08-28 05:46:01,683][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00030 | loss1:0.0056 loss2:0.4268 loss3:0.1954 | AUC:0.7984 Anomaly AUC:0.6624
+[2023-08-28 05:46:30,341][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00030 | loss1:0.0060 loss2:0.3438 loss3:0.1702 | AUC:0.8102 Anomaly AUC:0.6788
+[2023-08-28 05:46:57,081][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00030 | loss1:0.0055 loss2:0.2898 loss3:0.1567 | AUC:0.8138 Anomaly AUC:0.6758
+[2023-08-28 05:47:22,689][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00030 | loss1:0.0020 loss2:0.2043 loss3:0.1381 | AUC:0.8101 Anomaly AUC:0.6502
+[2023-08-28 05:47:53,085][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00030 | loss1:0.0055 loss2:0.2216 loss3:0.1380 | AUC:0.8275 Anomaly AUC:0.7074
+[2023-08-28 05:48:23,774][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00030 | loss1:0.0027 loss2:0.1816 loss3:0.1444 | AUC:0.8221 Anomaly AUC:0.6848
+[2023-08-28 05:48:52,145][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00030 | loss1:0.0012 loss2:0.1287 loss3:0.1109 | AUC:0.8354 Anomaly AUC:0.6679
+[2023-08-28 05:49:18,819][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00030 | loss1:0.0021 loss2:0.1194 loss3:0.0987 | AUC:0.8211 Anomaly AUC:0.6768
+[2023-08-28 05:49:47,922][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00030 | loss1:0.0026 loss2:0.1209 loss3:0.1213 | AUC:0.7540 Anomaly AUC:0.6173
+[2023-08-28 05:50:14,286][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00030 | loss1:0.0014 loss2:0.0956 loss3:0.0944 | AUC:0.8301 Anomaly AUC:0.6535
+[2023-08-28 05:50:39,892][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00030 | loss1:0.0014 loss2:0.0852 loss3:0.0779 | AUC:0.8249 Anomaly AUC:0.6698
+[2023-08-28 05:51:07,126][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00030 | loss1:0.0016 loss2:0.0871 loss3:0.0850 | AUC:0.7652 Anomaly AUC:0.6125
+[2023-08-28 05:51:34,267][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00030 | loss1:0.0028 loss2:0.0863 loss3:0.1234 | AUC:0.7697 Anomaly AUC:0.6487
+[2023-08-28 05:51:59,960][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00030 | loss1:0.0012 loss2:0.0719 loss3:0.0954 | AUC:0.8280 Anomaly AUC:0.6794
+[2023-08-28 05:52:30,151][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00030 | loss1:0.0016 loss2:0.0564 loss3:0.0826 | AUC:0.8224 Anomaly AUC:0.6660
+[2023-08-28 05:52:55,868][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00030 | loss1:0.0008 loss2:0.0532 loss3:0.0646 | AUC:0.8018 Anomaly AUC:0.6585
+[2023-08-28 05:52:55,869][main-autotune.py][line:114][INFO] Training completes in 9m 12s | best AUC:0.8354 Anomaly AUC:0.6679
+
+[2023-08-28 05:53:34,239][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00100 | loss1:0.5732 loss2:1.2298 loss3:0.2663 | AUC:0.8143 Anomaly AUC:0.6237
+[2023-08-28 05:54:11,916][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00100 | loss1:0.3379 loss2:0.9758 loss3:0.0856 | AUC:0.8188 Anomaly AUC:0.6310
+[2023-08-28 05:54:38,665][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00100 | loss1:0.2766 loss2:0.8628 loss3:0.0492 | AUC:0.8260 Anomaly AUC:0.6514
+[2023-08-28 05:55:06,432][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00100 | loss1:0.2111 loss2:0.7663 loss3:0.0372 | AUC:0.8396 Anomaly AUC:0.6503
+[2023-08-28 05:55:33,794][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00100 | loss1:0.1693 loss2:0.7034 loss3:0.0304 | AUC:0.7976 Anomaly AUC:0.6298
+[2023-08-28 05:55:59,578][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00100 | loss1:0.1640 loss2:0.6649 loss3:0.0285 | AUC:0.8081 Anomaly AUC:0.6318
+[2023-08-28 05:56:28,608][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00100 | loss1:0.1018 loss2:0.5746 loss3:0.0199 | AUC:0.8343 Anomaly AUC:0.6628
+[2023-08-28 05:56:56,184][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00100 | loss1:0.0671 loss2:0.5012 loss3:0.0150 | AUC:0.8343 Anomaly AUC:0.6662
+[2023-08-28 05:57:22,392][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00100 | loss1:0.0749 loss2:0.4647 loss3:0.0144 | AUC:0.8017 Anomaly AUC:0.6217
+[2023-08-28 05:57:54,654][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00100 | loss1:0.0418 loss2:0.3890 loss3:0.0099 | AUC:0.8058 Anomaly AUC:0.6402
+[2023-08-28 05:58:20,462][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00100 | loss1:0.0364 loss2:0.3421 loss3:0.0085 | AUC:0.8363 Anomaly AUC:0.6526
+[2023-08-28 05:58:51,777][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00100 | loss1:0.0321 loss2:0.2978 loss3:0.0068 | AUC:0.8327 Anomaly AUC:0.6232
+[2023-08-28 05:59:17,586][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00100 | loss1:0.0368 loss2:0.2667 loss3:0.0071 | AUC:0.8209 Anomaly AUC:0.6394
+[2023-08-28 05:59:45,019][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00100 | loss1:0.0259 loss2:0.2152 loss3:0.0055 | AUC:0.8198 Anomaly AUC:0.6223
+[2023-08-28 06:00:12,073][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00100 | loss1:0.0124 loss2:0.1672 loss3:0.0030 | AUC:0.8144 Anomaly AUC:0.6153
+[2023-08-28 06:00:37,615][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00100 | loss1:0.0171 loss2:0.1205 loss3:0.0031 | AUC:0.7973 Anomaly AUC:0.5992
+[2023-08-28 06:01:08,165][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00100 | loss1:0.0319 loss2:0.1705 loss3:0.0052 | AUC:0.8268 Anomaly AUC:0.6513
+[2023-08-28 06:01:33,952][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00100 | loss1:0.0251 loss2:0.1272 loss3:0.0046 | AUC:0.8141 Anomaly AUC:0.6240
+[2023-08-28 06:02:03,004][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00100 | loss1:0.0190 loss2:0.1104 loss3:0.0036 | AUC:0.8058 Anomaly AUC:0.5613
+[2023-08-28 06:02:29,127][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00100 | loss1:0.0119 loss2:0.0796 loss3:0.0028 | AUC:0.7827 Anomaly AUC:0.5995
+[2023-08-28 06:02:29,128][main-autotune.py][line:114][INFO] Training completes in 9m 20s | best AUC:0.8396 Anomaly AUC:0.6503
+
+[2023-08-28 06:03:09,347][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00060 | loss1:0.5045 loss2:1.1641 loss3:0.2738 | AUC:0.8139 Anomaly AUC:0.6171
+[2023-08-28 06:03:34,359][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00060 | loss1:0.2957 loss2:0.9455 loss3:0.1003 | AUC:0.8180 Anomaly AUC:0.6394
+[2023-08-28 06:04:03,807][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00060 | loss1:0.2231 loss2:0.8499 loss3:0.0555 | AUC:0.8098 Anomaly AUC:0.6529
+[2023-08-28 06:04:30,730][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00060 | loss1:0.1857 loss2:0.7943 loss3:0.0411 | AUC:0.8154 Anomaly AUC:0.6522
+[2023-08-28 06:04:58,475][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00060 | loss1:0.1394 loss2:0.7288 loss3:0.0309 | AUC:0.8251 Anomaly AUC:0.6549
+[2023-08-28 06:05:27,388][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00060 | loss1:0.0926 loss2:0.6769 loss3:0.0229 | AUC:0.8292 Anomaly AUC:0.6467
+[2023-08-28 06:05:53,204][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00060 | loss1:0.0571 loss2:0.6082 loss3:0.0166 | AUC:0.8132 Anomaly AUC:0.6516
+[2023-08-28 06:06:24,090][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00060 | loss1:0.0623 loss2:0.5838 loss3:0.0172 | AUC:0.8194 Anomaly AUC:0.6291
+[2023-08-28 06:06:51,344][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00060 | loss1:0.0455 loss2:0.5218 loss3:0.0143 | AUC:0.7866 Anomaly AUC:0.6114
+[2023-08-28 06:07:21,103][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00060 | loss1:0.0451 loss2:0.4926 loss3:0.0143 | AUC:0.8142 Anomaly AUC:0.6048
+[2023-08-28 06:07:46,823][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00060 | loss1:0.0299 loss2:0.4391 loss3:0.0114 | AUC:0.8281 Anomaly AUC:0.6261
+[2023-08-28 06:08:14,239][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00060 | loss1:0.0484 loss2:0.4317 loss3:0.0145 | AUC:0.8236 Anomaly AUC:0.6226
+[2023-08-28 06:08:40,941][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00060 | loss1:0.0320 loss2:0.3793 loss3:0.0115 | AUC:0.8215 Anomaly AUC:0.6102
+[2023-08-28 06:09:06,790][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00060 | loss1:0.0335 loss2:0.3529 loss3:0.0122 | AUC:0.8130 Anomaly AUC:0.6085
+[2023-08-28 06:09:37,373][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00060 | loss1:0.0271 loss2:0.3126 loss3:0.0102 | AUC:0.8146 Anomaly AUC:0.5955
+[2023-08-28 06:10:03,154][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00060 | loss1:0.0103 loss2:0.2553 loss3:0.0080 | AUC:0.8169 Anomaly AUC:0.6291
+[2023-08-28 06:10:30,632][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00060 | loss1:0.0114 loss2:0.2078 loss3:0.0072 | AUC:0.8310 Anomaly AUC:0.6391
+[2023-08-28 06:10:58,175][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00060 | loss1:0.0195 loss2:0.2025 loss3:0.0081 | AUC:0.8222 Anomaly AUC:0.6202
+[2023-08-28 06:11:24,175][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00060 | loss1:0.0047 loss2:0.1554 loss3:0.0060 | AUC:0.8225 Anomaly AUC:0.6297
+[2023-08-28 06:11:49,978][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00060 | loss1:0.0075 loss2:0.1100 loss3:0.0057 | AUC:0.8266 Anomaly AUC:0.6234
+[2023-08-28 06:11:49,979][main-autotune.py][line:114][INFO] Training completes in 9m 9s | best AUC:0.8310 Anomaly AUC:0.6391
+
+[2023-08-28 06:12:27,911][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00050 | loss1:0.4367 loss2:1.1014 loss3:0.3108 | AUC:0.8182 Anomaly AUC:0.6460
+[2023-08-28 06:12:57,534][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00050 | loss1:0.2590 loss2:0.8687 loss3:0.1437 | AUC:0.8377 Anomaly AUC:0.6526
+[2023-08-28 06:13:24,744][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00050 | loss1:0.2405 loss2:0.8166 loss3:0.1086 | AUC:0.8338 Anomaly AUC:0.6699
+[2023-08-28 06:13:52,254][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00050 | loss1:0.1588 loss2:0.7240 loss3:0.0800 | AUC:0.8497 Anomaly AUC:0.6714
+[2023-08-28 06:14:20,077][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00050 | loss1:0.1285 loss2:0.6712 loss3:0.0698 | AUC:0.8309 Anomaly AUC:0.6735
+[2023-08-28 06:14:45,973][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00050 | loss1:0.0915 loss2:0.6026 loss3:0.0566 | AUC:0.8422 Anomaly AUC:0.6754
+[2023-08-28 06:15:13,250][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00050 | loss1:0.0809 loss2:0.5716 loss3:0.0484 | AUC:0.8580 Anomaly AUC:0.6837
+[2023-08-28 06:15:41,752][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00050 | loss1:0.0708 loss2:0.5126 loss3:0.0434 | AUC:0.8543 Anomaly AUC:0.6879
+[2023-08-28 06:16:07,190][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00050 | loss1:0.0386 loss2:0.4445 loss3:0.0354 | AUC:0.8501 Anomaly AUC:0.6846
+[2023-08-28 06:16:34,553][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00050 | loss1:0.0460 loss2:0.4162 loss3:0.0340 | AUC:0.8516 Anomaly AUC:0.6726
+[2023-08-28 06:17:02,364][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00050 | loss1:0.0426 loss2:0.3705 loss3:0.0311 | AUC:0.8179 Anomaly AUC:0.6565
+[2023-08-28 06:17:31,666][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00050 | loss1:0.0354 loss2:0.3248 loss3:0.0278 | AUC:0.8450 Anomaly AUC:0.6712
+[2023-08-28 06:17:57,794][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00050 | loss1:0.0275 loss2:0.2648 loss3:0.0249 | AUC:0.8404 Anomaly AUC:0.6805
+[2023-08-28 06:18:26,150][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00050 | loss1:0.0226 loss2:0.2269 loss3:0.0239 | AUC:0.8362 Anomaly AUC:0.6444
+[2023-08-28 06:18:51,707][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00050 | loss1:0.0200 loss2:0.1924 loss3:0.0213 | AUC:0.8370 Anomaly AUC:0.6614
+[2023-08-28 06:19:18,817][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00050 | loss1:0.0176 loss2:0.1486 loss3:0.0185 | AUC:0.8291 Anomaly AUC:0.6297
+[2023-08-28 06:19:46,434][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00050 | loss1:0.0171 loss2:0.1324 loss3:0.0178 | AUC:0.8503 Anomaly AUC:0.6479
+[2023-08-28 06:20:12,487][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00050 | loss1:0.0277 loss2:0.1287 loss3:0.0196 | AUC:0.8470 Anomaly AUC:0.6487
+[2023-08-28 06:20:38,911][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00050 | loss1:0.0176 loss2:0.1063 loss3:0.0167 | AUC:0.8184 Anomaly AUC:0.6099
+[2023-08-28 06:21:05,230][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00050 | loss1:0.0124 loss2:0.0791 loss3:0.0133 | AUC:0.8307 Anomaly AUC:0.6467
+[2023-08-28 06:21:05,231][main-autotune.py][line:114][INFO] Training completes in 9m 2s | best AUC:0.8580 Anomaly AUC:0.6837
+
+[2023-08-28 06:21:43,331][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00080 | loss1:0.5265 loss2:1.2201 loss3:0.2409 | AUC:0.8086 Anomaly AUC:0.6038
+[2023-08-28 06:22:18,201][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00080 | loss1:0.2867 loss2:1.0186 loss3:0.0581 | AUC:0.7923 Anomaly AUC:0.5973
+[2023-08-28 06:22:45,311][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00080 | loss1:0.2421 loss2:0.9593 loss3:0.0398 | AUC:0.7873 Anomaly AUC:0.5830
+[2023-08-28 06:23:12,113][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00080 | loss1:0.1811 loss2:0.9117 loss3:0.0286 | AUC:0.8052 Anomaly AUC:0.6035
+[2023-08-28 06:23:39,268][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00080 | loss1:0.1406 loss2:0.8780 loss3:0.0245 | AUC:0.7738 Anomaly AUC:0.5855
+[2023-08-28 06:24:04,798][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00080 | loss1:0.0923 loss2:0.8318 loss3:0.0181 | AUC:0.8032 Anomaly AUC:0.5923
+[2023-08-28 06:24:31,536][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00080 | loss1:0.0831 loss2:0.8195 loss3:0.0153 | AUC:0.7909 Anomaly AUC:0.5707
+[2023-08-28 06:24:58,377][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00080 | loss1:0.0624 loss2:0.7929 loss3:0.0119 | AUC:0.7839 Anomaly AUC:0.5679
+[2023-08-28 06:25:25,266][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00080 | loss1:0.0467 loss2:0.7705 loss3:0.0100 | AUC:0.7828 Anomaly AUC:0.5532
+[2023-08-28 06:25:50,684][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00080 | loss1:0.0396 loss2:0.7391 loss3:0.0085 | AUC:0.7764 Anomaly AUC:0.5446
+[2023-08-28 06:26:16,632][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00080 | loss1:0.0460 loss2:0.7198 loss3:0.0092 | AUC:0.7633 Anomaly AUC:0.5513
+[2023-08-28 06:26:42,322][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00080 | loss1:0.0312 loss2:0.6629 loss3:0.0071 | AUC:0.7738 Anomaly AUC:0.5379
+[2023-08-28 06:27:08,063][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00080 | loss1:0.0336 loss2:0.6290 loss3:0.0075 | AUC:0.7918 Anomaly AUC:0.5545
+[2023-08-28 06:27:34,005][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00080 | loss1:0.0284 loss2:0.6028 loss3:0.0064 | AUC:0.7897 Anomaly AUC:0.5462
+[2023-08-28 06:27:59,763][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00080 | loss1:0.0209 loss2:0.6224 loss3:0.0056 | AUC:0.7697 Anomaly AUC:0.5429
+[2023-08-28 06:28:25,423][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00080 | loss1:0.0197 loss2:0.4910 loss3:0.0053 | AUC:0.7640 Anomaly AUC:0.5299
+[2023-08-28 06:28:51,046][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00080 | loss1:0.0143 loss2:0.3098 loss3:0.0045 | AUC:0.7453 Anomaly AUC:0.5368
+[2023-08-28 06:29:16,829][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00080 | loss1:0.0329 loss2:0.5724 loss3:0.0070 | AUC:0.7689 Anomaly AUC:0.5392
+[2023-08-28 06:29:42,610][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00080 | loss1:0.0103 loss2:0.3405 loss3:0.0041 | AUC:0.7493 Anomaly AUC:0.5201
+[2023-08-28 06:30:08,135][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00080 | loss1:0.0225 loss2:0.2426 loss3:0.0057 | AUC:0.7880 Anomaly AUC:0.5482
+[2023-08-28 06:30:08,136][main-autotune.py][line:114][INFO] Training completes in 8m 51s | best AUC:0.8086 Anomaly AUC:0.6038
+
+[2023-08-28 06:30:46,748][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4153 loss2:1.0736 loss3:0.3156 | AUC:0.8126 Anomaly AUC:0.6350
+[2023-08-28 06:31:19,645][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2511 loss2:0.8338 loss3:0.1538 | AUC:0.8269 Anomaly AUC:0.6364
+[2023-08-28 06:31:44,950][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.2007 loss2:0.7544 loss3:0.0925 | AUC:0.8346 Anomaly AUC:0.6861
+[2023-08-28 06:32:12,208][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00040 | loss1:0.1240 loss2:0.6558 loss3:0.0566 | AUC:0.7495 Anomaly AUC:0.6924
+[2023-08-28 06:32:37,616][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00040 | loss1:0.0939 loss2:0.6061 loss3:0.0328 | AUC:0.8272 Anomaly AUC:0.6810
+[2023-08-28 06:33:04,719][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00040 | loss1:0.0649 loss2:0.5350 loss3:0.0245 | AUC:0.8363 Anomaly AUC:0.6640
+[2023-08-28 06:33:30,215][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00040 | loss1:0.0631 loss2:0.5003 loss3:0.0228 | AUC:0.8468 Anomaly AUC:0.6948
+[2023-08-28 06:33:57,214][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00040 | loss1:0.0424 loss2:0.4362 loss3:0.0182 | AUC:0.8492 Anomaly AUC:0.7041
+[2023-08-28 06:34:23,004][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00040 | loss1:0.0323 loss2:0.3809 loss3:0.0164 | AUC:0.8525 Anomaly AUC:0.6851
+[2023-08-28 06:34:50,184][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00040 | loss1:0.0256 loss2:0.3334 loss3:0.0149 | AUC:0.8116 Anomaly AUC:0.6526
+[2023-08-28 06:35:17,997][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00040 | loss1:0.0209 loss2:0.2819 loss3:0.0142 | AUC:0.8562 Anomaly AUC:0.6770
+[2023-08-28 06:35:43,587][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00040 | loss1:0.0287 loss2:0.2739 loss3:0.0151 | AUC:0.8364 Anomaly AUC:0.6703
+[2023-08-28 06:36:09,778][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00040 | loss1:0.0128 loss2:0.1939 loss3:0.0129 | AUC:0.8327 Anomaly AUC:0.6708
+[2023-08-28 06:36:36,218][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00040 | loss1:0.0174 loss2:0.1604 loss3:0.0132 | AUC:0.8271 Anomaly AUC:0.6263
+[2023-08-28 06:37:02,416][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00040 | loss1:0.0155 loss2:0.1551 loss3:0.0129 | AUC:0.8499 Anomaly AUC:0.6885
+[2023-08-28 06:37:28,613][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00040 | loss1:0.0216 loss2:0.1272 loss3:0.0137 | AUC:0.8565 Anomaly AUC:0.6934
+[2023-08-28 06:37:54,773][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00040 | loss1:0.0095 loss2:0.0799 loss3:0.0112 | AUC:0.8357 Anomaly AUC:0.6741
+[2023-08-28 06:38:20,948][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00040 | loss1:0.0263 loss2:0.1192 loss3:0.0138 | AUC:0.8515 Anomaly AUC:0.6784
+[2023-08-28 06:38:47,171][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00040 | loss1:0.0088 loss2:0.0764 loss3:0.0112 | AUC:0.8375 Anomaly AUC:0.6560
+[2023-08-28 06:39:13,427][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00040 | loss1:0.0204 loss2:0.0943 loss3:0.0122 | AUC:0.8425 Anomaly AUC:0.6696
+[2023-08-28 06:39:13,428][main-autotune.py][line:114][INFO] Training completes in 8m 53s | best AUC:0.8565 Anomaly AUC:0.6934
+
+[2023-08-28 06:39:52,411][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00060 | loss1:0.4664 loss2:1.1420 loss3:0.3582 | AUC:0.8139 Anomaly AUC:0.6271
+[2023-08-28 06:40:20,875][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00060 | loss1:0.2715 loss2:0.8770 loss3:0.3033 | AUC:0.8042 Anomaly AUC:0.6163
+[2023-08-28 06:40:47,989][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00060 | loss1:0.2029 loss2:0.7844 loss3:0.2731 | AUC:0.7741 Anomaly AUC:0.6721
+[2023-08-28 06:41:15,502][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00060 | loss1:0.1291 loss2:0.6893 loss3:0.2797 | AUC:0.7553 Anomaly AUC:0.6696
+[2023-08-28 06:41:42,945][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00060 | loss1:0.0103 loss2:0.5396 loss3:0.4291 | AUC:0.7808 Anomaly AUC:0.6503
+[2023-08-28 06:42:10,178][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00060 | loss1:0.0025 loss2:0.4092 loss3:0.3316 | AUC:0.7671 Anomaly AUC:0.5830
+[2023-08-28 06:42:35,680][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00060 | loss1:0.0012 loss2:0.3119 loss3:0.3180 | AUC:0.8105 Anomaly AUC:0.6217
+[2023-08-28 06:43:02,478][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00060 | loss1:0.0012 loss2:0.2408 loss3:0.2952 | AUC:0.8025 Anomaly AUC:0.5990
+[2023-08-28 06:43:28,266][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00060 | loss1:0.0009 loss2:0.1738 loss3:0.2951 | AUC:0.7900 Anomaly AUC:0.6039
+[2023-08-28 06:43:54,975][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00060 | loss1:0.0009 loss2:0.1193 loss3:0.2708 | AUC:0.7921 Anomaly AUC:0.6176
+[2023-08-28 06:44:20,825][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00060 | loss1:0.0005 loss2:0.0963 loss3:0.2764 | AUC:0.7978 Anomaly AUC:0.6097
+[2023-08-28 06:44:46,864][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00060 | loss1:0.0007 loss2:0.0980 loss3:0.2802 | AUC:0.8139 Anomaly AUC:0.6270
+[2023-08-28 06:45:12,920][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00060 | loss1:0.0004 loss2:0.0619 loss3:0.2725 | AUC:0.8011 Anomaly AUC:0.6388
+[2023-08-28 06:45:39,061][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00060 | loss1:0.0006 loss2:0.0687 loss3:0.2627 | AUC:0.7892 Anomaly AUC:0.6119
+[2023-08-28 06:46:05,214][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00060 | loss1:0.0011 loss2:0.0475 loss3:0.3323 | AUC:0.7626 Anomaly AUC:0.6338
+[2023-08-28 06:46:31,664][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00060 | loss1:0.0003 loss2:0.0447 loss3:0.2848 | AUC:0.7599 Anomaly AUC:0.5700
+[2023-08-28 06:46:58,018][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00060 | loss1:0.0002 loss2:0.0342 loss3:0.2527 | AUC:0.7954 Anomaly AUC:0.6244
+[2023-08-28 06:47:24,181][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00060 | loss1:0.0006 loss2:0.0455 loss3:0.2510 | AUC:0.8112 Anomaly AUC:0.6315
+[2023-08-28 06:47:50,484][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00060 | loss1:0.0006 loss2:0.0245 loss3:0.2457 | AUC:0.7993 Anomaly AUC:0.6279
+[2023-08-28 06:48:16,818][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00060 | loss1:0.0005 loss2:0.0533 loss3:0.2838 | AUC:0.7909 Anomaly AUC:0.6520
+[2023-08-28 06:48:16,820][main-autotune.py][line:114][INFO] Training completes in 8m 51s | best AUC:0.8139 Anomaly AUC:0.6270
+
+[2023-08-28 06:48:55,621][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00060 | loss1:0.4812 loss2:1.1461 loss3:0.2398 | AUC:0.8162 Anomaly AUC:0.6429
+[2023-08-28 06:49:28,092][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00060 | loss1:0.2797 loss2:0.9029 loss3:0.1003 | AUC:0.8161 Anomaly AUC:0.6511
+[2023-08-28 06:50:01,929][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00060 | loss1:0.2347 loss2:0.8122 loss3:0.0625 | AUC:0.8059 Anomaly AUC:0.6369
+[2023-08-28 06:50:27,105][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00060 | loss1:0.1668 loss2:0.7324 loss3:0.0407 | AUC:0.8172 Anomaly AUC:0.6258
+[2023-08-28 06:50:54,017][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00060 | loss1:0.1264 loss2:0.6699 loss3:0.0314 | AUC:0.8117 Anomaly AUC:0.6334
+[2023-08-28 06:51:21,000][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00060 | loss1:0.1054 loss2:0.6215 loss3:0.0263 | AUC:0.8091 Anomaly AUC:0.6508
+[2023-08-28 06:51:48,470][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00060 | loss1:0.0715 loss2:0.5412 loss3:0.0204 | AUC:0.7748 Anomaly AUC:0.6505
+[2023-08-28 06:52:16,171][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00060 | loss1:0.0496 loss2:0.4819 loss3:0.0165 | AUC:0.8290 Anomaly AUC:0.6727
+[2023-08-28 06:52:41,535][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00060 | loss1:0.0564 loss2:0.4454 loss3:0.0174 | AUC:0.7831 Anomaly AUC:0.6489
+[2023-08-28 06:53:07,816][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00060 | loss1:0.0386 loss2:0.3773 loss3:0.0150 | AUC:0.7860 Anomaly AUC:0.6700
+[2023-08-28 06:53:33,199][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00060 | loss1:0.0312 loss2:0.3431 loss3:0.0139 | AUC:0.8301 Anomaly AUC:0.6723
+[2023-08-28 06:53:58,893][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00060 | loss1:0.0182 loss2:0.2806 loss3:0.0114 | AUC:0.8312 Anomaly AUC:0.6453
+[2023-08-28 06:54:24,778][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00060 | loss1:0.0286 loss2:0.2400 loss3:0.0131 | AUC:0.8389 Anomaly AUC:0.6726
+[2023-08-28 06:54:50,868][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00060 | loss1:0.0229 loss2:0.2130 loss3:0.0117 | AUC:0.8362 Anomaly AUC:0.6714
+[2023-08-28 06:55:16,866][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00060 | loss1:0.0130 loss2:0.1504 loss3:0.0102 | AUC:0.8308 Anomaly AUC:0.6626
+[2023-08-28 06:55:42,785][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00060 | loss1:0.0290 loss2:0.1605 loss3:0.0123 | AUC:0.8090 Anomaly AUC:0.6647
+[2023-08-28 06:56:08,524][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00060 | loss1:0.0131 loss2:0.1159 loss3:0.0098 | AUC:0.8319 Anomaly AUC:0.6905
+[2023-08-28 06:56:34,455][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00060 | loss1:0.0143 loss2:0.1038 loss3:0.0096 | AUC:0.8589 Anomaly AUC:0.7173
+[2023-08-28 06:57:00,294][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00060 | loss1:0.0138 loss2:0.0995 loss3:0.0093 | AUC:0.8066 Anomaly AUC:0.6362
+[2023-08-28 06:57:26,144][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00060 | loss1:0.0170 loss2:0.0912 loss3:0.0103 | AUC:0.8436 Anomaly AUC:0.6791
+[2023-08-28 06:57:26,145][main-autotune.py][line:114][INFO] Training completes in 8m 57s | best AUC:0.8589 Anomaly AUC:0.7173
+
+[2023-08-28 06:58:04,593][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00070 | loss1:0.5184 loss2:1.1802 loss3:0.2413 | AUC:0.7995 Anomaly AUC:0.6076
+[2023-08-28 06:58:37,537][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00070 | loss1:0.3103 loss2:0.9386 loss3:0.1010 | AUC:0.8347 Anomaly AUC:0.6581
+[2023-08-28 06:59:02,534][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00070 | loss1:0.2544 loss2:0.8318 loss3:0.0543 | AUC:0.8155 Anomaly AUC:0.6639
+[2023-08-28 06:59:29,688][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00070 | loss1:0.1870 loss2:0.7535 loss3:0.0367 | AUC:0.8264 Anomaly AUC:0.6399
+[2023-08-28 06:59:54,843][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00070 | loss1:0.1399 loss2:0.6889 loss3:0.0285 | AUC:0.8162 Anomaly AUC:0.6475
+[2023-08-28 07:00:21,819][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00070 | loss1:0.1047 loss2:0.6206 loss3:0.0232 | AUC:0.8371 Anomaly AUC:0.6448
+[2023-08-28 07:00:49,141][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00070 | loss1:0.0714 loss2:0.5456 loss3:0.0179 | AUC:0.8157 Anomaly AUC:0.6263
+[2023-08-28 07:01:17,811][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00070 | loss1:0.0675 loss2:0.5079 loss3:0.0172 | AUC:0.8231 Anomaly AUC:0.6497
+[2023-08-28 07:01:45,677][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00070 | loss1:0.0379 loss2:0.4369 loss3:0.0129 | AUC:0.8249 Anomaly AUC:0.6789
+[2023-08-28 07:02:11,079][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00070 | loss1:0.0407 loss2:0.3895 loss3:0.0133 | AUC:0.8273 Anomaly AUC:0.6391
+[2023-08-28 07:02:38,556][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00070 | loss1:0.0261 loss2:0.3357 loss3:0.0109 | AUC:0.8384 Anomaly AUC:0.6563
+[2023-08-28 07:03:05,511][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00070 | loss1:0.0363 loss2:0.3232 loss3:0.0123 | AUC:0.8346 Anomaly AUC:0.6439
+[2023-08-28 07:03:30,931][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00070 | loss1:0.0293 loss2:0.2749 loss3:0.0112 | AUC:0.8030 Anomaly AUC:0.6633
+[2023-08-28 07:03:56,792][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00070 | loss1:0.0214 loss2:0.2286 loss3:0.0095 | AUC:0.8279 Anomaly AUC:0.6416
+[2023-08-28 07:04:22,668][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00070 | loss1:0.0135 loss2:0.1731 loss3:0.0086 | AUC:0.8198 Anomaly AUC:0.6312
+[2023-08-28 07:04:48,765][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00070 | loss1:0.0232 loss2:0.1575 loss3:0.0097 | AUC:0.8242 Anomaly AUC:0.6405
+[2023-08-28 07:05:14,637][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00070 | loss1:0.0183 loss2:0.1324 loss3:0.0088 | AUC:0.8262 Anomaly AUC:0.6457
+[2023-08-28 07:05:40,542][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00070 | loss1:0.0175 loss2:0.1225 loss3:0.0087 | AUC:0.8228 Anomaly AUC:0.6261
+[2023-08-28 07:06:06,330][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00070 | loss1:0.0121 loss2:0.0974 loss3:0.0075 | AUC:0.8231 Anomaly AUC:0.6561
+[2023-08-28 07:06:32,150][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00070 | loss1:0.0178 loss2:0.0878 loss3:0.0075 | AUC:0.7524 Anomaly AUC:0.6041
+[2023-08-28 07:06:32,151][main-autotune.py][line:114][INFO] Training completes in 8m 54s | best AUC:0.8384 Anomaly AUC:0.6563
+
+[2023-08-28 07:07:11,071][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00100 | loss1:0.5858 loss2:1.2384 loss3:0.2896 | AUC:0.8034 Anomaly AUC:0.6056
+[2023-08-28 07:07:40,965][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00100 | loss1:0.3335 loss2:1.0410 loss3:0.1099 | AUC:0.8100 Anomaly AUC:0.6220
+[2023-08-28 07:08:06,211][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00100 | loss1:0.2826 loss2:0.9571 loss3:0.0626 | AUC:0.7692 Anomaly AUC:0.6218
+[2023-08-28 07:08:33,395][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00100 | loss1:0.2256 loss2:0.8954 loss3:0.0482 | AUC:0.7898 Anomaly AUC:0.5994
+[2023-08-28 07:08:58,574][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00100 | loss1:0.1887 loss2:0.8500 loss3:0.0412 | AUC:0.7669 Anomaly AUC:0.5858
+[2023-08-28 07:09:25,815][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00100 | loss1:0.1693 loss2:0.8152 loss3:0.0373 | AUC:0.7682 Anomaly AUC:0.5295
+[2023-08-28 07:09:51,413][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00100 | loss1:0.1301 loss2:0.7641 loss3:0.0312 | AUC:0.7373 Anomaly AUC:0.5361
+[2023-08-28 07:10:18,336][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00100 | loss1:0.1146 loss2:0.7259 loss3:0.0288 | AUC:0.7037 Anomaly AUC:0.5413
+[2023-08-28 07:10:43,708][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00100 | loss1:0.0759 loss2:0.6770 loss3:0.0228 | AUC:0.7131 Anomaly AUC:0.5278
+[2023-08-28 07:11:10,256][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00100 | loss1:0.0748 loss2:0.6483 loss3:0.0220 | AUC:0.7178 Anomaly AUC:0.5143
+[2023-08-28 07:11:35,909][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00100 | loss1:0.0685 loss2:0.6395 loss3:0.0202 | AUC:0.6969 Anomaly AUC:0.5091
+[2023-08-28 07:12:01,779][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00100 | loss1:0.0498 loss2:0.6025 loss3:0.0173 | AUC:0.7376 Anomaly AUC:0.5455
+[2023-08-28 07:12:28,117][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00100 | loss1:0.0462 loss2:0.5656 loss3:0.0158 | AUC:0.7293 Anomaly AUC:0.5249
+[2023-08-28 07:12:54,416][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00100 | loss1:0.0332 loss2:0.5111 loss3:0.0142 | AUC:0.6106 Anomaly AUC:0.5070
+[2023-08-28 07:13:20,236][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00100 | loss1:0.0420 loss2:0.4524 loss3:0.0152 | AUC:0.7119 Anomaly AUC:0.5524
+[2023-08-28 07:13:46,095][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00100 | loss1:0.0203 loss2:0.3596 loss3:0.0121 | AUC:0.6952 Anomaly AUC:0.5043
+[2023-08-28 07:14:12,013][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00100 | loss1:0.0294 loss2:0.4698 loss3:0.0129 | AUC:0.6991 Anomaly AUC:0.4983
+[2023-08-28 07:14:38,354][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00100 | loss1:0.0146 loss2:0.4341 loss3:0.0110 | AUC:0.6871 Anomaly AUC:0.5073
+[2023-08-28 07:15:04,346][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00100 | loss1:0.0227 loss2:0.4101 loss3:0.0123 | AUC:0.6969 Anomaly AUC:0.5118
+[2023-08-28 07:15:30,248][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00100 | loss1:0.0192 loss2:0.4040 loss3:0.0124 | AUC:0.6880 Anomaly AUC:0.5035
+[2023-08-28 07:15:30,249][main-autotune.py][line:114][INFO] Training completes in 8m 46s | best AUC:0.8100 Anomaly AUC:0.6220
+
+[2023-08-28 07:16:09,092][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4133 loss2:1.0774 loss3:0.3028 | AUC:0.8187 Anomaly AUC:0.6341
+[2023-08-28 07:16:42,117][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2647 loss2:0.8556 loss3:0.1459 | AUC:0.8278 Anomaly AUC:0.6551
+[2023-08-28 07:17:13,907][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.1856 loss2:0.7765 loss3:0.0885 | AUC:0.8164 Anomaly AUC:0.6545
+[2023-08-28 07:17:41,320][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00040 | loss1:0.1318 loss2:0.7030 loss3:0.0494 | AUC:0.8239 Anomaly AUC:0.6762
+[2023-08-28 07:18:09,300][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00040 | loss1:0.0852 loss2:0.6345 loss3:0.0278 | AUC:0.8171 Anomaly AUC:0.6721
+[2023-08-28 07:18:37,947][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00040 | loss1:0.0718 loss2:0.5843 loss3:0.0234 | AUC:0.8049 Anomaly AUC:0.6469
+[2023-08-28 07:19:06,152][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00040 | loss1:0.0584 loss2:0.5562 loss3:0.0203 | AUC:0.8168 Anomaly AUC:0.6667
+[2023-08-28 07:19:33,445][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00040 | loss1:0.0490 loss2:0.5016 loss3:0.0182 | AUC:0.8116 Anomaly AUC:0.6723
+[2023-08-28 07:20:02,019][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00040 | loss1:0.0346 loss2:0.4493 loss3:0.0152 | AUC:0.8330 Anomaly AUC:0.6522
+[2023-08-28 07:20:30,112][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00040 | loss1:0.0272 loss2:0.3997 loss3:0.0132 | AUC:0.8155 Anomaly AUC:0.6517
+[2023-08-28 07:20:55,577][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00040 | loss1:0.0199 loss2:0.3495 loss3:0.0122 | AUC:0.8243 Anomaly AUC:0.6496
+[2023-08-28 07:21:21,655][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00040 | loss1:0.0157 loss2:0.2871 loss3:0.0120 | AUC:0.8425 Anomaly AUC:0.6669
+[2023-08-28 07:21:47,662][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00040 | loss1:0.0255 loss2:0.2879 loss3:0.0131 | AUC:0.8417 Anomaly AUC:0.6887
+[2023-08-28 07:22:13,853][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00040 | loss1:0.0267 loss2:0.2511 loss3:0.0133 | AUC:0.8379 Anomaly AUC:0.6723
+[2023-08-28 07:22:40,289][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00040 | loss1:0.0268 loss2:0.2277 loss3:0.0130 | AUC:0.8392 Anomaly AUC:0.6818
+[2023-08-28 07:23:06,208][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00040 | loss1:0.0140 loss2:0.1719 loss3:0.0108 | AUC:0.8419 Anomaly AUC:0.7055
+[2023-08-28 07:23:32,437][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00040 | loss1:0.0068 loss2:0.1210 loss3:0.0097 | AUC:0.8304 Anomaly AUC:0.6820
+[2023-08-28 07:23:58,503][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00040 | loss1:0.0078 loss2:0.0929 loss3:0.0095 | AUC:0.8339 Anomaly AUC:0.6711
+[2023-08-28 07:24:24,546][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00040 | loss1:0.0101 loss2:0.0993 loss3:0.0099 | AUC:0.8283 Anomaly AUC:0.6501
+[2023-08-28 07:24:50,590][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00040 | loss1:0.0141 loss2:0.0997 loss3:0.0106 | AUC:0.8375 Anomaly AUC:0.6925
+[2023-08-28 07:24:50,591][main-autotune.py][line:114][INFO] Training completes in 9m 8s | best AUC:0.8425 Anomaly AUC:0.6669
+
+[2023-08-28 07:25:29,335][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00100 | loss1:0.5003 loss2:1.1925 loss3:0.3743 | AUC:0.8166 Anomaly AUC:0.6212
+[2023-08-28 07:26:02,322][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00100 | loss1:0.2993 loss2:0.9698 loss3:0.3069 | AUC:0.8315 Anomaly AUC:0.6295
+[2023-08-28 07:26:33,955][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00100 | loss1:0.2495 loss2:0.8637 loss3:0.2752 | AUC:0.7985 Anomaly AUC:0.6253
+[2023-08-28 07:27:01,395][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00100 | loss1:0.1978 loss2:0.7920 loss3:0.2478 | AUC:0.7894 Anomaly AUC:0.6228
+[2023-08-28 07:27:28,573][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00100 | loss1:0.1679 loss2:0.7471 loss3:0.2257 | AUC:0.8102 Anomaly AUC:0.6294
+[2023-08-28 07:27:54,205][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00100 | loss1:0.1490 loss2:0.6909 loss3:0.2069 | AUC:0.8353 Anomaly AUC:0.6370
+[2023-08-28 07:28:21,733][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00100 | loss1:0.1017 loss2:0.6231 loss3:0.1940 | AUC:0.8076 Anomaly AUC:0.6350
+[2023-08-28 07:28:50,449][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00100 | loss1:0.0899 loss2:0.5677 loss3:0.1865 | AUC:0.8095 Anomaly AUC:0.6401
+[2023-08-28 07:29:15,949][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00100 | loss1:0.0651 loss2:0.5005 loss3:0.1789 | AUC:0.8006 Anomaly AUC:0.6422
+[2023-08-28 07:29:42,582][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00100 | loss1:0.0628 loss2:0.4548 loss3:0.1752 | AUC:0.7842 Anomaly AUC:0.6239
+[2023-08-28 07:30:08,238][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00100 | loss1:0.0415 loss2:0.3934 loss3:0.1659 | AUC:0.8150 Anomaly AUC:0.6493
+[2023-08-28 07:30:34,901][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00100 | loss1:0.0377 loss2:0.3413 loss3:0.1677 | AUC:0.8188 Anomaly AUC:0.6063
+[2023-08-28 07:31:00,647][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00100 | loss1:0.0238 loss2:0.2764 loss3:0.1626 | AUC:0.8171 Anomaly AUC:0.6549
+[2023-08-28 07:31:26,630][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00100 | loss1:0.0235 loss2:0.2420 loss3:0.1655 | AUC:0.7747 Anomaly AUC:0.5948
+[2023-08-28 07:31:52,635][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00100 | loss1:0.0110 loss2:0.1659 loss3:0.1642 | AUC:0.7709 Anomaly AUC:0.6418
+[2023-08-28 07:32:18,649][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00100 | loss1:0.0297 loss2:0.1909 loss3:0.1734 | AUC:0.7945 Anomaly AUC:0.6207
+[2023-08-28 07:32:44,682][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00100 | loss1:0.0152 loss2:0.1404 loss3:0.1675 | AUC:0.8096 Anomaly AUC:0.5846
+[2023-08-28 07:33:10,640][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00100 | loss1:0.0243 loss2:0.1423 loss3:0.1752 | AUC:0.8363 Anomaly AUC:0.6691
+[2023-08-28 07:33:36,916][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00100 | loss1:0.0072 loss2:0.0949 loss3:0.1694 | AUC:0.8189 Anomaly AUC:0.6419
+[2023-08-28 07:34:02,887][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00100 | loss1:0.0073 loss2:0.0688 loss3:0.1772 | AUC:0.8158 Anomaly AUC:0.6213
+[2023-08-28 07:34:02,888][main-autotune.py][line:114][INFO] Training completes in 8m 60s | best AUC:0.8363 Anomaly AUC:0.6691
+
+[2023-08-28 07:34:42,049][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00060 | loss1:0.4615 loss2:1.1431 loss3:0.3099 | AUC:0.8161 Anomaly AUC:0.6320
+[2023-08-28 07:35:16,956][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00060 | loss1:0.2836 loss2:0.9103 loss3:0.1842 | AUC:0.8191 Anomaly AUC:0.6309
+[2023-08-28 07:35:44,463][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00060 | loss1:0.2302 loss2:0.8226 loss3:0.1204 | AUC:0.8136 Anomaly AUC:0.6466
+[2023-08-28 07:36:11,856][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00060 | loss1:0.1531 loss2:0.7342 loss3:0.0862 | AUC:0.8175 Anomaly AUC:0.6526
+[2023-08-28 07:36:37,366][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00060 | loss1:0.1302 loss2:0.6842 loss3:0.0753 | AUC:0.8310 Anomaly AUC:0.6606
+[2023-08-28 07:37:04,849][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00060 | loss1:0.1042 loss2:0.6271 loss3:0.0658 | AUC:0.8250 Anomaly AUC:0.6720
+[2023-08-28 07:37:30,441][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00060 | loss1:0.0868 loss2:0.5744 loss3:0.0585 | AUC:0.8369 Anomaly AUC:0.6638
+[2023-08-28 07:37:57,344][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00060 | loss1:0.0577 loss2:0.5049 loss3:0.0498 | AUC:0.8276 Anomaly AUC:0.6916
+[2023-08-28 07:38:24,385][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00060 | loss1:0.0453 loss2:0.4468 loss3:0.0387 | AUC:0.8407 Anomaly AUC:0.6829
+[2023-08-28 07:38:50,048][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00060 | loss1:0.0378 loss2:0.3749 loss3:0.0330 | AUC:0.8268 Anomaly AUC:0.6838
+[2023-08-28 07:39:16,666][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00060 | loss1:0.0295 loss2:0.3267 loss3:0.0284 | AUC:0.8447 Anomaly AUC:0.6687
+[2023-08-28 07:39:42,208][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00060 | loss1:0.0277 loss2:0.2913 loss3:0.0274 | AUC:0.8324 Anomaly AUC:0.6598
+[2023-08-28 07:40:08,196][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00060 | loss1:0.0360 loss2:0.2574 loss3:0.0273 | AUC:0.8247 Anomaly AUC:0.6736
+[2023-08-28 07:40:34,269][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00060 | loss1:0.0315 loss2:0.2144 loss3:0.0230 | AUC:0.8112 Anomaly AUC:0.6272
+[2023-08-28 07:41:00,467][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00060 | loss1:0.0119 loss2:0.1514 loss3:0.0203 | AUC:0.8245 Anomaly AUC:0.6554
+[2023-08-28 07:41:26,765][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00060 | loss1:0.0259 loss2:0.1530 loss3:0.0219 | AUC:0.8161 Anomaly AUC:0.6540
+[2023-08-28 07:41:53,039][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00060 | loss1:0.0171 loss2:0.1144 loss3:0.0207 | AUC:0.8430 Anomaly AUC:0.6802
+[2023-08-28 07:42:19,094][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00060 | loss1:0.0155 loss2:0.1128 loss3:0.0196 | AUC:0.8195 Anomaly AUC:0.6714
+[2023-08-28 07:42:45,159][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00060 | loss1:0.0031 loss2:0.0565 loss3:0.0154 | AUC:0.8371 Anomaly AUC:0.6736
+[2023-08-28 07:43:11,537][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00060 | loss1:0.0030 loss2:0.0424 loss3:0.0153 | AUC:0.8289 Anomaly AUC:0.6553
+[2023-08-28 07:43:11,538][main-autotune.py][line:114][INFO] Training completes in 8m 56s | best AUC:0.8447 Anomaly AUC:0.6687
+
+[2023-08-28 07:43:49,935][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00010 | loss1:0.4108 loss2:1.3934 loss3:0.3864 | AUC:0.8081 Anomaly AUC:0.5996
+[2023-08-28 07:44:22,906][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00010 | loss1:0.2054 loss2:1.3098 loss3:0.3781 | AUC:0.7699 Anomaly AUC:0.5852
+[2023-08-28 07:44:54,536][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00010 | loss1:0.1253 loss2:1.2112 loss3:0.3478 | AUC:0.7934 Anomaly AUC:0.5732
+[2023-08-28 07:45:19,981][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00010 | loss1:0.0677 loss2:1.1565 loss3:0.3181 | AUC:0.7827 Anomaly AUC:0.5679
+[2023-08-28 07:45:46,977][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00010 | loss1:0.0328 loss2:1.1252 loss3:0.3004 | AUC:0.8029 Anomaly AUC:0.5618
+[2023-08-28 07:46:14,438][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00010 | loss1:0.0254 loss2:1.0978 loss3:0.2896 | AUC:0.7959 Anomaly AUC:0.5736
+[2023-08-28 07:46:41,517][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00010 | loss1:0.0115 loss2:1.0729 loss3:0.2753 | AUC:0.7784 Anomaly AUC:0.5573
+[2023-08-28 07:47:08,356][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00010 | loss1:0.0083 loss2:1.0516 loss3:0.2635 | AUC:0.7951 Anomaly AUC:0.5755
+[2023-08-28 07:47:35,446][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00010 | loss1:0.0116 loss2:1.0365 loss3:0.2533 | AUC:0.7965 Anomaly AUC:0.5612
+[2023-08-28 07:48:03,660][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00010 | loss1:0.0144 loss2:1.0245 loss3:0.2468 | AUC:0.8013 Anomaly AUC:0.5738
+[2023-08-28 07:48:30,235][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00010 | loss1:0.0008 loss2:1.0012 loss3:0.2314 | AUC:0.7866 Anomaly AUC:0.5628
+[2023-08-28 07:48:55,910][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00010 | loss1:0.0048 loss2:0.9838 loss3:0.2210 | AUC:0.7830 Anomaly AUC:0.5682
+[2023-08-28 07:49:22,282][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00010 | loss1:0.0021 loss2:0.9642 loss3:0.2103 | AUC:0.8024 Anomaly AUC:0.5656
+[2023-08-28 07:49:48,252][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00010 | loss1:0.0134 loss2:0.9817 loss3:0.2145 | AUC:0.7426 Anomaly AUC:0.5507
+[2023-08-28 07:50:14,321][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00010 | loss1:0.0020 loss2:0.9543 loss3:0.2114 | AUC:0.7945 Anomaly AUC:0.5693
+[2023-08-28 07:50:40,417][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00010 | loss1:0.0001 loss2:0.9149 loss3:0.1875 | AUC:0.7867 Anomaly AUC:0.5701
+[2023-08-28 07:51:06,520][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00010 | loss1:0.0001 loss2:0.8821 loss3:0.1677 | AUC:0.7894 Anomaly AUC:0.5705
+[2023-08-28 07:51:32,800][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00010 | loss1:0.0180 loss2:0.9518 loss3:0.1989 | AUC:0.7788 Anomaly AUC:0.5646
+[2023-08-28 07:51:58,673][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00010 | loss1:0.0036 loss2:0.9313 loss3:0.2183 | AUC:0.7330 Anomaly AUC:0.5721
+[2023-08-28 07:52:24,637][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00010 | loss1:0.0017 loss2:0.9106 loss3:0.2151 | AUC:0.7827 Anomaly AUC:0.5740
+[2023-08-28 07:52:24,638][main-autotune.py][line:114][INFO] Training completes in 9m 1s | best AUC:0.8081 Anomaly AUC:0.5996
+
+[2023-08-28 07:53:03,097][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00080 | loss1:0.5186 loss2:1.1828 loss3:0.2327 | AUC:0.8109 Anomaly AUC:0.6227
+[2023-08-28 07:53:36,029][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00080 | loss1:0.3335 loss2:0.9657 loss3:0.0996 | AUC:0.8065 Anomaly AUC:0.6293
+[2023-08-28 07:54:09,949][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00080 | loss1:0.2674 loss2:0.8583 loss3:0.0605 | AUC:0.8034 Anomaly AUC:0.6245
+[2023-08-28 07:54:37,140][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00080 | loss1:0.2207 loss2:0.7846 loss3:0.0441 | AUC:0.7718 Anomaly AUC:0.6310
+[2023-08-28 07:55:02,425][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00080 | loss1:0.1747 loss2:0.7299 loss3:0.0338 | AUC:0.8224 Anomaly AUC:0.6606
+[2023-08-28 07:55:29,510][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00080 | loss1:0.1326 loss2:0.6583 loss3:0.0257 | AUC:0.7552 Anomaly AUC:0.6320
+[2023-08-28 07:55:56,765][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00080 | loss1:0.1043 loss2:0.5913 loss3:0.0218 | AUC:0.7627 Anomaly AUC:0.6086
+[2023-08-28 07:56:22,019][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00080 | loss1:0.0875 loss2:0.5367 loss3:0.0197 | AUC:0.7695 Anomaly AUC:0.6337
+[2023-08-28 07:56:48,687][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00080 | loss1:0.0741 loss2:0.4823 loss3:0.0166 | AUC:0.7855 Anomaly AUC:0.6077
+[2023-08-28 07:57:14,029][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00080 | loss1:0.0579 loss2:0.4239 loss3:0.0141 | AUC:0.7711 Anomaly AUC:0.6363
+[2023-08-28 07:57:39,772][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00080 | loss1:0.0456 loss2:0.3652 loss3:0.0118 | AUC:0.8160 Anomaly AUC:0.6299
+[2023-08-28 07:58:05,527][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00080 | loss1:0.0574 loss2:0.3479 loss3:0.0142 | AUC:0.7649 Anomaly AUC:0.5891
+[2023-08-28 07:58:31,302][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00080 | loss1:0.0279 loss2:0.2703 loss3:0.0092 | AUC:0.7901 Anomaly AUC:0.6420
+[2023-08-28 07:58:56,980][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00080 | loss1:0.0211 loss2:0.2304 loss3:0.0077 | AUC:0.8265 Anomaly AUC:0.6488
+[2023-08-28 07:59:22,817][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00080 | loss1:0.0187 loss2:0.1825 loss3:0.0069 | AUC:0.8030 Anomaly AUC:0.6636
+[2023-08-28 07:59:48,491][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00080 | loss1:0.0118 loss2:0.1395 loss3:0.0058 | AUC:0.8165 Anomaly AUC:0.6415
+[2023-08-28 08:00:14,269][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00080 | loss1:0.0103 loss2:0.1088 loss3:0.0051 | AUC:0.8164 Anomaly AUC:0.6611
+[2023-08-28 08:00:40,436][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00080 | loss1:0.0233 loss2:0.1111 loss3:0.0071 | AUC:0.7753 Anomaly AUC:0.6318
+[2023-08-28 08:01:06,277][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00080 | loss1:0.0138 loss2:0.0790 loss3:0.0055 | AUC:0.7773 Anomaly AUC:0.6077
+[2023-08-28 08:01:32,356][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00080 | loss1:0.0154 loss2:0.0764 loss3:0.0053 | AUC:0.7847 Anomaly AUC:0.6437
+[2023-08-28 08:01:32,357][main-autotune.py][line:114][INFO] Training completes in 8m 55s | best AUC:0.8265 Anomaly AUC:0.6488
+
+[2023-08-28 08:02:10,875][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4283 loss2:1.0824 loss3:0.3084 | AUC:0.8172 Anomaly AUC:0.6386
+[2023-08-28 08:02:43,763][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2493 loss2:0.8336 loss3:0.1481 | AUC:0.8280 Anomaly AUC:0.6517
+[2023-08-28 08:03:09,024][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.1915 loss2:0.7535 loss3:0.0918 | AUC:0.8358 Anomaly AUC:0.6800
+[2023-08-28 08:03:36,456][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00040 | loss1:0.1396 loss2:0.6901 loss3:0.0746 | AUC:0.8444 Anomaly AUC:0.7032
+[2023-08-28 08:04:01,849][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00040 | loss1:0.1090 loss2:0.6289 loss3:0.0651 | AUC:0.8236 Anomaly AUC:0.6772
+[2023-08-28 08:04:28,865][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00040 | loss1:0.0657 loss2:0.5569 loss3:0.0540 | AUC:0.8471 Anomaly AUC:0.6731
+[2023-08-28 08:04:56,008][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00040 | loss1:0.0598 loss2:0.5250 loss3:0.0494 | AUC:0.8533 Anomaly AUC:0.7132
+[2023-08-28 08:05:22,727][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00040 | loss1:0.0553 loss2:0.4763 loss3:0.0467 | AUC:0.8467 Anomaly AUC:0.6927
+[2023-08-28 08:05:49,399][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00040 | loss1:0.0411 loss2:0.4290 loss3:0.0446 | AUC:0.8537 Anomaly AUC:0.6998
+[2023-08-28 08:06:14,969][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00040 | loss1:0.0341 loss2:0.3837 loss3:0.0421 | AUC:0.8407 Anomaly AUC:0.7015
+[2023-08-28 08:06:41,074][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00040 | loss1:0.0365 loss2:0.3488 loss3:0.0410 | AUC:0.8406 Anomaly AUC:0.6815
+[2023-08-28 08:07:07,439][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00040 | loss1:0.0283 loss2:0.3019 loss3:0.0245 | AUC:0.8077 Anomaly AUC:0.6782
+[2023-08-28 08:07:34,030][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00040 | loss1:0.0084 loss2:0.2351 loss3:0.0140 | AUC:0.8187 Anomaly AUC:0.6888
+[2023-08-28 08:08:00,009][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00040 | loss1:0.0137 loss2:0.1941 loss3:0.0135 | AUC:0.8289 Anomaly AUC:0.6633
+[2023-08-28 08:08:26,162][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00040 | loss1:0.0084 loss2:0.1504 loss3:0.0118 | AUC:0.8431 Anomaly AUC:0.6639
+[2023-08-28 08:08:52,414][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00040 | loss1:0.0196 loss2:0.1475 loss3:0.0132 | AUC:0.8192 Anomaly AUC:0.6903
+[2023-08-28 08:09:18,924][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00040 | loss1:0.0276 loss2:0.1758 loss3:0.0142 | AUC:0.8257 Anomaly AUC:0.6875
+[2023-08-28 08:09:45,008][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00040 | loss1:0.0238 loss2:0.1363 loss3:0.0134 | AUC:0.8156 Anomaly AUC:0.6735
+[2023-08-28 08:10:11,567][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00040 | loss1:0.0137 loss2:0.0956 loss3:0.0104 | AUC:0.8319 Anomaly AUC:0.6893
+[2023-08-28 08:10:37,812][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00040 | loss1:0.0041 loss2:0.0543 loss3:0.0081 | AUC:0.8419 Anomaly AUC:0.6977
+[2023-08-28 08:10:37,814][main-autotune.py][line:114][INFO] Training completes in 8m 53s | best AUC:0.8537 Anomaly AUC:0.6998
+
+[2023-08-28 08:11:16,244][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00050 | loss1:0.4336 loss2:1.1094 loss3:0.3058 | AUC:0.8216 Anomaly AUC:0.6586
+[2023-08-28 08:11:44,633][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00050 | loss1:0.2626 loss2:0.8783 loss3:0.1288 | AUC:0.8312 Anomaly AUC:0.6802
+[2023-08-28 08:12:11,747][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00050 | loss1:0.2050 loss2:0.8049 loss3:0.0629 | AUC:0.8229 Anomaly AUC:0.6656
+[2023-08-28 08:12:38,997][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00050 | loss1:0.1459 loss2:0.7191 loss3:0.0416 | AUC:0.8343 Anomaly AUC:0.6918
+[2023-08-28 08:13:06,092][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00050 | loss1:0.1061 loss2:0.6683 loss3:0.0308 | AUC:0.8229 Anomaly AUC:0.6700
+[2023-08-28 08:13:33,128][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00050 | loss1:0.0947 loss2:0.6202 loss3:0.0276 | AUC:0.8211 Anomaly AUC:0.6786
+[2023-08-28 08:13:58,696][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00050 | loss1:0.0575 loss2:0.5503 loss3:0.0203 | AUC:0.8403 Anomaly AUC:0.6864
+[2023-08-28 08:14:26,032][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00050 | loss1:0.0411 loss2:0.4970 loss3:0.0176 | AUC:0.8435 Anomaly AUC:0.6583
+[2023-08-28 08:14:51,396][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00050 | loss1:0.0527 loss2:0.4661 loss3:0.0193 | AUC:0.8006 Anomaly AUC:0.6869
+[2023-08-28 08:15:19,526][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00050 | loss1:0.0299 loss2:0.3926 loss3:0.0153 | AUC:0.8276 Anomaly AUC:0.6866
+[2023-08-28 08:15:46,317][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00050 | loss1:0.0363 loss2:0.3645 loss3:0.0169 | AUC:0.8095 Anomaly AUC:0.6684
+[2023-08-28 08:16:11,938][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00050 | loss1:0.0246 loss2:0.3128 loss3:0.0141 | AUC:0.8102 Anomaly AUC:0.6694
+[2023-08-28 08:16:38,410][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00050 | loss1:0.0180 loss2:0.2553 loss3:0.0129 | AUC:0.8302 Anomaly AUC:0.6799
+[2023-08-28 08:17:03,829][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00050 | loss1:0.0209 loss2:0.2218 loss3:0.0131 | AUC:0.8372 Anomaly AUC:0.6769
+[2023-08-28 08:17:29,972][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00050 | loss1:0.0232 loss2:0.2040 loss3:0.0129 | AUC:0.8194 Anomaly AUC:0.6826
+[2023-08-28 08:17:55,710][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00050 | loss1:0.0244 loss2:0.1675 loss3:0.0136 | AUC:0.7963 Anomaly AUC:0.6678
+[2023-08-28 08:18:21,669][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00050 | loss1:0.0079 loss2:0.1386 loss3:0.0110 | AUC:0.8383 Anomaly AUC:0.6804
+[2023-08-28 08:18:47,494][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00050 | loss1:0.0126 loss2:0.1135 loss3:0.0108 | AUC:0.8050 Anomaly AUC:0.6997
+[2023-08-28 08:19:13,396][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00050 | loss1:0.0133 loss2:0.1007 loss3:0.0108 | AUC:0.8317 Anomaly AUC:0.6889
+[2023-08-28 08:19:39,631][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00050 | loss1:0.0186 loss2:0.0864 loss3:0.0115 | AUC:0.8326 Anomaly AUC:0.6719
+[2023-08-28 08:19:39,632][main-autotune.py][line:114][INFO] Training completes in 8m 50s | best AUC:0.8435 Anomaly AUC:0.6583
+
+[2023-08-28 08:20:17,188][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00060 | loss1:0.4895 loss2:1.1493 loss3:0.2879 | AUC:0.8158 Anomaly AUC:0.6239
+[2023-08-28 08:20:50,217][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00060 | loss1:0.2927 loss2:0.9200 loss3:0.1346 | AUC:0.8141 Anomaly AUC:0.6497
+[2023-08-28 08:21:23,914][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00060 | loss1:0.2356 loss2:0.8212 loss3:0.0995 | AUC:0.8223 Anomaly AUC:0.6549
+[2023-08-28 08:21:51,527][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00060 | loss1:0.1765 loss2:0.7465 loss3:0.0751 | AUC:0.8324 Anomaly AUC:0.6397
+[2023-08-28 08:22:18,574][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00060 | loss1:0.1309 loss2:0.6740 loss3:0.0453 | AUC:0.8197 Anomaly AUC:0.6397
+[2023-08-28 08:22:45,573][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00060 | loss1:0.1132 loss2:0.6205 loss3:0.0362 | AUC:0.8246 Anomaly AUC:0.6533
+[2023-08-28 08:23:12,345][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00060 | loss1:0.0816 loss2:0.5578 loss3:0.0265 | AUC:0.8457 Anomaly AUC:0.6742
+[2023-08-28 08:23:40,111][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00060 | loss1:0.0515 loss2:0.4912 loss3:0.0226 | AUC:0.8413 Anomaly AUC:0.6714
+[2023-08-28 08:24:07,476][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00060 | loss1:0.0477 loss2:0.4415 loss3:0.0190 | AUC:0.8434 Anomaly AUC:0.6803
+[2023-08-28 08:24:32,880][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00060 | loss1:0.0579 loss2:0.4206 loss3:0.0203 | AUC:0.8324 Anomaly AUC:0.6557
+[2023-08-28 08:24:59,372][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00060 | loss1:0.0347 loss2:0.3621 loss3:0.0161 | AUC:0.8230 Anomaly AUC:0.6524
+[2023-08-28 08:25:24,710][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00060 | loss1:0.0230 loss2:0.3014 loss3:0.0122 | AUC:0.8291 Anomaly AUC:0.6247
+[2023-08-28 08:25:50,434][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00060 | loss1:0.0290 loss2:0.2719 loss3:0.0131 | AUC:0.8296 Anomaly AUC:0.6518
+[2023-08-28 08:26:16,344][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00060 | loss1:0.0252 loss2:0.2442 loss3:0.0123 | AUC:0.8260 Anomaly AUC:0.6267
+[2023-08-28 08:26:42,190][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00060 | loss1:0.0133 loss2:0.1825 loss3:0.0101 | AUC:0.8210 Anomaly AUC:0.6454
+[2023-08-28 08:27:08,099][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00060 | loss1:0.0190 loss2:0.1674 loss3:0.0100 | AUC:0.8358 Anomaly AUC:0.6486
+[2023-08-28 08:27:34,420][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00060 | loss1:0.0152 loss2:0.1570 loss3:0.0100 | AUC:0.8268 Anomaly AUC:0.6209
+[2023-08-28 08:28:00,536][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00060 | loss1:0.0167 loss2:0.1260 loss3:0.0092 | AUC:0.8278 Anomaly AUC:0.6374
+[2023-08-28 08:28:26,399][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00060 | loss1:0.0110 loss2:0.0919 loss3:0.0080 | AUC:0.8272 Anomaly AUC:0.6017
+[2023-08-28 08:28:52,226][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00060 | loss1:0.0228 loss2:0.1063 loss3:0.0093 | AUC:0.8321 Anomaly AUC:0.6225
+[2023-08-28 08:28:52,227][main-autotune.py][line:114][INFO] Training completes in 9m 0s | best AUC:0.8457 Anomaly AUC:0.6742
+
+[2023-08-28 08:29:30,411][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00060 | loss1:0.4710 loss2:1.1363 loss3:0.2807 | AUC:0.8213 Anomaly AUC:0.6276
+[2023-08-28 08:29:59,492][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00060 | loss1:0.2875 loss2:0.9071 loss3:0.1283 | AUC:0.8247 Anomaly AUC:0.6339
+[2023-08-28 08:30:25,574][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00060 | loss1:0.2327 loss2:0.8165 loss3:0.0964 | AUC:0.8233 Anomaly AUC:0.6293
+[2023-08-28 08:30:53,972][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00060 | loss1:0.1650 loss2:0.7377 loss3:0.0628 | AUC:0.8319 Anomaly AUC:0.6440
+[2023-08-28 08:31:22,007][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00060 | loss1:0.1281 loss2:0.6830 loss3:0.0427 | AUC:0.8152 Anomaly AUC:0.6545
+[2023-08-28 08:31:50,281][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00060 | loss1:0.0983 loss2:0.6238 loss3:0.0317 | AUC:0.8031 Anomaly AUC:0.6261
+[2023-08-28 08:32:17,399][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00060 | loss1:0.0768 loss2:0.5666 loss3:0.0271 | AUC:0.8179 Anomaly AUC:0.6129
+[2023-08-28 08:32:44,336][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00060 | loss1:0.0707 loss2:0.5185 loss3:0.0239 | AUC:0.7868 Anomaly AUC:0.6744
+[2023-08-28 08:33:09,712][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00060 | loss1:0.0442 loss2:0.4574 loss3:0.0181 | AUC:0.8250 Anomaly AUC:0.6823
+[2023-08-28 08:33:37,082][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00060 | loss1:0.0317 loss2:0.4020 loss3:0.0156 | AUC:0.8168 Anomaly AUC:0.6754
+[2023-08-28 08:34:05,170][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00060 | loss1:0.0212 loss2:0.3382 loss3:0.0126 | AUC:0.8352 Anomaly AUC:0.6768
+[2023-08-28 08:34:30,833][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00060 | loss1:0.0322 loss2:0.3200 loss3:0.0143 | AUC:0.8308 Anomaly AUC:0.6403
+[2023-08-28 08:34:57,678][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00060 | loss1:0.0326 loss2:0.2871 loss3:0.0141 | AUC:0.8064 Anomaly AUC:0.6586
+[2023-08-28 08:35:23,169][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00060 | loss1:0.0195 loss2:0.2258 loss3:0.0114 | AUC:0.7881 Anomaly AUC:0.6367
+[2023-08-28 08:35:49,070][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00060 | loss1:0.0214 loss2:0.2025 loss3:0.0117 | AUC:0.7880 Anomaly AUC:0.6565
+[2023-08-28 08:36:14,932][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00060 | loss1:0.0166 loss2:0.1552 loss3:0.0104 | AUC:0.8102 Anomaly AUC:0.6664
+[2023-08-28 08:36:40,870][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00060 | loss1:0.0126 loss2:0.1246 loss3:0.0092 | AUC:0.7930 Anomaly AUC:0.6136
+[2023-08-28 08:37:06,874][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00060 | loss1:0.0290 loss2:0.1645 loss3:0.0124 | AUC:0.8113 Anomaly AUC:0.6344
+[2023-08-28 08:37:32,544][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00060 | loss1:0.0213 loss2:0.0538 loss3:0.0099 | AUC:0.8307 Anomaly AUC:0.6557
+[2023-08-28 08:37:58,434][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00060 | loss1:0.0107 loss2:0.1007 loss3:0.0080 | AUC:0.8197 Anomaly AUC:0.6474
+[2023-08-28 08:37:58,435][main-autotune.py][line:114][INFO] Training completes in 8m 54s | best AUC:0.8352 Anomaly AUC:0.6768
+
+[2023-08-28 08:38:37,160][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00030 | loss1:0.4029 loss2:1.0267 loss3:0.3106 | AUC:0.8206 Anomaly AUC:0.6391
+[2023-08-28 08:39:09,986][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00030 | loss1:0.2303 loss2:0.7811 loss3:0.1782 | AUC:0.8246 Anomaly AUC:0.6355
+[2023-08-28 08:39:39,600][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00030 | loss1:0.1573 loss2:0.6907 loss3:0.1219 | AUC:0.8308 Anomaly AUC:0.6682
+[2023-08-28 08:40:05,065][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00030 | loss1:0.1020 loss2:0.6167 loss3:0.0917 | AUC:0.7910 Anomaly AUC:0.6505
+[2023-08-28 08:40:32,428][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00030 | loss1:0.0595 loss2:0.5360 loss3:0.0675 | AUC:0.8231 Anomaly AUC:0.6273
+[2023-08-28 08:40:59,582][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00030 | loss1:0.0586 loss2:0.5030 loss3:0.0513 | AUC:0.8135 Anomaly AUC:0.6323
+[2023-08-28 08:41:26,464][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00030 | loss1:0.0422 loss2:0.4364 loss3:0.0334 | AUC:0.7942 Anomaly AUC:0.6221
+[2023-08-28 08:41:53,814][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00030 | loss1:0.0321 loss2:0.3995 loss3:0.0254 | AUC:0.8135 Anomaly AUC:0.6415
+[2023-08-28 08:42:22,236][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00030 | loss1:0.0383 loss2:0.3525 loss3:0.0235 | AUC:0.7815 Anomaly AUC:0.6202
+[2023-08-28 08:42:48,037][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00030 | loss1:0.0349 loss2:0.3252 loss3:0.0208 | AUC:0.8336 Anomaly AUC:0.6522
+[2023-08-28 08:43:14,895][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00030 | loss1:0.0137 loss2:0.2432 loss3:0.0152 | AUC:0.8226 Anomaly AUC:0.6413
+[2023-08-28 08:43:41,189][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00030 | loss1:0.0270 loss2:0.2455 loss3:0.0170 | AUC:0.8247 Anomaly AUC:0.6212
+[2023-08-28 08:44:07,431][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00030 | loss1:0.0197 loss2:0.1934 loss3:0.0150 | AUC:0.8194 Anomaly AUC:0.6543
+[2023-08-28 08:44:33,795][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00030 | loss1:0.0056 loss2:0.1534 loss3:0.0124 | AUC:0.8192 Anomaly AUC:0.6544
+[2023-08-28 08:44:59,950][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00030 | loss1:0.0021 loss2:0.0969 loss3:0.0102 | AUC:0.7931 Anomaly AUC:0.6143
+[2023-08-28 08:45:26,409][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00030 | loss1:0.0187 loss2:0.1255 loss3:0.0136 | AUC:0.7530 Anomaly AUC:0.6385
+[2023-08-28 08:45:52,685][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00030 | loss1:0.0132 loss2:0.1104 loss3:0.0126 | AUC:0.8071 Anomaly AUC:0.6390
+[2023-08-28 08:46:19,011][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00030 | loss1:0.0187 loss2:0.1152 loss3:0.0136 | AUC:0.7867 Anomaly AUC:0.6170
+[2023-08-28 08:46:45,357][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00030 | loss1:0.0214 loss2:0.1223 loss3:0.0145 | AUC:0.8079 Anomaly AUC:0.6446
+[2023-08-28 08:47:11,781][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00030 | loss1:0.0179 loss2:0.0955 loss3:0.0133 | AUC:0.7922 Anomaly AUC:0.6498
+[2023-08-28 08:47:11,782][main-autotune.py][line:114][INFO] Training completes in 9m 1s | best AUC:0.8336 Anomaly AUC:0.6522
+
+[2023-08-28 08:47:50,168][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4185 loss2:1.0656 loss3:0.3051 | AUC:0.8239 Anomaly AUC:0.6539
+[2023-08-28 08:48:22,880][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2539 loss2:0.8310 loss3:0.1426 | AUC:0.8301 Anomaly AUC:0.6409
+[2023-08-28 08:48:48,182][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.1854 loss2:0.7539 loss3:0.0720 | AUC:0.8195 Anomaly AUC:0.6577
+[2023-08-28 08:49:15,665][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00040 | loss1:0.1303 loss2:0.6837 loss3:0.0367 | AUC:0.8349 Anomaly AUC:0.6871
+[2023-08-28 08:49:43,235][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00040 | loss1:0.0967 loss2:0.6276 loss3:0.0287 | AUC:0.8205 Anomaly AUC:0.6647
+[2023-08-28 08:50:11,441][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00040 | loss1:0.0618 loss2:0.5517 loss3:0.0191 | AUC:0.8345 Anomaly AUC:0.6619
+[2023-08-28 08:50:37,066][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00040 | loss1:0.0409 loss2:0.5000 loss3:0.0163 | AUC:0.8407 Anomaly AUC:0.6662
+[2023-08-28 08:51:03,992][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00040 | loss1:0.0362 loss2:0.4521 loss3:0.0153 | AUC:0.8477 Anomaly AUC:0.6713
+[2023-08-28 08:51:30,477][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00040 | loss1:0.0386 loss2:0.4179 loss3:0.0157 | AUC:0.8206 Anomaly AUC:0.6773
+[2023-08-28 08:51:55,971][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00040 | loss1:0.0188 loss2:0.3293 loss3:0.0122 | AUC:0.8478 Anomaly AUC:0.6914
+[2023-08-28 08:52:22,464][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00040 | loss1:0.0198 loss2:0.2918 loss3:0.0121 | AUC:0.8528 Anomaly AUC:0.6787
+[2023-08-28 08:52:47,878][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00040 | loss1:0.0153 loss2:0.2425 loss3:0.0113 | AUC:0.8431 Anomaly AUC:0.6756
+[2023-08-28 08:53:13,831][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00040 | loss1:0.0132 loss2:0.1992 loss3:0.0106 | AUC:0.8104 Anomaly AUC:0.6719
+[2023-08-28 08:53:39,749][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00040 | loss1:0.0120 loss2:0.1562 loss3:0.0104 | AUC:0.8281 Anomaly AUC:0.6774
+[2023-08-28 08:54:05,978][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00040 | loss1:0.0437 loss2:0.2204 loss3:0.0173 | AUC:0.8328 Anomaly AUC:0.6861
+[2023-08-28 08:54:32,102][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00040 | loss1:0.0116 loss2:0.1243 loss3:0.0104 | AUC:0.8079 Anomaly AUC:0.6734
+[2023-08-28 08:54:58,005][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00040 | loss1:0.0181 loss2:0.1169 loss3:0.0108 | AUC:0.8336 Anomaly AUC:0.6722
+[2023-08-28 08:55:24,047][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00040 | loss1:0.0098 loss2:0.0794 loss3:0.0098 | AUC:0.8455 Anomaly AUC:0.6790
+[2023-08-28 08:55:49,922][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00040 | loss1:0.0117 loss2:0.0714 loss3:0.0092 | AUC:0.8252 Anomaly AUC:0.6424
+[2023-08-28 08:56:15,779][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00040 | loss1:0.0114 loss2:0.0835 loss3:0.0091 | AUC:0.8533 Anomaly AUC:0.6972
+[2023-08-28 08:56:15,780][main-autotune.py][line:114][INFO] Training completes in 8m 52s | best AUC:0.8533 Anomaly AUC:0.6972
+
+[2023-08-28 08:56:54,439][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00060 | loss1:0.4801 loss2:1.1304 loss3:0.2486 | AUC:0.8197 Anomaly AUC:0.6341
+[2023-08-28 08:57:27,427][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00060 | loss1:0.2883 loss2:0.8761 loss3:0.1205 | AUC:0.8305 Anomaly AUC:0.6564
+[2023-08-28 08:58:01,694][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00060 | loss1:0.2305 loss2:0.7882 loss3:0.0811 | AUC:0.8188 Anomaly AUC:0.6570
+[2023-08-28 08:58:29,131][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00060 | loss1:0.1601 loss2:0.7025 loss3:0.0485 | AUC:0.8216 Anomaly AUC:0.6671
+[2023-08-28 08:58:56,605][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00060 | loss1:0.1230 loss2:0.6362 loss3:0.0348 | AUC:0.8233 Anomaly AUC:0.6351
+[2023-08-28 08:59:22,020][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00060 | loss1:0.0843 loss2:0.5517 loss3:0.0262 | AUC:0.8341 Anomaly AUC:0.6599
+[2023-08-28 08:59:49,249][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00060 | loss1:0.0625 loss2:0.4864 loss3:0.0220 | AUC:0.8291 Anomaly AUC:0.6793
+[2023-08-28 09:00:14,713][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00060 | loss1:0.0642 loss2:0.4513 loss3:0.0215 | AUC:0.8405 Anomaly AUC:0.6533
+[2023-08-28 09:00:42,385][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00060 | loss1:0.0418 loss2:0.3853 loss3:0.0169 | AUC:0.8388 Anomaly AUC:0.6623
+[2023-08-28 09:01:11,155][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00060 | loss1:0.0364 loss2:0.3474 loss3:0.0165 | AUC:0.8461 Anomaly AUC:0.6642
+[2023-08-28 09:01:39,720][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00060 | loss1:0.0315 loss2:0.2923 loss3:0.0156 | AUC:0.8410 Anomaly AUC:0.6478
+[2023-08-28 09:02:06,970][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00060 | loss1:0.0331 loss2:0.2644 loss3:0.0157 | AUC:0.8366 Anomaly AUC:0.6685
+[2023-08-28 09:02:33,604][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00060 | loss1:0.0135 loss2:0.1896 loss3:0.0117 | AUC:0.8204 Anomaly AUC:0.6447
+[2023-08-28 09:03:00,066][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00060 | loss1:0.0301 loss2:0.1700 loss3:0.0147 | AUC:0.8322 Anomaly AUC:0.6263
+[2023-08-28 09:03:26,261][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00060 | loss1:0.0151 loss2:0.1422 loss3:0.0125 | AUC:0.8443 Anomaly AUC:0.6645
+[2023-08-28 09:03:52,396][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00060 | loss1:0.0122 loss2:0.1005 loss3:0.0112 | AUC:0.8188 Anomaly AUC:0.6587
+[2023-08-28 09:04:18,459][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00060 | loss1:0.0242 loss2:0.1237 loss3:0.0132 | AUC:0.8257 Anomaly AUC:0.6573
+[2023-08-28 09:04:44,534][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00060 | loss1:0.0175 loss2:0.0912 loss3:0.0119 | AUC:0.8213 Anomaly AUC:0.6260
+[2023-08-28 09:05:10,586][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00060 | loss1:0.0036 loss2:0.0400 loss3:0.0089 | AUC:0.8237 Anomaly AUC:0.6278
+[2023-08-28 09:05:36,685][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00060 | loss1:0.0026 loss2:0.0283 loss3:0.0083 | AUC:0.8238 Anomaly AUC:0.6387
+[2023-08-28 09:05:36,686][main-autotune.py][line:114][INFO] Training completes in 9m 9s | best AUC:0.8461 Anomaly AUC:0.6642
+
+[2023-08-28 09:06:14,137][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00050 | loss1:0.4481 loss2:1.1145 loss3:0.3133 | AUC:0.8155 Anomaly AUC:0.6246
+[2023-08-28 09:06:45,624][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00050 | loss1:0.2602 loss2:0.8686 loss3:0.1515 | AUC:0.8267 Anomaly AUC:0.6478
+[2023-08-28 09:07:17,053][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00050 | loss1:0.2176 loss2:0.8066 loss3:0.1043 | AUC:0.8320 Anomaly AUC:0.6719
+[2023-08-28 09:07:42,340][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00050 | loss1:0.1435 loss2:0.7119 loss3:0.0730 | AUC:0.7856 Anomaly AUC:0.6735
+[2023-08-28 09:08:09,550][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00050 | loss1:0.1314 loss2:0.6734 loss3:0.0592 | AUC:0.8305 Anomaly AUC:0.7007
+[2023-08-28 09:08:36,686][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00050 | loss1:0.0776 loss2:0.5884 loss3:0.0416 | AUC:0.8276 Anomaly AUC:0.6770
+[2023-08-28 09:09:03,599][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00050 | loss1:0.0619 loss2:0.5272 loss3:0.0329 | AUC:0.8434 Anomaly AUC:0.6780
+[2023-08-28 09:09:29,066][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00050 | loss1:0.0943 loss2:0.5570 loss3:0.0410 | AUC:0.8562 Anomaly AUC:0.6870
+[2023-08-28 09:09:56,224][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00050 | loss1:0.0438 loss2:0.4549 loss3:0.0218 | AUC:0.8352 Anomaly AUC:0.7154
+[2023-08-28 09:10:21,892][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00050 | loss1:0.0423 loss2:0.4083 loss3:0.0208 | AUC:0.8467 Anomaly AUC:0.6886
+[2023-08-28 09:10:49,721][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00050 | loss1:0.0219 loss2:0.3474 loss3:0.0159 | AUC:0.8440 Anomaly AUC:0.6727
+[2023-08-28 09:11:16,834][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00050 | loss1:0.0256 loss2:0.3175 loss3:0.0158 | AUC:0.8391 Anomaly AUC:0.6786
+[2023-08-28 09:11:42,233][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00050 | loss1:0.0294 loss2:0.2822 loss3:0.0165 | AUC:0.8499 Anomaly AUC:0.7022
+[2023-08-28 09:12:08,323][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00050 | loss1:0.0153 loss2:0.2257 loss3:0.0133 | AUC:0.8408 Anomaly AUC:0.6771
+[2023-08-28 09:12:34,390][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00050 | loss1:0.0173 loss2:0.1870 loss3:0.0141 | AUC:0.8546 Anomaly AUC:0.6756
+[2023-08-28 09:13:00,708][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00050 | loss1:0.0218 loss2:0.1705 loss3:0.0145 | AUC:0.8445 Anomaly AUC:0.7133
+[2023-08-28 09:13:26,543][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00050 | loss1:0.0299 loss2:0.1590 loss3:0.0168 | AUC:0.8428 Anomaly AUC:0.6525
+[2023-08-28 09:13:52,569][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00050 | loss1:0.0116 loss2:0.1215 loss3:0.0132 | AUC:0.8519 Anomaly AUC:0.6779
+[2023-08-28 09:14:18,616][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00050 | loss1:0.0161 loss2:0.1045 loss3:0.0125 | AUC:0.8540 Anomaly AUC:0.6960
+[2023-08-28 09:14:44,626][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00050 | loss1:0.0215 loss2:0.1181 loss3:0.0129 | AUC:0.8253 Anomaly AUC:0.6645
+[2023-08-28 09:14:44,627][main-autotune.py][line:114][INFO] Training completes in 8m 55s | best AUC:0.8562 Anomaly AUC:0.6870
+
+[2023-08-28 09:15:23,991][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00080 | loss1:0.5122 loss2:1.1883 loss3:0.3138 | AUC:0.8067 Anomaly AUC:0.6093
+[2023-08-28 09:15:55,878][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00080 | loss1:0.3060 loss2:0.9530 loss3:0.1871 | AUC:0.8244 Anomaly AUC:0.6330
+[2023-08-28 09:16:27,094][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00080 | loss1:0.2430 loss2:0.8335 loss3:0.1361 | AUC:0.8123 Anomaly AUC:0.6445
+[2023-08-28 09:16:54,189][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00080 | loss1:0.1937 loss2:0.7532 loss3:0.1002 | AUC:0.8357 Anomaly AUC:0.6443
+[2023-08-28 09:17:21,436][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00080 | loss1:0.1350 loss2:0.6622 loss3:0.0695 | AUC:0.8344 Anomaly AUC:0.6234
+[2023-08-28 09:17:46,822][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00080 | loss1:0.1150 loss2:0.5853 loss3:0.0561 | AUC:0.8231 Anomaly AUC:0.5973
+[2023-08-28 09:18:13,975][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00080 | loss1:0.0738 loss2:0.5050 loss3:0.0453 | AUC:0.8199 Anomaly AUC:0.6032
+[2023-08-28 09:18:40,826][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00080 | loss1:0.0545 loss2:0.4419 loss3:0.0400 | AUC:0.8353 Anomaly AUC:0.6392
+[2023-08-28 09:19:06,524][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00080 | loss1:0.0449 loss2:0.3763 loss3:0.0347 | AUC:0.8317 Anomaly AUC:0.6081
+[2023-08-28 09:19:33,154][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00080 | loss1:0.0274 loss2:0.3125 loss3:0.0292 | AUC:0.8433 Anomaly AUC:0.6530
+[2023-08-28 09:19:59,001][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00080 | loss1:0.0213 loss2:0.2536 loss3:0.0251 | AUC:0.8286 Anomaly AUC:0.6292
+[2023-08-28 09:20:25,341][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00080 | loss1:0.0247 loss2:0.2232 loss3:0.0256 | AUC:0.8123 Anomaly AUC:0.6180
+[2023-08-28 09:20:51,769][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00080 | loss1:0.0385 loss2:0.2338 loss3:0.0295 | AUC:0.8280 Anomaly AUC:0.6270
+[2023-08-28 09:21:17,887][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00080 | loss1:0.0136 loss2:0.1493 loss3:0.0233 | AUC:0.8202 Anomaly AUC:0.6378
+[2023-08-28 09:21:44,226][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00080 | loss1:0.0177 loss2:0.1130 loss3:0.0226 | AUC:0.8174 Anomaly AUC:0.5810
+[2023-08-28 09:22:10,391][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00080 | loss1:0.0204 loss2:0.0980 loss3:0.0217 | AUC:0.8313 Anomaly AUC:0.6084
+[2023-08-28 09:22:36,763][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00080 | loss1:0.0053 loss2:0.0624 loss3:0.0188 | AUC:0.8121 Anomaly AUC:0.6214
+[2023-08-28 09:23:03,237][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00080 | loss1:0.0551 loss2:0.1422 loss3:0.0309 | AUC:0.8379 Anomaly AUC:0.6479
+[2023-08-28 09:23:29,877][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00080 | loss1:0.0095 loss2:0.0579 loss3:0.0194 | AUC:0.8363 Anomaly AUC:0.6352
+[2023-08-28 09:23:56,345][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00080 | loss1:0.0156 loss2:0.0622 loss3:0.0201 | AUC:0.8354 Anomaly AUC:0.6460
+[2023-08-28 09:23:56,346][main-autotune.py][line:114][INFO] Training completes in 8m 59s | best AUC:0.8433 Anomaly AUC:0.6530
+
+[2023-08-28 09:24:35,410][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00060 | loss1:0.4609 loss2:1.1510 loss3:0.2799 | AUC:0.8098 Anomaly AUC:0.6195
+[2023-08-28 09:25:05,678][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00060 | loss1:0.2954 loss2:0.9299 loss3:0.1086 | AUC:0.8120 Anomaly AUC:0.6438
+[2023-08-28 09:25:39,570][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00060 | loss1:0.2236 loss2:0.8127 loss3:0.0618 | AUC:0.8195 Anomaly AUC:0.6448
+[2023-08-28 09:26:04,920][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00060 | loss1:0.1621 loss2:0.7384 loss3:0.0412 | AUC:0.8324 Anomaly AUC:0.6593
+[2023-08-28 09:26:32,035][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00060 | loss1:0.1190 loss2:0.6779 loss3:0.0294 | AUC:0.8265 Anomaly AUC:0.6651
+[2023-08-28 09:26:59,123][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00060 | loss1:0.1013 loss2:0.6270 loss3:0.0245 | AUC:0.8349 Anomaly AUC:0.6591
+[2023-08-28 09:27:24,802][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00060 | loss1:0.0714 loss2:0.5621 loss3:0.0196 | AUC:0.8247 Anomaly AUC:0.6738
+[2023-08-28 09:27:51,705][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00060 | loss1:0.0645 loss2:0.5208 loss3:0.0181 | AUC:0.8335 Anomaly AUC:0.6612
+[2023-08-28 09:28:17,240][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00060 | loss1:0.0414 loss2:0.4536 loss3:0.0144 | AUC:0.8164 Anomaly AUC:0.6620
+[2023-08-28 09:28:45,532][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00060 | loss1:0.0383 loss2:0.4171 loss3:0.0140 | AUC:0.8222 Anomaly AUC:0.6582
+[2023-08-28 09:29:12,278][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00060 | loss1:0.0335 loss2:0.3707 loss3:0.0123 | AUC:0.8191 Anomaly AUC:0.6733
+[2023-08-28 09:29:37,993][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00060 | loss1:0.0208 loss2:0.3169 loss3:0.0101 | AUC:0.8404 Anomaly AUC:0.6581
+[2023-08-28 09:30:04,150][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00060 | loss1:0.0270 loss2:0.2890 loss3:0.0107 | AUC:0.8201 Anomaly AUC:0.6764
+[2023-08-28 09:30:30,471][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00060 | loss1:0.0118 loss2:0.2232 loss3:0.0086 | AUC:0.8400 Anomaly AUC:0.6654
+[2023-08-28 09:30:56,576][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00060 | loss1:0.0140 loss2:0.1944 loss3:0.0082 | AUC:0.8339 Anomaly AUC:0.6666
+[2023-08-28 09:31:22,745][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00060 | loss1:0.0407 loss2:0.2232 loss3:0.0120 | AUC:0.8393 Anomaly AUC:0.6753
+[2023-08-28 09:31:48,844][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00060 | loss1:0.0266 loss2:0.1735 loss3:0.0105 | AUC:0.8317 Anomaly AUC:0.6714
+[2023-08-28 09:32:15,064][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00060 | loss1:0.0163 loss2:0.1275 loss3:0.0075 | AUC:0.8214 Anomaly AUC:0.6630
+[2023-08-28 09:32:41,148][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00060 | loss1:0.0055 loss2:0.0781 loss3:0.0058 | AUC:0.8324 Anomaly AUC:0.6491
+[2023-08-28 09:33:07,143][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00060 | loss1:0.0275 loss2:0.1390 loss3:0.0095 | AUC:0.8404 Anomaly AUC:0.6587
+[2023-08-28 09:33:07,144][main-autotune.py][line:114][INFO] Training completes in 8m 58s | best AUC:0.8404 Anomaly AUC:0.6581
+
+[2023-08-28 09:33:45,102][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00030 | loss1:0.4129 loss2:1.0309 loss3:0.3068 | AUC:0.8107 Anomaly AUC:0.6290
+[2023-08-28 09:34:18,213][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00030 | loss1:0.2375 loss2:0.7886 loss3:0.1648 | AUC:0.8377 Anomaly AUC:0.6412
+[2023-08-28 09:34:43,353][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00030 | loss1:0.1670 loss2:0.6945 loss3:0.1085 | AUC:0.8340 Anomaly AUC:0.6781
+[2023-08-28 09:35:10,401][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00030 | loss1:0.1091 loss2:0.6270 loss3:0.0776 | AUC:0.7865 Anomaly AUC:0.6546
+[2023-08-28 09:35:35,765][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00030 | loss1:0.0979 loss2:0.5881 loss3:0.0579 | AUC:0.8093 Anomaly AUC:0.6621
+[2023-08-28 09:36:02,658][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00030 | loss1:0.0448 loss2:0.5032 loss3:0.0319 | AUC:0.8279 Anomaly AUC:0.6602
+[2023-08-28 09:36:29,843][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00030 | loss1:0.0423 loss2:0.4610 loss3:0.0233 | AUC:0.8221 Anomaly AUC:0.6620
+[2023-08-28 09:36:56,652][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00030 | loss1:0.0215 loss2:0.3972 loss3:0.0171 | AUC:0.8177 Anomaly AUC:0.6500
+[2023-08-28 09:37:23,442][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00030 | loss1:0.0252 loss2:0.3597 loss3:0.0167 | AUC:0.8242 Anomaly AUC:0.6896
+[2023-08-28 09:37:48,813][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00030 | loss1:0.0314 loss2:0.3237 loss3:0.0168 | AUC:0.8089 Anomaly AUC:0.6562
+[2023-08-28 09:38:16,075][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00030 | loss1:0.0197 loss2:0.2644 loss3:0.0142 | AUC:0.8274 Anomaly AUC:0.6505
+[2023-08-28 09:38:43,441][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00030 | loss1:0.0204 loss2:0.2226 loss3:0.0140 | AUC:0.8338 Anomaly AUC:0.6471
+[2023-08-28 09:39:09,597][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00030 | loss1:0.0079 loss2:0.1667 loss3:0.0112 | AUC:0.8189 Anomaly AUC:0.6854
+[2023-08-28 09:39:35,455][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00030 | loss1:0.0391 loss2:0.2117 loss3:0.0171 | AUC:0.8312 Anomaly AUC:0.6605
+[2023-08-28 09:40:01,706][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00030 | loss1:0.0099 loss2:0.1460 loss3:0.0115 | AUC:0.8240 Anomaly AUC:0.6642
+[2023-08-28 09:40:27,501][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00030 | loss1:0.0215 loss2:0.1455 loss3:0.0132 | AUC:0.8460 Anomaly AUC:0.6622
+[2023-08-28 09:40:53,385][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00030 | loss1:0.0136 loss2:0.1255 loss3:0.0123 | AUC:0.8085 Anomaly AUC:0.6459
+[2023-08-28 09:41:19,506][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00030 | loss1:0.0107 loss2:0.0941 loss3:0.0106 | AUC:0.8429 Anomaly AUC:0.6694
+[2023-08-28 09:41:45,421][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00030 | loss1:0.0078 loss2:0.0742 loss3:0.0102 | AUC:0.7760 Anomaly AUC:0.6217
+[2023-08-28 09:42:11,278][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00030 | loss1:0.0059 loss2:0.0651 loss3:0.0095 | AUC:0.7930 Anomaly AUC:0.6464
+[2023-08-28 09:42:11,279][main-autotune.py][line:114][INFO] Training completes in 8m 52s | best AUC:0.8460 Anomaly AUC:0.6622
+
+[2023-08-28 09:42:49,193][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4177 loss2:1.0661 loss3:0.3058 | AUC:0.8189 Anomaly AUC:0.6379
+[2023-08-28 09:43:20,733][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2446 loss2:0.8222 loss3:0.1423 | AUC:0.8375 Anomaly AUC:0.6434
+[2023-08-28 09:43:51,822][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.1872 loss2:0.7319 loss3:0.0814 | AUC:0.8377 Anomaly AUC:0.6712
+[2023-08-28 09:44:19,148][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00040 | loss1:0.1198 loss2:0.6485 loss3:0.0417 | AUC:0.8309 Anomaly AUC:0.6806
+[2023-08-28 09:44:46,280][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00040 | loss1:0.0850 loss2:0.5872 loss3:0.0275 | AUC:0.8504 Anomaly AUC:0.6889
+[2023-08-28 09:45:13,321][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00040 | loss1:0.0570 loss2:0.5099 loss3:0.0204 | AUC:0.8447 Anomaly AUC:0.6591
+[2023-08-28 09:45:38,963][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00040 | loss1:0.0422 loss2:0.4475 loss3:0.0175 | AUC:0.8419 Anomaly AUC:0.6891
+[2023-08-28 09:46:05,916][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00040 | loss1:0.0311 loss2:0.3881 loss3:0.0150 | AUC:0.8443 Anomaly AUC:0.6942
+[2023-08-28 09:46:33,589][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00040 | loss1:0.0479 loss2:0.3684 loss3:0.0177 | AUC:0.8230 Anomaly AUC:0.6665
+[2023-08-28 09:47:03,145][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00040 | loss1:0.0876 loss2:0.4130 loss3:0.0251 | AUC:0.8184 Anomaly AUC:0.6853
+[2023-08-28 09:47:31,467][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00040 | loss1:0.0109 loss2:0.2564 loss3:0.0119 | AUC:0.8586 Anomaly AUC:0.6894
+[2023-08-28 09:47:59,531][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00040 | loss1:0.0177 loss2:0.2236 loss3:0.0123 | AUC:0.8592 Anomaly AUC:0.7025
+[2023-08-28 09:48:26,074][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00040 | loss1:0.0093 loss2:0.1585 loss3:0.0108 | AUC:0.8384 Anomaly AUC:0.6970
+[2023-08-28 09:48:52,062][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00040 | loss1:0.0323 loss2:0.1825 loss3:0.0158 | AUC:0.8408 Anomaly AUC:0.7007
+[2023-08-28 09:49:18,163][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00040 | loss1:0.0156 loss2:0.1381 loss3:0.0117 | AUC:0.8540 Anomaly AUC:0.6954
+[2023-08-28 09:49:44,295][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00040 | loss1:0.0171 loss2:0.1442 loss3:0.0114 | AUC:0.8422 Anomaly AUC:0.6966
+[2023-08-28 09:50:10,393][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00040 | loss1:0.0076 loss2:0.0756 loss3:0.0096 | AUC:0.8545 Anomaly AUC:0.6859
+[2023-08-28 09:50:36,565][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00040 | loss1:0.0257 loss2:0.1092 loss3:0.0120 | AUC:0.8474 Anomaly AUC:0.6936
+[2023-08-28 09:51:02,978][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00040 | loss1:0.0081 loss2:0.0658 loss3:0.0099 | AUC:0.8458 Anomaly AUC:0.6764
+[2023-08-28 09:51:29,111][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00040 | loss1:0.0040 loss2:0.0387 loss3:0.0087 | AUC:0.8416 Anomaly AUC:0.6749
+[2023-08-28 09:51:29,112][main-autotune.py][line:114][INFO] Training completes in 9m 5s | best AUC:0.8592 Anomaly AUC:0.7025
+
+[2023-08-28 09:52:07,808][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4085 loss2:1.0635 loss3:0.3103 | AUC:0.8248 Anomaly AUC:0.6516
+[2023-08-28 09:52:36,273][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2336 loss2:0.8101 loss3:0.1429 | AUC:0.8321 Anomaly AUC:0.6429
+[2023-08-28 09:53:03,535][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.1692 loss2:0.7194 loss3:0.0793 | AUC:0.8252 Anomaly AUC:0.6760
+[2023-08-28 09:53:31,040][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00040 | loss1:0.1175 loss2:0.6516 loss3:0.0429 | AUC:0.8390 Anomaly AUC:0.6738
+[2023-08-28 09:53:58,227][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00040 | loss1:0.0936 loss2:0.5958 loss3:0.0293 | AUC:0.8397 Anomaly AUC:0.6904
+[2023-08-28 09:54:23,568][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00040 | loss1:0.0570 loss2:0.5275 loss3:0.0219 | AUC:0.8412 Anomaly AUC:0.6727
+[2023-08-28 09:54:50,680][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00040 | loss1:0.0426 loss2:0.4775 loss3:0.0177 | AUC:0.8442 Anomaly AUC:0.6941
+[2023-08-28 09:55:16,276][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00040 | loss1:0.0355 loss2:0.4132 loss3:0.0168 | AUC:0.8412 Anomaly AUC:0.6763
+[2023-08-28 09:55:43,149][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00040 | loss1:0.0338 loss2:0.3657 loss3:0.0165 | AUC:0.8247 Anomaly AUC:0.6724
+[2023-08-28 09:56:09,040][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00040 | loss1:0.0397 loss2:0.3401 loss3:0.0165 | AUC:0.8325 Anomaly AUC:0.6843
+[2023-08-28 09:56:35,693][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00040 | loss1:0.0191 loss2:0.2632 loss3:0.0130 | AUC:0.8437 Anomaly AUC:0.6642
+[2023-08-28 09:57:01,198][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00040 | loss1:0.0088 loss2:0.2037 loss3:0.0117 | AUC:0.8067 Anomaly AUC:0.6728
+[2023-08-28 09:57:27,269][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00040 | loss1:0.0273 loss2:0.1980 loss3:0.0144 | AUC:0.8234 Anomaly AUC:0.6357
+[2023-08-28 09:57:53,406][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00040 | loss1:0.0143 loss2:0.1607 loss3:0.0123 | AUC:0.8554 Anomaly AUC:0.6848
+[2023-08-28 09:58:19,482][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00040 | loss1:0.0174 loss2:0.1432 loss3:0.0124 | AUC:0.8548 Anomaly AUC:0.6996
+[2023-08-28 09:58:45,639][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00040 | loss1:0.0112 loss2:0.0966 loss3:0.0113 | AUC:0.8261 Anomaly AUC:0.6781
+[2023-08-28 09:59:11,643][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00040 | loss1:0.0140 loss2:0.0906 loss3:0.0115 | AUC:0.8444 Anomaly AUC:0.6871
+[2023-08-28 09:59:37,799][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00040 | loss1:0.0118 loss2:0.0895 loss3:0.0106 | AUC:0.8182 Anomaly AUC:0.6693
+[2023-08-28 10:00:03,877][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00040 | loss1:0.0145 loss2:0.0818 loss3:0.0113 | AUC:0.8248 Anomaly AUC:0.6458
+[2023-08-28 10:00:30,042][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00040 | loss1:0.0107 loss2:0.0616 loss3:0.0101 | AUC:0.8482 Anomaly AUC:0.6661
+[2023-08-28 10:00:30,043][main-autotune.py][line:114][INFO] Training completes in 8m 48s | best AUC:0.8554 Anomaly AUC:0.6848
+
+[2023-08-28 10:01:08,720][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00050 | loss1:0.4444 loss2:1.1193 loss3:0.3163 | AUC:0.8205 Anomaly AUC:0.6236
+[2023-08-28 10:01:41,317][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00050 | loss1:0.2653 loss2:0.8935 loss3:0.1584 | AUC:0.8373 Anomaly AUC:0.6605
+[2023-08-28 10:02:08,826][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00050 | loss1:0.2258 loss2:0.8323 loss3:0.1009 | AUC:0.8539 Anomaly AUC:0.6747
+[2023-08-28 10:02:35,998][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00050 | loss1:0.1364 loss2:0.7428 loss3:0.0689 | AUC:0.8492 Anomaly AUC:0.6677
+[2023-08-28 10:03:01,207][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00050 | loss1:0.1109 loss2:0.6855 loss3:0.0496 | AUC:0.8368 Anomaly AUC:0.6619
+[2023-08-28 10:03:28,198][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00050 | loss1:0.0894 loss2:0.6375 loss3:0.0377 | AUC:0.8366 Anomaly AUC:0.6879
+[2023-08-28 10:03:55,187][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00050 | loss1:0.0596 loss2:0.5721 loss3:0.0279 | AUC:0.8347 Anomaly AUC:0.7082
+[2023-08-28 10:04:20,476][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00050 | loss1:0.0446 loss2:0.5163 loss3:0.0221 | AUC:0.8456 Anomaly AUC:0.6729
+[2023-08-28 10:04:47,345][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00050 | loss1:0.0532 loss2:0.4851 loss3:0.0244 | AUC:0.8509 Anomaly AUC:0.6784
+[2023-08-28 10:05:14,198][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00050 | loss1:0.0343 loss2:0.4457 loss3:0.0191 | AUC:0.8340 Anomaly AUC:0.6854
+[2023-08-28 10:05:39,880][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00050 | loss1:0.0449 loss2:0.4272 loss3:0.0198 | AUC:0.8584 Anomaly AUC:0.6686
+[2023-08-28 10:06:07,096][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00050 | loss1:0.0237 loss2:0.3696 loss3:0.0153 | AUC:0.8421 Anomaly AUC:0.6748
+[2023-08-28 10:06:33,770][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00050 | loss1:0.0232 loss2:0.3161 loss3:0.0148 | AUC:0.8476 Anomaly AUC:0.7038
+[2023-08-28 10:06:59,739][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00050 | loss1:0.0208 loss2:0.2828 loss3:0.0140 | AUC:0.8385 Anomaly AUC:0.6912
+[2023-08-28 10:07:25,682][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00050 | loss1:0.0430 loss2:0.3163 loss3:0.0180 | AUC:0.8337 Anomaly AUC:0.6578
+[2023-08-28 10:07:51,581][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00050 | loss1:0.0145 loss2:0.2312 loss3:0.0124 | AUC:0.8250 Anomaly AUC:0.6238
+[2023-08-28 10:08:17,641][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00050 | loss1:0.0066 loss2:0.1856 loss3:0.0102 | AUC:0.8509 Anomaly AUC:0.6572
+[2023-08-28 10:08:43,797][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00050 | loss1:0.0071 loss2:0.1503 loss3:0.0094 | AUC:0.8556 Anomaly AUC:0.6975
+[2023-08-28 10:09:09,773][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00050 | loss1:0.0202 loss2:0.1653 loss3:0.0121 | AUC:0.8393 Anomaly AUC:0.6709
+[2023-08-28 10:09:35,745][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00050 | loss1:0.0102 loss2:0.1157 loss3:0.0096 | AUC:0.8332 Anomaly AUC:0.6875
+[2023-08-28 10:09:35,746][main-autotune.py][line:114][INFO] Training completes in 8m 53s | best AUC:0.8584 Anomaly AUC:0.6686
+
+[2023-08-28 10:10:14,188][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00020 | loss1:0.4107 loss2:1.0496 loss3:0.3091 | AUC:0.8126 Anomaly AUC:0.6369
+[2023-08-28 10:10:47,200][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00020 | loss1:0.2248 loss2:0.8120 loss3:0.1645 | AUC:0.8083 Anomaly AUC:0.6523
+[2023-08-28 10:11:12,513][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00020 | loss1:0.1617 loss2:0.7304 loss3:0.0966 | AUC:0.8166 Anomaly AUC:0.6472
+[2023-08-28 10:11:39,398][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00020 | loss1:0.0874 loss2:0.6478 loss3:0.0573 | AUC:0.8323 Anomaly AUC:0.6568
+[2023-08-28 10:12:06,707][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00020 | loss1:0.0527 loss2:0.5875 loss3:0.0321 | AUC:0.7930 Anomaly AUC:0.6424
+[2023-08-28 10:12:34,651][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00020 | loss1:0.0442 loss2:0.5518 loss3:0.0228 | AUC:0.8258 Anomaly AUC:0.6171
+[2023-08-28 10:13:02,654][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00020 | loss1:0.0236 loss2:0.4952 loss3:0.0160 | AUC:0.8350 Anomaly AUC:0.6515
+[2023-08-28 10:13:28,185][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00020 | loss1:0.0296 loss2:0.4630 loss3:0.0153 | AUC:0.8161 Anomaly AUC:0.6340
+[2023-08-28 10:13:55,526][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00020 | loss1:0.0149 loss2:0.3991 loss3:0.0115 | AUC:0.8173 Anomaly AUC:0.6038
+[2023-08-28 10:14:23,993][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00020 | loss1:0.0260 loss2:0.3935 loss3:0.0130 | AUC:0.8230 Anomaly AUC:0.6158
+[2023-08-28 10:14:50,607][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00020 | loss1:0.0111 loss2:0.3311 loss3:0.0103 | AUC:0.8250 Anomaly AUC:0.6238
+[2023-08-28 10:15:16,235][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00020 | loss1:0.0093 loss2:0.2929 loss3:0.0097 | AUC:0.8408 Anomaly AUC:0.6327
+[2023-08-28 10:15:42,928][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00020 | loss1:0.0026 loss2:0.2285 loss3:0.0080 | AUC:0.8304 Anomaly AUC:0.6323
+[2023-08-28 10:16:08,449][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00020 | loss1:0.0008 loss2:0.1796 loss3:0.0073 | AUC:0.8310 Anomaly AUC:0.6175
+[2023-08-28 10:16:34,891][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00020 | loss1:0.0007 loss2:0.1475 loss3:0.0069 | AUC:0.8354 Anomaly AUC:0.6388
+[2023-08-28 10:17:00,447][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00020 | loss1:0.0006 loss2:0.1261 loss3:0.0067 | AUC:0.8330 Anomaly AUC:0.6293
+[2023-08-28 10:17:27,448][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00020 | loss1:0.0005 loss2:0.1072 loss3:0.0064 | AUC:0.8350 Anomaly AUC:0.6364
+[2023-08-28 10:17:54,688][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00020 | loss1:0.0770 loss2:0.2433 loss3:0.0183 | AUC:0.8218 Anomaly AUC:0.6051
+[2023-08-28 10:18:20,707][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00020 | loss1:0.0258 loss2:0.2369 loss3:0.0123 | AUC:0.8079 Anomaly AUC:0.6534
+[2023-08-28 10:18:47,034][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00020 | loss1:0.0208 loss2:0.1792 loss3:0.0114 | AUC:0.8409 Anomaly AUC:0.6708
+[2023-08-28 10:18:47,035][main-autotune.py][line:114][INFO] Training completes in 8m 59s | best AUC:0.8409 Anomaly AUC:0.6708
+
+[2023-08-28 10:19:25,040][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00030 | loss1:0.3898 loss2:1.0348 loss3:0.3221 | AUC:0.8098 Anomaly AUC:0.6309
+[2023-08-28 10:19:57,732][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00030 | loss1:0.2190 loss2:0.7935 loss3:0.2083 | AUC:0.8118 Anomaly AUC:0.6291
+[2023-08-28 10:20:29,079][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00030 | loss1:0.1497 loss2:0.7158 loss3:0.1485 | AUC:0.8193 Anomaly AUC:0.6722
+[2023-08-28 10:20:56,767][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00030 | loss1:0.0809 loss2:0.6266 loss3:0.1190 | AUC:0.7555 Anomaly AUC:0.6720
+[2023-08-28 10:21:25,174][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00030 | loss1:0.0267 loss2:0.5434 loss3:0.1006 | AUC:0.8130 Anomaly AUC:0.6484
+[2023-08-28 10:21:51,942][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00030 | loss1:0.0100 loss2:0.4525 loss3:0.0734 | AUC:0.8230 Anomaly AUC:0.6251
+[2023-08-28 10:22:18,407][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00030 | loss1:0.0189 loss2:0.4682 loss3:0.0773 | AUC:0.8005 Anomaly AUC:0.6541
+[2023-08-28 10:22:43,933][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00030 | loss1:0.0077 loss2:0.3807 loss3:0.0598 | AUC:0.7948 Anomaly AUC:0.6473
+[2023-08-28 10:23:11,036][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00030 | loss1:0.0031 loss2:0.2928 loss3:0.0360 | AUC:0.8162 Anomaly AUC:0.6625
+[2023-08-28 10:23:38,788][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00030 | loss1:0.0037 loss2:0.2463 loss3:0.0355 | AUC:0.8379 Anomaly AUC:0.6472
+[2023-08-28 10:24:04,259][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00030 | loss1:0.0025 loss2:0.2097 loss3:0.0319 | AUC:0.8216 Anomaly AUC:0.6394
+[2023-08-28 10:24:30,179][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00030 | loss1:0.0063 loss2:0.1896 loss3:0.0384 | AUC:0.6256 Anomaly AUC:0.5334
+[2023-08-28 10:24:55,884][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00030 | loss1:0.0089 loss2:0.2692 loss3:0.0856 | AUC:0.7815 Anomaly AUC:0.5933
+[2023-08-28 10:25:21,591][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00030 | loss1:0.0015 loss2:0.1242 loss3:0.0235 | AUC:0.8296 Anomaly AUC:0.6570
+[2023-08-28 10:25:47,313][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00030 | loss1:0.0008 loss2:0.0947 loss3:0.0166 | AUC:0.8266 Anomaly AUC:0.6433
+[2023-08-28 10:26:13,442][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00030 | loss1:0.0032 loss2:0.0997 loss3:0.0306 | AUC:0.7562 Anomaly AUC:0.6644
+[2023-08-28 10:26:39,375][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00030 | loss1:0.0020 loss2:0.1146 loss3:0.0355 | AUC:0.7913 Anomaly AUC:0.6449
+[2023-08-28 10:27:05,185][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00030 | loss1:0.0022 loss2:0.0948 loss3:0.0326 | AUC:0.8072 Anomaly AUC:0.6196
+[2023-08-28 10:27:30,985][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00030 | loss1:0.0039 loss2:0.0709 loss3:0.0301 | AUC:0.6161 Anomaly AUC:0.5240
+[2023-08-28 10:27:56,790][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00030 | loss1:0.0034 loss2:0.0826 loss3:0.0362 | AUC:0.7683 Anomaly AUC:0.5962
+[2023-08-28 10:27:56,791][main-autotune.py][line:114][INFO] Training completes in 8m 57s | best AUC:0.8379 Anomaly AUC:0.6472
+
+[2023-08-28 10:28:34,825][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00050 | loss1:0.4326 loss2:1.1163 loss3:0.3058 | AUC:0.8187 Anomaly AUC:0.6272
+[2023-08-28 10:29:07,584][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00050 | loss1:0.2839 loss2:0.9055 loss3:0.1458 | AUC:0.8299 Anomaly AUC:0.6655
+[2023-08-28 10:29:32,806][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00050 | loss1:0.1971 loss2:0.8008 loss3:0.0998 | AUC:0.8442 Anomaly AUC:0.6895
+[2023-08-28 10:30:00,131][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00050 | loss1:0.1405 loss2:0.7306 loss3:0.0772 | AUC:0.8230 Anomaly AUC:0.6849
+[2023-08-28 10:30:25,388][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00050 | loss1:0.1210 loss2:0.6884 loss3:0.0696 | AUC:0.8353 Anomaly AUC:0.6702
+[2023-08-28 10:30:52,425][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00050 | loss1:0.0746 loss2:0.6161 loss3:0.0546 | AUC:0.8350 Anomaly AUC:0.6610
+[2023-08-28 10:31:17,902][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00050 | loss1:0.0768 loss2:0.5835 loss3:0.0410 | AUC:0.8175 Anomaly AUC:0.6553
+[2023-08-28 10:31:44,718][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00050 | loss1:0.0666 loss2:0.5514 loss3:0.0341 | AUC:0.8488 Anomaly AUC:0.6852
+[2023-08-28 10:32:10,259][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00050 | loss1:0.0495 loss2:0.4942 loss3:0.0239 | AUC:0.8422 Anomaly AUC:0.6749
+[2023-08-28 10:32:37,606][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00050 | loss1:0.0272 loss2:0.4338 loss3:0.0183 | AUC:0.8367 Anomaly AUC:0.6324
+[2023-08-28 10:33:05,892][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00050 | loss1:0.0375 loss2:0.4055 loss3:0.0200 | AUC:0.8501 Anomaly AUC:0.6665
+[2023-08-28 10:33:32,680][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00050 | loss1:0.0444 loss2:0.4010 loss3:0.0209 | AUC:0.8311 Anomaly AUC:0.6350
+[2023-08-28 10:33:59,067][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00050 | loss1:0.0328 loss2:0.3364 loss3:0.0170 | AUC:0.8327 Anomaly AUC:0.6717
+[2023-08-28 10:34:25,136][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00050 | loss1:0.0102 loss2:0.2757 loss3:0.0134 | AUC:0.8408 Anomaly AUC:0.6670
+[2023-08-28 10:34:51,152][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00050 | loss1:0.0276 loss2:0.2505 loss3:0.0149 | AUC:0.8336 Anomaly AUC:0.6443
+[2023-08-28 10:35:17,185][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00050 | loss1:0.0199 loss2:0.2360 loss3:0.0157 | AUC:0.8451 Anomaly AUC:0.6536
+[2023-08-28 10:35:43,364][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00050 | loss1:0.0123 loss2:0.1855 loss3:0.0127 | AUC:0.8387 Anomaly AUC:0.6736
+[2023-08-28 10:36:09,494][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00050 | loss1:0.0122 loss2:0.1505 loss3:0.0126 | AUC:0.8495 Anomaly AUC:0.6757
+[2023-08-28 10:36:35,479][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00050 | loss1:0.0040 loss2:0.0977 loss3:0.0107 | AUC:0.8499 Anomaly AUC:0.6668
+[2023-08-28 10:37:01,497][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00050 | loss1:0.0118 loss2:0.1005 loss3:0.0123 | AUC:0.8405 Anomaly AUC:0.6604
+[2023-08-28 10:37:01,498][main-autotune.py][line:114][INFO] Training completes in 8m 53s | best AUC:0.8501 Anomaly AUC:0.6665
+
+[2023-08-28 10:37:40,510][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00090 | loss1:0.5253 loss2:1.2078 loss3:0.2746 | AUC:0.8036 Anomaly AUC:0.5997
+[2023-08-28 10:38:10,910][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00090 | loss1:0.3106 loss2:0.9896 loss3:0.1166 | AUC:0.7929 Anomaly AUC:0.6038
+[2023-08-28 10:38:38,212][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00090 | loss1:0.2481 loss2:0.9105 loss3:0.0631 | AUC:0.8048 Anomaly AUC:0.6213
+[2023-08-28 10:39:05,372][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00090 | loss1:0.1934 loss2:0.8116 loss3:0.0447 | AUC:0.7884 Anomaly AUC:0.6205
+[2023-08-28 10:39:32,340][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00090 | loss1:0.1563 loss2:0.7495 loss3:0.0365 | AUC:0.7976 Anomaly AUC:0.6142
+[2023-08-28 10:39:59,290][main-autotune.py][line:104][INFO] [Epoch:6/20]: lr:0.00090 | loss1:0.1209 loss2:0.6944 loss3:0.0295 | AUC:0.8213 Anomaly AUC:0.6581
+[2023-08-28 10:40:25,081][main-autotune.py][line:104][INFO] [Epoch:7/20]: lr:0.00090 | loss1:0.1231 loss2:0.6551 loss3:0.0293 | AUC:0.8020 Anomaly AUC:0.6300
+[2023-08-28 10:40:51,596][main-autotune.py][line:104][INFO] [Epoch:8/20]: lr:0.00090 | loss1:0.0768 loss2:0.5870 loss3:0.0215 | AUC:0.8287 Anomaly AUC:0.6362
+[2023-08-28 10:41:19,068][main-autotune.py][line:104][INFO] [Epoch:9/20]: lr:0.00090 | loss1:0.0611 loss2:0.5298 loss3:0.0181 | AUC:0.8076 Anomaly AUC:0.6274
+[2023-08-28 10:41:46,795][main-autotune.py][line:104][INFO] [Epoch:10/20]: lr:0.00090 | loss1:0.0523 loss2:0.4796 loss3:0.0165 | AUC:0.8171 Anomaly AUC:0.6576
+[2023-08-28 10:42:12,386][main-autotune.py][line:104][INFO] [Epoch:11/20]: lr:0.00090 | loss1:0.0420 loss2:0.4489 loss3:0.0148 | AUC:0.8229 Anomaly AUC:0.6459
+[2023-08-28 10:42:39,737][main-autotune.py][line:104][INFO] [Epoch:12/20]: lr:0.00090 | loss1:0.0256 loss2:0.3940 loss3:0.0122 | AUC:0.8369 Anomaly AUC:0.6377
+[2023-08-28 10:43:06,844][main-autotune.py][line:104][INFO] [Epoch:13/20]: lr:0.00090 | loss1:0.0404 loss2:0.3669 loss3:0.0136 | AUC:0.8166 Anomaly AUC:0.6330
+[2023-08-28 10:43:32,903][main-autotune.py][line:104][INFO] [Epoch:14/20]: lr:0.00090 | loss1:0.0204 loss2:0.3163 loss3:0.0113 | AUC:0.8357 Anomaly AUC:0.6434
+[2023-08-28 10:43:59,126][main-autotune.py][line:104][INFO] [Epoch:15/20]: lr:0.00090 | loss1:0.0155 loss2:0.2630 loss3:0.0105 | AUC:0.8115 Anomaly AUC:0.6382
+[2023-08-28 10:44:25,114][main-autotune.py][line:104][INFO] [Epoch:16/20]: lr:0.00090 | loss1:0.0254 loss2:0.2543 loss3:0.0113 | AUC:0.8234 Anomaly AUC:0.6425
+[2023-08-28 10:44:51,021][main-autotune.py][line:104][INFO] [Epoch:17/20]: lr:0.00090 | loss1:0.0175 loss2:0.2280 loss3:0.0106 | AUC:0.8137 Anomaly AUC:0.6342
+[2023-08-28 10:45:17,011][main-autotune.py][line:104][INFO] [Epoch:18/20]: lr:0.00090 | loss1:0.0123 loss2:0.1879 loss3:0.0095 | AUC:0.7980 Anomaly AUC:0.6280
+[2023-08-28 10:45:42,936][main-autotune.py][line:104][INFO] [Epoch:19/20]: lr:0.00090 | loss1:0.0090 loss2:0.1328 loss3:0.0083 | AUC:0.8038 Anomaly AUC:0.6004
+[2023-08-28 10:46:08,732][main-autotune.py][line:104][INFO] [Epoch:20/20]: lr:0.00090 | loss1:0.0144 loss2:0.1409 loss3:0.0095 | AUC:0.8175 Anomaly AUC:0.6461
+[2023-08-28 10:46:08,733][main-autotune.py][line:114][INFO] Training completes in 8m 55s | best AUC:0.8369 Anomaly AUC:0.6377
+
+[2023-08-28 10:46:47,154][main-autotune.py][line:104][INFO] [Epoch:1/20]: lr:0.00040 | loss1:0.4116 loss2:1.0678 loss3:0.2943 | AUC:0.8112 Anomaly AUC:0.6459
+[2023-08-28 10:47:17,579][main-autotune.py][line:104][INFO] [Epoch:2/20]: lr:0.00040 | loss1:0.2481 loss2:0.8389 loss3:0.1301 | AUC:0.8183 Anomaly AUC:0.6556
+[2023-08-28 10:47:42,714][main-autotune.py][line:104][INFO] [Epoch:3/20]: lr:0.00040 | loss1:0.1833 loss2:0.7642 loss3:0.0781 | AUC:0.8356 Anomaly AUC:0.6526
+[2023-08-28 10:48:09,818][main-autotune.py][line:104][INFO] [Epoch:4/20]: lr:0.00040 | loss1:0.1488 loss2:0.7057 loss3:0.0469 | AUC:0.8266 Anomaly AUC:0.6932
+[2023-08-28 10:48:35,275][main-autotune.py][line:104][INFO] [Epoch:5/20]: lr:0.00040 | loss1:0.0856 loss2:0.6365 loss3:0.0272 | AUC:0.8374 Anomaly AUC:0.6587
+[2023-08-28 10:51:09,538][main-autotune.py][line:105][INFO] [Epoch:1/1]: lr:0.00040 | loss1:0.4282 loss2:1.0770 loss3:0.3214 | AUC:0.8292 Anomaly AUC:0.6400
+[2023-08-28 10:51:09,538][main-autotune.py][line:115][INFO] Training completes in 0m 30s | best AUC:0.8292 Anomaly AUC:0.6400
+

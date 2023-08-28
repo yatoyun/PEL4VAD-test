@@ -43,9 +43,8 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             
             UR_loss = criterion3(ur_out, label)
             if lamda + alpha == 0:
-                # 86.9
-                lamda = 0.055
-                alpha = 0.529#0.127 #0.489
+                lamda = 0.891
+                alpha = 0.59#0.127 #0.489
             loss = loss1 + lamda * loss2 + alpha * UR_loss[0]
 
             optimizer.zero_grad()
