@@ -71,11 +71,11 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     # {'params': DR_DMU_params, 'lr': 0.0005, 'weight_decay': 5e-5}
     # ])
     
-    optimizer = optim.Adam([
-    {'params': PEL_params, 'lr': args.PEL_lr},
-    {'params': UR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5}
-    ])
-    # optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
+    # optimizer = optim.Adam([
+    # {'params': PEL_params, 'lr': args.PEL_lr},
+    # {'params': UR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5}
+    # ])
+    optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=5e-5)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
     # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
@@ -124,7 +124,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
 def main(cfg):
     logger = get_logger(cfg.logs_dir)
-    setup_seed(cfg.seed)
+    setup_seed(args.seed)
     logger.info('Config:{}'.format(cfg.__dict__))
 
     if cfg.dataset == 'ucf-crime':
@@ -194,10 +194,10 @@ if __name__ == '__main__':
     parser.add_argument('--dataset', default='ucf', help='anomaly video dataset')
     parser.add_argument('--mode', default='train', help='model status: (train or infer)')
     parser.add_argument('--version', default='original', help='change log path name')
-    parser.add_argument('--PEL_lr', default=5e-3, type=float, help='learning rate')
-    parser.add_argument('--UR_DMU_lr', default=5e-3, type=float, help='learning rate')
-    parser.add_argument('--lamda', default=0.5, type=float, help='lamda')
+    parser.add_argument('--lr', default=0.0003, type=float, help='learning rate')
+    parser.add_argument('--lamda', default=0.2, type=float, help='lamda')
     parser.add_argument('--alpha', default=0.5, type=float, help='alpha')
+    parser.add_argument('--seed', default=2023, type=int, help='seed')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)

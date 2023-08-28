@@ -9,10 +9,11 @@ import subprocess
 
 def objective(trial):
     # ハイパーパラメータの候補を設定
-    pel_lr = trial.suggest_float('pel_lr', 1e-4, 1e-3, step=1e-4)
-    ur_lr = trial.suggest_float('ur_lr', 1e-4, 1e-3, step=1e-4)
+    # pel_lr = trial.suggest_float('pel_lr', 1e-4, 1e-3, step=1e-4)
+    # ur_lr = trial.suggest_float('ur_lr', 1e-4, 1e-3, step=1e-4)
     lamda = trial.suggest_float('lamda', 0.005, 1, step=0.001)
     alpha = trial.suggest_float('alpha', 0.005, 1, step=0.001)
+    lr = trial.suggest_float('lr', 1e-4, 1e-3, step=1e-4)
     
     # # main.pyをsubprocessを使って実行
     # cmd = f"python main-autotune.py --lr {lr} --lamda {lamda} --alpha {alpha}"
@@ -20,8 +21,7 @@ def objective(trial):
     # # os.systemを使用してコマンドを実行
     # result = os.system(cmd)
     result = subprocess.run(['python', 'main-autotune.py', 
-                            '--PEL_lr', str(pel_lr),
-                            '--UR_DMU_lr', str(ur_lr),
+                            '--lr', str(lr),
                             '--lamda', str(lamda),
                             '--alpha', str(alpha)],
                             capture_output=True, text=True)
