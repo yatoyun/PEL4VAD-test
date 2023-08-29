@@ -205,6 +205,7 @@ if __name__ == '__main__':
     savepath = './logs/{}_{}_{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs)
     os.makedirs(savepath,exist_ok=True)
     log_writer = SummaryWriter(savepath)
+    # print("lr: {}, lamda: {}, alpha: {}".format(cfg.lr, cfg.lamda, cfg.alpha))
             
 
     main(cfg)

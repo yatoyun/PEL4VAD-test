@@ -11,8 +11,9 @@ def objective(trial):
     # ハイパーパラメータの候補を設定
     # pel_lr = trial.suggest_float('pel_lr', 1e-4, 1e-3, step=1e-4)
     # ur_lr = trial.suggest_float('ur_lr', 1e-4, 1e-3, step=1e-4)
-    lamda = trial.suggest_float('lamda', 0.005, 1, step=0.001)
-    alpha = trial.suggest_float('alpha', 0.005, 1, step=0.001)
+    possible_values = [i/10 for i in range(1, 10)] + [i/100 for i in range(1, 10)] + [i/1000 for i in range(1, 10)] + [1]
+    lamda = trial.suggest_categorical('lamda', possible_values)
+    alpha = trial.suggest_categorical('alpha', possible_values)
     lr = trial.suggest_float('lr', 1e-4, 1e-3, step=1e-4)
     
     # # main.pyをsubprocessを使って実行
@@ -35,7 +36,7 @@ def objective(trial):
 
 # Optunaの学習
 study = optuna.create_study(sampler=TPESampler(seed=2024), direction='maximize')
-study.optimize(objective, n_trials=10)
+study.optimize(objective, n_trials=50)
 
 # 最良のハイパーパラメータを表示
 print(study.best_params)
