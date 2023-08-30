@@ -19,34 +19,40 @@ class XEncoder(nn.Module):
         self.dropout2 = nn.Dropout(dropout)
         self.norm = nn.LayerNorm(d_model)
         self.loc_adj = DistanceAdj(gamma, bias)
-        self.DR_DMU = WSAD(d_model, a_nums = 60, n_nums = 60)
+        self.UR_DMU = WSAD(d_model, a_nums = 60, n_nums = 60)
+        self.cat_2feat = nn.Conv1d(d_model, d_model//2, kernel_size=1)
+        self.UR_DMU_linear3 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
+        self.UR_DMU_dropout3 = nn.Dropout(dropout)
 
     def forward(self, x, seq_len):
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
 
+        x_t = x
         x = x + self.self_attn(x, mask, adj)
         # self_att = x + self.self_attn(x, mask, adj)
-        
-        x = self.norm(x)
         if self.training:
-            x_k = self.DR_DMU(x)
-            x = x_k["x"]
+            x_k = self.UR_DMU(x_t)
+            x_t = x_k["x"]
         else:
             x_k = torch.zeros(0).cuda()
-            for x_split in x:
+            for x_split in x_t:
                 x_split = x_split.unsqueeze(0)
-                x_k_split = self.DR_DMU(x_split)
+                x_k_split = self.UR_DMU(x_split)
                 x_k = torch.cat((x_k, x_k_split["x"]), 0)
-            x = x_k
+            x_t = x_k
         
-        # x = self.norm(x)
+        x_t = self.norm(x_t).permute(0, 2, 1)
         # self_att = self.norm(self_att)
         # x = self.cat(torch.cat((x, self_att), -1))
         
         x = self.norm(x).permute(0, 2, 1)
         x = self.dropout1(F.gelu(self.linear1(x)))
-        x_e = self.dropout2(F.gelu(self.linear2(x)))
+        
+        x_t = self.UR_DMU_dropout3(F.gelu(self.UR_DMU_linear3(x_t)))
+        x_t = self.cat_2feat(torch.cat((x, x_t), -2))
+        
+        x_e = self.dropout2(F.gelu(self.linear2(x_t)))
         
         if self.training:
             x_k["x"] = x

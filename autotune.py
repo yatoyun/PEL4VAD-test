@@ -14,7 +14,8 @@ def objective(trial):
     possible_values = [i/10 for i in range(1, 10)] + [i/100 for i in range(1, 10)] + [i/1000 for i in range(1, 10)] + [1]
     lamda = trial.suggest_categorical('lamda', possible_values)
     alpha = trial.suggest_categorical('alpha', possible_values)
-    lr = trial.suggest_float('lr', 1e-4, 1e-3, step=1e-4)
+    # lr = trial.suggest_float('lr', 1e-4, 1e-3, step=1e-4)
+    
     
     # # main.pyをsubprocessを使って実行
     # cmd = f"python main-autotune.py --lr {lr} --lamda {lamda} --alpha {alpha}"
@@ -22,9 +23,8 @@ def objective(trial):
     # # os.systemを使用してコマンドを実行
     # result = os.system(cmd)
     result = subprocess.run(['python', 'main-autotune.py', 
-                            '--lr', str(lr),
-                            '--lamda', str(lamda),
-                            '--alpha', str(alpha)],
+                             '--lamda', str(lamda),
+                             '--alpha', str(alpha)],
                             capture_output=True, text=True)
 
     print(result.stdout)

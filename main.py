@@ -59,16 +59,17 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
     criterion3 = AD_Loss()
-    PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
-    DR_DMU_params = model.self_attention.DR_DMU.parameters()
-    
+    PEL_params = [p for n, p in model.named_parameters() if 'UR_DMU' or '2feat' not in n]
+    UR_DMU_params = [p for n, p in model.named_parameters() if 'UR_DMU' in n]
+    Cat_2feat_params = model.self_attention.cat_2feat.parameters()
+        
     # optimizer = optim.Adam([
     # {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
-    # {'params': DR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
+    # {'params': UR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
     # ])
     # lamda = 0.982#0.492
     # alpha = 0.432#0.489#0.127
-    optimizer = optim.Adam(model.parameters(), lr=7e-4, weight_decay=5e-5)#lr=cfg.lr)
+    optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
     # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
@@ -85,6 +86,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     auc_ab_auc = 0.0
 
     st = time.time()
+    print(len(train_nloader), len(train_aloader))
     for epoch in range(cfg.max_epoch):
         if epoch % len(train_nloader) == 0:
             normal_loader_iter = iter(train_nloader)
@@ -98,7 +100,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
         # scheduler.step()
 
         log_writer.add_scalar('loss', loss1, epoch)
-        if (epoch+1) % 10 == 0:
+        if (epoch < 700 and (epoch+1) % 100 == 0) or (epoch >= 700 and (epoch+1) % 5 == 0):
             auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
             if auc >= best_auc:
                 best_auc = auc
@@ -186,8 +188,8 @@ if __name__ == '__main__':
     parser.add_argument('--version', default='original', help='change log path name')
     parser.add_argument('--PEL_lr', default=0.0003, type=float, help='learning rate')
     parser.add_argument('--UR_DMU_lr', default=0.0008, type=float, help='learning rate')
-    parser.add_argument('--lamda', default=0.8, type=float, help='lamda')
-    parser.add_argument('--alpha', default=0.9, type=float, help='alpha')
+    parser.add_argument('--lamda', default=1, type=float, help='lamda')
+    parser.add_argument('--alpha', default=1, type=float, help='alpha')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)
@@ -198,3 +200,6 @@ if __name__ == '__main__':
             
 
     main(cfg)
+
+#0.8592009087263632 and parameters: {'pel_lr': 0.0007000000000000001, 'ur_lr': 0.001}.
+#0.8584976052870801 and parameters: {'pel_lr': 0.0008, 'ur_lr': 0.0007000000000000001}
