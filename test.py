@@ -61,9 +61,38 @@ def test_func(dataloader, model, gt, dataset):
 
         if dataset == 'ucf-crime':
             return roc_auc, ab_roc_auc
-        # elif dataset == 'xd-violence':
-        #     return pr_auc, n_far
-        # elif dataset == 'shanghaiTech':
-        #     return roc_auc, n_far
-        # else:
-        #     raise RuntimeError('Invalid dataset.')
+
+def test_func_ur(dataloader, model, gt, dataset):
+    with torch.no_grad():
+        model.eval()
+        pred = torch.zeros(0).cuda()
+        ab_pred = torch.zeros(0).cuda()
+
+        for i, (v_input, label) in enumerate(dataloader):
+            with autocast():
+                v_input = v_input.float().cuda(non_blocking=True)
+                
+                logits = torch.zeros(0).cuda()
+                for x in v_input:
+                    tmp = model(x.unsqueeze(0))
+                    tmp = tmp["frame"]
+                    logits = torch.cat((logits, tmp))
+                
+                logits = torch.mean(logits, 0)
+                pred = torch.cat((pred, logits))
+                if sum(label) == len(label):
+                    ab_pred = torch.cat((ab_pred, logits))
+
+        pred = list(pred.cpu().detach().numpy())
+        # n_far = cal_false_alarm(normal_labels, normal_preds)
+        fpr, tpr, _ = roc_curve(list(gt), np.repeat(pred, 16))
+        roc_auc = auc(fpr, tpr)
+        # pre, rec, _ = precision_recall_curve(list(gt), np.repeat(pred, 16))
+        # pr_auc = auc(rec, pre)
+        
+        ab_pred = list(ab_pred.cpu().detach().numpy())
+        fpr, tpr, _ = roc_curve(list(gt)[:len(ab_pred)*16], np.repeat(ab_pred, 16))
+        ab_roc_auc = auc(fpr, tpr)
+
+        if dataset == 'ucf-crime':
+            return roc_auc, ab_roc_auc

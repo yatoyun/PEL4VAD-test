@@ -12,12 +12,13 @@ from model import XModel
 from dataset import *
 
 from train import train_func
-from test import test_func
+from test import test_func, test_func_ur
 from infer import infer_func
 import argparse
 import copy
 
 from DR_DMU.loss import AD_Loss
+from DR_DMU.model import WSAD as URModel
 # from pytorch_lamb import Lamb
 from timm.scheduler import CosineLRScheduler
 
@@ -30,12 +31,14 @@ from tensorboardX import SummaryWriter
 
 from torch.cuda.amp import GradScaler
 
+# torch.autograd.set_detect_anomaly(True)
 
-def load_checkpoint(model, ckpt_path, logger):
+
+def load_checkpoint(pel_model, ckpt_path, logger):
     if os.path.isfile(ckpt_path):
         logger.info('loading pretrained checkpoint from {}.'.format(ckpt_path))
         weight_dict = torch.load(ckpt_path)
-        model_dict = model.state_dict()
+        model_dict = pel_model.state_dict()
         for name, param in weight_dict.items():
             if 'module' in name:
                 name = '.'.join(name.split('.')[1:])
@@ -46,72 +49,111 @@ def load_checkpoint(model, ckpt_path, logger):
                     logger.info('{} size mismatch: load {} given {}'.format(
                         name, param.size(), model_dict[name].size()))
             else:
-                logger.info('{} not found in model dict.'.format(name))
+                logger.info('{} not found in pel_model dict.'.format(name))
     else:
         logger.info('Not found pretrained checkpoint file.')
 
 
-def train(model, train_nloader, train_aloader, test_loader, gt, logger):
-# def train(model, train_loader, test_loader, gt, logger):
+def train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, logger):
+# def train(pel_model, train_loader, test_loader, gt, logger):
     if not os.path.exists(cfg.save_dir):
         os.makedirs(cfg.save_dir)
 
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
     criterion3 = AD_Loss()
-    PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
-    DR_DMU_params = model.self_attention.DR_DMU.parameters()
     
-    optimizer = optim.Adam([
-    {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
-    {'params': DR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
-    ])
     # lamda = 0.982#0.492
     # alpha = 0.432#0.489#0.127
-    # optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
-    # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
-    # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
-    # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
-    #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
+    logger.info('pel_model:{}\n'.format(pel_model))
+    logger.info('ur_model:{}\n'.format(ur_model))
 
-    logger.info('Model:{}\n'.format(model))
-    logger.info('Optimizer:{}\n'.format(optimizer))
 
-    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-    logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
+    for i in range(cfg.max_epoch // 10):
+        pel_optimizer = optim.Adam(pel_model.parameters(), lr=5e-5, weight_decay=5e-6)#lr=cfg.lr)
+        ur_optimizer = optim.Adam(ur_model.parameters(), lr=1e-7, weight_decay=5e-8)#lr=cfg.lr)
+        # optimizer = Lamb(pel_model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
+        pel_scheduler = optim.lr_scheduler.CosineAnnealingLR(pel_optimizer, T_max=20, eta_min=0)
+        # ur_scheduler = optim.lr_scheduler.CosineAnnealingLR(ur_optimizer, T_max=10, eta_min=0)
+        # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
+        #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
 
-    best_model_wts = copy.deepcopy(model.state_dict())
-    best_auc = 0.0
-    auc_ab_auc = 0.0
 
-    st = time.time()
-    for epoch in range(cfg.max_epoch):
-        loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, args.lamda, args.alpha)
-        # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
-        # scheduler.step(epoch + 1)
-        # scheduler.step()
+        # logger.info('Optimizer PEL:{}\n'.format(pel_optimizer))
+        # logger.info('Optimizer UR:{}\n'.format(ur_optimizer))
+        
+        pel_initial_auc, pel_initial_ab_auc = test_func(test_loader, pel_model, gt, cfg.dataset)
+        logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, pel_initial_auc, pel_initial_ab_auc))
+        
+        ur_initial_auc, ur_initial_ab_auc = test_func_ur(test_loader, ur_model, gt, cfg.dataset)
+        logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, ur_initial_auc, ur_initial_ab_auc))
 
-        log_writer.add_scalar('loss', loss1, epoch)
+        # pel_best_model_wts = torch.load("./ckpt/original__8636.pkl") #copy.deepcopy(pel_model.state_dict())
+        # ur_best_model_wts = torch.load("./ckpt/ucf_trans_2022.pkl") #copy.deepcopy(ur_model.state_dict())
+        
+        pel_best_model_wts = copy.deepcopy(pel_model.state_dict())
+        ur_best_model_wts = copy.deepcopy(ur_model.state_dict())    
+        
+        pel_best_auc = pel_initial_auc
+        pel_auc_ab_auc = pel_initial_ab_auc
+        
+        ur_best_auc = ur_initial_auc
+        ur_auc_ab_auc = ur_initial_ab_auc
 
-        auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-        if auc >= best_auc:
-            best_auc = auc
-            auc_ab_auc = ab_auc
-            best_model_wts = copy.deepcopy(model.state_dict())
-            torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
-        log_writer.add_scalar('AUC', auc, epoch)
+        st = time.time()
+        for epoch in range(10):
+            loss1, loss2, cost, co_loss = train_func(train_nloader, train_aloader, pel_model, pel_optimizer, ur_model, ur_optimizer, criterion, criterion2, criterion3, pel_best_model_wts, ur_best_model_wts, cfg, True)
+            # loss1, loss2, cost = train_func(train_loader, pel_model, optimizer, criterion, criterion2, cfg.lamda)
+            # scheduler.step(epoch + 1)
+            # scheduler.step()
+            pel_scheduler.step()
+            # ur_scheduler.step()
 
-        lr = optimizer.param_groups[0]['lr']
-        logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-            epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
+            log_writer.add_scalar('loss', loss1, epoch)
+
+            pel_auc, pel_ab_auc = test_func(test_loader, pel_model, gt, cfg.dataset)
+            ur_auc, ur_ab_auc = test_func_ur(test_loader, ur_model, gt, cfg.dataset)
+            if pel_auc >= pel_best_auc:
+                pel_best_auc = pel_auc
+                pel_auc_ab_auc = pel_ab_auc
+                # pel_best_model_wts = copy.deepcopy(pel_model.state_dict())
+                torch.save(pel_model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')    
+            
+            if ur_ab_auc >= ur_auc_ab_auc:
+                ur_best_auc = ur_auc
+                ur_auc_ab_auc = ur_ab_auc
+                # ur_best_model_wts = copy.deepcopy(ur_model.state_dict())
+                torch.save(ur_model.state_dict(), cfg.save_dir + cfg.model_name + '_UR_current' + '.pkl')
+                
+            log_writer.add_scalar('AUC', pel_auc, epoch)
+
+            lr = pel_optimizer.param_groups[0]['lr']
+            ur_lr = ur_optimizer.param_groups[0]['lr']
+            logger.info('[Epoch:{}/{}]: pel-lr:{:.4e} ur-lr:{:.4e}| loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} co-loss:{:.4f} | PEL.AUC:{:.4f} An-AUC:{:.4f}, UR.AUC:{:.4f} An-AUC:{:.4f}'.format(
+                epoch + 1, cfg.max_epoch, lr, ur_lr, loss1, loss2, cost, co_loss, pel_auc, pel_ab_auc, ur_auc, ur_ab_auc))
+            
+            
+        pel_best_model_wts = torch.load(cfg.save_dir + cfg.model_name + '_current' + '.pkl')
+        ur_best_model_wts = torch.load(cfg.save_dir + cfg.model_name + '_UR_current' + '.pkl')
+        pel_model.load_state_dict(pel_best_model_wts)
+        ur_model.load_state_dict(ur_best_model_wts)
 
 
 
     time_elapsed = time.time() - st
-    model.load_state_dict(best_model_wts)
-    torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_' + str(round(best_auc, 4)).split('.')[1] + '.pkl')
-    logger.info('Training completes in {:.0f}m {:.0f}s | best AUC{}:{:.4f} Anomaly AUC:{:.4f}\n'.
-                format(time_elapsed // 60, time_elapsed % 60, cfg.metrics, best_auc, auc_ab_auc))
+    # pel_model.load_state_dict(pel_best_model_wts)
+    # ur_model.load_state_dict(ur_best_model_wts)
+    pel_best_model_wts = torch.load(cfg.save_dir + cfg.model_name + '_current' + '.pkl')
+    ur_best_model_wts = torch.load(cfg.save_dir + cfg.model_name + '_UR_current' + '.pkl')
+    pel_model.load_state_dict(pel_best_model_wts)
+    ur_model.load_state_dict(ur_best_model_wts)
+    
+    torch.save(pel_model.state_dict(), cfg.save_dir + cfg.model_name + "co_teach" + '_' + str(round(pel_best_auc, 4)).split('.')[1] + '.pkl')
+    torch.save(ur_model.state_dict(), cfg.save_dir + cfg.model_name + "UR_co_teach" + '_' + str(round(ur_best_auc, 4)).split('.')[1] + '.pkl')
+    logger.info('Training completes in {:.0f}m {:.0f}s | PEL. best AUC{}:{:.4f} Anomaly AUC:{:.4f}\n'.
+                format(time_elapsed // 60, time_elapsed % 60, cfg.metrics, pel_best_auc, pel_auc_ab_auc))
+    logger.info('Training completes in {:.0f}m {:.0f}s | UR. best AUC{}:{:.4f} Anomaly AUC:{:.4f}\n'.
+                format(time_elapsed // 60, time_elapsed % 60, cfg.metrics, ur_best_auc, ur_auc_ab_auc))
 
 
 def main(cfg):
@@ -147,27 +189,32 @@ def main(cfg):
     test_loader = DataLoader(test_data, batch_size=cfg.test_bs, shuffle=False,
                              num_workers=cfg.workers, pin_memory=True)
 
-    model = XModel(cfg)
+    pel_model = XModel(cfg)
     gt = np.load(cfg.gt)
     device = torch.device("cuda")
-    model = model.to(device)
+    pel_model = pel_model.to(device)
+    load_checkpoint(pel_model, "./ckpt/original__8636.pkl", logger)
+    
+    ur_model = URModel(input_size = 1024, a_nums = 60, n_nums = 60)
+    ur_model = ur_model.to(device)
+    load_checkpoint(ur_model, "./ckpt/ucf_trans_2022.pkl", logger)
 
-    param = sum(p.numel() for p in model.parameters())
+    param = sum(p.numel() for p in pel_model.parameters())
     logger.info('total params:{:.4f}M'.format(param / (1000 ** 2)))
 
     if args.mode == 'train':
         logger.info('Training Mode')
         
-        train(model, train_nloader, train_aloader, test_loader, gt, logger)
-        # train(model, train_loader, test_loader, gt, logger)
+        train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, logger)
+        # train(pel_model, train_loader, test_loader, gt, logger)
 
     elif args.mode == 'infer':
         logger.info('Test Mode')
         if cfg.ckpt_path is not None:
-            load_checkpoint(model, cfg.ckpt_path, logger)
+            load_checkpoint(pel_model, cfg.ckpt_path, logger)
         else:
             logger.info('infer from random initialization')
-        infer_func(model, test_loader, gt, logger, cfg)
+        infer_func(pel_model, test_loader, gt, logger, cfg)
 
     else:
         raise RuntimeError('Invalid status!')
@@ -176,7 +223,7 @@ def main(cfg):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='WeaklySupAnoDet')
     parser.add_argument('--dataset', default='ucf', help='anomaly video dataset')
-    parser.add_argument('--mode', default='train', help='model status: (train or infer)')
+    parser.add_argument('--mode', default='train', help='pel_model status: (train or infer)')
     parser.add_argument('--version', default='original', help='change log path name')
     parser.add_argument('--PEL_lr', default=0.0003, type=float, help='learning rate')
     parser.add_argument('--UR_DMU_lr', default=0.0008, type=float, help='learning rate')

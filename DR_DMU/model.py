@@ -37,7 +37,7 @@ class WSAD(Module):
 
         self.embedding = Temporal(input_size,512)
         self.triplet = nn.TripletMarginLoss(margin=1)
-        # self.cls_head = ADCLS_head(1024, 1)
+        self.cls_head = ADCLS_head(1024, 1)
         self.Amemory = Memory_Unit(nums=a_nums, dim=512)
         self.Nmemory = Memory_Unit(nums=n_nums, dim=512)
         self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = 0.5)
@@ -98,10 +98,10 @@ class WSAD(Module):
           
             distance = torch.relu(100 - torch.norm(negative_ax_new, p=2, dim=-1) + torch.norm(anchor_nx_new, p=2, dim=-1)).mean()
             x = torch.cat((x, (torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0))), dim=-1)
-            # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
+            pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
     
             return {
-                    # "frame": pre_att,
+                    "frame": pre_att,
                     'triplet_margin': triplet_margin_loss,
                     'kl_loss': kl_loss, 
                     'distance': distance,
@@ -109,7 +109,6 @@ class WSAD(Module):
                     "N_att": N_att.reshape((b//2, n, -1)).mean(1),
                     "A_Natt": A_Natt.reshape((b//2, n, -1)).mean(1),
                     "N_Aatt": N_Aatt.reshape((b//2, n, -1)).mean(1),
-                    "x":x
                 }
         else:           
             _, A_aug = self.Amemory(x)
@@ -120,10 +119,10 @@ class WSAD(Module):
 
             x = torch.cat([x, A_aug + N_aug], dim=-1)
            
-            # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
+            pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
             return {
-                    # "frame": pre_att, 
-                    "x":x}
+                    "frame": pre_att, 
+                    }
     
 
 if __name__ == "__main__":
