@@ -51390,3 +51390,5 @@ Parameter Group 0
 [2023-09-06 13:55:04,423][main.py][line:132][INFO] [Epoch:2/100]: pel-lr:4.8776e-05 ur-lr:1.0000e-07| loss1:0.0138 loss2:0.4875 loss3:0.0314 co-loss:0.2479 | PEL.AUC:0.8694 An-AUC:0.7051, UR.AUC:0.8701 An-AUC:0.7045
 [2023-09-06 13:55:29,892][main.py][line:132][INFO] [Epoch:3/100]: pel-lr:4.7275e-05 ur-lr:1.0000e-07| loss1:0.0134 loss2:0.4835 loss3:0.0325 co-loss:0.2383 | PEL.AUC:0.8682 An-AUC:0.7047, UR.AUC:0.8701 An-AUC:0.7052
 [2023-09-06 13:55:55,474][main.py][line:132][INFO] [Epoch:4/100]: pel-lr:4.5225e-05 ur-lr:1.0000e-07| loss1:0.0122 loss2:0.4751 loss3:0.0342 co-loss:0.2305 | PEL.AUC:0.8702 An-AUC:0.7072, UR.AUC:0.8701 An-AUC:0.7058
+[2023-09-06 13:56:21,065][main.py][line:132][INFO] [Epoch:5/100]: pel-lr:4.2678e-05 ur-lr:1.0000e-07| loss1:0.0116 loss2:0.4680 loss3:0.0360 co-loss:0.2254 | PEL.AUC:0.8684 An-AUC:0.7059, UR.AUC:0.8701 An-AUC:0.7063
+[2023-09-06 13:56:46,864][main.py][line:132][INFO] [Epoch:6/100]: pel-lr:3.9695e-05 ur-lr:1.0000e-07| loss1:0.0111 loss2:0.4604 loss3:0.0365 co-loss:0.2195 | PEL.AUC:0.8688 An-AUC:0.7072, UR.AUC:0.8700 An-AUC:0.7067
