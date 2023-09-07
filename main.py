@@ -18,6 +18,7 @@ import argparse
 import copy
 
 import os
+import wandb
 from tensorboardX import SummaryWriter
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
@@ -93,6 +94,9 @@ def main(cfg):
     logger = get_logger(cfg.logs_dir)
     setup_seed(cfg.seed)
     logger.info('Config:{}'.format(cfg.__dict__))
+    global logger_wandb
+    logger_wandb = wandb.init(project=args.dataset, entity=args.entity, name=args.run_path, group=args.dataset)
+    logger_wandb.config.update(args)
 
     cfg.max_seqlen = 32
     train_data = UCFDataset(cfg, test_mode=False)
