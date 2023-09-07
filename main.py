@@ -12,7 +12,6 @@ from model import XModel
 from dataset import *
 
 from train import train_func
-from train_step2 import train_func as train_func2
 from test import test_func
 from infer import infer_func
 import argparse
@@ -64,12 +63,8 @@ def train(model, train_loader, train_loader2, test_loader, gt, logger):
     auc_ab_auc = 0.0
 
     st = time.time()
-    first_epoch = 10
-    second_epoch = cfg.max_epoch - first_epoch
     
-    # first train
-    cfg.max_seqlen = 32
-    for epoch in range(first_epoch):
+    for epoch in range(cfg.max_epoch):
         loss1, loss2 = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
         scheduler.step()
 
@@ -85,29 +80,6 @@ def train(model, train_loader, train_loader2, test_loader, gt, logger):
 
         logger.info('[Epoch:{}/{}]: loss1:{:.4f} loss2:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
             epoch + 1, cfg.max_epoch, loss1, loss2, auc, ab_auc))
-        
-    # load best model
-    model.load_state_dict(best_model_wts)
-    optimizer2 = optim.Adam(model.parameters(), lr=5e-5)
-    
-    # second train
-    cfg.max_seqlen = 400
-    for epoch in range(second_epoch):
-        loss1, loss2 = train_func2(train_loader2, model, optimizer2, criterion, criterion2, cfg.lamda, beta=0.05)
-
-        log_writer.add_scalar('loss', loss1, epoch)
-
-        auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-        if auc >= best_auc:
-            best_auc = auc
-            auc_ab_auc = ab_auc
-            best_model_wts = copy.deepcopy(model.state_dict())
-            torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
-        log_writer.add_scalar('AUC', auc, epoch)
-
-        logger.info('[Epoch:{}/{}]: loss1:{:.4f} loss2:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-            epoch + 1, cfg.max_epoch, loss1, loss2, auc, ab_auc))
-    
     
 
     time_elapsed = time.time() - st
