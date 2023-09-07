@@ -100,7 +100,13 @@ def train_func(normal_dataloader, anomaly_dataloader, pel_model, pel_optimizer, 
 
 
 def predict(pre):
-    pre[pre >= 0.9] = 1
-    pre[pre <= 0.1] = 0
-    mask = (pre > 0.1) & (pre < 0.9)
+    pre[pre >= 0.8] = 1
+    pre[pre <= 0.2] = 0
+    mask = (pre > 0.2) & (pre < 0.8)
     pre[mask] = torch.round(pre[mask] * 10) / 10
+    # pre[pre >= 0.8] = 1
+    # pre[pre <= 0.2] = 0
+    # pre[pre <= 0.6] = 0.5
+    # pre[0.4 <= pre] = 0.5
+    # mask = (pre > 0.2) & (pre < 0.8) & (pre != 0.5)
+    # pre[mask] = torch.round(pre[mask] * 10) / 10

@@ -71,7 +71,7 @@ def train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, lo
 
     for i in range(cfg.max_epoch // 10):
         pel_optimizer = optim.Adam(pel_model.parameters(), lr=5e-5, weight_decay=5e-6)#lr=cfg.lr)
-        ur_optimizer = optim.Adam(ur_model.parameters(), lr=1e-7, weight_decay=5e-8)#lr=cfg.lr)
+        ur_optimizer = optim.Adam(ur_model.parameters(), lr=5e-7, weight_decay=5e-8)#lr=cfg.lr)
         # optimizer = Lamb(pel_model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
         pel_scheduler = optim.lr_scheduler.CosineAnnealingLR(pel_optimizer, T_max=20, eta_min=0)
         # ur_scheduler = optim.lr_scheduler.CosineAnnealingLR(ur_optimizer, T_max=10, eta_min=0)
@@ -106,7 +106,7 @@ def train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, lo
             # loss1, loss2, cost = train_func(train_loader, pel_model, optimizer, criterion, criterion2, cfg.lamda)
             # scheduler.step(epoch + 1)
             # scheduler.step()
-            pel_scheduler.step()
+            # pel_scheduler.step()
             # ur_scheduler.step()
 
             log_writer.add_scalar('loss', loss1, epoch)
