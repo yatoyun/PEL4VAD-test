@@ -1,0 +1,128 @@
+
+8000 8100 2900
+[2023-09-08 11:15:39,533][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 11:15:39,557][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 11:15:39,564][main.py][line:284][INFO] total params:1.2091M
+[2023-09-08 11:15:39,564][main.py][line:287][INFO] Training Mode
+[2023-09-08 11:15:44,518][main.py][line:151][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 11:15:48,544][main.py][line:154][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Predict video 7974 | num abnormal video:702:  98%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▍  | 7970/8100 [01:20<00:00, 139.87it/s]
+
+Predict video 8100 | num abnormal video:713: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8100/8100 [01:22<00:00, 98.68it/s]
+[2023-09-08 11:17:36,647][main.py][line:207][INFO] [Epoch:1/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0007 loss2:0.0133 loss3:0.1238 co-loss:0.0286 | PEL.AUC:0.8215 An-AUC:0.6691, UR.AUC:0.8675 An-AUC:0.6959
+[2023-09-08 11:18:02,852][main.py][line:207][INFO] [Epoch:2/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0001 loss2:0.0063 loss3:0.0140 co-loss:0.0034 | PEL.AUC:0.8105 An-AUC:0.6691, UR.AUC:0.8667 An-AUC:0.6928
+[2023-09-08 11:18:29,621][main.py][line:207][INFO] [Epoch:3/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0001 loss2:0.0039 loss3:0.0066 co-loss:0.0017 | PEL.AUC:0.8086 An-AUC:0.6688, UR.AUC:0.8653 An-AUC:0.6893
+[2023-09-08 11:18:55,941][main.py][line:207][INFO] [Epoch:4/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0001 loss2:0.0023 loss3:0.0039 co-loss:0.0007 | PEL.AUC:0.7818 An-AUC:0.6553, UR.AUC:0.8646 An-AUC:0.6877
+[2023-09-08 11:19:22,582][main.py][line:207][INFO] [Epoch:5/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0017 loss3:0.0024 co-loss:0.0004 | PEL.AUC:0.7588 An-AUC:0.6433, UR.AUC:0.8638 An-AUC:0.6865
+[2023-09-08 11:19:49,223][main.py][line:207][INFO] [Epoch:6/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0014 loss3:0.0012 co-loss:0.0002 | PEL.AUC:0.7414 An-AUC:0.6362, UR.AUC:0.8626 An-AUC:0.6852
+[2023-09-08 11:20:15,844][main.py][line:207][INFO] [Epoch:7/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0011 loss3:0.0006 co-loss:0.0001 | PEL.AUC:0.7214 An-AUC:0.6274, UR.AUC:0.8624 An-AUC:0.6842
+[2023-09-08 11:20:42,777][main.py][line:207][INFO] [Epoch:8/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0010 loss3:0.0005 co-loss:0.0000 | PEL.AUC:0.7114 An-AUC:0.6232, UR.AUC:0.8616 An-AUC:0.6841
+[2023-09-08 11:21:09,429][main.py][line:207][INFO] [Epoch:9/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0008 loss3:0.0004 co-loss:0.0000 | PEL.AUC:0.6983 An-AUC:0.6188, UR.AUC:0.8601 An-AUC:0.6837
+[2023-09-08 11:21:36,278][main.py][line:207][INFO] [Epoch:10/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0007 loss3:0.0003 co-loss:0.0000 | PEL.AUC:0.6695 An-AUC:0.6048, UR.AUC:0.8598 An-AUC:0.6841
+[2023-09-08 11:21:40,620][main.py][line:151][INFO] Random initialize AUCAUC:0.8704 Anomaly AUC:0.71231
+[2023-09-08 11:21:44,781][main.py][line:154][INFO] Random initialize AUCAUC:0.8680 Anomaly AUC:0.71651
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Predict video 8970 | num abnormal video:0:   0%|▊                                                                                                                                                        | 8970/1803523 [01:22<4:34:06, 109.12it/s]
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 323, in <module>
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 289, in main
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 160, in train
+    index_list, frame_num_dict = make_new_dataset(pel_model, ur_model, train_aloader, 0.9)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 78, in make_new_dataset
+    logits_pel, _ = pel_model(v_input, seq_len)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/model.py", line 34, in forward
+    x_e, x_v = self.self_attention(x, seq_len)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/modules.py", line 25, in forward
+    x = x + self.self_attn(x, mask, adj)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/layers.py", line 51, in forward
+    K = self.k(x).view(-1, x.shape[0], x.shape[1], self.dim_k // self.n_heads)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 113, in forward
+    def forward(self, input: Tensor) -> Tensor:
+KeyboardInterrupt

@@ -52362,3 +52362,640 @@ Parameter Group 0
 [2023-09-06 15:32:48,329][main.py][line:39][INFO] loading pretrained checkpoint from ./ckpt/ucf__current.pkl.
 [2023-09-06 15:32:53,789][infer.py][line:47][INFO] offline AUC:0.8735 AP:0.3534 FAR:0.0038 | Complete in 0m 5s
 
+[2023-09-07 21:50:40,428][main.py][line:209][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 21:50:40,527][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 21:50:40,557][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 21:50:40,582][main.py][line:251][INFO] total params:1.2091M
+[2023-09-07 21:50:40,582][main.py][line:254][INFO] Training Mode
+[2023-09-07 21:50:40,582][main.py][line:107][INFO] pel_model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-09-07 21:50:40,582][main.py][line:108][INFO] ur_model:WSAD(
+  (embedding): Temporal(
+    (conv_1): Sequential(
+      (0): Conv1d(1024, 512, kernel_size=(3,), stride=(1,), padding=(1,))
+      (1): ReLU()
+    )
+  )
+  (triplet): TripletMarginLoss()
+  (cls_head): ADCLS_head(
+    (mlp): Sequential(
+      (0): Linear(in_features=1024, out_features=128, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=128, out_features=1, bias=True)
+      (3): Sigmoid()
+    )
+  )
+  (Amemory): Memory_Unit(
+    (sig): Sigmoid()
+  )
+  (Nmemory): Memory_Unit(
+    (sig): Sigmoid()
+  )
+  (selfatt): Transformer(
+    (layers): ModuleList(
+      (0-1): 2 x ModuleList(
+        (0): PreNorm(
+          (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (fn): Attention(
+            (attend): Softmax(dim=-1)
+            (to_qkv): Linear(in_features=512, out_features=2048, bias=False)
+            (to_out): Sequential(
+              (0): Linear(in_features=1024, out_features=512, bias=True)
+              (1): Dropout(p=0.5, inplace=False)
+            )
+          )
+        )
+        (1): PreNorm(
+          (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (fn): FeedForward(
+            (net): Sequential(
+              (0): Linear(in_features=512, out_features=512, bias=True)
+              (1): GELU(approximate='none')
+              (2): Dropout(p=0.5, inplace=False)
+              (3): Linear(in_features=512, out_features=512, bias=True)
+              (4): Dropout(p=0.5, inplace=False)
+            )
+          )
+        )
+      )
+    )
+  )
+  (encoder_mu): Sequential(
+    (0): Linear(in_features=512, out_features=512, bias=True)
+  )
+  (encoder_var): Sequential(
+    (0): Linear(in_features=512, out_features=512, bias=True)
+  )
+  (relu): ReLU()
+)
+
+[2023-09-07 21:50:47,224][main.py][line:125][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 21:50:51,310][main.py][line:128][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 21:52:23,437][main.py][line:210][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 21:52:23,525][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 21:52:23,548][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 21:52:23,556][main.py][line:252][INFO] total params:1.2091M
+[2023-09-07 21:52:23,556][main.py][line:255][INFO] Training Mode
+[2023-09-07 21:52:28,672][main.py][line:126][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 21:52:32,664][main.py][line:129][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 21:55:12,874][main.py][line:210][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 21:55:12,951][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 21:55:12,975][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 21:55:12,982][main.py][line:252][INFO] total params:1.2091M
+[2023-09-07 21:55:12,982][main.py][line:255][INFO] Training Mode
+[2023-09-07 21:55:18,256][main.py][line:126][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 21:55:22,280][main.py][line:129][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 21:57:01,866][main.py][line:213][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 21:57:01,953][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 21:57:01,977][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 21:57:01,983][main.py][line:255][INFO] total params:1.2091M
+[2023-09-07 21:57:01,984][main.py][line:258][INFO] Training Mode
+[2023-09-07 21:57:07,217][main.py][line:129][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 21:57:11,308][main.py][line:132][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 22:00:50,022][main.py][line:211][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 22:00:50,104][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 22:00:50,128][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 22:00:50,136][main.py][line:253][INFO] total params:1.2091M
+[2023-09-07 22:00:50,136][main.py][line:256][INFO] Training Mode
+[2023-09-07 22:00:55,544][main.py][line:127][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 22:00:59,579][main.py][line:130][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 22:01:44,571][main.py][line:207][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 22:01:44,649][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 22:01:44,673][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 22:01:44,680][main.py][line:249][INFO] total params:1.2091M
+[2023-09-07 22:01:44,680][main.py][line:252][INFO] Training Mode
+[2023-09-07 22:01:49,908][main.py][line:123][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 22:01:53,933][main.py][line:126][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:10:39,181][main.py][line:208][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:10:39,268][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:10:39,291][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:10:39,298][main.py][line:250][INFO] total params:1.2091M
+[2023-09-07 23:10:39,298][main.py][line:253][INFO] Training Mode
+[2023-09-07 23:10:44,505][main.py][line:124][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:10:48,580][main.py][line:127][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:11:58,784][main.py][line:208][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:11:58,859][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:11:58,883][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:11:58,890][main.py][line:250][INFO] total params:1.2091M
+[2023-09-07 23:11:58,890][main.py][line:253][INFO] Training Mode
+[2023-09-07 23:12:04,096][main.py][line:124][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:12:08,113][main.py][line:127][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:13:31,742][main.py][line:208][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:13:31,832][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:13:31,854][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:13:31,861][main.py][line:250][INFO] total params:1.2091M
+[2023-09-07 23:13:31,861][main.py][line:253][INFO] Training Mode
+[2023-09-07 23:13:37,231][main.py][line:124][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:13:41,266][main.py][line:127][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:15:06,020][main.py][line:208][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:15:06,097][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:15:06,121][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:15:06,128][main.py][line:250][INFO] total params:1.2091M
+[2023-09-07 23:15:06,128][main.py][line:253][INFO] Training Mode
+[2023-09-07 23:15:11,363][main.py][line:124][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:15:15,382][main.py][line:127][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:15:57,976][main.py][line:207][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:15:58,063][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:15:58,086][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:15:58,093][main.py][line:249][INFO] total params:1.2091M
+[2023-09-07 23:15:58,093][main.py][line:252][INFO] Training Mode
+[2023-09-07 23:16:03,612][main.py][line:123][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:16:08,232][main.py][line:126][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:17:28,000][main.py][line:208][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:17:28,076][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:17:28,099][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:17:28,106][main.py][line:250][INFO] total params:1.2091M
+[2023-09-07 23:17:28,106][main.py][line:253][INFO] Training Mode
+[2023-09-07 23:17:33,736][main.py][line:124][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:17:38,135][main.py][line:127][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:18:26,123][main.py][line:208][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:18:26,199][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:18:26,222][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:18:26,230][main.py][line:250][INFO] total params:1.2091M
+[2023-09-07 23:18:26,230][main.py][line:253][INFO] Training Mode
+[2023-09-07 23:18:31,459][main.py][line:124][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:18:35,474][main.py][line:127][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:19:21,448][main.py][line:209][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:19:21,536][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:19:21,559][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:19:21,566][main.py][line:251][INFO] total params:1.2091M
+[2023-09-07 23:19:21,566][main.py][line:254][INFO] Training Mode
+[2023-09-07 23:19:26,627][main.py][line:125][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:19:30,668][main.py][line:128][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:20:18,588][main.py][line:209][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:20:18,676][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:20:18,699][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:20:18,706][main.py][line:251][INFO] total params:1.2091M
+[2023-09-07 23:20:18,706][main.py][line:254][INFO] Training Mode
+[2023-09-07 23:20:23,938][main.py][line:125][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:20:27,978][main.py][line:128][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:21:02,248][main.py][line:207][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:21:02,326][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:21:02,349][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:21:02,356][main.py][line:249][INFO] total params:1.2091M
+[2023-09-07 23:21:02,356][main.py][line:252][INFO] Training Mode
+[2023-09-07 23:21:07,414][main.py][line:123][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:21:11,430][main.py][line:126][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:21:48,460][main.py][line:208][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:21:48,547][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:21:48,570][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:21:48,577][main.py][line:250][INFO] total params:1.2091M
+[2023-09-07 23:21:48,577][main.py][line:253][INFO] Training Mode
+[2023-09-07 23:21:56,184][main.py][line:208][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:21:56,288][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:21:56,312][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:21:56,319][main.py][line:250][INFO] total params:1.2091M
+[2023-09-07 23:21:56,320][main.py][line:253][INFO] Training Mode
+[2023-09-07 23:22:01,428][main.py][line:124][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:22:05,450][main.py][line:127][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:22:14,166][main.py][line:207][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:22:14,243][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:22:14,267][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:22:14,274][main.py][line:249][INFO] total params:1.2091M
+[2023-09-07 23:22:14,274][main.py][line:252][INFO] Training Mode
+[2023-09-07 23:22:19,235][main.py][line:123][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:22:23,252][main.py][line:126][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:23:20,150][main.py][line:207][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:23:20,238][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:23:20,262][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:23:20,269][main.py][line:249][INFO] total params:1.2091M
+[2023-09-07 23:23:20,269][main.py][line:252][INFO] Training Mode
+[2023-09-07 23:23:25,375][main.py][line:123][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:23:29,402][main.py][line:126][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:26:04,584][main.py][line:209][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:26:04,670][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:26:04,694][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:26:04,701][main.py][line:251][INFO] total params:1.2091M
+[2023-09-07 23:26:04,701][main.py][line:254][INFO] Training Mode
+[2023-09-07 23:26:09,716][main.py][line:125][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:26:13,814][main.py][line:128][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:26:38,106][main.py][line:208][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:26:38,182][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:26:38,205][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:26:38,212][main.py][line:250][INFO] total params:1.2091M
+[2023-09-07 23:26:38,212][main.py][line:253][INFO] Training Mode
+[2023-09-07 23:26:43,470][main.py][line:124][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:26:47,487][main.py][line:127][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:40:54,243][main.py][line:220][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:40:54,331][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:40:54,355][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:40:54,362][main.py][line:262][INFO] total params:1.2091M
+[2023-09-07 23:40:54,362][main.py][line:265][INFO] Training Mode
+[2023-09-07 23:40:59,707][main.py][line:136][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:41:03,756][main.py][line:139][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:45:34,104][main.py][line:223][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:45:34,180][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:45:34,204][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:45:34,211][main.py][line:265][INFO] total params:1.2091M
+[2023-09-07 23:45:34,211][main.py][line:268][INFO] Training Mode
+[2023-09-07 23:45:39,350][main.py][line:139][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:45:43,366][main.py][line:142][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:46:30,397][main.py][line:223][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:46:30,499][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:46:30,522][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:46:30,530][main.py][line:265][INFO] total params:1.2091M
+[2023-09-07 23:46:30,530][main.py][line:268][INFO] Training Mode
+[2023-09-07 23:46:35,649][main.py][line:139][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:46:39,646][main.py][line:142][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:47:29,935][main.py][line:224][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:47:30,024][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:47:30,048][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:47:30,056][main.py][line:266][INFO] total params:1.2091M
+[2023-09-07 23:47:30,056][main.py][line:269][INFO] Training Mode
+[2023-09-07 23:47:35,179][main.py][line:140][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:47:39,167][main.py][line:143][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:48:28,017][main.py][line:223][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:48:28,149][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:48:28,173][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:48:28,180][main.py][line:265][INFO] total params:1.2091M
+[2023-09-07 23:48:28,180][main.py][line:268][INFO] Training Mode
+[2023-09-07 23:48:33,337][main.py][line:139][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:48:37,353][main.py][line:142][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:50:03,514][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:50:03,601][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:50:03,624][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:50:03,632][main.py][line:271][INFO] total params:1.2091M
+[2023-09-07 23:50:03,632][main.py][line:274][INFO] Training Mode
+[2023-09-07 23:50:08,835][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:50:12,852][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:51:04,707][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:51:04,794][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:51:04,818][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:51:04,825][main.py][line:271][INFO] total params:1.2091M
+[2023-09-07 23:51:04,825][main.py][line:274][INFO] Training Mode
+[2023-09-07 23:51:10,042][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:51:14,089][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:52:50,537][main.py][line:230][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:52:50,623][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:52:50,646][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:52:50,653][main.py][line:272][INFO] total params:1.2091M
+[2023-09-07 23:52:50,653][main.py][line:275][INFO] Training Mode
+[2023-09-07 23:52:55,738][main.py][line:146][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:52:59,781][main.py][line:149][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:54:03,524][main.py][line:230][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:54:03,600][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:54:03,623][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:54:03,630][main.py][line:272][INFO] total params:1.2091M
+[2023-09-07 23:54:03,630][main.py][line:275][INFO] Training Mode
+[2023-09-07 23:54:08,719][main.py][line:146][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:54:12,735][main.py][line:149][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:54:39,693][main.py][line:230][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:54:39,768][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:54:39,791][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:54:39,799][main.py][line:272][INFO] total params:1.2091M
+[2023-09-07 23:54:39,799][main.py][line:275][INFO] Training Mode
+[2023-09-07 23:54:45,107][main.py][line:146][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:54:49,122][main.py][line:149][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:54:59,666][main.py][line:224][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:54:59,741][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:54:59,765][main.py][line:41][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:54:59,772][main.py][line:266][INFO] total params:1.2091M
+[2023-09-07 23:54:59,772][main.py][line:269][INFO] Training Mode
+[2023-09-07 23:55:04,971][main.py][line:140][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:55:08,968][main.py][line:143][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-07 23:57:32,225][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-07 23:57:32,318][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-07 23:57:32,341][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-07 23:57:32,348][main.py][line:271][INFO] total params:1.2091M
+[2023-09-07 23:57:32,348][main.py][line:274][INFO] Training Mode
+[2023-09-07 23:57:37,524][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-07 23:57:41,543][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 00:07:41,384][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 00:07:41,462][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 00:07:41,485][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 00:07:41,492][main.py][line:271][INFO] total params:1.2091M
+[2023-09-08 00:07:41,492][main.py][line:274][INFO] Training Mode
+[2023-09-08 00:07:47,540][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 00:07:51,750][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 00:08:44,194][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 00:08:44,284][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 00:08:44,307][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 00:08:44,314][main.py][line:271][INFO] total params:1.2091M
+[2023-09-08 00:08:44,314][main.py][line:274][INFO] Training Mode
+[2023-09-08 00:08:49,515][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 00:08:53,528][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 00:13:20,857][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 00:13:20,934][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 00:13:20,958][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 00:13:20,965][main.py][line:271][INFO] total params:1.2091M
+[2023-09-08 00:13:20,965][main.py][line:274][INFO] Training Mode
+[2023-09-08 00:13:36,247][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 00:13:36,332][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 00:13:36,356][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 00:13:36,363][main.py][line:271][INFO] total params:1.2091M
+[2023-09-08 00:13:36,363][main.py][line:274][INFO] Training Mode
+[2023-09-08 00:13:41,647][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 00:13:45,671][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 00:18:47,153][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 00:18:47,232][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 00:18:47,256][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 00:18:47,263][main.py][line:271][INFO] total params:1.2091M
+[2023-09-08 00:18:47,263][main.py][line:274][INFO] Training Mode
+[2023-09-08 00:18:52,372][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 00:18:56,413][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 01:02:05,626][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 01:02:05,715][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 01:02:05,738][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 01:02:05,746][main.py][line:271][INFO] total params:1.2091M
+[2023-09-08 01:02:05,746][main.py][line:274][INFO] Training Mode
+[2023-09-08 01:02:11,022][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 01:02:15,017][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 01:04:50,089][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 01:04:50,170][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 01:04:50,192][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 01:04:50,199][main.py][line:271][INFO] total params:1.2091M
+[2023-09-08 01:04:50,199][main.py][line:274][INFO] Training Mode
+[2023-09-08 01:04:55,534][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 01:04:59,530][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 01:09:40,847][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 01:09:40,929][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 01:09:40,951][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 01:09:40,958][main.py][line:271][INFO] total params:1.2091M
+[2023-09-08 01:09:40,958][main.py][line:274][INFO] Training Mode
+[2023-09-08 01:09:46,163][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 01:09:50,206][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 01:12:02,032][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 01:12:02,123][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 01:12:02,148][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 01:12:02,155][main.py][line:271][INFO] total params:1.2091M
+[2023-09-08 01:12:02,155][main.py][line:274][INFO] Training Mode
+[2023-09-08 01:12:07,420][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 01:12:11,457][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 01:24:25,192][main.py][line:229][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 01:24:25,269][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 01:24:25,294][main.py][line:42][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 01:24:25,301][main.py][line:271][INFO] total params:1.2091M
+[2023-09-08 01:24:25,301][main.py][line:274][INFO] Training Mode
+[2023-09-08 01:24:30,468][main.py][line:145][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 01:24:34,505][main.py][line:148][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 01:27:58,973][main.py][line:234][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 01:27:59,061][main.py][line:43][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 01:27:59,085][main.py][line:43][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 01:27:59,092][main.py][line:276][INFO] total params:1.2091M
+[2023-09-08 01:27:59,092][main.py][line:279][INFO] Training Mode
+[2023-09-08 01:30:09,615][main.py][line:234][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 01:30:09,702][main.py][line:43][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 01:30:09,726][main.py][line:43][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 01:30:09,734][main.py][line:276][INFO] total params:1.2091M
+[2023-09-08 01:30:09,734][main.py][line:279][INFO] Training Mode
+[2023-09-08 01:30:14,977][main.py][line:150][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 01:30:18,982][main.py][line:153][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 01:33:45,538][main.py][line:234][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 01:33:45,615][main.py][line:43][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 01:33:45,639][main.py][line:43][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 01:33:45,646][main.py][line:276][INFO] total params:1.2091M
+[2023-09-08 01:33:45,646][main.py][line:279][INFO] Training Mode
+[2023-09-08 01:33:50,716][main.py][line:150][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 01:33:54,726][main.py][line:153][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 01:38:07,313][main.py][line:204][INFO] [Epoch:1/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0003 loss2:0.0098 loss3:0.0034 co-loss:0.0019 | PEL.AUC:0.7376 An-AUC:0.6246, UR.AUC:0.8661 An-AUC:0.7022
+[2023-09-08 01:41:03,809][main.py][line:204][INFO] [Epoch:2/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0003 loss3:0.0006 co-loss:0.0000 | PEL.AUC:0.6192 An-AUC:0.5567, UR.AUC:0.8558 An-AUC:0.7058
+[2023-09-08 01:44:02,687][main.py][line:204][INFO] [Epoch:3/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0000 loss3:0.0001 co-loss:0.0000 | PEL.AUC:0.5849 An-AUC:0.6017, UR.AUC:0.8189 An-AUC:0.6961
+[2023-09-08 01:47:02,024][main.py][line:204][INFO] [Epoch:4/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0000 loss3:0.0000 co-loss:0.0000 | PEL.AUC:0.5762 An-AUC:0.5945, UR.AUC:0.7828 An-AUC:0.6848
+[2023-09-08 01:49:58,291][main.py][line:204][INFO] [Epoch:5/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0000 loss3:0.0000 co-loss:0.0000 | PEL.AUC:0.5643 An-AUC:0.5854, UR.AUC:0.7390 An-AUC:0.6611
+[2023-09-08 01:53:00,023][main.py][line:204][INFO] [Epoch:6/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0000 loss3:0.0000 co-loss:0.0000 | PEL.AUC:0.5682 An-AUC:0.5618, UR.AUC:0.7396 An-AUC:0.6612
+[2023-09-08 01:55:56,153][main.py][line:204][INFO] [Epoch:7/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0000 loss3:0.0000 co-loss:0.0000 | PEL.AUC:0.5708 An-AUC:0.5617, UR.AUC:0.7310 An-AUC:0.6568
+[2023-09-08 01:58:56,611][main.py][line:204][INFO] [Epoch:8/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0000 loss3:0.0000 co-loss:0.0000 | PEL.AUC:0.5631 An-AUC:0.5573, UR.AUC:0.7035 An-AUC:0.6430
+[2023-09-08 02:01:51,422][main.py][line:204][INFO] [Epoch:9/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0000 loss3:0.0000 co-loss:0.0000 | PEL.AUC:0.5791 An-AUC:0.5696, UR.AUC:0.7058 An-AUC:0.6437
+[2023-09-08 11:08:58,977][main.py][line:237][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:10:41,999][main.py][line:237][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:12:29,946][main.py][line:237][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:13:18,468][main.py][line:237][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:13:21,244][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 11:13:21,273][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 11:13:21,296][main.py][line:284][INFO] total params:1.2091M
+[2023-09-08 11:13:21,296][main.py][line:287][INFO] Training Mode
+[2023-09-08 11:13:26,889][main.py][line:151][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 11:13:30,928][main.py][line:154][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 11:14:21,591][main.py][line:237][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:14:24,258][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 11:14:24,281][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 11:14:24,288][main.py][line:284][INFO] total params:1.2091M
+[2023-09-08 11:14:24,289][main.py][line:287][INFO] Training Mode
+[2023-09-08 11:14:29,137][main.py][line:151][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 11:14:33,167][main.py][line:154][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 11:15:36,649][main.py][line:237][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:15:39,533][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 11:15:39,557][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 11:15:39,564][main.py][line:284][INFO] total params:1.2091M
+[2023-09-08 11:15:39,564][main.py][line:287][INFO] Training Mode
+[2023-09-08 11:15:44,518][main.py][line:151][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 11:15:48,544][main.py][line:154][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 11:17:36,647][main.py][line:207][INFO] [Epoch:1/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0007 loss2:0.0133 loss3:0.1238 co-loss:0.0286 | PEL.AUC:0.8215 An-AUC:0.6691, UR.AUC:0.8675 An-AUC:0.6959
+[2023-09-08 11:18:02,852][main.py][line:207][INFO] [Epoch:2/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0001 loss2:0.0063 loss3:0.0140 co-loss:0.0034 | PEL.AUC:0.8105 An-AUC:0.6691, UR.AUC:0.8667 An-AUC:0.6928
+[2023-09-08 11:18:29,621][main.py][line:207][INFO] [Epoch:3/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0001 loss2:0.0039 loss3:0.0066 co-loss:0.0017 | PEL.AUC:0.8086 An-AUC:0.6688, UR.AUC:0.8653 An-AUC:0.6893
+[2023-09-08 11:18:55,941][main.py][line:207][INFO] [Epoch:4/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0001 loss2:0.0023 loss3:0.0039 co-loss:0.0007 | PEL.AUC:0.7818 An-AUC:0.6553, UR.AUC:0.8646 An-AUC:0.6877
+[2023-09-08 11:19:22,582][main.py][line:207][INFO] [Epoch:5/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0017 loss3:0.0024 co-loss:0.0004 | PEL.AUC:0.7588 An-AUC:0.6433, UR.AUC:0.8638 An-AUC:0.6865
+[2023-09-08 11:19:49,223][main.py][line:207][INFO] [Epoch:6/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0014 loss3:0.0012 co-loss:0.0002 | PEL.AUC:0.7414 An-AUC:0.6362, UR.AUC:0.8626 An-AUC:0.6852
+[2023-09-08 11:20:15,844][main.py][line:207][INFO] [Epoch:7/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0011 loss3:0.0006 co-loss:0.0001 | PEL.AUC:0.7214 An-AUC:0.6274, UR.AUC:0.8624 An-AUC:0.6842
+[2023-09-08 11:20:42,777][main.py][line:207][INFO] [Epoch:8/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0010 loss3:0.0005 co-loss:0.0000 | PEL.AUC:0.7114 An-AUC:0.6232, UR.AUC:0.8616 An-AUC:0.6841
+[2023-09-08 11:21:09,429][main.py][line:207][INFO] [Epoch:9/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0008 loss3:0.0004 co-loss:0.0000 | PEL.AUC:0.6983 An-AUC:0.6188, UR.AUC:0.8601 An-AUC:0.6837
+[2023-09-08 11:21:36,278][main.py][line:207][INFO] [Epoch:10/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0007 loss3:0.0003 co-loss:0.0000 | PEL.AUC:0.6695 An-AUC:0.6048, UR.AUC:0.8598 An-AUC:0.6841
+[2023-09-08 11:21:40,620][main.py][line:151][INFO] Random initialize AUCAUC:0.8704 Anomaly AUC:0.71231
+[2023-09-08 11:21:44,781][main.py][line:154][INFO] Random initialize AUCAUC:0.8680 Anomaly AUC:0.71651
+[2023-09-08 11:26:09,824][main.py][line:241][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:26:12,652][main.py][line:288][INFO] total params:1.2091M
+[2023-09-08 11:26:12,652][main.py][line:291][INFO] Training Mode
+[2023-09-08 11:26:17,568][main.py][line:151][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 11:26:21,623][main.py][line:154][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 11:29:08,366][main.py][line:250][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:29:11,060][main.py][line:297][INFO] total params:1.2091M
+[2023-09-08 11:29:11,060][main.py][line:300][INFO] Training Mode
+[2023-09-08 11:29:16,174][main.py][line:160][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 11:29:20,227][main.py][line:163][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 11:31:09,937][main.py][line:217][INFO] [Epoch:1/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0421 loss2:0.1215 loss3:1.0124 co-loss:0.6325 | PEL.AUC:0.5600 An-AUC:0.5787, UR.AUC:0.5345 An-AUC:0.5581
+[2023-09-08 11:31:36,285][main.py][line:217][INFO] [Epoch:2/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0011 loss2:0.0436 loss3:0.6989 co-loss:0.2979 | PEL.AUC:0.5449 An-AUC:0.5680, UR.AUC:0.5443 An-AUC:0.5658
+[2023-09-08 11:32:03,282][main.py][line:217][INFO] [Epoch:3/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0007 loss2:0.0298 loss3:0.4997 co-loss:0.1030 | PEL.AUC:0.5390 An-AUC:0.5624, UR.AUC:0.5649 An-AUC:0.5711
+[2023-09-08 11:32:29,639][main.py][line:217][INFO] [Epoch:4/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0004 loss2:0.0205 loss3:0.4344 co-loss:0.0427 | PEL.AUC:0.5263 An-AUC:0.5555, UR.AUC:0.5743 An-AUC:0.5735
+[2023-09-08 11:32:56,275][main.py][line:217][INFO] [Epoch:5/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0002 loss2:0.0160 loss3:0.4098 co-loss:0.0213 | PEL.AUC:0.5161 An-AUC:0.5459, UR.AUC:0.5814 An-AUC:0.5758
+[2023-09-08 11:33:22,909][main.py][line:217][INFO] [Epoch:6/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0002 loss2:0.0134 loss3:0.3977 co-loss:0.0120 | PEL.AUC:0.5162 An-AUC:0.5437, UR.AUC:0.5860 An-AUC:0.5777
+[2023-09-08 11:33:49,779][main.py][line:217][INFO] [Epoch:7/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0001 loss2:0.0112 loss3:0.3904 co-loss:0.0072 | PEL.AUC:0.5000 An-AUC:0.5310, UR.AUC:0.5891 An-AUC:0.5793
+[2023-09-08 11:34:16,384][main.py][line:217][INFO] [Epoch:8/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0001 loss2:0.0097 loss3:0.3849 co-loss:0.0046 | PEL.AUC:0.4871 An-AUC:0.5235, UR.AUC:0.5925 An-AUC:0.5804
+[2023-09-08 11:34:43,657][main.py][line:217][INFO] [Epoch:9/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0001 loss2:0.0086 loss3:0.3802 co-loss:0.0030 | PEL.AUC:0.4729 An-AUC:0.5158, UR.AUC:0.5956 An-AUC:0.5814
+[2023-09-08 11:35:11,177][main.py][line:217][INFO] [Epoch:10/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0077 loss3:0.3756 co-loss:0.0020 | PEL.AUC:0.4668 An-AUC:0.5139, UR.AUC:0.5986 An-AUC:0.5825
+[2023-09-08 11:35:37,637][main.py][line:217][INFO] [Epoch:11/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0069 loss3:0.3707 co-loss:0.0013 | PEL.AUC:0.4604 An-AUC:0.5110, UR.AUC:0.6006 An-AUC:0.5834
+[2023-09-08 11:36:04,596][main.py][line:217][INFO] [Epoch:12/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0062 loss3:0.3652 co-loss:0.0009 | PEL.AUC:0.4580 An-AUC:0.5094, UR.AUC:0.6013 An-AUC:0.5837
+[2023-09-08 11:36:31,463][main.py][line:217][INFO] [Epoch:13/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0055 loss3:0.3589 co-loss:0.0005 | PEL.AUC:0.4537 An-AUC:0.5057, UR.AUC:0.6028 An-AUC:0.5848
+[2023-09-08 11:36:58,138][main.py][line:217][INFO] [Epoch:14/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0049 loss3:0.3517 co-loss:0.0003 | PEL.AUC:0.4513 An-AUC:0.5038, UR.AUC:0.6044 An-AUC:0.5858
+[2023-09-08 11:37:24,724][main.py][line:217][INFO] [Epoch:15/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0043 loss3:0.3435 co-loss:0.0002 | PEL.AUC:0.4517 An-AUC:0.5045, UR.AUC:0.6050 An-AUC:0.5861
+[2023-09-08 11:37:51,669][main.py][line:217][INFO] [Epoch:16/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0038 loss3:0.3342 co-loss:0.0001 | PEL.AUC:0.4535 An-AUC:0.5050, UR.AUC:0.6074 An-AUC:0.5869
+[2023-09-08 11:38:19,014][main.py][line:217][INFO] [Epoch:17/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0034 loss3:0.2885 co-loss:0.0001 | PEL.AUC:0.4518 An-AUC:0.5056, UR.AUC:0.6073 An-AUC:0.5873
+[2023-09-08 11:38:46,062][main.py][line:217][INFO] [Epoch:18/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0030 loss3:0.2176 co-loss:0.0000 | PEL.AUC:0.4587 An-AUC:0.5067, UR.AUC:0.5594 An-AUC:0.5488
+[2023-09-08 11:39:12,747][main.py][line:217][INFO] [Epoch:19/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0026 loss3:0.2050 co-loss:0.0000 | PEL.AUC:0.4596 An-AUC:0.5094, UR.AUC:0.4992 An-AUC:0.4977
+[2023-09-08 11:39:39,856][main.py][line:217][INFO] [Epoch:20/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0023 loss3:0.1919 co-loss:0.0000 | PEL.AUC:0.4662 An-AUC:0.5124, UR.AUC:0.5000 An-AUC:0.5000
+[2023-09-08 11:40:07,280][main.py][line:217][INFO] [Epoch:21/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0020 loss3:0.1784 co-loss:0.0000 | PEL.AUC:0.4680 An-AUC:0.5126, UR.AUC:0.5000 An-AUC:0.5000
+[2023-09-08 11:40:34,276][main.py][line:217][INFO] [Epoch:22/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0000 loss2:0.0017 loss3:0.1648 co-loss:0.0000 | PEL.AUC:0.4660 An-AUC:0.5110, UR.AUC:0.5000 An-AUC:0.5000
+[2023-09-08 11:41:59,699][main.py][line:250][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:42:02,716][main.py][line:297][INFO] total params:1.2091M
+[2023-09-08 11:42:02,717][main.py][line:300][INFO] Training Mode
+[2023-09-08 11:42:07,587][main.py][line:160][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 11:42:11,626][main.py][line:163][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 11:45:13,636][main.py][line:253][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:45:16,358][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 11:45:16,358][main.py][line:303][INFO] Training Mode
+[2023-09-08 11:45:21,294][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 11:45:25,341][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 11:47:57,904][main.py][line:252][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:48:00,865][main.py][line:299][INFO] total params:1.2091M
+[2023-09-08 11:48:00,865][main.py][line:302][INFO] Training Mode
+[2023-09-08 11:48:05,769][main.py][line:162][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 11:48:09,798][main.py][line:165][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 11:51:09,585][main.py][line:252][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:51:12,364][main.py][line:299][INFO] total params:1.2091M
+[2023-09-08 11:51:12,364][main.py][line:302][INFO] Training Mode
+[2023-09-08 11:51:17,404][main.py][line:162][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 11:51:21,459][main.py][line:165][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 11:52:54,428][main.py][line:253][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 11:52:57,110][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 11:52:57,110][main.py][line:303][INFO] Training Mode
+[2023-09-08 11:53:01,986][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 11:53:06,027][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 12:02:09,796][main.py][line:254][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 12:02:12,513][main.py][line:301][INFO] total params:1.2091M
+[2023-09-08 12:02:12,513][main.py][line:304][INFO] Training Mode
+[2023-09-08 12:02:17,264][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 12:02:21,302][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 12:06:43,411][main.py][line:254][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 12:06:46,189][main.py][line:301][INFO] total params:1.2091M
+[2023-09-08 12:06:46,189][main.py][line:304][INFO] Training Mode
+[2023-09-08 12:06:51,226][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 12:06:55,243][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 12:11:15,497][main.py][line:254][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 12:11:18,245][main.py][line:301][INFO] total params:1.2091M
+[2023-09-08 12:11:18,246][main.py][line:304][INFO] Training Mode
+[2023-09-08 12:11:23,081][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 12:11:27,115][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 12:13:12,259][main.py][line:221][INFO] [Epoch:1/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.1809 loss2:0.9306 loss3:1.0403 co-loss:0.6938 | PEL.AUC:0.8017 An-AUC:0.6617, UR.AUC:0.6004 An-AUC:0.5680
+[2023-09-08 12:13:35,748][main.py][line:221][INFO] [Epoch:2/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0467 loss2:0.7601 loss3:0.8778 co-loss:0.5195 | PEL.AUC:0.8047 An-AUC:0.6584, UR.AUC:0.6674 An-AUC:0.5962
+[2023-09-08 12:13:59,480][main.py][line:221][INFO] [Epoch:3/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0235 loss2:0.7034 loss3:0.7332 co-loss:0.3564 | PEL.AUC:0.8078 An-AUC:0.6545, UR.AUC:0.7112 An-AUC:0.6044
+[2023-09-08 12:14:23,737][main.py][line:221][INFO] [Epoch:4/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0128 loss2:0.6604 loss3:0.6093 co-loss:0.2295 | PEL.AUC:0.8121 An-AUC:0.6580, UR.AUC:0.7301 An-AUC:0.6019
+[2023-09-08 12:14:47,773][main.py][line:221][INFO] [Epoch:5/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0074 loss2:0.6223 loss3:0.5368 co-loss:0.1586 | PEL.AUC:0.8110 An-AUC:0.6562, UR.AUC:0.7458 An-AUC:0.5999
+[2023-09-08 12:15:12,028][main.py][line:221][INFO] [Epoch:6/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0050 loss2:0.5898 loss3:0.4974 co-loss:0.1235 | PEL.AUC:0.8121 An-AUC:0.6555, UR.AUC:0.7580 An-AUC:0.5986
+[2023-09-08 12:15:36,437][main.py][line:221][INFO] [Epoch:7/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0042 loss2:0.5529 loss3:0.4704 co-loss:0.0991 | PEL.AUC:0.8156 An-AUC:0.6524, UR.AUC:0.7673 An-AUC:0.5972
+[2023-09-08 12:16:00,749][main.py][line:221][INFO] [Epoch:8/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0034 loss2:0.5223 loss3:0.4519 co-loss:0.0832 | PEL.AUC:0.8154 An-AUC:0.6500, UR.AUC:0.7727 An-AUC:0.5957
+[2023-09-08 12:16:24,920][main.py][line:221][INFO] [Epoch:9/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0029 loss2:0.4875 loss3:0.4382 co-loss:0.0722 | PEL.AUC:0.8156 An-AUC:0.6457, UR.AUC:0.7770 An-AUC:0.5951
+[2023-09-08 12:16:49,669][main.py][line:221][INFO] [Epoch:10/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0025 loss2:0.4580 loss3:0.4266 co-loss:0.0655 | PEL.AUC:0.8191 An-AUC:0.6453, UR.AUC:0.7789 An-AUC:0.5944
+[2023-09-08 12:17:14,014][main.py][line:221][INFO] [Epoch:11/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0025 loss2:0.4267 loss3:0.4146 co-loss:0.0581 | PEL.AUC:0.8168 An-AUC:0.6419, UR.AUC:0.7809 An-AUC:0.5936
+[2023-09-08 12:17:38,037][main.py][line:221][INFO] [Epoch:12/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0022 loss2:0.3994 loss3:0.4021 co-loss:0.0539 | PEL.AUC:0.8148 An-AUC:0.6402, UR.AUC:0.7811 An-AUC:0.5930
+[2023-09-08 12:18:02,424][main.py][line:221][INFO] [Epoch:13/100]: pel-lr:5.0000e-05 ur-lr:5.0000e-07| loss1:0.0018 loss2:0.3713 loss3:0.3889 co-loss:0.0487 | PEL.AUC:0.8118 An-AUC:0.6369, UR.AUC:0.7809 An-AUC:0.5929
+[2023-09-08 12:18:32,078][main.py][line:253][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 12:18:34,785][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 12:18:34,785][main.py][line:303][INFO] Training Mode
+[2023-09-08 12:18:39,908][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 12:18:43,977][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 12:20:29,483][main.py][line:220][INFO] [Epoch:1/100]: pel-lr:5.0000e-05 ur-lr:1.0000e-05| loss1:0.1811 loss2:0.9309 loss3:0.5204 co-loss:0.1679 | PEL.AUC:0.8021 An-AUC:0.6600, UR.AUC:0.7901 An-AUC:0.5993
+[2023-09-08 12:20:53,214][main.py][line:220][INFO] [Epoch:2/100]: pel-lr:5.0000e-05 ur-lr:1.0000e-05| loss1:0.0477 loss2:0.7607 loss3:0.3204 co-loss:0.0365 | PEL.AUC:0.8034 An-AUC:0.6546, UR.AUC:0.7884 An-AUC:0.5984
+[2023-09-08 12:21:17,564][main.py][line:220][INFO] [Epoch:3/100]: pel-lr:5.0000e-05 ur-lr:1.0000e-05| loss1:0.0252 loss2:0.7051 loss3:0.2533 co-loss:0.0208 | PEL.AUC:0.8065 An-AUC:0.6514, UR.AUC:0.7804 An-AUC:0.6041
+[2023-09-08 12:21:41,526][main.py][line:220][INFO] [Epoch:4/100]: pel-lr:5.0000e-05 ur-lr:1.0000e-05| loss1:0.0135 loss2:0.6624 loss3:0.1798 co-loss:0.0141 | PEL.AUC:0.8102 An-AUC:0.6536, UR.AUC:0.7809 An-AUC:0.6025
+[2023-09-08 12:22:05,261][main.py][line:220][INFO] [Epoch:5/100]: pel-lr:5.0000e-05 ur-lr:1.0000e-05| loss1:0.0072 loss2:0.6243 loss3:0.1070 co-loss:0.0110 | PEL.AUC:0.8078 An-AUC:0.6520, UR.AUC:0.6384 An-AUC:0.5540
+[2023-09-08 12:22:29,189][main.py][line:220][INFO] [Epoch:6/100]: pel-lr:5.0000e-05 ur-lr:1.0000e-05| loss1:0.0053 loss2:0.5921 loss3:0.0585 co-loss:0.0069 | PEL.AUC:0.8072 An-AUC:0.6519, UR.AUC:0.6836 An-AUC:0.5694
+[2023-09-08 12:22:52,978][main.py][line:220][INFO] [Epoch:7/100]: pel-lr:5.0000e-05 ur-lr:1.0000e-05| loss1:0.0041 loss2:0.5542 loss3:0.0355 co-loss:0.0064 | PEL.AUC:0.8104 An-AUC:0.6496, UR.AUC:0.6785 An-AUC:0.5695
+[2023-09-08 12:23:17,116][main.py][line:220][INFO] [Epoch:8/100]: pel-lr:5.0000e-05 ur-lr:1.0000e-05| loss1:0.0037 loss2:0.5219 loss3:0.0231 co-loss:0.0025 | PEL.AUC:0.8162 An-AUC:0.6508, UR.AUC:0.6037 An-AUC:0.5534
+[2023-09-08 12:23:40,953][main.py][line:220][INFO] [Epoch:9/100]: pel-lr:5.0000e-05 ur-lr:1.0000e-05| loss1:0.0029 loss2:0.4867 loss3:0.0222 co-loss:0.0052 | PEL.AUC:0.8068 An-AUC:0.6455, UR.AUC:0.6446 An-AUC:0.5571
+[2023-09-08 12:24:04,968][main.py][line:220][INFO] [Epoch:10/100]: pel-lr:5.0000e-05 ur-lr:1.0000e-05| loss1:0.0027 loss2:0.4565 loss3:0.0143 co-loss:0.0009 | PEL.AUC:0.8164 An-AUC:0.6460, UR.AUC:0.5822 An-AUC:0.5515
+[2023-09-08 12:24:18,258][main.py][line:253][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 16, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 12:24:21,150][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 12:24:21,150][main.py][line:303][INFO] Training Mode
+[2023-09-08 12:24:26,019][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 12:24:30,044][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 12:26:14,792][main.py][line:220][INFO] [Epoch:1/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.4645 loss2:1.1487 loss3:0.6208 co-loss:0.2532 | PEL.AUC:0.7722 An-AUC:0.6494, UR.AUC:0.7817 An-AUC:0.5969
+[2023-09-08 12:26:38,639][main.py][line:220][INFO] [Epoch:2/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1647 loss2:0.9451 loss3:0.3831 co-loss:0.0518 | PEL.AUC:0.7882 An-AUC:0.6547, UR.AUC:0.7858 An-AUC:0.5979
+[2023-09-08 12:27:02,561][main.py][line:220][INFO] [Epoch:3/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1025 loss2:0.8746 loss3:0.3216 co-loss:0.0293 | PEL.AUC:0.7961 An-AUC:0.6564, UR.AUC:0.7857 An-AUC:0.5991
+[2023-09-08 12:27:26,714][main.py][line:220][INFO] [Epoch:4/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0772 loss2:0.8346 loss3:0.2841 co-loss:0.0192 | PEL.AUC:0.7983 An-AUC:0.6559, UR.AUC:0.7805 An-AUC:0.6005
+[2023-09-08 12:27:50,408][main.py][line:220][INFO] [Epoch:5/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0612 loss2:0.8061 loss3:0.2457 co-loss:0.0107 | PEL.AUC:0.7973 An-AUC:0.6546, UR.AUC:0.7763 An-AUC:0.5982
+[2023-09-08 12:28:14,235][main.py][line:220][INFO] [Epoch:6/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0505 loss2:0.7876 loss3:0.2071 co-loss:0.0108 | PEL.AUC:0.7988 An-AUC:0.6552, UR.AUC:0.7718 An-AUC:0.6021
+[2023-09-08 12:28:38,336][main.py][line:220][INFO] [Epoch:7/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0415 loss2:0.7639 loss3:0.1616 co-loss:0.0076 | PEL.AUC:0.8005 An-AUC:0.6544, UR.AUC:0.6778 An-AUC:0.5677
+[2023-09-08 12:29:02,089][main.py][line:220][INFO] [Epoch:8/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0340 loss2:0.7494 loss3:0.1157 co-loss:0.0065 | PEL.AUC:0.8015 An-AUC:0.6551, UR.AUC:0.5974 An-AUC:0.5617
+[2023-09-08 12:29:25,743][main.py][line:220][INFO] [Epoch:9/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0284 loss2:0.7320 loss3:0.0910 co-loss:0.0134 | PEL.AUC:0.8028 An-AUC:0.6537, UR.AUC:0.6172 An-AUC:0.5570
+[2023-09-08 12:29:49,737][main.py][line:220][INFO] [Epoch:10/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0239 loss2:0.7207 loss3:0.0518 co-loss:0.0012 | PEL.AUC:0.8024 An-AUC:0.6531, UR.AUC:0.5933 An-AUC:0.5489
+[2023-09-08 12:30:13,311][main.py][line:220][INFO] [Epoch:11/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0200 loss2:0.7073 loss3:0.0371 co-loss:0.0036 | PEL.AUC:0.8046 An-AUC:0.6536, UR.AUC:0.5677 An-AUC:0.5424
+[2023-09-08 12:30:37,535][main.py][line:220][INFO] [Epoch:12/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0173 loss2:0.6967 loss3:0.0292 co-loss:0.0044 | PEL.AUC:0.8036 An-AUC:0.6533, UR.AUC:0.5993 An-AUC:0.5457
+[2023-09-08 12:31:01,477][main.py][line:220][INFO] [Epoch:13/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0139 loss2:0.6862 loss3:0.0220 co-loss:0.0020 | PEL.AUC:0.8058 An-AUC:0.6536, UR.AUC:0.5580 An-AUC:0.5339
+[2023-09-08 12:31:25,338][main.py][line:220][INFO] [Epoch:14/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0115 loss2:0.6800 loss3:0.0166 co-loss:0.0000 | PEL.AUC:0.8065 An-AUC:0.6532, UR.AUC:0.5295 An-AUC:0.5137
+[2023-09-08 12:31:49,395][main.py][line:220][INFO] [Epoch:15/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0094 loss2:0.6631 loss3:0.0242 co-loss:0.0090 | PEL.AUC:0.8080 An-AUC:0.6528, UR.AUC:0.5881 An-AUC:0.5545
+[2023-09-08 12:32:13,346][main.py][line:220][INFO] [Epoch:16/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0082 loss2:0.6550 loss3:0.0159 co-loss:0.0026 | PEL.AUC:0.8075 An-AUC:0.6512, UR.AUC:0.5742 An-AUC:0.5479
+[2023-09-08 12:32:37,064][main.py][line:220][INFO] [Epoch:17/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0071 loss2:0.6408 loss3:0.0135 co-loss:0.0013 | PEL.AUC:0.8089 An-AUC:0.6513, UR.AUC:0.6108 An-AUC:0.5587
+[2023-09-08 12:32:58,502][main.py][line:253][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 16, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 12:33:01,196][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 12:33:01,196][main.py][line:303][INFO] Training Mode
+[2023-09-08 12:33:05,999][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 12:33:10,070][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 12:34:56,702][main.py][line:220][INFO] [Epoch:1/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.4976 loss2:1.2531 loss3:0.6529 co-loss:0.2860 | PEL.AUC:0.7041 An-AUC:0.5914, UR.AUC:0.8002 An-AUC:0.5939
+[2023-09-08 12:35:20,692][main.py][line:220][INFO] [Epoch:2/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.2392 loss2:1.1763 loss3:0.4481 co-loss:0.0841 | PEL.AUC:0.6801 An-AUC:0.5763, UR.AUC:0.8020 An-AUC:0.6025
+[2023-09-08 12:35:45,034][main.py][line:220][INFO] [Epoch:3/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1720 loss2:1.1280 loss3:0.4043 co-loss:0.0565 | PEL.AUC:0.6603 An-AUC:0.5690, UR.AUC:0.7843 An-AUC:0.6049
+[2023-09-08 12:36:09,342][main.py][line:220][INFO] [Epoch:4/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1390 loss2:1.0853 loss3:0.3612 co-loss:0.0335 | PEL.AUC:0.6399 An-AUC:0.5630, UR.AUC:0.7633 An-AUC:0.5989
+[2023-09-08 12:36:33,439][main.py][line:220][INFO] [Epoch:5/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1162 loss2:1.0460 loss3:0.3194 co-loss:0.0210 | PEL.AUC:0.6186 An-AUC:0.5564, UR.AUC:0.7602 An-AUC:0.6031
+[2023-09-08 12:36:58,081][main.py][line:220][INFO] [Epoch:6/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0975 loss2:1.0153 loss3:0.2743 co-loss:0.0147 | PEL.AUC:0.6052 An-AUC:0.5517, UR.AUC:0.7807 An-AUC:0.6097
+[2023-09-08 12:37:22,430][main.py][line:220][INFO] [Epoch:7/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0825 loss2:0.9780 loss3:0.2221 co-loss:0.0074 | PEL.AUC:0.5936 An-AUC:0.5458, UR.AUC:0.7660 An-AUC:0.6060
+[2023-09-08 12:37:46,743][main.py][line:220][INFO] [Epoch:8/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0689 loss2:0.9504 loss3:0.1769 co-loss:0.0090 | PEL.AUC:0.5853 An-AUC:0.5418, UR.AUC:0.7741 An-AUC:0.6122
+[2023-09-08 12:38:11,155][main.py][line:220][INFO] [Epoch:9/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0589 loss2:0.9203 loss3:0.1376 co-loss:0.0064 | PEL.AUC:0.5762 An-AUC:0.5396, UR.AUC:0.7594 An-AUC:0.6211
+[2023-09-08 12:38:35,428][main.py][line:220][INFO] [Epoch:10/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0499 loss2:0.8980 loss3:0.0994 co-loss:0.0036 | PEL.AUC:0.5690 An-AUC:0.5373, UR.AUC:0.7309 An-AUC:0.6074
+[2023-09-08 12:39:00,120][main.py][line:220][INFO] [Epoch:11/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0437 loss2:0.8756 loss3:0.0777 co-loss:0.0059 | PEL.AUC:0.5591 An-AUC:0.5336, UR.AUC:0.7567 An-AUC:0.6206
+[2023-09-08 12:39:24,346][main.py][line:220][INFO] [Epoch:12/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0368 loss2:0.8569 loss3:0.0532 co-loss:0.0017 | PEL.AUC:0.5562 An-AUC:0.5326, UR.AUC:0.7341 An-AUC:0.6096
+[2023-09-08 12:39:48,800][main.py][line:220][INFO] [Epoch:13/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0323 loss2:0.8397 loss3:0.6370 co-loss:0.5054 | PEL.AUC:0.5516 An-AUC:0.5308, UR.AUC:0.7787 An-AUC:0.6254
+[2023-09-08 12:40:13,243][main.py][line:220][INFO] [Epoch:14/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0272 loss2:0.8283 loss3:0.1359 co-loss:0.0662 | PEL.AUC:0.5473 An-AUC:0.5293, UR.AUC:0.7822 An-AUC:0.6228
+[2023-09-08 12:40:37,853][main.py][line:220][INFO] [Epoch:15/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0235 loss2:0.8066 loss3:0.1126 co-loss:0.0441 | PEL.AUC:0.5428 An-AUC:0.5280, UR.AUC:0.7796 An-AUC:0.6211
+[2023-09-08 12:43:06,596][main.py][line:253][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 16, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 12:43:09,322][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 12:43:09,322][main.py][line:303][INFO] Training Mode
+[2023-09-08 12:43:14,159][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 12:43:18,204][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+[2023-09-08 12:45:02,305][main.py][line:220][INFO] [Epoch:1/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.4911 loss2:1.1497 loss3:0.6480 co-loss:0.2839 | PEL.AUC:0.7807 An-AUC:0.6483, UR.AUC:0.7898 An-AUC:0.5952
+[2023-09-08 12:45:27,101][main.py][line:220][INFO] [Epoch:2/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.2029 loss2:0.9728 loss3:0.3943 co-loss:0.0813 | PEL.AUC:0.7908 An-AUC:0.6513, UR.AUC:0.7861 An-AUC:0.5895
+[2023-09-08 12:45:51,890][main.py][line:220][INFO] [Epoch:3/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1389 loss2:0.9016 loss3:0.3338 co-loss:0.0520 | PEL.AUC:0.7984 An-AUC:0.6502, UR.AUC:0.7811 An-AUC:0.5881
+[2023-09-08 12:46:17,002][main.py][line:220][INFO] [Epoch:4/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1106 loss2:0.8588 loss3:0.2933 co-loss:0.0337 | PEL.AUC:0.7985 An-AUC:0.6503, UR.AUC:0.7748 An-AUC:0.5893
+[2023-09-08 12:46:42,342][main.py][line:220][INFO] [Epoch:5/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0922 loss2:0.8270 loss3:0.2545 co-loss:0.0190 | PEL.AUC:0.8000 An-AUC:0.6492, UR.AUC:0.7746 An-AUC:0.5889
+[2023-09-08 12:47:08,048][main.py][line:220][INFO] [Epoch:6/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0781 loss2:0.8035 loss3:0.2148 co-loss:0.0132 | PEL.AUC:0.8015 An-AUC:0.6491, UR.AUC:0.7687 An-AUC:0.5909
+[2023-09-08 12:47:33,476][main.py][line:220][INFO] [Epoch:7/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0652 loss2:0.7850 loss3:0.1732 co-loss:0.0105 | PEL.AUC:0.8029 An-AUC:0.6480, UR.AUC:0.7366 An-AUC:0.5810
+[2023-09-08 12:47:58,831][main.py][line:220][INFO] [Epoch:8/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0547 loss2:0.7673 loss3:0.1375 co-loss:0.0153 | PEL.AUC:0.8012 An-AUC:0.6459, UR.AUC:0.7087 An-AUC:0.5709
+[2023-09-08 12:48:24,037][main.py][line:220][INFO] [Epoch:9/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0465 loss2:0.7508 loss3:0.0920 co-loss:0.0051 | PEL.AUC:0.8002 An-AUC:0.6456, UR.AUC:0.6361 An-AUC:0.5549
+[2023-09-08 12:48:49,430][main.py][line:220][INFO] [Epoch:10/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0387 loss2:0.7365 loss3:0.0650 co-loss:0.0057 | PEL.AUC:0.7990 An-AUC:0.6437, UR.AUC:0.6170 An-AUC:0.5571
+[2023-09-08 12:48:57,057][main.py][line:253][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 16, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 12:48:59,827][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 12:48:59,853][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 12:48:59,860][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 12:48:59,860][main.py][line:303][INFO] Training Mode
+[2023-09-08 12:49:04,793][main.py][line:163][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 12:49:08,834][main.py][line:166][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 12:50:55,960][main.py][line:220][INFO] [Epoch:1/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0217 loss2:0.4885 loss3:0.2225 co-loss:0.1173 | PEL.AUC:0.8595 An-AUC:0.6948, UR.AUC:0.8688 An-AUC:0.6975
+[2023-09-08 12:51:21,332][main.py][line:220][INFO] [Epoch:2/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0060 loss2:0.4711 loss3:0.0682 co-loss:0.0544 | PEL.AUC:0.8574 An-AUC:0.6928, UR.AUC:0.8688 An-AUC:0.6959
+[2023-09-08 12:51:46,558][main.py][line:220][INFO] [Epoch:3/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0046 loss2:0.4601 loss3:0.0456 co-loss:0.0345 | PEL.AUC:0.8576 An-AUC:0.6937, UR.AUC:0.8689 An-AUC:0.6956
+[2023-09-08 12:52:10,214][main.py][line:253][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 16, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 12:52:13,389][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 12:52:13,414][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 12:52:13,422][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 12:52:13,422][main.py][line:303][INFO] Training Mode
+[2023-09-08 12:52:18,413][main.py][line:163][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 12:52:22,467][main.py][line:166][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 12:54:09,867][main.py][line:220][INFO] [Epoch:1/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0242 loss2:0.5168 loss3:0.2215 co-loss:0.1038 | PEL.AUC:0.8596 An-AUC:0.6939, UR.AUC:0.8686 An-AUC:0.6962
+[2023-09-08 12:54:33,510][main.py][line:220][INFO] [Epoch:2/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0064 loss2:0.4866 loss3:0.0615 co-loss:0.0444 | PEL.AUC:0.8584 An-AUC:0.6935, UR.AUC:0.8673 An-AUC:0.6919
+[2023-09-08 12:54:57,232][main.py][line:220][INFO] [Epoch:3/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0040 loss2:0.4729 loss3:0.0407 co-loss:0.0296 | PEL.AUC:0.8574 An-AUC:0.6933, UR.AUC:0.8668 An-AUC:0.6904
+[2023-09-08 12:55:11,946][main.py][line:253][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.005, 'dropout': 0.1, 'train_bs': 16, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-08 12:55:14,632][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 12:55:14,657][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 12:55:14,665][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 12:55:14,665][main.py][line:303][INFO] Training Mode
+[2023-09-08 12:55:19,569][main.py][line:163][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+[2023-09-08 12:55:23,626][main.py][line:166][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+[2023-09-08 12:57:07,178][main.py][line:220][INFO] [Epoch:1/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0289 loss2:0.5363 loss3:0.2186 co-loss:0.0909 | PEL.AUC:0.8597 An-AUC:0.6946, UR.AUC:0.8681 An-AUC:0.6953
+[2023-09-08 12:57:29,734][main.py][line:220][INFO] [Epoch:2/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0069 loss2:0.5103 loss3:0.0562 co-loss:0.0329 | PEL.AUC:0.8576 An-AUC:0.6926, UR.AUC:0.8669 An-AUC:0.6910
+[2023-09-08 12:57:52,495][main.py][line:220][INFO] [Epoch:3/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0046 loss2:0.4877 loss3:0.0368 co-loss:0.0215 | PEL.AUC:0.8567 An-AUC:0.6928, UR.AUC:0.8661 An-AUC:0.6889
+[2023-09-08 12:58:15,324][main.py][line:220][INFO] [Epoch:4/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0032 loss2:0.4760 loss3:0.0281 co-loss:0.0147 | PEL.AUC:0.8561 An-AUC:0.6924, UR.AUC:0.8653 An-AUC:0.6872
+[2023-09-08 12:58:38,581][main.py][line:220][INFO] [Epoch:5/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0028 loss2:0.4678 loss3:0.0224 co-loss:0.0111 | PEL.AUC:0.8559 An-AUC:0.6927, UR.AUC:0.8644 An-AUC:0.6855
+[2023-09-08 12:59:01,294][main.py][line:220][INFO] [Epoch:6/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0028 loss2:0.4607 loss3:0.0179 co-loss:0.0082 | PEL.AUC:0.8566 An-AUC:0.6944, UR.AUC:0.8642 An-AUC:0.6858

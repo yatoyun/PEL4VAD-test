@@ -25,11 +25,16 @@ from timm.scheduler import CosineLRScheduler
 # tune
 import optuna
 
+from torch.utils.data import Subset
+from torch.cuda.amp import autocast
+import wandb
+
 import os
 from tensorboardX import SummaryWriter
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
 from torch.cuda.amp import GradScaler
+from tqdm import tqdm
 
 # torch.autograd.set_detect_anomaly(True)
 
@@ -53,6 +58,76 @@ def load_checkpoint(pel_model, ckpt_path, logger):
     else:
         logger.info('Not found pretrained checkpoint file.')
 
+def make_new_dataset(pel_best_model_wts, ur_best_model_wts, train_loader, theata=0.9):
+    index_list = []
+    frame_num_dict = {}
+    pred_pel = torch.zeros(0).cuda()
+    pred_ur = torch.zeros(0).cuda()
+    
+    pel_model = XModel(cfg)
+    pel_model.load_state_dict(pel_best_model_wts)
+    pel_model.cuda()
+    
+    ur_model = URModel(input_size = 1024, a_nums = 60, n_nums = 60)
+    ur_model.load_state_dict(ur_best_model_wts)
+    ur_model.cuda()
+    
+    print("len old train dataset :",len(train_loader))
+    with torch.no_grad():
+        pel_model.eval()
+        ur_model.eval()
+        data_bar = tqdm(train_loader)
+        num_frame = 0
+        for i, (v_input, _, _, _, Idlist) in enumerate(data_bar):
+            with autocast():
+                seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
+                v_input = v_input[:, :torch.max(seq_len), :]
+                v_input = v_input.float().cuda(non_blocking=True)
+
+                # PEL
+                logits_pel, _ = pel_model(v_input, seq_len)
+                logits_pel = logits_pel.squeeze().unsqueeze(0)
+                
+                # UR
+                logits_ur = ur_model(v_input)["frame"]
+                logits_ur = logits_ur.squeeze().unsqueeze(0)
+                
+                # resize to same length
+                if pred_pel.nelement() != 0 and len(pred_pel[0]) != len(logits_pel[0]):
+                    min_len = min(pred_pel.size(1), logits_pel.size(1))
+                    pred_pel = pred_pel[:, :min_len]
+                    pred_ur = pred_ur[:, :min_len]
+                    logits_pel = logits_pel[:, :min_len]
+                    logits_ur = logits_ur[:, :min_len]
+                    
+                
+                # cat
+                pred_pel = torch.cat((pred_pel, logits_pel), 0)
+                pred_ur = torch.cat((pred_ur, logits_ur), 0)
+                
+                data_bar.set_description(
+                    f'Predict video {i+1} | num abnormal video:{len(frame_num_dict.keys())}')
+                
+                if (i+1) % 10 == 0:
+                    pred_pel = pred_pel.mean(0).squeeze()
+                    pred_ur = pred_ur.mean(0).squeeze()
+                    pred = (pred_pel + pred_ur) / 2
+                    
+                    # find index bigger than theata
+                    index_l = torch.where(pred >= theata)[0]
+                    if len(index_l) > 0:
+                        index_list.extend(list(range(i-9, i+1)))
+                        frame_num_dict[Idlist[0]] = index_l.cpu()
+                        num_frame += len(index_l)
+                    
+                    pred_pel = torch.zeros(0).cuda()
+                    pred_ur = torch.zeros(0).cuda()
+    
+    print("num videos :",len(index_list))
+    print("num frames :",num_frame)
+    
+    return index_list, frame_num_dict
+            
 
 def train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, logger):
 # def train(pel_model, train_loader, test_loader, gt, logger):
@@ -65,13 +140,14 @@ def train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, lo
     
     # lamda = 0.982#0.492
     # alpha = 0.432#0.489#0.127
-    logger.info('pel_model:{}\n'.format(pel_model))
-    logger.info('ur_model:{}\n'.format(ur_model))
+    
+    # logger.info('pel_model:{}\n'.format(pel_model))
+    # logger.info('ur_model:{}\n'.format(ur_model))
 
 
     for i in range(cfg.max_epoch // 10):
-        pel_optimizer = optim.Adam(pel_model.parameters(), lr=5e-5, weight_decay=5e-6)#lr=cfg.lr)
-        ur_optimizer = optim.Adam(ur_model.parameters(), lr=5e-7, weight_decay=5e-8)#lr=cfg.lr)
+        pel_optimizer = optim.Adam(pel_model.parameters(), lr=args.PEL_lr, weight_decay=5e-6)#lr=cfg.lr)
+        ur_optimizer = optim.Adam(ur_model.parameters(), lr=args.UR_DMU_lr, weight_decay=5e-7)#lr=cfg.lr)
         # optimizer = Lamb(pel_model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
         pel_scheduler = optim.lr_scheduler.CosineAnnealingLR(pel_optimizer, T_max=20, eta_min=0)
         # ur_scheduler = optim.lr_scheduler.CosineAnnealingLR(ur_optimizer, T_max=10, eta_min=0)
@@ -82,17 +158,26 @@ def train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, lo
         # logger.info('Optimizer PEL:{}\n'.format(pel_optimizer))
         # logger.info('Optimizer UR:{}\n'.format(ur_optimizer))
         
+        ################################## test ##################################
         pel_initial_auc, pel_initial_ab_auc = test_func(test_loader, pel_model, gt, cfg.dataset)
         logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, pel_initial_auc, pel_initial_ab_auc))
         
         ur_initial_auc, ur_initial_ab_auc = test_func_ur(test_loader, ur_model, gt, cfg.dataset)
         logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, ur_initial_auc, ur_initial_ab_auc))
 
-        # pel_best_model_wts = torch.load("./ckpt/original__8636.pkl") #copy.deepcopy(pel_model.state_dict())
-        # ur_best_model_wts = torch.load("./ckpt/ucf_trans_2022.pkl") #copy.deepcopy(ur_model.state_dict())
+        pel_best_model_wts = torch.load("./ckpt/original__8636.pkl") #copy.deepcopy(pel_model.state_dict())
+        ur_best_model_wts = torch.load("./ckpt/ucf_trans_2022.pkl") #copy.deepcopy(ur_model.state_dict())
         
-        pel_best_model_wts = copy.deepcopy(pel_model.state_dict())
-        ur_best_model_wts = copy.deepcopy(ur_model.state_dict())    
+        ########################## make new dataset ##########################
+        index_list, frame_num_dict = make_new_dataset(pel_best_model_wts, ur_best_model_wts, train_aloader, 0.95)
+        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pseudo_label=frame_num_dict)
+        train_anomaly_data = Subset(train_anomaly_data, index_list)
+        print("New train anomaly dataset length :",len(train_anomaly_data))
+        train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
+                              num_workers=cfg.workers, pin_memory=True)
+        
+        # pel_best_model_wts = copy.deepcopy(pel_model.state_dict())
+        # ur_best_model_wts = copy.deepcopy(ur_model.state_dict())    
         
         pel_best_auc = pel_initial_auc
         pel_auc_ab_auc = pel_initial_ab_auc
@@ -100,9 +185,10 @@ def train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, lo
         ur_best_auc = ur_initial_auc
         ur_auc_ab_auc = ur_initial_ab_auc
 
+        ################################### train loop ###################################
         st = time.time()
-        for epoch in range(10):
-            loss1, loss2, cost, co_loss = train_func(train_nloader, train_aloader, pel_model, pel_optimizer, ur_model, ur_optimizer, criterion, criterion2, criterion3, pel_best_model_wts, ur_best_model_wts, cfg, True)
+        for epoch in range(100):
+            loss1, loss2, cost, co_loss = train_func(train_nloader, train_aloader, pel_model, pel_optimizer, ur_model, ur_optimizer, criterion, criterion2, criterion3, logger_wandb)
             # loss1, loss2, cost = train_func(train_loader, pel_model, optimizer, criterion, criterion2, cfg.lamda)
             # scheduler.step(epoch + 1)
             # scheduler.step()
@@ -126,6 +212,8 @@ def train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, lo
                 torch.save(ur_model.state_dict(), cfg.save_dir + cfg.model_name + '_UR_current' + '.pkl')
                 
             log_writer.add_scalar('AUC', pel_auc, epoch)
+            logger_wandb.log({'PEL-AUC': pel_auc, 'PEL-Anomaly AUC': pel_ab_auc, 'PEL-lr': pel_optimizer.param_groups[0]['lr']})
+            logger_wandb.log({'UR-AUC': ur_auc, 'UR-Anomaly AUC': ur_ab_auc, 'UR-lr': ur_optimizer.param_groups[0]['lr']})
 
             lr = pel_optimizer.param_groups[0]['lr']
             ur_lr = ur_optimizer.param_groups[0]['lr']
@@ -137,6 +225,9 @@ def train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, lo
         ur_best_model_wts = torch.load(cfg.save_dir + cfg.model_name + '_UR_current' + '.pkl')
         pel_model.load_state_dict(pel_best_model_wts)
         ur_model.load_state_dict(ur_best_model_wts)
+        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
+        train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=False,
+                              num_workers=cfg.workers, pin_memory=True)
 
 
 
@@ -161,6 +252,11 @@ def main(cfg):
     setup_seed(cfg.seed)
     logger.info('Config:{}'.format(cfg.__dict__))
 
+    global logger_wandb
+    logger_wandb = wandb.init(project=args.dataset, name='{}_{}_pel-lr{:.1e}_ur-lr{:.1e}_{}'.format(args.dataset, args.version, args.PEL_lr, args.UR_DMU_lr, cfg.train_bs), group=args.dataset)
+    logger_wandb.config.update(args)
+    logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
+
     if cfg.dataset == 'ucf-crime':
         train_normal_data = UCFDataset(cfg, test_mode=False, pre_process=True)
         train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
@@ -180,7 +276,8 @@ def main(cfg):
 
     train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
-    train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
+    
+    train_aloader = DataLoader(train_anomaly_data, batch_size=1, shuffle=False,
                               num_workers=cfg.workers, pin_memory=True)
     
     # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
@@ -220,13 +317,14 @@ def main(cfg):
         raise RuntimeError('Invalid status!')
 
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='WeaklySupAnoDet')
     parser.add_argument('--dataset', default='ucf', help='anomaly video dataset')
     parser.add_argument('--mode', default='train', help='pel_model status: (train or infer)')
     parser.add_argument('--version', default='original', help='change log path name')
-    parser.add_argument('--PEL_lr', default=0.0003, type=float, help='learning rate')
-    parser.add_argument('--UR_DMU_lr', default=0.0008, type=float, help='learning rate')
+    parser.add_argument('--PEL_lr', default=5e-6, type=float, help='learning rate')
+    parser.add_argument('--UR_DMU_lr', default=5e-7, type=float, help='learning rate')
     parser.add_argument('--lamda', default=0.19, type=float, help='lamda')
     parser.add_argument('--alpha', default=0.523, type=float, help='alpha')
     

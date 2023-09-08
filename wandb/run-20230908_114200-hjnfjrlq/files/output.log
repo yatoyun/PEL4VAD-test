@@ -1,0 +1,33 @@
+
+8000 8100 2900
+[2023-09-08 11:42:02,716][main.py][line:297][INFO] total params:1.2091M
+[2023-09-08 11:42:02,717][main.py][line:300][INFO] Training Mode
+[2023-09-08 11:42:07,587][main.py][line:160][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 11:42:11,626][main.py][line:163][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+Predict video 59 | num abnormal video:5:   1%|█▏                                                                                                                                                                 | 58/8100 [00:00<01:31, 87.90it/s]
+
+Predict video 397 | num abnormal video:36:   5%|███████▊                                                                                                                                                       | 397/8100 [00:03<01:11, 107.27it/s]
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 336, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 302, in main
+    train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, logger)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 169, in train
+    index_list, frame_num_dict = make_new_dataset(pel_best_model_wts, ur_best_model_wts, train_aloader, 0.9)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 87, in make_new_dataset
+    logits_pel, _ = pel_model(v_input, seq_len)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/model.py", line 34, in forward
+    x_e, x_v = self.self_attention(x, seq_len)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/modules.py", line 22, in forward
+    adj = self.loc_adj(x.shape[0], x.shape[1])
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/layers.py", line 24, in forward
+    dist = torch.from_numpy(squareform(dist)).cuda()
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/scipy/spatial/distance.py", line 2358, in squareform
+    _distance_wrap.to_squareform_from_vector_wrap(M, X)
+KeyboardInterrupt

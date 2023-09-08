@@ -1,0 +1,81 @@
+
+8000 8100 2900
+[2023-09-08 12:06:46,189][main.py][line:301][INFO] total params:1.2091M
+[2023-09-08 12:06:46,189][main.py][line:304][INFO] Training Mode
+[2023-09-08 12:06:51,226][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+len old train dataset : 8100
+[2023-09-08 12:06:55,243][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Predict video 8100 | num abnormal video:713: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8100/8100 [01:20<00:00, 100.65it/s]
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 340, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 306, in main
+    train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, logger)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 192, in train
+    loss1, loss2, cost, co_loss = train_func(train_nloader, train_aloader, pel_model, pel_optimizer, ur_model, ur_optimizer, criterion, criterion2, criterion3, logger_wandb)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/train.py", line 17, in train_func
+    for i, ((v_ninput, t_ninput, nlabel, multi_nlabel, _), (v_ainput, t_ainput, alabel, multi_alabel, _)) \
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1345, in _next_data
+    return self._process_data(data)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1371, in _process_data
+    data.reraise()
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/_utils.py", line 644, in reraise
+    raise exception
+IndexError: Caught IndexError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataset.py", line 298, in __getitem__
+    return self.dataset[self.indices[idx]]
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/dataset.py", line 37, in __getitem__
+    video_name = self.list[index].strip('\n').split('/')[-1].split('_x264')[0]
+IndexError: list index out of range
+num videos : 7140
+num frames : 23336
+80999 90 7140
+New train anomaly dataset length : 7140

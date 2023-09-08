@@ -1,0 +1,87 @@
+
+8000 8100 2900
+[2023-09-08 12:33:01,196][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 12:33:01,196][main.py][line:303][INFO] Training Mode
+[2023-09-08 12:33:05,999][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+len old train dataset : 8100
+[2023-09-08 12:33:10,070][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Predict video 7885 | num abnormal video:693:  97%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▋    | 7878/8100 [01:20<00:01, 125.52it/s]
+num videos : 7140
+num frames : 23336
+
+Predict video 8100 | num abnormal video:713: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8100/8100 [01:22<00:00, 98.17it/s]
+[2023-09-08 12:34:56,702][main.py][line:220][INFO] [Epoch:1/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.4976 loss2:1.2531 loss3:0.6529 co-loss:0.2860 | PEL.AUC:0.7041 An-AUC:0.5914, UR.AUC:0.8002 An-AUC:0.5939
+[2023-09-08 12:35:20,692][main.py][line:220][INFO] [Epoch:2/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.2392 loss2:1.1763 loss3:0.4481 co-loss:0.0841 | PEL.AUC:0.6801 An-AUC:0.5763, UR.AUC:0.8020 An-AUC:0.6025
+[2023-09-08 12:35:45,034][main.py][line:220][INFO] [Epoch:3/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1720 loss2:1.1280 loss3:0.4043 co-loss:0.0565 | PEL.AUC:0.6603 An-AUC:0.5690, UR.AUC:0.7843 An-AUC:0.6049
+[2023-09-08 12:36:09,342][main.py][line:220][INFO] [Epoch:4/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1390 loss2:1.0853 loss3:0.3612 co-loss:0.0335 | PEL.AUC:0.6399 An-AUC:0.5630, UR.AUC:0.7633 An-AUC:0.5989
+[2023-09-08 12:36:33,439][main.py][line:220][INFO] [Epoch:5/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1162 loss2:1.0460 loss3:0.3194 co-loss:0.0210 | PEL.AUC:0.6186 An-AUC:0.5564, UR.AUC:0.7602 An-AUC:0.6031
+[2023-09-08 12:36:58,081][main.py][line:220][INFO] [Epoch:6/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0975 loss2:1.0153 loss3:0.2743 co-loss:0.0147 | PEL.AUC:0.6052 An-AUC:0.5517, UR.AUC:0.7807 An-AUC:0.6097
+[2023-09-08 12:37:22,430][main.py][line:220][INFO] [Epoch:7/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0825 loss2:0.9780 loss3:0.2221 co-loss:0.0074 | PEL.AUC:0.5936 An-AUC:0.5458, UR.AUC:0.7660 An-AUC:0.6060
+[2023-09-08 12:37:46,743][main.py][line:220][INFO] [Epoch:8/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0689 loss2:0.9504 loss3:0.1769 co-loss:0.0090 | PEL.AUC:0.5853 An-AUC:0.5418, UR.AUC:0.7741 An-AUC:0.6122
+[2023-09-08 12:38:11,155][main.py][line:220][INFO] [Epoch:9/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0589 loss2:0.9203 loss3:0.1376 co-loss:0.0064 | PEL.AUC:0.5762 An-AUC:0.5396, UR.AUC:0.7594 An-AUC:0.6211
+[2023-09-08 12:38:35,428][main.py][line:220][INFO] [Epoch:10/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0499 loss2:0.8980 loss3:0.0994 co-loss:0.0036 | PEL.AUC:0.5690 An-AUC:0.5373, UR.AUC:0.7309 An-AUC:0.6074
+[2023-09-08 12:39:00,120][main.py][line:220][INFO] [Epoch:11/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0437 loss2:0.8756 loss3:0.0777 co-loss:0.0059 | PEL.AUC:0.5591 An-AUC:0.5336, UR.AUC:0.7567 An-AUC:0.6206
+[2023-09-08 12:39:24,346][main.py][line:220][INFO] [Epoch:12/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0368 loss2:0.8569 loss3:0.0532 co-loss:0.0017 | PEL.AUC:0.5562 An-AUC:0.5326, UR.AUC:0.7341 An-AUC:0.6096
+[2023-09-08 12:39:48,800][main.py][line:220][INFO] [Epoch:13/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0323 loss2:0.8397 loss3:0.6370 co-loss:0.5054 | PEL.AUC:0.5516 An-AUC:0.5308, UR.AUC:0.7787 An-AUC:0.6254
+[2023-09-08 12:40:13,243][main.py][line:220][INFO] [Epoch:14/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0272 loss2:0.8283 loss3:0.1359 co-loss:0.0662 | PEL.AUC:0.5473 An-AUC:0.5293, UR.AUC:0.7822 An-AUC:0.6228
+[2023-09-08 12:40:37,853][main.py][line:220][INFO] [Epoch:15/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0235 loss2:0.8066 loss3:0.1126 co-loss:0.0441 | PEL.AUC:0.5428 An-AUC:0.5280, UR.AUC:0.7796 An-AUC:0.6211
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 339, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 305, in main
+    train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, logger)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 191, in train
+    loss1, loss2, cost, co_loss = train_func(train_nloader, train_aloader, pel_model, pel_optimizer, ur_model, ur_optimizer, criterion, criterion2, criterion3, logger_wandb)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/train.py", line 35, in train_func
+    logits, v_feat = pel_model(v_input, seq_len)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/model.py", line 34, in forward
+    x_e, x_v = self.self_attention(x, seq_len)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/modules.py", line 23, in forward
+    mask = self.get_mask(self.win_size, x.shape[1], seq_len)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/modules.py", line 44, in get_mask
+    m[j, min(max(j - w_len // 2 + k, 0), temporal_scale - 1)] = 1.
+KeyboardInterrupt

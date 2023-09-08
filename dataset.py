@@ -1,11 +1,11 @@
 import torch.utils.data as data
-from utils import process_feat
+from utils import process_feat, process_feat2
 import numpy as np
 import os
 
 
 class UCFDataset(data.Dataset):
-    def __init__(self, cfg, transform=None, test_mode=False, is_abnormal=False, pre_process=False):
+    def __init__(self, cfg, transform=None, test_mode=False, is_abnormal=False, pre_process=False, pseudo_label=None):
         self.feat_prefix = cfg.feat_prefix
         if test_mode:
             self.list_file = cfg.test_list
@@ -23,6 +23,7 @@ class UCFDataset(data.Dataset):
         self.t_features = np.array(np.load(cfg.token_feat))
         self._parse_list()
         self.pre_process = pre_process
+        self.pseudo_label = pseudo_label
 
     def _parse_list(self):
         self.list = list(open(self.list_file))
@@ -33,9 +34,9 @@ class UCFDataset(data.Dataset):
                 self.list = self.list[8100:]
 
     def __getitem__(self, index):
-        # video_name = self.list[index].strip('\n').split('/')[-1][:-4]
+        video_name = self.list[index].strip('\n').split('/')[-1].split('_x264')[0]
         feat_path = os.path.join(self.feat_prefix, self.list[index].strip('\n'))
-        if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
+        if self.pre_process and self.max_seqlen == 200 and not self.test_mode and not self.is_abnormal:
             feat_path = feat_path.replace('train', 'train-200')
             
         video_idx = self.list[index].strip('\n').split('/')[-1].split('_')[0]
@@ -63,11 +64,16 @@ class UCFDataset(data.Dataset):
             # v_feat = np.concatenate((v_feat,mag),axis = 1)
             return v_feat, label  # ano_idx , video_name
         else:
+            if self.pseudo_label is not None:
+                index_list = list(self.pseudo_label[video_name])
+                v_feat = v_feat[index_list]
+                
             if not self.pre_process or self.max_seqlen != 200:
                 v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
+            
             # mag = np.linalg.norm(v_feat, axis=1)[:, np.newaxis]
             # v_feat = np.concatenate((v_feat,mag),axis = 1)
-            return v_feat, t_feat, label, ano_idx
+            return v_feat, t_feat, label, ano_idx, video_name
 
     def __len__(self):
         return len(self.list)

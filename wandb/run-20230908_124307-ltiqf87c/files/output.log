@@ -1,0 +1,70 @@
+[2023-09-08 12:43:09,322][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 12:43:09,322][main.py][line:303][INFO] Training Mode
+8000 8100 2900
+[2023-09-08 12:43:14,159][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-08 12:43:18,204][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
+Predict video 61 | num abnormal video:6:   1%|█▏                                                                                                                                                                 | 61/8100 [00:00<01:33, 85.58it/s]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Predict video 8047 | num abnormal video:764:  99%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▉ | 8043/8100 [01:18<00:00, 115.38it/s]
+num videos : 7700
+num frames : 33627
+
+Predict video 8100 | num abnormal video:769: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8100/8100 [01:19<00:00, 101.91it/s]
+[2023-09-08 12:45:02,305][main.py][line:220][INFO] [Epoch:1/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.4911 loss2:1.1497 loss3:0.6480 co-loss:0.2839 | PEL.AUC:0.7807 An-AUC:0.6483, UR.AUC:0.7898 An-AUC:0.5952
+[2023-09-08 12:45:27,101][main.py][line:220][INFO] [Epoch:2/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.2029 loss2:0.9728 loss3:0.3943 co-loss:0.0813 | PEL.AUC:0.7908 An-AUC:0.6513, UR.AUC:0.7861 An-AUC:0.5895
+[2023-09-08 12:45:51,890][main.py][line:220][INFO] [Epoch:3/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1389 loss2:0.9016 loss3:0.3338 co-loss:0.0520 | PEL.AUC:0.7984 An-AUC:0.6502, UR.AUC:0.7811 An-AUC:0.5881
+[2023-09-08 12:46:17,002][main.py][line:220][INFO] [Epoch:4/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.1106 loss2:0.8588 loss3:0.2933 co-loss:0.0337 | PEL.AUC:0.7985 An-AUC:0.6503, UR.AUC:0.7748 An-AUC:0.5893
+[2023-09-08 12:46:42,342][main.py][line:220][INFO] [Epoch:5/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0922 loss2:0.8270 loss3:0.2545 co-loss:0.0190 | PEL.AUC:0.8000 An-AUC:0.6492, UR.AUC:0.7746 An-AUC:0.5889
+[2023-09-08 12:47:08,048][main.py][line:220][INFO] [Epoch:6/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0781 loss2:0.8035 loss3:0.2148 co-loss:0.0132 | PEL.AUC:0.8015 An-AUC:0.6491, UR.AUC:0.7687 An-AUC:0.5909
+[2023-09-08 12:47:33,476][main.py][line:220][INFO] [Epoch:7/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0652 loss2:0.7850 loss3:0.1732 co-loss:0.0105 | PEL.AUC:0.8029 An-AUC:0.6480, UR.AUC:0.7366 An-AUC:0.5810
+[2023-09-08 12:47:58,831][main.py][line:220][INFO] [Epoch:8/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0547 loss2:0.7673 loss3:0.1375 co-loss:0.0153 | PEL.AUC:0.8012 An-AUC:0.6459, UR.AUC:0.7087 An-AUC:0.5709
+[2023-09-08 12:48:24,037][main.py][line:220][INFO] [Epoch:9/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0465 loss2:0.7508 loss3:0.0920 co-loss:0.0051 | PEL.AUC:0.8002 An-AUC:0.6456, UR.AUC:0.6361 An-AUC:0.5549
+[2023-09-08 12:48:49,430][main.py][line:220][INFO] [Epoch:10/100]: pel-lr:1.0000e-05 ur-lr:5.0000e-06| loss1:0.0387 loss2:0.7365 loss3:0.0650 co-loss:0.0057 | PEL.AUC:0.7990 An-AUC:0.6437, UR.AUC:0.6170 An-AUC:0.5571
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 339, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 305, in main
+    train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, logger)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 191, in train
+    loss1, loss2, cost, co_loss = train_func(train_nloader, train_aloader, pel_model, pel_optimizer, ur_model, ur_optimizer, criterion, criterion2, criterion3, logger_wandb)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/train.py", line 29, in train_func
+    v_input = v_input.float().cuda(non_blocking=True)
+KeyboardInterrupt
