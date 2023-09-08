@@ -8,3 +8,4 @@ logs/
 *bert*.py
 BERT/
 *.npy
+wandb/
