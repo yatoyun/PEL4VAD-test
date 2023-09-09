@@ -1,9 +1,0 @@
-[2023-09-08 11:45:16,358][main.py][line:300][INFO] total params:1.2091M
-[2023-09-08 11:45:16,358][main.py][line:303][INFO] Training Mode
-8000 8100 2900
-[2023-09-08 11:45:21,294][main.py][line:163][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
-[2023-09-08 11:45:25,341][main.py][line:166][INFO] Random initialize AUCAUC:0.3413 Anomaly AUC:0.50247
-Predict video 10 | num abnormal video:0:   0%|▏                                                                                                                                                                   | 9/8100 [00:00<02:45, 49.03it/s]
-len old train dataset : 8100
-pred : torch.Size([170])
-len index_list : 90

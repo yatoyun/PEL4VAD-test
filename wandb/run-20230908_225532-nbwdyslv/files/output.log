@@ -1,5 +1,0 @@
-[2023-09-08 22:55:34,333][main.py][line:165][INFO] total params:7.5400M
-[2023-09-08 22:55:34,333][main.py][line:174][INFO] Test Mode
-[2023-09-08 22:55:34,333][main.py][line:37][INFO] loading pretrained checkpoint from ./ckpt/ucf__current.pkl.
-8000 8100 2900
-[2023-09-08 22:55:42,316][infer.py][line:47][INFO] offline AUC:0.8571 AP:0.3149 FAR:0.0203 | Complete in 0m 8s
