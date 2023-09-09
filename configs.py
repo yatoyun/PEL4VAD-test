@@ -27,6 +27,10 @@ def build_config(dataset):
         cfg.kappa = 7  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
+        
+        # ur dmu
+        cfg.a_nums = 30
+        cfg.n_nums = 30
 
         # # bert
         # cfg.bert = True
@@ -90,11 +94,11 @@ def build_config(dataset):
     cfg.head_num = 1
     cfg.hid_dim = 128
     cfg.out_dim = 300
-    cfg.lr = 5e-3#5e-4
+    cfg.lr = 1e-4
     cfg.dropout = 0.1
     cfg.train_bs = 64
     cfg.max_seqlen = 200
-    cfg.max_epoch = 50
+    cfg.max_epoch = 100
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'

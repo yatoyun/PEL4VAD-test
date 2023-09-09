@@ -40,10 +40,14 @@ class WSAD(Module):
         # self.cls_head = ADCLS_head(1024, 1)
         self.Amemory = Memory_Unit(nums=a_nums, dim=512)
         self.Nmemory = Memory_Unit(nums=n_nums, dim=512)
-        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = 0.5)
+        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = 0.1)
         self.encoder_mu = nn.Sequential(nn.Linear(512, 512))
         self.encoder_var = nn.Sequential(nn.Linear(512, 512))
         self.relu = nn.ReLU()
+        
+        # self.embedding2 = Temporal(2048,1024)
+        # self.selfatt2 = Transformer(1024, 2, 4, 128, 1024, dropout = 0.1)
+                
     def _reparameterize(self, mu, logvar):
         std = torch.exp(logvar).sqrt()
         epsilon = torch.randn_like(std)
@@ -60,6 +64,10 @@ class WSAD(Module):
         else:
             b, t, d = x.size()
             n = 1
+        
+        # x = self.embedding2(x)
+        # x = self.selfatt2(x)
+        
         x = self.embedding(x)
         x = self.selfatt(x)
         if self.training:
@@ -99,7 +107,7 @@ class WSAD(Module):
             distance = torch.relu(100 - torch.norm(negative_ax_new, p=2, dim=-1) + torch.norm(anchor_nx_new, p=2, dim=-1)).mean()
             x = torch.cat((x, (torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0))), dim=-1)
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
-    
+
             return {
                     # "frame": pre_att,
                     'triplet_margin': triplet_margin_loss,
@@ -121,6 +129,7 @@ class WSAD(Module):
             x = torch.cat([x, A_aug + N_aug], dim=-1)
            
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
+            
             return {
                     # "frame": pre_att, 
                     "x":x}

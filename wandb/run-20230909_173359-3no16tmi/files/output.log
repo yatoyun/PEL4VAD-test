@@ -1,0 +1,100 @@
+
+8000 8100 2900
+[2023-09-09 17:34:01,213][main.py][line:165][INFO] total params:3.3590M
+[2023-09-09 17:34:01,213][main.py][line:168][INFO] Training Mode
+[2023-09-09 17:34:01,214][main.py][line:78][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (DR_DMU): WSAD(
+      (embedding): Temporal(
+        (conv_1): Sequential(
+          (0): Conv1d(1024, 512, kernel_size=(3,), stride=(1,), padding=(1,))
+          (1): ReLU()
+        )
+      )
+      (triplet): TripletMarginLoss()
+      (Amemory): Memory_Unit(
+        (sig): Sigmoid()
+      )
+      (Nmemory): Memory_Unit(
+        (sig): Sigmoid()
+      )
+      (encoder_mu): Sequential(
+        (0): Linear(in_features=512, out_features=512, bias=True)
+      )
+      (encoder_var): Sequential(
+        (0): Linear(in_features=512, out_features=512, bias=True)
+      )
+      (relu): ReLU()
+    )
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.1, inplace=False)
+)
+[2023-09-09 17:34:01,214][main.py][line:79][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0001
+    lr: 0.0001
+    maximize: False
+    weight_decay: 5e-05
+)
+[2023-09-09 17:34:07,130][main.py][line:82][INFO] Random initialize AUCAUC:0.4970 Anomaly AUC:0.48541
+[2023-09-09 17:34:20,910][main.py][line:106][INFO] [Epoch:1/100]: lr:0.00010 | loss1:0.3057 loss2:1.0934 loss3:0.3885 | AUC:0.6684 Anomaly AUC:0.5484
+[2023-09-09 17:34:35,012][main.py][line:106][INFO] [Epoch:2/100]: lr:0.00010 | loss1:0.0317 loss2:0.8537 loss3:0.3866 | AUC:0.5145 Anomaly AUC:0.5086
+[2023-09-09 17:34:49,522][main.py][line:106][INFO] [Epoch:3/100]: lr:0.00010 | loss1:0.0110 loss2:0.7631 loss3:0.3814 | AUC:0.5170 Anomaly AUC:0.5059
+[2023-09-09 17:35:04,154][main.py][line:106][INFO] [Epoch:4/100]: lr:0.00010 | loss1:0.0081 loss2:0.7080 loss3:0.3586 | AUC:0.5121 Anomaly AUC:0.5056
+[2023-09-09 17:35:18,696][main.py][line:106][INFO] [Epoch:5/100]: lr:0.00010 | loss1:0.0073 loss2:0.6583 loss3:0.3227 | AUC:0.5118 Anomaly AUC:0.5078
+[2023-09-09 17:35:33,295][main.py][line:106][INFO] [Epoch:6/100]: lr:0.00010 | loss1:0.0061 loss2:0.6102 loss3:0.3113 | AUC:0.4926 Anomaly AUC:0.4985
+[2023-09-09 17:35:47,946][main.py][line:106][INFO] [Epoch:7/100]: lr:0.00010 | loss1:0.0050 loss2:0.5707 loss3:0.3061 | AUC:0.5008 Anomaly AUC:0.5058
+[2023-09-09 17:36:02,699][main.py][line:106][INFO] [Epoch:8/100]: lr:0.00010 | loss1:0.0041 loss2:0.5299 loss3:0.3024 | AUC:0.5080 Anomaly AUC:0.5045
+[2023-09-09 17:36:17,483][main.py][line:106][INFO] [Epoch:9/100]: lr:0.00010 | loss1:0.0033 loss2:0.4992 loss3:0.3001 | AUC:0.5064 Anomaly AUC:0.5094
+[2023-09-09 17:36:32,372][main.py][line:106][INFO] [Epoch:10/100]: lr:0.00010 | loss1:0.0027 loss2:0.4663 loss3:0.2985 | AUC:0.4917 Anomaly AUC:0.5028
+[2023-09-09 17:36:47,237][main.py][line:106][INFO] [Epoch:11/100]: lr:0.00010 | loss1:0.0023 loss2:0.4360 loss3:0.2971 | AUC:0.4925 Anomaly AUC:0.5025
+[2023-09-09 17:37:01,930][main.py][line:106][INFO] [Epoch:12/100]: lr:0.00010 | loss1:0.0020 loss2:0.4088 loss3:0.2961 | AUC:0.5073 Anomaly AUC:0.5116
+[2023-09-09 17:37:16,741][main.py][line:106][INFO] [Epoch:13/100]: lr:0.00010 | loss1:0.0019 loss2:0.3833 loss3:0.2951 | AUC:0.4935 Anomaly AUC:0.5051
+[2023-09-09 17:37:31,616][main.py][line:106][INFO] [Epoch:14/100]: lr:0.00010 | loss1:0.0016 loss2:0.3621 loss3:0.2943 | AUC:0.5070 Anomaly AUC:0.5140
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 203, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 170, in main
+    train(model, train_nloader, train_aloader, test_loader, gt, logger)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 90, in train
+    loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, args.lamda, args.alpha)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/train.py", line 30, in train_func
+    logits, x_k, output_MSNSD = model(v_input, seq_len)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/model.py", line 37, in forward
+    x_e, x_v = self.self_attention(x, seq_len)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/modules.py", line 28, in forward
+    x = x + self.self_attn(x, mask, adj)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/layers.py", line 51, in forward
+    K = self.k(x).view(-1, x.shape[0], x.shape[1], self.dim_k // self.n_heads)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+KeyboardInterrupt

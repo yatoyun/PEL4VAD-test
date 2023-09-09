@@ -1,0 +1,156 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.12
+    cli_version: 0.15.10
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1694255759.56887
+    t:
+      1:
+      - 1
+      - 5
+      - 35
+      - 41
+      - 49
+      - 53
+      - 55
+      - 63
+      - 105
+      2:
+      - 1
+      - 5
+      - 35
+      - 41
+      - 49
+      - 53
+      - 55
+      - 63
+      - 105
+      3:
+      - 13
+      - 23
+      4: 3.10.12
+      5: 0.15.10
+      8:
+      - 5
+dataset:
+  desc: null
+  value: ucf-crime
+mode:
+  desc: null
+  value: train
+version:
+  desc: null
+  value: UR-DMU-mloss
+PEL_lr:
+  desc: null
+  value: 0.0005
+UR_DMU_lr:
+  desc: null
+  value: 0.0001
+lamda:
+  desc: null
+  value: 0.288
+alpha:
+  desc: null
+  value: 1.0
+model_name:
+  desc: null
+  value: ucf_
+metrics:
+  desc: null
+  value: AUC
+feat_prefix:
+  desc: null
+  value: ./data/ucf-i3d
+train_list:
+  desc: null
+  value: ./list/ucf/train.list
+test_list:
+  desc: null
+  value: ./list/ucf/test.list
+token_feat:
+  desc: null
+  value: ./list/ucf/ucf-prompt.npy
+gt:
+  desc: null
+  value: ./list/ucf/ucf-gt.npy
+win_size:
+  desc: null
+  value: 9
+gamma:
+  desc: null
+  value: 0.6
+bias:
+  desc: null
+  value: 0.2
+norm:
+  desc: null
+  value: true
+t_step:
+  desc: null
+  value: 9
+temp:
+  desc: null
+  value: 0.09
+seed:
+  desc: null
+  value: 2023
+test_bs:
+  desc: null
+  value: 10
+smooth:
+  desc: null
+  value: slide
+kappa:
+  desc: null
+  value: 7
+ckpt_path:
+  desc: null
+  value: ./ckpt/ucf__current.pkl
+a_nums:
+  desc: null
+  value: 50
+n_nums:
+  desc: null
+  value: 50
+feat_dim:
+  desc: null
+  value: 1024
+head_num:
+  desc: null
+  value: 1
+hid_dim:
+  desc: null
+  value: 128
+out_dim:
+  desc: null
+  value: 300
+lr:
+  desc: null
+  value: 0.0001
+dropout:
+  desc: null
+  value: 0.1
+train_bs:
+  desc: null
+  value: 64
+max_seqlen:
+  desc: null
+  value: 200
+max_epoch:
+  desc: null
+  value: 100
+workers:
+  desc: null
+  value: 8
+save_dir:
+  desc: null
+  value: ./ckpt/
+logs_dir:
+  desc: null
+  value: ./log_info.log

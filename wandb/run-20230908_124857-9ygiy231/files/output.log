@@ -1,0 +1,67 @@
+
+8000 8100 2900
+[2023-09-08 12:48:59,827][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/original__8636.pkl.
+[2023-09-08 12:48:59,853][main.py][line:44][INFO] loading pretrained checkpoint from ./ckpt/ucf_trans_2022.pkl.
+[2023-09-08 12:48:59,860][main.py][line:300][INFO] total params:1.2091M
+[2023-09-08 12:48:59,860][main.py][line:303][INFO] Training Mode
+[2023-09-08 12:49:04,793][main.py][line:163][INFO] Random initialize AUCAUC:0.8636 Anomaly AUC:0.69742
+len old train dataset : 8100
+[2023-09-08 12:49:08,834][main.py][line:166][INFO] Random initialize AUCAUC:0.8695 Anomaly AUC:0.70773
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Predict video 7976 | num abnormal video:757:  98%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▍  | 7964/8100 [01:20<00:00, 174.59it/s]
+num videos : 7700
+num frames : 33627
+
+Predict video 8100 | num abnormal video:769: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8100/8100 [01:21<00:00, 98.80it/s]
+[2023-09-08 12:50:55,960][main.py][line:220][INFO] [Epoch:1/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0217 loss2:0.4885 loss3:0.2225 co-loss:0.1173 | PEL.AUC:0.8595 An-AUC:0.6948, UR.AUC:0.8688 An-AUC:0.6975
+[2023-09-08 12:51:21,332][main.py][line:220][INFO] [Epoch:2/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0060 loss2:0.4711 loss3:0.0682 co-loss:0.0544 | PEL.AUC:0.8574 An-AUC:0.6928, UR.AUC:0.8688 An-AUC:0.6959
+[2023-09-08 12:51:46,558][main.py][line:220][INFO] [Epoch:3/100]: pel-lr:5.0000e-06 ur-lr:5.0000e-07| loss1:0.0046 loss2:0.4601 loss3:0.0456 co-loss:0.0345 | PEL.AUC:0.8576 An-AUC:0.6937, UR.AUC:0.8689 An-AUC:0.6956
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 339, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 305, in main
+    train(pel_model, ur_model, train_nloader, train_aloader, test_loader, gt, logger)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 191, in train
+    loss1, loss2, cost, co_loss = train_func(train_nloader, train_aloader, pel_model, pel_optimizer, ur_model, ur_optimizer, criterion, criterion2, criterion3, logger_wandb)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/train.py", line 29, in train_func
+    v_input = v_input.float().cuda(non_blocking=True)
+KeyboardInterrupt

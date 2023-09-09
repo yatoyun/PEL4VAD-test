@@ -39,6 +39,7 @@ class AD_Loss(nn.Module):
         A_Nloss = self.bce(A_Natt, torch.zeros_like((A_Natt)).cuda())
 
         cost = 0.1 * (A_loss + panomaly_loss + N_loss + A_Nloss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance
+        # cost = 0.1 * (A_loss + N_loss + panomaly_loss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance
 
         loss['total_loss'] = cost
         loss['N_Aatt'] = panomaly_loss

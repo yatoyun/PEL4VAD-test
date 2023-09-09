@@ -1,0 +1,106 @@
+
+8000 8100 2900
+[2023-09-09 20:31:33,559][main.py][line:165][INFO] total params:1.2091M
+[2023-09-09 20:31:33,559][main.py][line:168][INFO] Training Mode
+[2023-09-09 20:31:33,560][main.py][line:78][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.1, inplace=False)
+)
+[2023-09-09 20:31:33,560][main.py][line:79][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+[2023-09-09 20:31:38,478][main.py][line:82][INFO] Random initialize AUCAUC:0.4774 Anomaly AUC:0.48817
+[2023-09-09 20:31:50,639][main.py][line:106][INFO] [Epoch:1/100]: lr:0.00050 | loss1:0.3958 loss2:1.1167 loss3:0.0000 | AUC:0.8046 Anomaly AUC:0.6282
+[2023-09-09 20:32:02,996][main.py][line:106][INFO] [Epoch:2/100]: lr:0.00050 | loss1:0.1531 loss2:0.8956 loss3:0.0000 | AUC:0.8186 Anomaly AUC:0.6227
+[2023-09-09 20:32:15,736][main.py][line:106][INFO] [Epoch:3/100]: lr:0.00050 | loss1:0.0594 loss2:0.7891 loss3:0.0000 | AUC:0.8170 Anomaly AUC:0.6294
+[2023-09-09 20:32:28,342][main.py][line:106][INFO] [Epoch:4/100]: lr:0.00050 | loss1:0.0366 loss2:0.7101 loss3:0.0000 | AUC:0.8236 Anomaly AUC:0.6349
+[2023-09-09 20:32:41,109][main.py][line:106][INFO] [Epoch:5/100]: lr:0.00050 | loss1:0.0230 loss2:0.6397 loss3:0.0000 | AUC:0.8150 Anomaly AUC:0.6317
+[2023-09-09 20:32:53,932][main.py][line:106][INFO] [Epoch:6/100]: lr:0.00050 | loss1:0.0217 loss2:0.5772 loss3:0.0000 | AUC:0.8043 Anomaly AUC:0.6290
+[2023-09-09 20:33:06,876][main.py][line:106][INFO] [Epoch:7/100]: lr:0.00050 | loss1:0.0168 loss2:0.5196 loss3:0.0000 | AUC:0.8233 Anomaly AUC:0.6455
+[2023-09-09 20:33:19,682][main.py][line:106][INFO] [Epoch:8/100]: lr:0.00050 | loss1:0.0119 loss2:0.4608 loss3:0.0000 | AUC:0.8215 Anomaly AUC:0.6429
+[2023-09-09 20:33:32,728][main.py][line:106][INFO] [Epoch:9/100]: lr:0.00050 | loss1:0.0196 loss2:0.4133 loss3:0.0000 | AUC:0.8185 Anomaly AUC:0.6437
+[2023-09-09 20:33:45,688][main.py][line:106][INFO] [Epoch:10/100]: lr:0.00050 | loss1:0.0193 loss2:0.3793 loss3:0.0000 | AUC:0.8090 Anomaly AUC:0.6357
+[2023-09-09 20:33:58,661][main.py][line:106][INFO] [Epoch:11/100]: lr:0.00050 | loss1:0.0107 loss2:0.3205 loss3:0.0000 | AUC:0.8099 Anomaly AUC:0.6447
+[2023-09-09 20:34:11,683][main.py][line:106][INFO] [Epoch:12/100]: lr:0.00050 | loss1:0.0088 loss2:0.2749 loss3:0.0000 | AUC:0.8088 Anomaly AUC:0.6412
+[2023-09-09 20:34:24,627][main.py][line:106][INFO] [Epoch:13/100]: lr:0.00050 | loss1:0.0068 loss2:0.2333 loss3:0.0000 | AUC:0.8043 Anomaly AUC:0.6371
+[2023-09-09 20:34:37,668][main.py][line:106][INFO] [Epoch:14/100]: lr:0.00050 | loss1:0.0078 loss2:0.1965 loss3:0.0000 | AUC:0.8207 Anomaly AUC:0.6438
+[2023-09-09 20:34:50,593][main.py][line:106][INFO] [Epoch:15/100]: lr:0.00050 | loss1:0.0094 loss2:0.1731 loss3:0.0000 | AUC:0.7939 Anomaly AUC:0.6228
+[2023-09-09 20:35:03,543][main.py][line:106][INFO] [Epoch:16/100]: lr:0.00050 | loss1:0.0140 loss2:0.1643 loss3:0.0000 | AUC:0.8157 Anomaly AUC:0.6373
+[2023-09-09 20:35:16,615][main.py][line:106][INFO] [Epoch:17/100]: lr:0.00050 | loss1:0.0103 loss2:0.1348 loss3:0.0000 | AUC:0.7883 Anomaly AUC:0.6178
+[2023-09-09 20:35:29,716][main.py][line:106][INFO] [Epoch:18/100]: lr:0.00050 | loss1:0.0116 loss2:0.1191 loss3:0.0000 | AUC:0.7784 Anomaly AUC:0.6205
+[2023-09-09 20:35:42,507][main.py][line:106][INFO] [Epoch:19/100]: lr:0.00050 | loss1:0.0075 loss2:0.0980 loss3:0.0000 | AUC:0.8072 Anomaly AUC:0.6375
+[2023-09-09 20:35:55,365][main.py][line:106][INFO] [Epoch:20/100]: lr:0.00050 | loss1:0.0078 loss2:0.0830 loss3:0.0000 | AUC:0.7946 Anomaly AUC:0.6312
+[2023-09-09 20:36:08,163][main.py][line:106][INFO] [Epoch:21/100]: lr:0.00050 | loss1:0.0035 loss2:0.0619 loss3:0.0000 | AUC:0.8082 Anomaly AUC:0.6360
+[2023-09-09 20:36:21,401][main.py][line:106][INFO] [Epoch:22/100]: lr:0.00050 | loss1:0.0032 loss2:0.0540 loss3:0.0000 | AUC:0.7858 Anomaly AUC:0.6255
+[2023-09-09 20:36:34,353][main.py][line:106][INFO] [Epoch:23/100]: lr:0.00050 | loss1:0.0025 loss2:0.0445 loss3:0.0000 | AUC:0.7899 Anomaly AUC:0.6365
+[2023-09-09 20:36:47,347][main.py][line:106][INFO] [Epoch:24/100]: lr:0.00050 | loss1:0.0036 loss2:0.0392 loss3:0.0000 | AUC:0.8047 Anomaly AUC:0.6471
+[2023-09-09 20:37:00,148][main.py][line:106][INFO] [Epoch:25/100]: lr:0.00050 | loss1:0.0386 loss2:0.0804 loss3:0.0000 | AUC:0.7830 Anomaly AUC:0.6124
+[2023-09-09 20:37:13,140][main.py][line:106][INFO] [Epoch:26/100]: lr:0.00050 | loss1:0.0225 loss2:0.0767 loss3:0.0000 | AUC:0.8044 Anomaly AUC:0.6410
+[2023-09-09 20:37:25,968][main.py][line:106][INFO] [Epoch:27/100]: lr:0.00050 | loss1:0.0055 loss2:0.0442 loss3:0.0000 | AUC:0.8087 Anomaly AUC:0.6358
+[2023-09-09 20:37:38,815][main.py][line:106][INFO] [Epoch:28/100]: lr:0.00050 | loss1:0.0040 loss2:0.0316 loss3:0.0000 | AUC:0.8188 Anomaly AUC:0.6475
+[2023-09-09 20:37:51,769][main.py][line:106][INFO] [Epoch:29/100]: lr:0.00050 | loss1:0.0049 loss2:0.0292 loss3:0.0000 | AUC:0.8158 Anomaly AUC:0.6419
+[2023-09-09 20:38:04,749][main.py][line:106][INFO] [Epoch:30/100]: lr:0.00050 | loss1:0.0017 loss2:0.0203 loss3:0.0000 | AUC:0.7882 Anomaly AUC:0.6188
+[2023-09-09 20:38:17,611][main.py][line:106][INFO] [Epoch:31/100]: lr:0.00050 | loss1:0.0042 loss2:0.0199 loss3:0.0000 | AUC:0.7829 Anomaly AUC:0.6338
+[2023-09-09 20:38:30,661][main.py][line:106][INFO] [Epoch:32/100]: lr:0.00050 | loss1:0.0300 loss2:0.0636 loss3:0.0000 | AUC:0.8262 Anomaly AUC:0.6506
+[2023-09-09 20:38:43,772][main.py][line:106][INFO] [Epoch:33/100]: lr:0.00050 | loss1:0.0062 loss2:0.0274 loss3:0.0000 | AUC:0.8162 Anomaly AUC:0.6522
+[2023-09-09 20:38:56,848][main.py][line:106][INFO] [Epoch:34/100]: lr:0.00050 | loss1:0.0048 loss2:0.0209 loss3:0.0000 | AUC:0.8116 Anomaly AUC:0.6523
+[2023-09-09 20:39:09,783][main.py][line:106][INFO] [Epoch:35/100]: lr:0.00050 | loss1:0.0140 loss2:0.0351 loss3:0.0000 | AUC:0.7683 Anomaly AUC:0.6213
+[2023-09-09 20:39:22,673][main.py][line:106][INFO] [Epoch:36/100]: lr:0.00050 | loss1:0.0089 loss2:0.0265 loss3:0.0000 | AUC:0.8025 Anomaly AUC:0.6489
+[2023-09-09 20:39:35,719][main.py][line:106][INFO] [Epoch:37/100]: lr:0.00050 | loss1:0.0063 loss2:0.0194 loss3:0.0000 | AUC:0.8004 Anomaly AUC:0.6453
+[2023-09-09 20:39:48,836][main.py][line:106][INFO] [Epoch:38/100]: lr:0.00050 | loss1:0.0037 loss2:0.0143 loss3:0.0000 | AUC:0.7863 Anomaly AUC:0.6392
+Exception ignored in: <function _releaseLock at 0x7f25ff319870>
+Traceback (most recent call last):
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/logging/__init__.py", line 228, in _releaseLock
+    def _releaseLock():
+KeyboardInterrupt:
+Traceback (most recent call last):
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1132, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/queue.py", line 179, in get
+    raise Empty
+_queue.Empty
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 203, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 170, in main
+    train(model, train_nloader, train_aloader, test_loader, gt, logger)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 90, in train
+    loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, args.lamda, args.alpha)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/train.py", line 13, in train_func
+    for i, ((v_ninput, t_ninput, nlabel, multi_nlabel), (v_ainput, t_ainput, alabel, multi_alabel)) \
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1328, in _next_data
+    idx, data = self._get_data()
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1284, in _get_data
+    success, data = self._try_get_data()
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1145, in _try_get_data
+    raise RuntimeError('DataLoader worker (pid(s) {}) exited unexpectedly'.format(pids_str)) from e
+RuntimeError: DataLoader worker (pid(s) 653959) exited unexpectedly
