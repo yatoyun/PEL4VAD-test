@@ -5,7 +5,7 @@ import os
 
 
 class UCFDataset(data.Dataset):
-    def __init__(self, cfg, transform=None, test_mode=False):
+    def __init__(self, cfg, dictionary=None, transform=None, test_mode=False, pre_process=False):
         self.feat_prefix = cfg.feat_prefix
         if test_mode:
             self.list_file = cfg.test_list
@@ -20,14 +20,31 @@ class UCFDataset(data.Dataset):
                               'Robbery':9, 'Shooting':10, 'Shoplifting':11, 'Stealing':12, 'Vandalism':13}
         self.t_features = np.array(np.load(cfg.token_feat))
         self._parse_list()
+        self.pre_process = pre_process
+        
+        # S3R
+        if dictionary is None:
+            task_dict_file = "../S3R-plus/S3R/dictionary/ucf-crime/ucf-crime_dictionaries.taskaware.omp.100iters.50pct.npy"
+            self.dictionary = self._get_dictionary(task_dict_file)
+        else:
+            self.dictionary = dictionary
 
     def _parse_list(self):
         self.list = list(open(self.list_file))
+        
+    # S3R
+    def _get_dictionary(self, dict_file):
+
+        memory = np.load(dict_file)
+
+        return memory.astype(np.float32)
 
     def __getitem__(self, index):
         # video_name = self.list[index].strip('\n').split('/')[-1][:-4]
         feat_path = os.path.join(self.feat_prefix, self.list[index].strip('\n'))
+            
         video_idx = self.list[index].strip('\n').split('/')[-1].split('_')[0]
+        # print(video_idx)
         if self.normal_flag in self.list[index]:
             video_ano = video_idx
             ano_idx = self.abnormal_dict[video_ano]
@@ -36,6 +53,8 @@ class UCFDataset(data.Dataset):
             video_ano = video_idx[:-3]
             ano_idx = self.abnormal_dict[video_ano]
             label = 1.0
+            
+        dictionary = self.dictionary
 
         v_feat = np.array(np.load(feat_path), dtype=np.float32)
         fg_feat = np.array(self.t_features[ano_idx, :], dtype=np.float16)
@@ -48,10 +67,11 @@ class UCFDataset(data.Dataset):
             t_feat = self.tranform(t_feat)
 
         if self.test_mode:
-            return v_feat, label  # ano_idx , video_name
+            return v_feat, label, dictionary  # ano_idx , video_name
         else:
-            v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
-            return v_feat, t_feat, label, ano_idx
+            if not self.pre_process or self.max_seqlen != 200:
+                v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
+            return v_feat, t_feat, label, ano_idx, dictionary
 
     def __len__(self):
         return len(self.list)
@@ -81,7 +101,6 @@ class XDataset(data.Dataset):
             label = 0.0
         else:
             label = 1.0
-
         feat_path = os.path.join(self.feat_prefix, self.list[index].strip('\n'))
         v_feat = np.array(np.load(feat_path), dtype=np.float32)
         tokens = self.list[index].strip('\n').split('_label_')[-1].split('__')[0].split('-')

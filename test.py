@@ -28,7 +28,7 @@ def test_func(dataloader, model, gt, dataset):
         gt_tmp = torch.tensor(gt.copy()).cuda()
         ab_pred = torch.zeros(0).cuda()
 
-        for i, (v_input, label) in enumerate(dataloader):
+        for i, (v_input, label, macro) in enumerate(dataloader):
             v_input = v_input.float().cuda(non_blocking=True)
             seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
 

@@ -5,9 +5,9 @@ def build_config(dataset):
         cfg.dataset = 'ucf-crime'
         cfg.model_name = 'ucf_'
         cfg.metrics = 'AUC'
-        cfg.feat_prefix = './data/ucf-i3d'#'/data/pyj/feat/ucf-i3d'
-        cfg.train_list = './list/ucf/train.list'
-        cfg.test_list = './list/ucf/test.list'
+        cfg.feat_prefix = '../S3R-plus/S3R/data/ucf-crime/i3d/'#./data/ucf-i3d'#'/data/pyj/feat/ucf-i3d'
+        cfg.train_list = './list/ucf/train-s3r.list'#'./list/ucf/train.list'
+        cfg.test_list = './list/ucf/test-s3r.list'#'./list/ucf/test.list'
         cfg.token_feat = './list/ucf/ucf-prompt.npy'
         cfg.gt = './list/ucf/ucf-gt.npy'
         # TCA settings
@@ -22,7 +22,7 @@ def build_config(dataset):
         cfg.lamda = 1.0
         cfg.seed = 9
         # test settings
-        cfg.test_bs = 10
+        cfg.test_bs = 1#10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
         cfg.kappa = 7  # smooth window
         cfg.ckpt_path = './ckpt/ucf__8636.pkl'#'./ckpt/ucf__8636.pkl'

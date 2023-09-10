@@ -42,7 +42,7 @@ def load_checkpoint(model, ckpt_path, logger):
         logger.info('Not found pretrained checkpoint file.')
 
 
-def train(model, train_loader, train_loader2, test_loader, gt, logger):
+def train(model, train_loader, test_loader, gt, logger):
     if not os.path.exists(cfg.save_dir):
         os.makedirs(cfg.save_dir)
 
@@ -94,17 +94,12 @@ def main(cfg):
     setup_seed(cfg.seed)
     logger.info('Config:{}'.format(cfg.__dict__))
 
-    cfg.max_seqlen = 32
-    train_data = UCFDataset(cfg, test_mode=False)
+    train_data = UCFDataset(cfg, test_mode=False, pre_process=True)
     train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
-    
-    cfg.max_seqlen = 400
-    train_data2 = UCFDataset(cfg, test_mode=False)
-    train_loader2 = DataLoader(train_data2, batch_size=cfg.train_bs, shuffle=True,
-                                num_workers=cfg.workers, pin_memory=True)
 
-    test_data = UCFDataset(cfg, test_mode=True)
+    dictionary = train_data.dictionary
+    test_data = UCFDataset(cfg, test_mode=True, dictionary=dictionary)
     test_loader = DataLoader(test_data, batch_size=cfg.test_bs, shuffle=False,
                              num_workers=cfg.workers, pin_memory=True)
 
@@ -118,7 +113,7 @@ def main(cfg):
 
     if args.mode == 'train':
         logger.info('Training Mode')
-        train(model, train_loader, train_loader2, test_loader, gt, logger)
+        train(model, train_loader, test_loader, gt, logger)
 
     elif args.mode == 'infer':
         logger.info('Test Mode')
