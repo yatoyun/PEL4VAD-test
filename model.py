@@ -30,12 +30,20 @@ class XModel(nn.Module):
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / cfg.temp))
         self.apply(weight_init)
 
-    def forward(self, x, seq_len):
-        x_e, x_v = self.self_attention(x, seq_len)
+    def forward(self, x, macro, seq_len):
+        x = x.permute(0, 2, 1, 3)
+        B, N, T, C = x.shape
+        # print("x.shape", x.shape)
+        x_e, x_v = self.self_attention(x, macro, seq_len)
         logits = F.pad(x_e, (self.t - 1, 0))
         logits = self.classifier(logits)
-
         logits = logits.permute(0, 2, 1)
         logits = torch.sigmoid(logits)
+        # print("logits.shape", logits.view(B, N, -1).shape)
+        if self.training:
+            x_v["logits_ex"] = logits
+        
+        logits = logits.view(B, N, -1, 1).mean(1)
+        # print("logits.shape", logits.shape)
 
         return logits, x_v

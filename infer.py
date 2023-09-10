@@ -13,10 +13,10 @@ def infer_func(model, dataloader, gt, logger, cfg):
         normal_labels = torch.zeros(0).cuda()
         gt_tmp = torch.tensor(gt.copy()).cuda()
 
-        for i, (v_input, name) in enumerate(dataloader):
+        for i, (v_input, name, macro) in enumerate(dataloader):
             v_input = v_input.float().cuda(non_blocking=True)
             seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
-            logits, _ = model(v_input, seq_len)
+            logits, _ = model(v_input, macro, seq_len)
             logits = torch.mean(logits, 0)
             logits = logits.squeeze(dim=-1)
 

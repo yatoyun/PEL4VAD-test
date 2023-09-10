@@ -26,6 +26,7 @@ def build_config(dataset):
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
         cfg.kappa = 7  # smooth window
         cfg.ckpt_path = './ckpt/ucf__8636.pkl'#'./ckpt/ucf__8636.pkl'
+        cfg.gt = "./list/ucf/ucf-crime_ground_truth.testing.json"
 
     elif dataset in ['xd', 'xd-violence']:
         cfg.dataset = 'xd-violence'
@@ -81,16 +82,16 @@ def build_config(dataset):
         cfg.ckpt_path = './ckpt/SH__98.pkl'
 
     # base settings
-    cfg.feat_dim = 1024
+    cfg.feat_dim = 2048#1024
     cfg.head_num = 1
     cfg.hid_dim = 128
     cfg.out_dim = 300
-    cfg.lr = 5e-4
+    cfg.lr = 1e-3
     cfg.dropout = 0.1
-    cfg.train_bs = 128
+    cfg.train_bs = 32#128
     cfg.max_seqlen = 200
     cfg.max_epoch = 50
-    cfg.workers = 8
+    cfg.workers = 0#8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'
 

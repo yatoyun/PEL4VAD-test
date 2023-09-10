@@ -31,9 +31,11 @@ def test_func(dataloader, model, gt, dataset):
         for i, (v_input, label, macro) in enumerate(dataloader):
             v_input = v_input.float().cuda(non_blocking=True)
             seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
+            macro = macro.float().cuda(non_blocking=True)
 
-            logits, _ = model(v_input, seq_len)
-            logits = torch.mean(logits, 0)
+            logits, _ = model(v_input, macro, seq_len)
+            # logits = torch.mean(logits, 0)
+            logits = logits.squeeze()
             pred = torch.cat((pred, logits))
             if sum(label) == len(label):
                 ab_pred = torch.cat((ab_pred, logits))

@@ -55,8 +55,8 @@ def train(model, train_loader, test_loader, gt, logger):
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
 
-    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-    logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
+    # initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+    # logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
@@ -104,9 +104,22 @@ def main(cfg):
                              num_workers=cfg.workers, pin_memory=True)
 
     model = XModel(cfg)
-    gt = np.load(cfg.gt)
+    # gt = np.load(cfg.gt)
     device = torch.device("cuda")
     model = model.to(device)
+
+    import json
+    ann_file = cfg.gt
+    with open(ann_file, 'r') as fin:
+        db = json.load(fin)
+
+    ground_truths = list()
+    for video_id in list(open(cfg.test_list)):
+        video_id = video_id.replace('test/', '').replace('_i3d.npy', '').rstrip()
+        labels = db[video_id]['labels']
+        ground_truths.append(labels)
+    gt = np.concatenate(ground_truths)
+    
 
     param = sum(p.numel() for p in model.parameters())
     logger.info('total params:{:.4f}M'.format(param / (1000 ** 2)))
