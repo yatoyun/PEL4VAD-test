@@ -28,6 +28,9 @@ class UCFDataset(data.Dataset):
     def __getitem__(self, index):
         # video_name = self.list[index].strip('\n').split('/')[-1][:-4]
         feat_path = os.path.join(self.feat_prefix, self.list[index].strip('\n'))
+        if self.pre_process and not self.test_mode:
+            feat_path = feat_path.replace('train', 'train-200')
+            
         video_idx = self.list[index].strip('\n').split('/')[-1].split('_')[0]
         if self.normal_flag in self.list[index]:
             video_ano = video_idx
