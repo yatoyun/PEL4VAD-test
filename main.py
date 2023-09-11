@@ -94,7 +94,7 @@ def main(cfg):
     setup_seed(cfg.seed)
     logger.info('Config:{}'.format(cfg.__dict__))
 
-    train_data = UCFDataset(cfg, test_mode=False)
+    train_data = UCFDataset(cfg, test_mode=False, pre_process=True)
     train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
 
