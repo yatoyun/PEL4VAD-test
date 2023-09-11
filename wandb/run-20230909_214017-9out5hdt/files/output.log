@@ -1,0 +1,145 @@
+
+8000 8100 2900
+[2023-09-09 21:40:19,383][main.py][line:165][INFO] total params:7.5400M
+[2023-09-09 21:40:19,384][main.py][line:168][INFO] Training Mode
+[2023-09-09 21:40:19,384][main.py][line:78][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (DR_DMU): WSAD(
+      (embedding): Temporal(
+        (conv_1): Sequential(
+          (0): Conv1d(1024, 512, kernel_size=(3,), stride=(1,), padding=(1,))
+          (1): ReLU()
+        )
+      )
+      (triplet): TripletMarginLoss()
+      (Amemory): Memory_Unit(
+        (sig): Sigmoid()
+      )
+      (Nmemory): Memory_Unit(
+        (sig): Sigmoid()
+      )
+      (selfatt): Transformer(
+        (layers): ModuleList(
+          (0-1): 2 x ModuleList(
+            (0): PreNorm(
+              (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+              (fn): Attention(
+                (attend): Softmax(dim=-1)
+                (to_qkv): Linear(in_features=512, out_features=2048, bias=False)
+                (to_out): Sequential(
+                  (0): Linear(in_features=1024, out_features=512, bias=True)
+                  (1): Dropout(p=0.1, inplace=False)
+                )
+              )
+            )
+            (1): PreNorm(
+              (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+              (fn): FeedForward(
+                (net): Sequential(
+                  (0): Linear(in_features=512, out_features=512, bias=True)
+                  (1): GELU(approximate='none')
+                  (2): Dropout(p=0.1, inplace=False)
+                  (3): Linear(in_features=512, out_features=512, bias=True)
+                  (4): Dropout(p=0.1, inplace=False)
+                )
+              )
+            )
+          )
+        )
+      )
+      (encoder_mu): Sequential(
+        (0): Linear(in_features=512, out_features=512, bias=True)
+      )
+      (encoder_var): Sequential(
+        (0): Linear(in_features=512, out_features=512, bias=True)
+      )
+      (relu): ReLU()
+    )
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.1, inplace=False)
+)
+[2023-09-09 21:40:19,384][main.py][line:79][INFO] Optimizer:AdamW (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0003
+    lr: 0.0003
+    maximize: False
+    weight_decay: 0.01
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0008
+    lr: 0.0008
+    maximize: False
+    weight_decay: 5e-05
+)
+[2023-09-09 21:40:27,453][main.py][line:82][INFO] Random initialize AUCAUC:0.5802 Anomaly AUC:0.50318
+[2023-09-09 21:40:45,733][main.py][line:106][INFO] [Epoch:1/100]: lr:0.00030 | loss1:0.6457 loss2:1.3756 loss3:0.3189 | AUC:0.7929 Anomaly AUC:0.5970
+[2023-09-09 21:41:04,105][main.py][line:106][INFO] [Epoch:2/100]: lr:0.00030 | loss1:0.3096 loss2:1.2213 loss3:0.1394 | AUC:0.8172 Anomaly AUC:0.6287
+[2023-09-09 21:41:22,699][main.py][line:106][INFO] [Epoch:3/100]: lr:0.00030 | loss1:0.2588 loss2:0.9997 loss3:0.0685 | AUC:0.8394 Anomaly AUC:0.6599
+[2023-09-09 21:41:41,335][main.py][line:106][INFO] [Epoch:4/100]: lr:0.00030 | loss1:0.2357 loss2:0.9462 loss3:0.0471 | AUC:0.8388 Anomaly AUC:0.6590
+[2023-09-09 21:41:59,981][main.py][line:106][INFO] [Epoch:5/100]: lr:0.00030 | loss1:0.2031 loss2:0.9122 loss3:0.0388 | AUC:0.8382 Anomaly AUC:0.6529
+[2023-09-09 21:42:18,732][main.py][line:106][INFO] [Epoch:6/100]: lr:0.00030 | loss1:0.1843 loss2:0.8961 loss3:0.0381 | AUC:0.8330 Anomaly AUC:0.6770
+[2023-09-09 21:42:37,708][main.py][line:106][INFO] [Epoch:7/100]: lr:0.00030 | loss1:0.1564 loss2:0.8561 loss3:0.0295 | AUC:0.8269 Anomaly AUC:0.6460
+[2023-09-09 21:42:56,594][main.py][line:106][INFO] [Epoch:8/100]: lr:0.00030 | loss1:0.1372 loss2:0.8236 loss3:0.0250 | AUC:0.8082 Anomaly AUC:0.6219
+[2023-09-09 21:43:15,407][main.py][line:106][INFO] [Epoch:9/100]: lr:0.00030 | loss1:0.1032 loss2:0.7829 loss3:0.0182 | AUC:0.8076 Anomaly AUC:0.6464
+[2023-09-09 21:43:34,223][main.py][line:106][INFO] [Epoch:10/100]: lr:0.00030 | loss1:0.0907 loss2:0.7692 loss3:0.0156 | AUC:0.8272 Anomaly AUC:0.6663
+[2023-09-09 21:43:53,155][main.py][line:106][INFO] [Epoch:11/100]: lr:0.00030 | loss1:0.0652 loss2:0.7349 loss3:0.0119 | AUC:0.8387 Anomaly AUC:0.6583
+[2023-09-09 21:44:12,099][main.py][line:106][INFO] [Epoch:12/100]: lr:0.00030 | loss1:0.0498 loss2:0.7122 loss3:0.0083 | AUC:0.7839 Anomaly AUC:0.6336
+[2023-09-09 21:44:31,008][main.py][line:106][INFO] [Epoch:13/100]: lr:0.00030 | loss1:0.0607 loss2:0.7056 loss3:0.0110 | AUC:0.8063 Anomaly AUC:0.6506
+[2023-09-09 21:44:50,006][main.py][line:106][INFO] [Epoch:14/100]: lr:0.00030 | loss1:0.0279 loss2:0.6590 loss3:0.0056 | AUC:0.8129 Anomaly AUC:0.6358
+[2023-09-09 21:45:09,065][main.py][line:106][INFO] [Epoch:15/100]: lr:0.00030 | loss1:0.0352 loss2:0.6490 loss3:0.0066 | AUC:0.8014 Anomaly AUC:0.6510
+[2023-09-09 21:45:27,968][main.py][line:106][INFO] [Epoch:16/100]: lr:0.00030 | loss1:0.0329 loss2:0.6250 loss3:0.0056 | AUC:0.8392 Anomaly AUC:0.6491
+[2023-09-09 21:45:46,761][main.py][line:106][INFO] [Epoch:17/100]: lr:0.00030 | loss1:0.0270 loss2:0.6054 loss3:0.0052 | AUC:0.7993 Anomaly AUC:0.6420
+[2023-09-09 21:46:05,691][main.py][line:106][INFO] [Epoch:18/100]: lr:0.00030 | loss1:0.0396 loss2:0.6075 loss3:0.0080 | AUC:0.8509 Anomaly AUC:0.6850
+[2023-09-09 21:46:24,550][main.py][line:106][INFO] [Epoch:19/100]: lr:0.00030 | loss1:0.0210 loss2:0.5594 loss3:0.0038 | AUC:0.8383 Anomaly AUC:0.6533
+[2023-09-09 21:46:43,479][main.py][line:106][INFO] [Epoch:20/100]: lr:0.00030 | loss1:0.0137 loss2:0.5291 loss3:0.0025 | AUC:0.8274 Anomaly AUC:0.6652
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 203, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 170, in main
+    train(model, train_nloader, train_aloader, test_loader, gt, logger)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 97, in train
+    auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/test.py", line 32, in test_func
+    for i, (v_input, label) in enumerate(dataloader):
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1317, in _next_data
+    self._shutdown_workers()
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1442, in _shutdown_workers
+    w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/multiprocessing/process.py", line 149, in join
+    res = self._popen.wait(timeout)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/multiprocessing/popen_fork.py", line 40, in wait
+    if not wait([self.sentinel], timeout):
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+    ready = selector.select(timeout)
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/selectors.py", line 416, in select
+    fd_event_list = self._selector.poll(timeout)
+KeyboardInterrupt

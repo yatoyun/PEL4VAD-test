@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 203, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 129, in main
+    logger_wandb.config.update(cfg.__dict__, allow_val_change=True, weight_decay=5e-6)
+TypeError: Config.update() got an unexpected keyword argument 'weight_decay'

@@ -1,0 +1,60 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.12
+    cli_version: 0.15.10
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1694262319.749548
+    t:
+      1:
+      - 1
+      - 5
+      - 35
+      - 41
+      - 49
+      - 53
+      - 55
+      - 63
+      - 105
+      2:
+      - 1
+      - 5
+      - 35
+      - 41
+      - 49
+      - 53
+      - 55
+      - 63
+      - 105
+      3:
+      - 13
+      - 23
+      4: 3.10.12
+      5: 0.15.10
+      8:
+      - 5
+dataset:
+  desc: null
+  value: ucf
+mode:
+  desc: null
+  value: train
+version:
+  desc: null
+  value: UR-DMU-mloss
+PEL_lr:
+  desc: null
+  value: 0.0005
+UR_DMU_lr:
+  desc: null
+  value: 0.0001
+lamda:
+  desc: null
+  value: 1.0
+alpha:
+  desc: null
+  value: 1.0

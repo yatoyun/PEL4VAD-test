@@ -5,7 +5,7 @@ import os
 
 
 class UCFDataset(data.Dataset):
-    def __init__(self, cfg, transform=None, test_mode=False):
+    def __init__(self, cfg, transform=None, test_mode=False, pre_process=False):
         self.feat_prefix = cfg.feat_prefix
         if test_mode:
             self.list_file = cfg.test_list
@@ -20,6 +20,7 @@ class UCFDataset(data.Dataset):
                               'Robbery':9, 'Shooting':10, 'Shoplifting':11, 'Stealing':12, 'Vandalism':13}
         self.t_features = np.array(np.load(cfg.token_feat))
         self._parse_list()
+        self.pre_process = pre_process
 
     def _parse_list(self):
         self.list = list(open(self.list_file))
@@ -50,7 +51,8 @@ class UCFDataset(data.Dataset):
         if self.test_mode:
             return v_feat, label  # ano_idx , video_name
         else:
-            v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
+            if not self.pre_process or self.max_seqlen != 200:
+                v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
             return v_feat, t_feat, label, ano_idx
 
     def __len__(self):

@@ -1,0 +1,215 @@
+{
+    "os": "Linux-6.1.0-10-amd64-x86_64-with-glibc2.36",
+    "python": "3.10.12",
+    "heartbeatAt": "2023-09-09T03:42:55.054530",
+    "startedAt": "2023-09-09T03:42:54.524645",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--version",
+        "UR-DMU",
+        "--lamda",
+        "1",
+        "--alpha",
+        "1"
+    ],
+    "state": "running",
+    "program": "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py",
+    "codePathLocal": "main.py",
+    "codePath": "main.py",
+    "git": {
+        "remote": "git@github.com:yatoyun/PEL4VAD-test.git",
+        "commit": "12642ba2b20945e59160e934d268218821ecc2ae"
+    },
+    "email": null,
+    "root": "/home/yukaneko/dev/AbnormalDetection/PEL4VAD",
+    "host": "image",
+    "username": "yukaneko",
+    "executable": "/home/yukaneko/miniconda3/envs/detection/bin/python",
+    "cpu_count": 24,
+    "cpu_count_logical": 32,
+    "cpu_freq": {
+        "current": 3205.17515625,
+        "min": 800.0,
+        "max": 4787.5
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 5300.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 5308.48,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 5300.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 5300.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 5300.0,
+            "min": 800.0,
+            "max": 5600.0
+        },
+        {
+            "current": 5366.56,
+            "min": 800.0,
+            "max": 5600.0
+        },
+        {
+            "current": 5300.0,
+            "min": 800.0,
+            "max": 5600.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 5600.0
+        },
+        {
+            "current": 5300.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 5300.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 5300.0
+        },
+        {
+            "current": 4199.349,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4198.724,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4201.002,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4191.49,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        },
+        {
+            "current": 2000.0,
+            "min": 800.0,
+            "max": 4200.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 936.3901252746582,
+            "used": 603.7276039123535
+        }
+    },
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 4090",
+            "memory_total": 25757220864
+        }
+    ],
+    "memory": {
+        "total": 31.18832015991211
+    }
+}

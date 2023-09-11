@@ -1,0 +1,150 @@
+
+8000 8100 2900
+[2023-09-09 21:48:01,038][main.py][line:165][INFO] total params:7.5400M
+[2023-09-09 21:48:01,038][main.py][line:168][INFO] Training Mode
+[2023-09-09 21:48:01,038][main.py][line:78][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+    (DR_DMU): WSAD(
+      (embedding): Temporal(
+        (conv_1): Sequential(
+          (0): Conv1d(1024, 512, kernel_size=(3,), stride=(1,), padding=(1,))
+          (1): ReLU()
+        )
+      )
+      (triplet): TripletMarginLoss()
+      (Amemory): Memory_Unit(
+        (sig): Sigmoid()
+      )
+      (Nmemory): Memory_Unit(
+        (sig): Sigmoid()
+      )
+      (selfatt): Transformer(
+        (layers): ModuleList(
+          (0-1): 2 x ModuleList(
+            (0): PreNorm(
+              (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+              (fn): Attention(
+                (attend): Softmax(dim=-1)
+                (to_qkv): Linear(in_features=512, out_features=2048, bias=False)
+                (to_out): Sequential(
+                  (0): Linear(in_features=1024, out_features=512, bias=True)
+                  (1): Dropout(p=0.1, inplace=False)
+                )
+              )
+            )
+            (1): PreNorm(
+              (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+              (fn): FeedForward(
+                (net): Sequential(
+                  (0): Linear(in_features=512, out_features=512, bias=True)
+                  (1): GELU(approximate='none')
+                  (2): Dropout(p=0.1, inplace=False)
+                  (3): Linear(in_features=512, out_features=512, bias=True)
+                  (4): Dropout(p=0.1, inplace=False)
+                )
+              )
+            )
+          )
+        )
+      )
+      (encoder_mu): Sequential(
+        (0): Linear(in_features=512, out_features=512, bias=True)
+      )
+      (encoder_var): Sequential(
+        (0): Linear(in_features=512, out_features=512, bias=True)
+      )
+      (relu): ReLU()
+    )
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+  (dropout): Dropout(p=0.1, inplace=False)
+)
+[2023-09-09 21:48:01,038][main.py][line:79][INFO] Optimizer:AdamW (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0001
+    lr: 0.0001
+    maximize: False
+    weight_decay: 0.01
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 5e-05
+)
+[2023-09-09 21:48:09,065][main.py][line:82][INFO] Random initialize AUCAUC:0.5802 Anomaly AUC:0.50318
+[2023-09-09 21:48:27,386][main.py][line:106][INFO] [Epoch:1/100]: lr:0.00010 | loss1:0.5310 loss2:1.2346 loss3:0.2788 | AUC:0.8221 Anomaly AUC:0.6536
+[2023-09-09 21:48:45,485][main.py][line:106][INFO] [Epoch:2/100]: lr:0.00010 | loss1:0.2865 loss2:0.9334 loss3:0.0891 | AUC:0.8269 Anomaly AUC:0.6493
+[2023-09-09 21:49:03,944][main.py][line:106][INFO] [Epoch:3/100]: lr:0.00010 | loss1:0.1295 loss2:0.8202 loss3:0.0732 | AUC:0.7996 Anomaly AUC:0.6541
+[2023-09-09 21:49:22,689][main.py][line:106][INFO] [Epoch:4/100]: lr:0.00010 | loss1:0.0540 loss2:0.7571 loss3:0.0799 | AUC:0.8229 Anomaly AUC:0.6605
+[2023-09-09 21:49:41,353][main.py][line:106][INFO] [Epoch:5/100]: lr:0.00010 | loss1:0.0231 loss2:0.6844 loss3:0.0551 | AUC:0.8306 Anomaly AUC:0.6537
+[2023-09-09 21:50:00,117][main.py][line:106][INFO] [Epoch:6/100]: lr:0.00010 | loss1:0.0143 loss2:0.6103 loss3:0.0439 | AUC:0.8344 Anomaly AUC:0.6522
+[2023-09-09 21:50:18,867][main.py][line:106][INFO] [Epoch:7/100]: lr:0.00010 | loss1:0.0124 loss2:0.5608 loss3:0.0393 | AUC:0.8182 Anomaly AUC:0.6320
+[2023-09-09 21:50:37,894][main.py][line:106][INFO] [Epoch:8/100]: lr:0.00010 | loss1:0.0104 loss2:0.5107 loss3:0.0360 | AUC:0.8353 Anomaly AUC:0.6499
+[2023-09-09 21:50:56,780][main.py][line:106][INFO] [Epoch:9/100]: lr:0.00010 | loss1:0.2039 loss2:0.6014 loss3:0.8908 | AUC:0.7724 Anomaly AUC:0.5416
+[2023-09-09 21:51:15,626][main.py][line:106][INFO] [Epoch:10/100]: lr:0.00010 | loss1:0.4110 loss2:1.3201 loss3:0.3002 | AUC:0.8345 Anomaly AUC:0.6075
+[2023-09-09 21:51:34,594][main.py][line:106][INFO] [Epoch:11/100]: lr:0.00010 | loss1:0.2196 loss2:0.9183 loss3:0.0861 | AUC:0.8321 Anomaly AUC:0.6328
+[2023-09-09 21:51:53,513][main.py][line:106][INFO] [Epoch:12/100]: lr:0.00010 | loss1:0.0665 loss2:0.7315 loss3:0.0584 | AUC:0.8357 Anomaly AUC:0.6478
+[2023-09-09 21:52:12,411][main.py][line:106][INFO] [Epoch:13/100]: lr:0.00010 | loss1:0.0185 loss2:0.5930 loss3:0.0364 | AUC:0.8333 Anomaly AUC:0.6264
+[2023-09-09 21:52:31,375][main.py][line:106][INFO] [Epoch:14/100]: lr:0.00010 | loss1:0.0131 loss2:0.4981 loss3:0.0266 | AUC:0.8417 Anomaly AUC:0.6479
+[2023-09-09 21:52:50,419][main.py][line:106][INFO] [Epoch:15/100]: lr:0.00010 | loss1:0.0083 loss2:0.4293 loss3:0.0156 | AUC:0.8355 Anomaly AUC:0.6273
+[2023-09-09 21:53:09,220][main.py][line:106][INFO] [Epoch:16/100]: lr:0.00010 | loss1:0.0090 loss2:0.4044 loss3:0.0186 | AUC:0.8407 Anomaly AUC:0.6394
+[2023-09-09 21:53:28,256][main.py][line:106][INFO] [Epoch:17/100]: lr:0.00010 | loss1:0.0093 loss2:0.3863 loss3:0.0218 | AUC:0.8448 Anomaly AUC:0.6455
+[2023-09-09 21:53:47,072][main.py][line:106][INFO] [Epoch:18/100]: lr:0.00010 | loss1:0.0040 loss2:0.3219 loss3:0.0094 | AUC:0.8355 Anomaly AUC:0.6336
+[2023-09-09 21:54:05,965][main.py][line:106][INFO] [Epoch:19/100]: lr:0.00010 | loss1:0.0066 loss2:0.3129 loss3:0.0119 | AUC:0.8390 Anomaly AUC:0.6553
+[2023-09-09 21:54:24,817][main.py][line:106][INFO] [Epoch:20/100]: lr:0.00010 | loss1:0.0079 loss2:0.3070 loss3:0.0186 | AUC:0.8347 Anomaly AUC:0.6490
+[2023-09-09 21:54:43,685][main.py][line:106][INFO] [Epoch:21/100]: lr:0.00010 | loss1:0.0059 loss2:0.2936 loss3:0.0147 | AUC:0.8463 Anomaly AUC:0.6597
+[2023-09-09 21:55:02,498][main.py][line:106][INFO] [Epoch:22/100]: lr:0.00010 | loss1:0.0043 loss2:0.2674 loss3:0.0124 | AUC:0.8310 Anomaly AUC:0.6230
+[2023-09-09 21:55:21,398][main.py][line:106][INFO] [Epoch:23/100]: lr:0.00010 | loss1:0.0035 loss2:0.2366 loss3:0.0088 | AUC:0.8280 Anomaly AUC:0.6394
+[2023-09-09 21:55:40,386][main.py][line:106][INFO] [Epoch:24/100]: lr:0.00010 | loss1:0.0052 loss2:0.2634 loss3:0.0149 | AUC:0.8508 Anomaly AUC:0.6662
+[2023-09-09 21:55:59,241][main.py][line:106][INFO] [Epoch:25/100]: lr:0.00010 | loss1:0.0018 loss2:0.2079 loss3:0.0044 | AUC:0.8440 Anomaly AUC:0.6493
+[2023-09-09 21:56:18,171][main.py][line:106][INFO] [Epoch:26/100]: lr:0.00010 | loss1:0.0016 loss2:0.1973 loss3:0.0034 | AUC:0.8304 Anomaly AUC:0.6163
+[2023-09-09 21:56:37,128][main.py][line:106][INFO] [Epoch:27/100]: lr:0.00010 | loss1:0.0038 loss2:0.2027 loss3:0.0087 | AUC:0.8345 Anomaly AUC:0.6414
+[2023-09-09 21:56:56,010][main.py][line:106][INFO] [Epoch:28/100]: lr:0.00010 | loss1:0.2691 loss2:0.6830 loss3:0.1297 | AUC:0.7613 Anomaly AUC:0.5800
+[2023-09-09 21:57:14,977][main.py][line:106][INFO] [Epoch:29/100]: lr:0.00010 | loss1:0.2328 loss2:0.9246 loss3:0.1354 | AUC:0.8278 Anomaly AUC:0.6017
+[2023-09-09 21:57:33,917][main.py][line:106][INFO] [Epoch:30/100]: lr:0.00010 | loss1:0.1359 loss2:0.7951 loss3:0.0875 | AUC:0.8179 Anomaly AUC:0.6006
+[2023-09-09 21:57:52,946][main.py][line:106][INFO] [Epoch:31/100]: lr:0.00010 | loss1:0.0940 loss2:0.6847 loss3:0.0427 | AUC:0.8153 Anomaly AUC:0.5832
+[2023-09-09 21:58:11,933][main.py][line:106][INFO] [Epoch:32/100]: lr:0.00010 | loss1:0.0600 loss2:0.5727 loss3:0.0148 | AUC:0.8343 Anomaly AUC:0.6172
+[2023-09-09 21:58:30,959][main.py][line:106][INFO] [Epoch:33/100]: lr:0.00010 | loss1:0.0402 loss2:0.4770 loss3:0.0085 | AUC:0.8409 Anomaly AUC:0.6531
+[2023-09-09 21:58:50,101][main.py][line:106][INFO] [Epoch:34/100]: lr:0.00010 | loss1:0.0194 loss2:0.3770 loss3:0.0038 | AUC:0.8250 Anomaly AUC:0.6029
+[2023-09-09 21:59:09,101][main.py][line:106][INFO] [Epoch:35/100]: lr:0.00010 | loss1:0.0229 loss2:0.3285 loss3:0.0047 | AUC:0.8243 Anomaly AUC:0.6056
+[2023-09-09 21:59:28,045][main.py][line:106][INFO] [Epoch:36/100]: lr:0.00010 | loss1:0.0162 loss2:0.2715 loss3:0.0033 | AUC:0.8390 Anomaly AUC:0.6359
+[2023-09-09 21:59:47,005][main.py][line:106][INFO] [Epoch:37/100]: lr:0.00010 | loss1:0.0089 loss2:0.2337 loss3:0.0021 | AUC:0.8410 Anomaly AUC:0.6360
+[2023-09-09 22:00:06,014][main.py][line:106][INFO] [Epoch:38/100]: lr:0.00010 | loss1:0.0129 loss2:0.2302 loss3:0.0027 | AUC:0.8332 Anomaly AUC:0.6351
+[2023-09-09 22:00:25,052][main.py][line:106][INFO] [Epoch:39/100]: lr:0.00010 | loss1:0.0161 loss2:0.2237 loss3:0.0036 | AUC:0.8391 Anomaly AUC:0.6451
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 203, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 170, in main
+    train(model, train_nloader, train_aloader, test_loader, gt, logger)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 90, in train
+    loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, args.lamda, args.alpha)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/train.py", line 25, in train_func
+    v_input = v_input.float().cuda(non_blocking=True)
+KeyboardInterrupt

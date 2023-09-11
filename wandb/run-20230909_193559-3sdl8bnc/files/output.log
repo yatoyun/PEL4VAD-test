@@ -1,0 +1,14 @@
+
+8000 8100 2900
+[2023-09-09 19:36:01,471][main.py][line:165][INFO] total params:1.2091M
+[2023-09-09 19:36:01,471][main.py][line:168][INFO] Training Mode
+Traceback (most recent call last):
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 203, in <module>
+    main(cfg)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 170, in main
+    train(model, train_nloader, train_aloader, test_loader, gt, logger)
+  File "/home/yukaneko/dev/AbnormalDetection/PEL4VAD/main.py", line 64, in train
+    DR_DMU_params = model.self_attention.DR_DMU.parameters()
+  File "/home/yukaneko/miniconda3/envs/detection/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1614, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'XEncoder' object has no attribute 'DR_DMU'
