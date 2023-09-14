@@ -66,7 +66,7 @@ def train(model, train_loader, test_loader, gt, logger):
     
     for epoch in range(cfg.max_epoch):
         loss1, loss2 = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
-        # scheduler.step()
+        scheduler.step()
 
         log_writer.add_scalar('loss', loss1, epoch)
 
@@ -94,7 +94,7 @@ def main(cfg):
     setup_seed(cfg.seed)
     logger.info('Config:{}'.format(cfg.__dict__))
 
-    train_data = UCFDataset(cfg, test_mode=False, pre_process=True, pesudo_label=True)
+    train_data = UCFDataset(cfg, test_mode=False, pre_process=True, pesudo_label=False)
     train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
 
