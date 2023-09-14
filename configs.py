@@ -27,6 +27,7 @@ def build_config(dataset):
         cfg.kappa = 7  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
+        cfg.pesudo_label = "../VAE/pesudo_label.pkl"
         
         # ur dmu
         cfg.a_nums = 30
