@@ -26,6 +26,7 @@ def build_config(dataset):
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
         cfg.kappa = 7  # smooth window
         cfg.ckpt_path = './ckpt/ucf__8636.pkl'#'./ckpt/ucf__8636.pkl'
+        cfg.pesudo_label = '../VAE/pesudo_label.pkl'
 
     elif dataset in ['xd', 'xd-violence']:
         cfg.dataset = 'xd-violence'

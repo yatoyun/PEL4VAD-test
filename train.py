@@ -15,6 +15,8 @@ def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
             t_input = t_input.float().cuda(non_blocking=True)
             label = label.float().cuda(non_blocking=True)
             multi_label = multi_label.cuda(non_blocking=True)
+            
+            # print(min(seq_len), max(seq_len))
 
             logits, v_feat = model(v_input, seq_len)
             # Prompt-Enhanced Learning
