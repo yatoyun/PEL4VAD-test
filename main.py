@@ -52,14 +52,16 @@ def load_checkpoint(model, ckpt_path, logger):
     else:
         logger.info('Not found pretrained checkpoint file.')
 
-def make_new_label(train_indices, model, pesudo=True):
+def make_new_label(train_indices, ex_indices, model, pesudo=True):
     # load pesudo label
     output_dir = "train-pesudo"
 
     
     # load original video feature
-    for video_name in list(open(cfg.train_list))[:8100]:
+    for idx, video_name in enumerate(list(open(cfg.train_list))[:8100]):
         feat_path = os.path.join(cfg.feat_prefix, video_name.strip('\n'))
+        if idx not in train_indices or idx in ex_indices:
+            continue
         
         v_feat = np.array(np.load(feat_path), dtype=np.float32)
         
@@ -76,12 +78,14 @@ def make_new_label(train_indices, model, pesudo=True):
                     logits, _ = model(v_feat, seq_len)
                     pred = logits.squeeze().cpu().detach().numpy()
 
-                    max_len = cfg.max_seqlen if cfg.max_seqlen < pred.shape[0] else int(pred.shape[0]*0.8)
-                    selected_indices = pred.argsort()[-max_len:][::-1]
-                    selected_indices.sort()
+                    # max_len = cfg.max_seqlen if cfg.max_seqlen < pred.shape[0] else int(pred.shape[0]*0.8)
+                    selected_indices = np.where(pred >= 0.5)[0]
+                    # selected_indices.sort()
             
             v_feat = v_feat.squeeze().cpu().detach().numpy()
-            v_feat = v_feat[selected_indices]
+            if len(selected_indices) >= 10:
+                v_feat = v_feat[selected_indices]
+            # print(v_feat.shape)
         
         # process feature
         v_feat = process_feat2(v_feat, cfg.max_seqlen, is_random=False)
@@ -98,7 +102,7 @@ def train(model, all_train_normal_data, all_train_anomaly_data, test_loader, gt,
     random.shuffle(all_atrain_indices)
     logger.info('Model:{}\n'.format(model))
     # logger.info('Optimizer:{}\n'.format(optimizer))
-
+    ex_indices = []
     
     for idx in range(1, 11):
         # make subset and size is idex percente
@@ -108,9 +112,10 @@ def train(model, all_train_normal_data, all_train_anomaly_data, test_loader, gt,
         train_anomaly_data = Subset(all_train_anomaly_data, atrain_indices)
         
         if idx == 1:
-            make_new_label(atrain_indices, model, pesudo = False)
+            make_new_label(atrain_indices, ex_indices, model, pesudo = False)
         else:
-            make_new_label(all_atrain_indices, model)
+            make_new_label(all_atrain_indices, ex_indices, model)
+        ex_indices = atrain_indices
             
         model = XModel(cfg)
         model.cuda()
