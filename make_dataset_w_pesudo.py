@@ -15,8 +15,9 @@ from utils import process_feat, process_feat2
 
 
 
-def main(cfg, output_dir):
+def main(cfg):
     # load pesudo label
+    output_dir = "train-pesudo"
     pesudo_labels_dict =  pickle.load(open(cfg.pesudo_label, 'rb'))
 
     
@@ -50,9 +51,6 @@ def main(cfg, output_dir):
 
 if __name__ == '__main__':
     cfg = build_config("ucf")
-
-    output_dir = "train-pesudo"
-    os.makedirs(os.path.join(cfg.feat_prefix, output_dir), exist_ok=True)
             
 
-    main(cfg, output_dir)
+    main(cfg)

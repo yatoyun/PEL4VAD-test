@@ -1,11 +1,11 @@
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Subset
 import torch.optim as optim
 import torch
 import time
 import numpy as np
 import random
 from configs import build_config
-from utils import setup_seed
+from utils import setup_seed, process_feat2
 from log import get_logger
 
 from model import XModel
@@ -23,13 +23,14 @@ from timm.scheduler import CosineLRScheduler
 
 # tune
 import optuna
+from tqdm import tqdm
 
 import wandb
 import os
 from tensorboardX import SummaryWriter
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
-from torch.cuda.amp import GradScaler
+from torch.cuda.amp import GradScaler, autocast
 
 
 def load_checkpoint(model, ckpt_path, logger):
@@ -51,70 +52,136 @@ def load_checkpoint(model, ckpt_path, logger):
     else:
         logger.info('Not found pretrained checkpoint file.')
 
+def make_new_label(train_indices, model, pesudo=True):
+    # load pesudo label
+    output_dir = "train-pesudo"
 
-def train(model, train_nloader, train_aloader, test_loader, gt, logger):
-# def train(model, train_loader, test_loader, gt, logger):
-    if not os.path.exists(cfg.save_dir):
-        os.makedirs(cfg.save_dir)
-
-    criterion = torch.nn.BCELoss()
-    criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
-    criterion3 = AD_Loss()
-    # PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
-    # DR_DMU_params = model.self_attention.DR_DMU.parameters()
     
-    # optimizer = optim.Adam([
-    # {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
-    # {'params': DR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
-    # ])
-    # lamda = 0.982#0.492
-    # alpha = 0.432#0.489#0.127
-    optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)#lr=cfg.lr)
-    # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
-    # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
-    #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
+    # load original video feature
+    for video_name in list(open(cfg.train_list))[:8100]:
+        feat_path = os.path.join(cfg.feat_prefix, video_name.strip('\n'))
+        
+        v_feat = np.array(np.load(feat_path), dtype=np.float32)
+        
+        
+        # select feature according to label
+        if v_feat.shape[0] > cfg.max_seqlen//2 and pesudo:
+            model.eval()
+            with torch.no_grad():
+                with autocast():
+                    v_feat = torch.from_numpy(v_feat).unsqueeze(0)
+                    v_feat = v_feat.float().cuda(non_blocking=True)
+                    seq_len = torch.sum(torch.max(torch.abs(v_feat), dim=2)[0] > 0, 1)
 
+                    logits, _ = model(v_feat, seq_len)
+                    pred = logits.squeeze().cpu().detach().numpy()
+
+                    max_len = cfg.max_seqlen if cfg.max_seqlen < pred.shape[0] else int(pred.shape[0]*0.8)
+                    selected_indices = pred.argsort()[-max_len:][::-1]
+                    selected_indices.sort()
+            
+            v_feat = v_feat.squeeze().cpu().detach().numpy()
+            v_feat = v_feat[selected_indices]
+        
+        # process feature
+        v_feat = process_feat2(v_feat, cfg.max_seqlen, is_random=False)
+        
+        # save feature
+        save_path = feat_path.replace("train", output_dir)
+        np.save(save_path, v_feat)
+    
+
+def train(model, all_train_normal_data, all_train_anomaly_data, test_loader, gt, logger):
+    all_ntrain_indices = list(range(len(all_train_normal_data)))
+    all_atrain_indices = list(range(len(all_train_anomaly_data)))
+    random.shuffle(all_ntrain_indices)
+    random.shuffle(all_atrain_indices)
     logger.info('Model:{}\n'.format(model))
-    logger.info('Optimizer:{}\n'.format(optimizer))
+    # logger.info('Optimizer:{}\n'.format(optimizer))
 
-    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-    logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
+    
+    for idx in range(1, 11):
+        # make subset and size is idex percente
+        ntrain_indices = all_ntrain_indices[:int(idx/10*len(all_ntrain_indices))]
+        atrain_indices = all_atrain_indices[:int(idx/10*len(all_atrain_indices))]
+        train_normal_data = Subset(all_train_normal_data, ntrain_indices)
+        train_anomaly_data = Subset(all_train_anomaly_data, atrain_indices)
+        
+        if idx == 1:
+            make_new_label(atrain_indices, model, pesudo = False)
+        else:
+            make_new_label(all_atrain_indices, model)
+            
+        model = XModel(cfg)
+        model.cuda()
 
-    best_model_wts = copy.deepcopy(model.state_dict())
-    best_auc = 0.0
-    auc_ab_auc = 0.0
+        
+        if not os.path.exists(cfg.save_dir):
+            os.makedirs(cfg.save_dir)
 
-    st = time.time()
-    for epoch in range(cfg.max_epoch):
-        loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, args.lamda, args.alpha)
-        # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
-        # scheduler.step(epoch + 1)
-        # scheduler.step()
+        criterion = torch.nn.BCELoss()
+        criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
+        criterion3 = AD_Loss()
+        # PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
+        # DR_DMU_params = model.self_attention.DR_DMU.parameters()
+        
+        # optimizer = optim.Adam([
+        # {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
+        # {'params': DR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
+        # ])
+        # lamda = 0.982#0.492
+        # alpha = 0.432#0.489#0.127
+        optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)#lr=cfg.lr)
+        # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
+        scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
+        # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
+        #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
 
-        log_writer.add_scalar('loss', loss1, epoch)
+        train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
+                                num_workers=cfg.workers, pin_memory=True)
+        train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
+                                num_workers=cfg.workers, pin_memory=True)
+        
+        initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+        logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
-        auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-        if auc >= best_auc:
-            best_auc = auc
-            auc_ab_auc = ab_auc
-            best_model_wts = copy.deepcopy(model.state_dict())
-            torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
-        log_writer.add_scalar('AUC', auc, epoch)
+        best_model_wts = copy.deepcopy(model.state_dict())
+        best_auc = 0.0
+        auc_ab_auc = 0.0
 
-        lr = optimizer.param_groups[0]['lr']
-        logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-            epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
+        st = time.time()
+        for epoch in range(cfg.max_epoch//10 * idx):
+            loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, args.lamda, args.alpha)
+            # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
+            # scheduler.step(epoch + 1)
+            # scheduler.step()
 
-        logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
+            log_writer.add_scalar('loss', loss1, epoch)
+
+            auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+            if auc >= best_auc:
+                best_auc = auc
+                auc_ab_auc = ab_auc
+                best_model_wts = copy.deepcopy(model.state_dict())
+                torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
+            log_writer.add_scalar('AUC', auc, epoch)
+
+            lr = optimizer.param_groups[0]['lr']
+            logger.info('[IDX:{}/10, Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+                idx, epoch + 1, cfg.max_epoch//10 * idx, lr, loss1, loss2, cost, auc, ab_auc))
+
+            logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
 
 
-    time_elapsed = time.time() - st
-    model.load_state_dict(best_model_wts)
-    torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_' + str(round(best_auc, 4)).split('.')[1] + '.pkl')
-    logger.info('Training completes in {:.0f}m {:.0f}s | best AUC{}:{:.4f} Anomaly AUC:{:.4f}\n'.
-                format(time_elapsed // 60, time_elapsed % 60, cfg.metrics, best_auc, auc_ab_auc))
+        time_elapsed = time.time() - st
+        model.load_state_dict(best_model_wts)
+        torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_' + str(round(best_auc, 4)).split('.')[1] + '.pkl')
+        logger.info('[IDX:{}/10] Training completes in {:.0f}m {:.0f}s | best AUC{}:{:.4f} Anomaly AUC:{:.4f}\n'.
+                    format(idx, time_elapsed // 60, time_elapsed % 60, cfg.metrics, best_auc, auc_ab_auc))
+        
+    
+
 
 
 def main(cfg):
@@ -124,13 +191,13 @@ def main(cfg):
     
     global logger_wandb
     name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
-    logger_wandb = wandb.init(project=args.dataset, name=name, group=args.dataset+"UR-DMU-plus")
+    logger_wandb = wandb.init(project=args.dataset, name=name, group=args.dataset+"UR-DMU-MS")
     logger_wandb.config.update(args)
     logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
     if cfg.dataset == 'ucf-crime':
         train_normal_data = UCFDataset(cfg, test_mode=False, pre_process=True)
-        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
+        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True, pesudo_label=True)
         # train_data = UCFDataset(cfg, test_mode=False)
         test_data = UCFDataset(cfg, test_mode=True)
         
@@ -144,11 +211,6 @@ def main(cfg):
         raise RuntimeError("Do not support this dataset!")
     
     print(len(train_normal_data), len(train_anomaly_data), len(test_data))
-
-    train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
-                              num_workers=cfg.workers, pin_memory=True)
-    train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
-                              num_workers=cfg.workers, pin_memory=True)
     
     # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
     #                           num_workers=cfg.workers, pin_memory=True)
@@ -167,7 +229,7 @@ def main(cfg):
     if args.mode == 'train':
         logger.info('Training Mode')
         
-        train(model, train_nloader, train_aloader, test_loader, gt, logger)
+        train(model, train_normal_data, train_anomaly_data, test_loader, gt, logger)
         # train(model, train_loader, test_loader, gt, logger)
 
     elif args.mode == 'infer':
