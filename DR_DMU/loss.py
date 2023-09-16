@@ -1,5 +1,8 @@
 import torch
 import torch.nn as nn
+import sys
+sys.path.append('../')
+from loss import CLAS2
 
 def norm(data):
     l2=torch.norm(data, p = 2, dim = -1, keepdim = True)
@@ -11,7 +14,7 @@ class AD_Loss(nn.Module):
         self.bce = nn.BCELoss()
       
         
-    def forward(self, result, _label):
+    def forward(self, result, _label, seq_len):
         loss = {}
 
         _label = _label.float()
@@ -31,12 +34,30 @@ class AD_Loss(nn.Module):
 
         panomaly = torch.topk(1 - N_Aatt, t//16 + 1, dim=-1)[0].mean(-1)
         panomaly_loss = self.bce(panomaly, torch.ones((b)).cuda())
+        # panomaly_loss = CLAS2(1 - N_Aatt, torch.ones((b)).cuda(), seq_len, self.bce)
         
         A_att = torch.topk(A_att, t//16 + 1, dim = -1)[0].mean(-1)
         A_loss = self.bce(A_att, torch.ones((b)).cuda())
+        # A_loss = CLAS2(A_att, torch.ones((b)).cuda(), seq_len, self.bce)
 
-        N_loss = self.bce(N_att, torch.ones_like((N_att)).cuda())    
-        A_Nloss = self.bce(A_Natt, torch.zeros_like((A_Natt)).cuda())
+        # N_loss = self.bce(N_att, torch.ones_like((N_att)).cuda())    
+        # A_Nloss = self.bce(A_Natt, torch.zeros_like((A_Natt)).cuda())
+        
+        N_loss = 0
+        for i in range(N_att.shape[0]):
+            valid_N_att = N_att[i, :seq_len[i]]
+            target = torch.ones_like(valid_N_att).cuda()
+            N_loss += self.bce(valid_N_att, target)
+
+        # すべてのデータポイントに対して平均を取る
+        N_loss = N_loss / N_att.shape[0]
+        
+        A_Nloss = 0
+        for i in range(A_Natt.shape[0]):
+            valid_A_Natt = A_Natt[i, :seq_len[i]]
+            target = torch.zeros_like(valid_A_Natt).cuda()
+            A_Nloss += self.bce(valid_A_Natt, target)
+        A_Nloss = A_Nloss / A_Natt.shape[0]
 
         cost = 0.1 * (A_loss + panomaly_loss + N_loss + A_Nloss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance
         # cost = 0.1 * (A_loss + N_loss + panomaly_loss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance

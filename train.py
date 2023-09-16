@@ -42,7 +42,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
             
-            UR_loss = criterion3(x_k, label)[0]
+            UR_loss = criterion3(x_k, label, seq_len)[0]
             # UR_loss = torch.tensor(0).float()
             
             loss_criterion = mgfn_loss()

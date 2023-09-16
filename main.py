@@ -52,37 +52,22 @@ def load_checkpoint(model, ckpt_path, logger):
     else:
         logger.info('Not found pretrained checkpoint file.')
 
-def filter_and_sort(idx_dict, threshold=0.8, min_frames=10):
-    # しきい値以上の値を持つリストを抽出
-    filtered_values = {k: [val for val in v if val >= threshold] for k, v in idx_dict.items()}
-    
-    # 指定されたフレーム数以上のリストをフィルタリング
-    long_enough_values = {k: v for k, v in filtered_values.items() if len(v) >= min_frames}
-    
-    # 平均スコアを計算
-    avg_scores = {k: sum(v) / len(v) for k, v in long_enough_values.items()}
-    
-    # 平均スコアで降順にソートし、IDのリストを返す
-    sorted_ids = sorted(avg_scores.keys(), key=lambda x: avg_scores[x], reverse=True)
-    
-    return sorted_ids
-
-def make_new_label(num, model, pesudo=True):
+def make_new_label(train_indices, num, model, pesudo=True):
     # load pesudo label
     output_dir = "train-pesudo"
 
-    total_num = 0
-    train_list = list(open(cfg.train_list))[:8100]
-    
-    idx_dict = {}
     
     # load original video feature
-    for idx, video_name in enumerate(train_list):
-        feat_path = os.path.join(cfg.feat_prefix, video_name.strip('\n'))  
+    for idx, video_name in enumerate(list(open(cfg.train_list))[:8100]):
+        feat_path = os.path.join(cfg.feat_prefix, video_name.strip('\n'))
+        if idx not in train_indices:
+            continue
+        
         v_feat = np.array(np.load(feat_path), dtype=np.float32)
         
+        
         # select feature according to label
-        if pesudo:
+        if v_feat.shape[0] > cfg.max_seqlen//2 and pesudo:
             model.eval()
             with torch.no_grad():
                 with autocast():
@@ -94,48 +79,23 @@ def make_new_label(num, model, pesudo=True):
                     pred = logits.squeeze().cpu().detach().numpy()
 
                     # max_len = cfg.max_seqlen if cfg.max_seqlen < pred.shape[0] else int(pred.shape[0]*0.8)
-                    # selected_indices = np.where(pred >= 0.5)[0]
+                    if num > 6:
+                        num = 7
+                    selected_indices = np.where(pred >= (num-1)/10)[0]
                     # selected_indices.sort()
-                    total_num += 1
-                    
-                    idx_dict[idx] = pred
             
-            # v_feat = v_feat.squeeze().cpu().detach().numpy()
-            # if len(selected_indices) >= 10:
-            #     v_feat = v_feat[selected_indices]
+            v_feat = v_feat.squeeze().cpu().detach().numpy()
+            if len(selected_indices) >= 10:
+                v_feat = v_feat[selected_indices]
             # print(v_feat.shape)
         
         # process feature
-        else:
-            v_feat = process_feat2(v_feat, cfg.max_seqlen, is_random=False)
-            
-            # save feature
-            save_path = feat_path.replace("train", output_dir)
-            np.save(save_path, v_feat)
-            return 
-    print(total_num)
-    sorted_ids = filter_and_sort(idx_dict)
-    print(len(sorted_ids))
-    if len(sorted_ids) >= len(train_list)*num/10:
-        sorted_ids = sorted_ids[:int(len(train_list)*num/10)]
-    for idx in sorted_ids:
-        video_name = train_list[idx]
-        feat_path = os.path.join(cfg.feat_prefix, video_name.strip('\n'))
-        v_feat = np.array(np.load(feat_path), dtype=np.float32)
+        v_feat = process_feat(v_feat, cfg.max_seqlen, is_random=False)
         
-        selected_indices = np.where(idx_dict[idx] >= 0.5)[0]
-        v_feat = v_feat[selected_indices]
-        # print(v_feat.shape)
-        v_feat = process_feat2(v_feat, cfg.max_seqlen, is_random=False)
-            
         # save feature
         save_path = feat_path.replace("train", output_dir)
         np.save(save_path, v_feat)
     
-    
-    
-    print("Total convert {} videos".format(total_num))
-    return sorted_ids
     
 
 def train(model, all_train_normal_data, all_train_anomaly_data, test_loader, gt, logger):
@@ -146,31 +106,37 @@ def train(model, all_train_normal_data, all_train_anomaly_data, test_loader, gt,
     logger.info('Model:{}\n'.format(model))
     # logger.info('Optimizer:{}\n'.format(optimizer))
     ex_indices = []
-    idx_list = list(range(1, 11))
+    idx_list = [2, 5, 10]
     #lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10, eta_min=cfg.lr/10)
-    
+    # optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)
+    # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10, eta_min=cfg.lr/20)
     for idx in idx_list:
-        if idx == 1:
-            make_new_label(idx, model, pesudo = False)
-            ntrain_indices = all_ntrain_indices[:int(idx/10*len(all_ntrain_indices))]
-            atrain_indices = all_atrain_indices[:int(idx/10*len(all_atrain_indices))]
-        else:
-            atrain_indices = make_new_label(idx, model)
-            ntrain_indices = all_ntrain_indices[:int(idx/10*len(all_ntrain_indices))]
-            # ex_indices = atrain_indices
         # make subset and size is idex percente
+        ntrain_indices = all_ntrain_indices[:int(idx/10*len(all_ntrain_indices))]
+        atrain_indices = all_atrain_indices[:int(idx/10*len(all_atrain_indices))]
         train_normal_data = Subset(all_train_normal_data, ntrain_indices)
         train_anomaly_data = Subset(all_train_anomaly_data, atrain_indices)
         print(len(train_normal_data), len(train_anomaly_data))
-        # convert_list = set(atrain_indices) - set(ex_indices)
-            
-        # model = XModel(cfg)
-        # model.cuda()
-        if idx == 2:
-            model = XModel(cfg).cuda()
-        optimizer = optim.AdamW(model.parameters(), lr=cfg.lr-(idx-1)*0.00001, weight_decay=0.01)
+        
+        
+        new_indices = list(set(atrain_indices) - set(ex_indices))
+        if idx == idx_list[0]:
+            make_new_label(atrain_indices, idx, model, pesudo = False)
+        else:
+            tmp_model = XModel(cfg)
+            tmp_model.cuda()
+            tmp_model.load_state_dict(best_model_wts)
+            make_new_label(new_indices, idx, model)
+        ex_indices = atrain_indices
+        
+        optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)
+        if idx >= 2:
+            model = XModel(cfg)
+            model.cuda()
+        if idx >= 2:
+            optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)
 
         
         if not os.path.exists(cfg.save_dir):
@@ -188,7 +154,9 @@ def train(model, all_train_normal_data, all_train_anomaly_data, test_loader, gt,
         # ])
         # lamda = 0.982#0.492
         # alpha = 0.432#0.489#0.127
-
+        #lr=cfg.lr)
+        # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
+        # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
         # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
         #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
 

@@ -22,6 +22,8 @@ def CLAS2(logits, label, seq_len, criterion):
 
 def KLV_loss(preds, label, criterion):
     preds = F.log_softmax(preds, dim=1)  # log_softmaxを使用
+    # preds = F.softmax(preds, dim=1)
+    # preds = torch.log(preds)
     if torch.isnan(preds).any():
         loss = torch.tensor(0.0).to(preds.device)  # float型のテンソルを使用
     else:
