@@ -52,11 +52,11 @@ def load_checkpoint(model, ckpt_path, logger):
     else:
         logger.info('Not found pretrained checkpoint file.')
 
-def make_new_label(train_indices, num, model, pesudo=True):
+def make_new_label(train_indices, num, models, pesudo=True):
     # load pesudo label
     output_dir = "train-pesudo"
 
-    
+    tmp_model = XModel(cfg).cuda()
     # load original video feature
     for idx, video_name in enumerate(list(open(cfg.train_list))[:8100]):
         feat_path = os.path.join(cfg.feat_prefix, video_name.strip('\n'))
@@ -68,20 +68,23 @@ def make_new_label(train_indices, num, model, pesudo=True):
         
         # select feature according to label
         if v_feat.shape[0] > cfg.max_seqlen//2 and pesudo:
-            model.eval()
             with torch.no_grad():
                 with autocast():
                     v_feat = torch.from_numpy(v_feat).unsqueeze(0)
                     v_feat = v_feat.float().cuda(non_blocking=True)
                     seq_len = torch.sum(torch.max(torch.abs(v_feat), dim=2)[0] > 0, 1)
-
-                    logits, _ = model(v_feat, seq_len)
-                    pred = logits.squeeze().cpu().detach().numpy()
-
-                    # max_len = cfg.max_seqlen if cfg.max_seqlen < pred.shape[0] else int(pred.shape[0]*0.8)
-                    if num > 6:
-                        num = 7
-                    selected_indices = np.where(pred >= (num-1)/10)[0]
+                    preds = None
+                    
+                    for (model_state_dict, _) in models:
+                        tmp_model.load_state_dict(model_state_dict)
+                        tmp_model.eval()
+                        
+                        logits, _ = tmp_model(v_feat, seq_len)
+                        pred = logits.squeeze().cpu().detach().numpy()
+                        preds = preds + pred if preds is not None else pred
+                        # max_len = cfg.max_seqlen if cfg.max_seqlen < pred.shape[0] else int(pred.shape[0]*0.8)
+            preds = preds / len(models)
+            selected_indices = np.where(preds >= 0.2)[0]
                     # selected_indices.sort()
             
             v_feat = v_feat.squeeze().cpu().detach().numpy()
@@ -125,10 +128,7 @@ def train(model, all_train_normal_data, all_train_anomaly_data, test_loader, gt,
         if idx == idx_list[0]:
             make_new_label(atrain_indices, idx, model, pesudo = False)
         else:
-            tmp_model = XModel(cfg)
-            tmp_model.cuda()
-            tmp_model.load_state_dict(best_model_wts)
-            make_new_label(new_indices, idx, model)
+            make_new_label(new_indices, idx, best_models)
         ex_indices = atrain_indices
         
         optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)
@@ -173,6 +173,7 @@ def train(model, all_train_normal_data, all_train_anomaly_data, test_loader, gt,
         auc_ab_auc = 0.0
 
         st = time.time()
+        best_models = []
         for epoch in range(cfg.max_epoch//10 * idx):
             loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, args.lamda, args.alpha)
             # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
@@ -188,6 +189,16 @@ def train(model, all_train_normal_data, all_train_anomaly_data, test_loader, gt,
                 best_model_wts = copy.deepcopy(model.state_dict())
                 torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
             log_writer.add_scalar('AUC', auc, epoch)
+            
+            # save top 5 models
+            if idx_list[-1] != idx:
+                # すでにリスト内のAUCの最小値よりも現在のAUCが高いか、リストの長さが5未満の場合
+                if len(best_models) < 5 or ab_auc > min([x[1] for x in best_models]):
+                    best_models.append((copy.deepcopy(model.state_dict()), ab_auc))
+            
+            # リストの長さが5を超えていたら、最も低いAUCのモデルを削除
+            if len(best_models) > 5:
+                best_models.remove(min(best_models, key=lambda x: x[1]))
 
             lr = optimizer.param_groups[0]['lr']
             logger.info('[IDX:{}/10, Epoch:{}/{}]: lr:{:.3e} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(

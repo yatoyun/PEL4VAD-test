@@ -31,7 +31,7 @@ class XEncoder(nn.Module):
         
         # x = self.norm(x)
         if self.training:
-            x_k = self.DR_DMU(x)
+            x_k = self.DR_DMU(x, seq_len)
             x = x_k["x"]
         else:
             x_k = torch.zeros(0).cuda()

@@ -57,13 +57,16 @@ class WSAD(Module):
         kl_loss = torch.mean(-0.5 * torch.sum(1 + var - mu ** 2 - var.exp(), dim = 1))
         return kl_loss
 
-    def forward(self, x):
+    def forward(self, x, seq_len=None):
         if len(x.size()) == 4:
             b, n, t, d = x.size()
             x = x.reshape(b * n, t, d)
         else:
             b, t, d = x.size()
             n = 1
+        # if self.training:
+        #     x = [x[i, :seq_len[i]] for i in range(b)]
+        #     x = torch.nn.utils.rnn.pad_sequence(x, batch_first=True) 
         
         # x = self.embedding2(x)
         # x = self.selfatt2(x)
