@@ -42,7 +42,7 @@ class XModel(nn.Module):
         logits = torch.sigmoid(logits)
         
         if self.training:
-            output = MSNSD(x_v["x"].permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1)
+            output = MSNSD(x_v.permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1)
             return logits, x_v, output
 
         return logits, x_v

@@ -29,8 +29,9 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             logits, x_k, output_MSNSD = model(v_input, seq_len)
             
-            v_feat = x_k["x"]
-            x_k["frame"] = logits
+            # v_feat = x_k["x"]
+            # x_k["frame"] = logits
+            v_feat = x_k
             
             # Prompt-Enhanced Learning
             logit_scale = model.logit_scale.exp()
@@ -42,7 +43,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
             
-            UR_loss = criterion3(x_k, label, seq_len)[0]
+            # UR_loss = criterion3(x_k, label, seq_len)[0]
             # UR_loss = torch.tensor(0).float()
             
             loss_criterion = mgfn_loss()
@@ -51,9 +52,9 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             mg_loss = loss_criterion(output_MSNSD, nlabel, alabel)
             loss1 = loss1 + mg_loss
             
-            loss = lamda * loss2 + alpha * UR_loss + loss1
+            loss = lamda * loss2 + loss1
             
-            logger_wandb.log({"loss": loss.item(), "loss1":loss1.item(), "loss2": loss2.item(), "loss3": UR_loss.item()})
+            logger_wandb.log({"loss": loss.item(), "loss1":loss1.item(), "loss2": loss2.item()})
 
             optimizer.zero_grad()
             loss.backward()
@@ -61,7 +62,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             t_loss.append(loss1)
             s_loss.append(loss2)
-            u_loss.append(UR_loss)
+            u_loss.append(0)
 
     return sum(t_loss) / len(t_loss), sum(s_loss) / len(s_loss), sum(u_loss) / len(u_loss)
 
