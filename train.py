@@ -42,14 +42,19 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
             
-            UR_loss = criterion3(x_k, label)[0]
+            UR_loss = criterion3(x_k, label, seq_len)[0]
             # UR_loss = torch.tensor(0).float()
+            bt_criterion = SoftBootstrappingLoss()
+            
+            # print(logits.shape)
+            label2 = torch.ones(len(nlabel), v_input.shape[1]).cuda()
+            bt_loss = bt_criterion(logits.squeeze()[len(alabel):], label2)
             
             loss_criterion = mgfn_loss()
             nlabel = label[:label.shape[0] // 2]
             alabel = label[label.shape[0] // 2:]
             mg_loss = loss_criterion(output_MSNSD, nlabel, alabel)
-            loss1 = loss1 + mg_loss
+            loss1 = loss1 + mg_loss #+ 0.0001 * bt_loss
             
             loss = lamda * loss2 + alpha * UR_loss + loss1
             
