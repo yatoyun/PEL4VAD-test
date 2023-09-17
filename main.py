@@ -124,7 +124,7 @@ def main(cfg):
     
     global logger_wandb
     name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
-    logger_wandb = wandb.init(project=args.dataset, name=name, group=args.dataset+"UR-DMU-plus")
+    logger_wandb = wandb.init(project=args.dataset, name=name, group=args.dataset+args.version+"(UR-DMU-plus)")
     logger_wandb.config.update(args)
     logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
@@ -189,8 +189,8 @@ if __name__ == '__main__':
     parser.add_argument('--version', default='original', help='change log path name')
     parser.add_argument('--PEL_lr', default=5e-4, type=float, help='learning rate')
     parser.add_argument('--UR_DMU_lr', default=1e-4, type=float, help='learning rate')
-    parser.add_argument('--lamda', default=0.19, type=float, help='lamda')
-    parser.add_argument('--alpha', default=0.523, type=float, help='alpha')
+    parser.add_argument('--lamda', default=1, type=float, help='lamda')
+    parser.add_argument('--alpha', default=1, type=float, help='alpha')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)

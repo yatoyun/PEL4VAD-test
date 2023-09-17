@@ -24,6 +24,7 @@ class AD_Loss(nn.Module):
         N_Aatt = result["N_Aatt"]
         kl_loss = result["kl_loss"]
         distance = result["distance"]
+        cos_loss = result["cos_loss"]
         b = _label.size(0)//2
         t = att.size(1)      
         # anomaly = torch.topk(att, t//16 + 1, dim=-1)[0].mean(-1)
@@ -54,7 +55,7 @@ class AD_Loss(nn.Module):
             A_Nloss += self.bce(valid_A_Natt, target)
         A_Nloss = A_Nloss / A_Natt.shape[0]
 
-        cost = 0.1 * (A_loss + panomaly_loss + N_loss + A_Nloss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance
+        cost = 0.1 * (A_loss + panomaly_loss + N_loss + A_Nloss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance + 0.1 * cos_loss
         # cost = 0.1 * (A_loss + N_loss + panomaly_loss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance
 
         loss['total_loss'] = cost

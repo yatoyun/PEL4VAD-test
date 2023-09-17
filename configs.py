@@ -29,8 +29,8 @@ def build_config(dataset):
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         
         # ur dmu
-        cfg.a_nums = 30
-        cfg.n_nums = 30
+        cfg.a_nums = 60
+        cfg.n_nums = 60
 
         # # bert
         # cfg.bert = True
@@ -94,7 +94,7 @@ def build_config(dataset):
     cfg.head_num = 1
     cfg.hid_dim = 128
     cfg.out_dim = 300
-    cfg.lr = 1e-4
+    cfg.lr = 5e-4
     cfg.dropout = 0.5
     cfg.train_bs = 64
     cfg.max_seqlen = 200
