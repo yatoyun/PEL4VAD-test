@@ -94,11 +94,11 @@ def build_config(dataset):
     cfg.head_num = 1
     cfg.hid_dim = 128
     cfg.out_dim = 300
-    cfg.lr = 5e-4
+    cfg.lr = 1e-4
     cfg.dropout = 0.5
     cfg.train_bs = 64
     cfg.max_seqlen = 200
-    cfg.max_epoch = 100
+    cfg.max_epoch = 50
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'

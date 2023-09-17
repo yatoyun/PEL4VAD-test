@@ -30,17 +30,17 @@ class ADCLS_head(Module):
         return self.mlp(x)
 
 class WSAD(Module):
-    def __init__(self, input_size, a_nums, n_nums):
+    def __init__(self, input_size, a_nums, n_nums, dropout = 0.5):
         super().__init__()
         self.a_nums = a_nums
         self.n_nums = n_nums
 
-        # self.embedding = Temporal(input_size,512)
+        self.embedding = Temporal(input_size,512)
         self.triplet = nn.TripletMarginLoss(margin=1)
         # self.cls_head = ADCLS_head(1024, 1)
         self.Amemory = Memory_Unit(nums=a_nums, dim=512)
         self.Nmemory = Memory_Unit(nums=n_nums, dim=512)
-        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = 0.5)
+        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = dropout)
         self.encoder_mu = nn.Sequential(nn.Linear(512, 512))
         self.encoder_var = nn.Sequential(nn.Linear(512, 512))
         self.relu = nn.ReLU()
@@ -69,9 +69,10 @@ class WSAD(Module):
         # x = self.embedding2(x)
         # x = self.selfatt2(x)
         
-        # x = self.embedding(x)
+        x = self.embedding(x)
         # x = self.batch_norm(x)
         x = self.selfatt(x)
+        x_t = x.permute(0, 2, 1)
         if self.training:
             N_x = x[:b*n//2]                  #### Normal part
             A_x = x[b*n//2:]                  #### Abnormal part
@@ -112,6 +113,7 @@ class WSAD(Module):
           
             distance = torch.relu(100 - torch.norm(negative_ax_new, p=2, dim=-1) + torch.norm(anchor_nx_new, p=2, dim=-1)).mean()
             x = torch.cat((x, (torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0))), dim=-1)
+            # x = torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0)
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
 
             return {
@@ -124,7 +126,8 @@ class WSAD(Module):
                     "A_Natt": A_Natt.reshape((b//2, n, -1)).mean(1),
                     "N_Aatt": N_Aatt.reshape((b//2, n, -1)).mean(1),
                     "cos_loss": cos_loss,
-                    "x":x
+                    "x":x,
+                    "v_feat":x_t,
                 }
         else:           
             _, A_aug = self.Amemory(x)
@@ -134,12 +137,14 @@ class WSAD(Module):
             N_aug = self.encoder_mu(N_aug)
 
             x = torch.cat([x, A_aug + N_aug], dim=-1)
+            # x = A_aug + N_aug
            
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
             
             return {
                     # "frame": pre_att, 
-                    "x":x}
+                    "x":x,
+                    "v_feat":x_t,}
     
 
 if __name__ == "__main__":
