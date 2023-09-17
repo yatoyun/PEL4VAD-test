@@ -55118,3 +55118,9 @@ Parameter Group 0
 [2023-09-17 01:40:55,280][main.py][line:106][INFO] [Epoch:100/100]: lr:0.00010 | loss1:0.0001 loss2:0.0199 loss3:0.0002 | AUC:0.6850 Anomaly AUC:0.4700
 [2023-09-17 01:40:55,304][main.py][line:116][INFO] Training completes in 34m 11s | best AUCAUC:0.8501 Anomaly AUC:0.6714
 
+[2023-09-17 12:23:44,458][main.py][line:123][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 0.288, 'seed': 2023, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__current.pkl', 'a_nums': 30, 'n_nums': 30, 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0001, 'dropout': 0.5, 'train_bs': 64, 'max_seqlen': 200, 'max_epoch': 100, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-09-17 12:23:47,682][main.py][line:165][INFO] total params:7.5400M
+[2023-09-17 12:23:47,683][main.py][line:174][INFO] Test Mode
+[2023-09-17 12:23:47,683][main.py][line:37][INFO] loading pretrained checkpoint from ./ckpt/ucf__current.pkl.
+[2023-09-17 12:23:56,003][infer.py][line:47][INFO] offline AUC:0.8521 AP:0.2830 FAR:0.0305 | Complete in 0m 8s
+
