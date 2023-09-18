@@ -103,6 +103,10 @@ class WSAD(Module):
 
             A_Naug = self.encoder_mu(A_Naug)
             N_Aaug = self.encoder_mu(N_Aaug)
+            
+            cos_sim = nn.CosineSimilarity(dim=1, eps=1e-6)
+            cos_loss = 1 - cos_sim(anchor_nx, negative_ax)
+            cos_loss = cos_loss.mean()
           
             distance = torch.relu(100 - torch.norm(negative_ax_new, p=2, dim=-1) + torch.norm(anchor_nx_new, p=2, dim=-1)).mean()
             x = torch.cat((x, (torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0))), dim=-1)
@@ -117,6 +121,7 @@ class WSAD(Module):
                     "N_att": N_att.reshape((b//2, n, -1)).mean(1),
                     "A_Natt": A_Natt.reshape((b//2, n, -1)).mean(1),
                     "N_Aatt": N_Aatt.reshape((b//2, n, -1)).mean(1),
+                    "cos_loss": cos_loss,
                     "x":x
                 }
         else:           

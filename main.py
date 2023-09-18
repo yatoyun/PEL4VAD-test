@@ -189,8 +189,8 @@ if __name__ == '__main__':
     parser.add_argument('--version', default='original', help='change log path name')
     parser.add_argument('--PEL_lr', default=5e-4, type=float, help='learning rate')
     parser.add_argument('--UR_DMU_lr', default=1e-4, type=float, help='learning rate')
-    parser.add_argument('--lamda', default=0.19, type=float, help='lamda')
-    parser.add_argument('--alpha', default=0.523, type=float, help='alpha')
+    parser.add_argument('--lamda', default=1, type=float, help='lamda')
+    parser.add_argument('--alpha', default=1, type=float, help='alpha')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)
