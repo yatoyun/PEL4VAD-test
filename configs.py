@@ -19,7 +19,7 @@ def build_config(dataset):
         cfg.t_step = 9
         # training settings
         cfg.temp = 0.09
-        cfg.lamda = 0.288#1.0
+        cfg.lamda = 1.0
         cfg.seed = 2023 #9
         # test settings
         cfg.test_bs = 10
@@ -29,8 +29,8 @@ def build_config(dataset):
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         
         # ur dmu
-        cfg.a_nums = 60
-        cfg.n_nums = 60
+        cfg.a_nums = 20
+        cfg.n_nums = 20
 
         # # bert
         # cfg.bert = True

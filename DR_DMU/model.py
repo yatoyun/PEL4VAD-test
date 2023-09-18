@@ -1,12 +1,45 @@
 import torch
 import torch.nn as nn
+from torch.nn import functional as F
 from torch.nn.modules.module import Module
 from .memory import Memory_Unit
 from .translayer import Transformer
+import sys
+sys.path.append("..")
+from layers import *
 
 def norm(data):
     l2 = torch.norm(data, p = 2, dim = -1, keepdim = True)
     return torch.div(data, l2)
+
+class EnhancedMemoryUnit(nn.Module):
+    def __init__(self, nums, dim, dropout = 0.5):
+        super(EnhancedMemoryUnit, self).__init__()
+        self.memory = Memory_Unit(nums=nums, dim=dim)
+        # self.attention = Transformer(dim, 2, 4, 128, dim, dropout = dropout)
+        self.self_attn = TCA(dim, 128, 128, 1, True)
+        self.loc_adj = DistanceAdj(0.6, 0.2)
+    
+    def forward(self, x):
+        x, augmented_x = self.memory(x)
+        
+        adj = self.loc_adj(x.shape[0], x.shape[1])
+        mask = self.get_mask(9, x.shape[1], x.shape[0])
+        # print(augmented_x.shape, mask.shape, adj.shape)
+        augmented_x = augmented_x + self.self_attn(augmented_x, mask, adj)
+        # augmented_x = self.attention(augmented_x)
+        return x, augmented_x
+    
+    def get_mask(self, window_size, temporal_scale, seq_len):
+        m = torch.zeros((temporal_scale, temporal_scale))
+        w_len = window_size
+        for j in range(temporal_scale):
+            for k in range(w_len):
+                m[j, min(max(j - w_len // 2 + k, 0), temporal_scale - 1)] = 1.
+
+        m = m.repeat(1, seq_len, 1, 1).cuda()
+
+        return m
 
 class Temporal(Module):
     def __init__(self, input_size, out_size):
@@ -40,6 +73,8 @@ class WSAD(Module):
         # self.cls_head = ADCLS_head(1024, 1)
         self.Amemory = Memory_Unit(nums=a_nums, dim=512)
         self.Nmemory = Memory_Unit(nums=n_nums, dim=512)
+        # self.Amemory = EnhancedMemoryUnit(nums=a_nums, dim=512, dropout = dropout)
+        # self.Nmemory = EnhancedMemoryUnit(nums=n_nums, dim=512, dropout = dropout)
         self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = dropout)
         self.encoder_mu = nn.Sequential(nn.Linear(512, 512))
         self.encoder_var = nn.Sequential(nn.Linear(512, 512))
@@ -48,6 +83,11 @@ class WSAD(Module):
         # self.batch_norm = nn.BatchNorm1d(512)
         # self.embedding2 = Temporal(2048,1024)
         # self.selfatt2 = Transformer(1024, 2, 4, 128, 1024, dropout = 0.1)
+        self.self_attn = TCA(512, 128, 128, 1, True)
+        self.loc_adj = DistanceAdj(0.6, 0.2)
+        self.layer_norm = nn.LayerNorm(512)
+        self.embedding2 = Temporal(512,512)
+        self.dropout = nn.Dropout(dropout)
                 
     def _reparameterize(self, mu, logvar):
         std = torch.exp(logvar).sqrt()
@@ -71,8 +111,17 @@ class WSAD(Module):
         
         x = self.embedding(x)
         # x = self.batch_norm(x)
+        # local
+        adj = self.loc_adj(x.shape[0], x.shape[1])
+        mask = self.get_mask(9, x.shape[1], x.shape[0])
+        x_t = x + self.self_attn(x, mask, adj)
+        x_t = self.dropout(F.gelu(self.embedding2(x_t)))
+        # global
         x = self.selfatt(x)
-        x_t = x.permute(0, 2, 1)
+        
+        # v_feat
+        v_feat = x_t.permute(0, 2, 1)
+
         if self.training:
             N_x = x[:b*n//2]                  #### Normal part
             A_x = x[b*n//2:]                  #### Abnormal part
@@ -106,13 +155,9 @@ class WSAD(Module):
 
             A_Naug = self.encoder_mu(A_Naug)
             N_Aaug = self.encoder_mu(N_Aaug)
-            
-            cos_sim = nn.CosineSimilarity(dim=1, eps=1e-6)
-            cos_loss = 1 - cos_sim(anchor_nx, negative_ax)
-            cos_loss = cos_loss.mean()
           
             distance = torch.relu(100 - torch.norm(negative_ax_new, p=2, dim=-1) + torch.norm(anchor_nx_new, p=2, dim=-1)).mean()
-            x = torch.cat((x, (torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0))), dim=-1)
+            x = torch.cat((x_t, (torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0))), dim=-1)
             # x = torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0)
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
 
@@ -125,9 +170,8 @@ class WSAD(Module):
                     "N_att": N_att.reshape((b//2, n, -1)).mean(1),
                     "A_Natt": A_Natt.reshape((b//2, n, -1)).mean(1),
                     "N_Aatt": N_Aatt.reshape((b//2, n, -1)).mean(1),
-                    "cos_loss": cos_loss,
                     "x":x,
-                    "v_feat":x_t,
+                    "v_feat":v_feat,
                 }
         else:           
             _, A_aug = self.Amemory(x)
@@ -136,15 +180,24 @@ class WSAD(Module):
             A_aug = self.encoder_mu(A_aug)
             N_aug = self.encoder_mu(N_aug)
 
-            x = torch.cat([x, A_aug + N_aug], dim=-1)
+            x = torch.cat([x_t, A_aug + N_aug], dim=-1)
             # x = A_aug + N_aug
            
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
             
             return {
                     # "frame": pre_att, 
-                    "x":x,
-                    "v_feat":x_t,}
+                    "x":x,}
+    def get_mask(self, window_size, temporal_scale, seq_len):
+        m = torch.zeros((temporal_scale, temporal_scale))
+        w_len = window_size
+        for j in range(temporal_scale):
+            for k in range(w_len):
+                m[j, min(max(j - w_len // 2 + k, 0), temporal_scale - 1)] = 1.
+
+        m = m.repeat(1, seq_len, 1, 1).cuda()
+
+        return m
     
 
 if __name__ == "__main__":

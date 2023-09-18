@@ -139,6 +139,6 @@ class mgfn_loss(torch.nn.Module):
         #                               0)  # try to cluster the same class
         # loss_con_a = self.contrastive(torch.norm(abn_feamagnitude[int(seperate):], p=1, dim=2),
         #                               torch.norm(abn_feamagnitude[:int(seperate)], p=1, dim=2), 1)
-        loss_total = 0.001 * (0.01 * loss_con) #loss_con_n )
+        loss_total = 0.1 * (0.01 * loss_con) #loss_con_n )
         
         return loss_total
