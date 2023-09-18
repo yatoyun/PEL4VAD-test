@@ -40,7 +40,7 @@ class WSAD(Module):
         # self.cls_head = ADCLS_head(1024, 1)
         self.Amemory = Memory_Unit(nums=a_nums, dim=512)
         self.Nmemory = Memory_Unit(nums=n_nums, dim=512)
-        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = 0.5)
+        # self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = 0.5)
         self.encoder_mu = nn.Sequential(nn.Linear(512, 512))
         self.encoder_var = nn.Sequential(nn.Linear(512, 512))
         self.relu = nn.ReLU()
@@ -71,7 +71,7 @@ class WSAD(Module):
         
         # x = self.embedding(x)
         # x = self.batch_norm(x)
-        x = self.selfatt(x)
+        # x = self.selfatt(x)
         if self.training:
             N_x = x[:b*n//2]                  #### Normal part
             A_x = x[b*n//2:]                  #### Abnormal part

@@ -21,19 +21,17 @@ class XEncoder(nn.Module):
         self.loc_adj = DistanceAdj(gamma, bias)
         self.DR_DMU = WSAD(d_model, a_nums = a_nums, n_nums = n_nums)
         
-        self.linear3 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
+        self.linear3 = nn.Conv1d(512*2, d_model // 2, kernel_size=1)
         self.dropout3 = nn.Dropout(dropout)
 
     def forward(self, x, seq_len):
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
 
-        x_shortcut = x  # Skip Connectionのためのショートカット
         x = x + self.self_attn(x, mask, adj)
-        x = F.gelu(x + x_shortcut)
         
         x = self.norm(x).permute(0, 2, 1)
-        x = self.dropout1(F.gelu(self.linear1(x)))
+        x = F.gelu(self.linear1(x))
         
         x_in = x.permute(0, 2, 1)
         if self.training:
@@ -47,7 +45,9 @@ class XEncoder(nn.Module):
                 x_k = torch.cat((x_k, x_k_split["x"]), 0)
             x_e = x_k
         
-        x_e = self.norm(x_e).permute(0, 2, 1)
+        # x_e = self.norm(x_e).permute(0, 2, 1)
+        x_e = x_e.permute(0, 2, 1)
+        # x_e = torch.cat((x, x_e), dim = 1)
         x_e = self.dropout3(F.gelu(self.linear3(x_e)))
         x_e = self.dropout2(F.gelu(self.linear2(x_e)))
         

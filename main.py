@@ -69,7 +69,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     # ])
     # lamda = 0.982#0.492
     # alpha = 0.432#0.489#0.127
-    optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)#lr=cfg.lr)
+    optimizer = optim.Adam(model.parameters(), lr=cfg.lr)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
     # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
@@ -90,7 +90,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
         loss1, loss2, cost = train_func(train_nloader, train_aloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, args.lamda, args.alpha)
         # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
         # scheduler.step(epoch + 1)
-        # scheduler.step()
+        scheduler.step()
 
         log_writer.add_scalar('loss', loss1, epoch)
 
