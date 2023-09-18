@@ -47,7 +47,7 @@ class XEncoder(nn.Module):
         x_e = self.dropout2(F.gelu(self.linear2(x)))
         
         if self.training:
-            x_k["x"] = x
+            x_k["x"] = x_k["v_feat"]
 
         return x_e, x_k
 

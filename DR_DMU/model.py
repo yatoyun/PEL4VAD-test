@@ -75,7 +75,7 @@ class WSAD(Module):
         self.Nmemory = Memory_Unit(nums=n_nums, dim=512)
         # self.Amemory = EnhancedMemoryUnit(nums=a_nums, dim=512, dropout = dropout)
         # self.Nmemory = EnhancedMemoryUnit(nums=n_nums, dim=512, dropout = dropout)
-        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = dropout)
+        # self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = dropout)
         self.encoder_mu = nn.Sequential(nn.Linear(512, 512))
         self.encoder_var = nn.Sequential(nn.Linear(512, 512))
         self.relu = nn.ReLU()
@@ -106,21 +106,16 @@ class WSAD(Module):
             b, t, d = x.size()
             n = 1
         
-        # x = self.embedding2(x)
-        # x = self.selfatt2(x)
-        
         x = self.embedding(x)
-        # x = self.batch_norm(x)
-        # local
+
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(9, x.shape[1], x.shape[0])
-        x_t = x + self.self_attn(x, mask, adj)
-        x_t = self.dropout(F.gelu(self.embedding2(x_t)))
-        # global
-        x = self.selfatt(x)
+        x = x + self.self_attn(x, mask, adj)
         
-        # v_feat
-        v_feat = x_t.permute(0, 2, 1)
+        x = self.layer_norm(x)
+        x = self.dropout(F.gelu(self.embedding2(x)))
+        
+        v_feat = x.permute(0, 2, 1)
 
         if self.training:
             N_x = x[:b*n//2]                  #### Normal part
@@ -157,7 +152,7 @@ class WSAD(Module):
             N_Aaug = self.encoder_mu(N_Aaug)
           
             distance = torch.relu(100 - torch.norm(negative_ax_new, p=2, dim=-1) + torch.norm(anchor_nx_new, p=2, dim=-1)).mean()
-            x = torch.cat((x_t, (torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0))), dim=-1)
+            x = torch.cat((x, (torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0))), dim=-1)
             # x = torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0)
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
 
@@ -180,7 +175,7 @@ class WSAD(Module):
             A_aug = self.encoder_mu(A_aug)
             N_aug = self.encoder_mu(N_aug)
 
-            x = torch.cat([x_t, A_aug + N_aug], dim=-1)
+            x = torch.cat([x, A_aug + N_aug], dim=-1)
             # x = A_aug + N_aug
            
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
