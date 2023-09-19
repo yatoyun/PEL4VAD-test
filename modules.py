@@ -25,7 +25,9 @@ class XEncoder(nn.Module):
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
 
+        # x_shorcut = x
         x = x + self.self_attn(x, mask, adj)
+        # x = x + x_shorcut
         # self_att = x + self.self_attn(x, mask, adj)
         # x = torch.cat((x, x+self.self_attn(x, mask, adj)), -1)
         

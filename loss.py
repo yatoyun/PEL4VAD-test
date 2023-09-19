@@ -23,13 +23,13 @@ def CLAS2(logits, label, seq_len, criterion):
 def KLV_loss(preds, label, criterion):
     preds = F.log_softmax(preds, dim=1)  # log_softmaxを使用
     
-    target = F.softmax(label * 10, dim=1)  # これが意図した動作であればそのまま
-    loss = criterion(preds, target)
-    # if torch.isnan(preds).any():
-    #     loss = torch.tensor(0.0).to(preds.device)  # float型のテンソルを使用
-    # else:
-    #     target = F.softmax(label * 10, dim=1)  # これが意図した動作であればそのまま
-    #     loss = criterion(preds, target)
+    # target = F.softmax(label * 10, dim=1)  # これが意図した動作であればそのまま
+    # loss = criterion(preds, target)
+    if torch.isnan(preds).any():
+        loss = torch.tensor(0.0).to(preds.device)  # float型のテンソルを使用
+    else:
+        target = F.softmax(label * 10, dim=1)  # これが意図した動作であればそのまま
+        loss = criterion(preds, target)
     return loss
 
 
