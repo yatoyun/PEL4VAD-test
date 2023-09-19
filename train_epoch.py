@@ -29,8 +29,8 @@ def interpolate_frames(x, seq_len):
 def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion2, criterion3, logger_wandb, lamda=0, alpha=0):
 # def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
 
-    v_ninput, t_ninput, nlabel, multi_nlabel = next(normal_iter)
-    v_ainput, t_ainput, alabel, multi_alabel = next(anomaly_iter)
+    v_ninput, t_ninput, nlabel, multi_nlabel = normal_iter #next(normal_iter)
+    v_ainput, t_ainput, alabel, multi_alabel = anomaly_iter #next(anomaly_iter)
     with torch.set_grad_enabled(True):
         model.train()
         # for i, ((v_ninput, t_ninput, nlabel, multi_nlabel), (v_ainput, t_ainput, alabel, multi_alabel)) \

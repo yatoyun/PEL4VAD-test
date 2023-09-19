@@ -4,15 +4,9 @@ from torch.nn.modules.module import Module
 from .memory import Memory_Unit
 from .translayer import Transformer
 
-import sys
-sys.path.append("..")
-from layers import *
-
-
 def norm(data):
     l2 = torch.norm(data, p = 2, dim = -1, keepdim = True)
     return torch.div(data, l2)
-
 
 class Temporal(Module):
     def __init__(self, input_size, out_size):
