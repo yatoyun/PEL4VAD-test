@@ -36,7 +36,7 @@ class ADCLS_head(Module):
         return self.mlp(x)
 
 class WSAD(Module):
-    def __init__(self, input_size, a_nums, n_nums):
+    def __init__(self, input_size, a_nums, n_nums, dropout=0.1):
         super().__init__()
         self.a_nums = a_nums
         self.n_nums = n_nums
@@ -46,7 +46,7 @@ class WSAD(Module):
         # self.cls_head = ADCLS_head(1024, 1)
         self.Amemory = Memory_Unit(nums=a_nums, dim=512)
         self.Nmemory = Memory_Unit(nums=n_nums, dim=512)
-        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = 0.5)
+        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = dropout)
         self.encoder_mu = nn.Sequential(nn.Linear(512, 512))
         self.encoder_var = nn.Sequential(nn.Linear(512, 512))
         self.relu = nn.ReLU()
@@ -67,6 +67,10 @@ class WSAD(Module):
         else:
             b, t, d = x.size()
             n = 1
+        
+        # x = self.embedding2(x)
+        # x = self.selfatt2(x)
+        
         x = self.embedding(x)
         x = self.selfatt(x)
         if self.training:
@@ -102,11 +106,15 @@ class WSAD(Module):
 
             A_Naug = self.encoder_mu(A_Naug)
             N_Aaug = self.encoder_mu(N_Aaug)
+            
+            cos_sim = nn.CosineSimilarity(dim=1, eps=1e-6)
+            cos_loss = 1 - cos_sim(anchor_nx, negative_ax)
+            cos_loss = cos_loss.mean()
           
             distance = torch.relu(100 - torch.norm(negative_ax_new, p=2, dim=-1) + torch.norm(anchor_nx_new, p=2, dim=-1)).mean()
             x = torch.cat((x, (torch.cat([N_aug_new + A_Naug, A_aug_new + N_Aaug], dim=0))), dim=-1)
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
-    
+
             return {
                     # "frame": pre_att,
                     'triplet_margin': triplet_margin_loss,
@@ -116,6 +124,7 @@ class WSAD(Module):
                     "N_att": N_att.reshape((b//2, n, -1)).mean(1),
                     "A_Natt": A_Natt.reshape((b//2, n, -1)).mean(1),
                     "N_Aatt": N_Aatt.reshape((b//2, n, -1)).mean(1),
+                    "cos_loss": cos_loss,
                     "x":x
                 }
         else:           
@@ -128,6 +137,7 @@ class WSAD(Module):
             x = torch.cat([x, A_aug + N_aug], dim=-1)
            
             # pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
+            
             return {
                     # "frame": pre_att, 
                     "x":x}

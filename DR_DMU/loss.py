@@ -11,7 +11,7 @@ class AD_Loss(nn.Module):
         self.bce = nn.BCELoss()
       
         
-    def forward(self, result, _label):
+    def forward(self, result, _label, seq_len):
         loss = {}
 
         _label = _label.float()
@@ -24,6 +24,7 @@ class AD_Loss(nn.Module):
         N_Aatt = result["N_Aatt"]
         kl_loss = result["kl_loss"]
         distance = result["distance"]
+        cos_loss = result["cos_loss"]
         b = _label.size(0)//2
         t = att.size(1)      
         # anomaly = torch.topk(att, t//16 + 1, dim=-1)[0].mean(-1)
@@ -35,10 +36,27 @@ class AD_Loss(nn.Module):
         A_att = torch.topk(A_att, t//16 + 1, dim = -1)[0].mean(-1)
         A_loss = self.bce(A_att, torch.ones((b)).cuda())
 
-        N_loss = self.bce(N_att, torch.ones_like((N_att)).cuda())    
-        A_Nloss = self.bce(A_Natt, torch.zeros_like((A_Natt)).cuda())
+        # N_loss = self.bce(N_att, torch.ones_like((N_att)).cuda())    
+        # A_Nloss = self.bce(A_Natt, torch.zeros_like((A_Natt)).cuda())
+        
+        N_loss = 0
+        for i in range(N_att.shape[0]):
+            valid_N_att = N_att[i, :seq_len[i]]
+            target = torch.ones_like(valid_N_att).cuda()
+            N_loss += self.bce(valid_N_att, target)
 
-        cost = 0.1 * (A_loss + panomaly_loss + N_loss + A_Nloss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance
+        # すべてのデータポイントに対して平均を取る
+        N_loss = N_loss / N_att.shape[0]
+        
+        A_Nloss = 0
+        for i in range(A_Natt.shape[0]):
+            valid_A_Natt = A_Natt[i, :seq_len[i]]
+            target = torch.zeros_like(valid_A_Natt).cuda()
+            A_Nloss += self.bce(valid_A_Natt, target)
+        A_Nloss = A_Nloss / A_Natt.shape[0]
+
+        cost = 0.1 * (A_loss + panomaly_loss + N_loss + A_Nloss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance + 0.1 * cos_loss
+        # cost = 0.1 * (A_loss + N_loss + panomaly_loss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance
 
         loss['total_loss'] = cost
         loss['N_Aatt'] = panomaly_loss

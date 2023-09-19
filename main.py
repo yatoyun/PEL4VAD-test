@@ -24,6 +24,7 @@ from timm.scheduler import CosineLRScheduler
 # tune
 import optuna
 
+import wandb
 import os
 from tensorboardX import SummaryWriter
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
@@ -59,19 +60,19 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
     criterion3 = AD_Loss()
-    PEL_params = [p for n, p in model.named_parameters() if 'UR_DMU' or '2feat' not in n]
-    UR_DMU_params = [p for n, p in model.named_parameters() if 'UR_DMU' in n]
-    Cat_2feat_params = model.self_attention.cat_2feat.parameters()
+    # PEL_params = [p for n, p in model.named_parameters() if 'UR_DMU' or '2feat' not in n]
+    # UR_DMU_params = [p for n, p in model.named_parameters() if 'UR_DMU' in n]
+    # Cat_2feat_params = model.self_attention.cat_2feat.parameters()
         
-    # optimizer = optim.Adam([
-    # {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
-    # {'params': UR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
-    # ])
+    # # optimizer = optim.Adam([
+    # # {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
+    # # {'params': UR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
+    # # ])
     # lamda = 0.982#0.492
     # alpha = 0.432#0.489#0.127
-    optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=5e-5)#lr=cfg.lr)
+    optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
-    # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
+    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
     # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
     #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
 
@@ -84,23 +85,23 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
     auc_ab_auc = 0.0
+    cfg.max_epoch *= len(train_nloader)
 
     st = time.time()
     print(len(train_nloader), len(train_aloader))
     for epoch in range(cfg.max_epoch):
         if epoch % len(train_nloader) == 0:
             normal_loader_iter = iter(train_nloader)
-
-        if epoch % len(train_aloader) == 0:
             abnormal_loader_iter = iter(train_aloader)
         
-        loss1, loss2, cost = train_func(normal_loader_iter, abnormal_loader_iter, model, optimizer, criterion, criterion2, criterion3, args.lamda, args.alpha)
+        loss1, loss2, cost = train_func(normal_loader_iter, abnormal_loader_iter, model, optimizer, criterion, criterion2,  criterion3, logger_wandb, args.lamda, args.alpha)
         # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
         # scheduler.step(epoch + 1)
         # scheduler.step()
 
         log_writer.add_scalar('loss', loss1, epoch)
-        if (epoch < 700 and (epoch+1) % 100 == 0) or (epoch >= 700 and (epoch+1) % 5 == 0):
+        turn_point = len(train_nloader) * 25
+        if (epoch < turn_point and (epoch+1) % len(train_nloader) == 0) or (epoch >= turn_point and (epoch+1) % 5 == 0):
             auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
             if auc >= best_auc:
                 best_auc = auc
@@ -112,6 +113,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             lr = optimizer.param_groups[0]['lr']
             logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
                 epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
+
+            logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
 
 
@@ -126,6 +129,13 @@ def main(cfg):
     logger = get_logger(cfg.logs_dir)
     setup_seed(cfg.seed)
     logger.info('Config:{}'.format(cfg.__dict__))
+    
+    if args.mode == 'train':
+        global logger_wandb
+        name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
+        logger_wandb = wandb.init(project=args.dataset, name=name, group="epoch-"+args.dataset+args.version+"(UR-DMU-plus)")
+        logger_wandb.config.update(args)
+        logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
     if cfg.dataset == 'ucf-crime':
         train_normal_data = UCFDataset(cfg, test_mode=False, pre_process=True)
@@ -186,8 +196,8 @@ if __name__ == '__main__':
     parser.add_argument('--dataset', default='ucf', help='anomaly video dataset')
     parser.add_argument('--mode', default='train', help='model status: (train or infer)')
     parser.add_argument('--version', default='original', help='change log path name')
-    parser.add_argument('--PEL_lr', default=0.0003, type=float, help='learning rate')
-    parser.add_argument('--UR_DMU_lr', default=0.0008, type=float, help='learning rate')
+    parser.add_argument('--PEL_lr', default=5e-4, type=float, help='learning rate')
+    parser.add_argument('--UR_DMU_lr', default=1e-4, type=float, help='learning rate')
     parser.add_argument('--lamda', default=1, type=float, help='lamda')
     parser.add_argument('--alpha', default=1, type=float, help='alpha')
     
