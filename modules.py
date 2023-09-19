@@ -25,24 +25,23 @@ class XEncoder(nn.Module):
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
 
-        x_t = x
         x = x + self.self_attn(x, mask, adj)
         # self_att = x + self.self_attn(x, mask, adj)
         # x = torch.cat((x, x+self.self_attn(x, mask, adj)), -1)
         
         # x = self.norm(x)
         if self.training:
-            x_k = self.UR_DMU(x_t)
-            x_t = x_k["x"]
+            x_k = self.UR_DMU(x)
+            x = x_k["x"]
         else:
             x_k = torch.zeros(0).cuda()
-            for x_split in x_t:
+            for x_split in x:
                 x_split = x_split.unsqueeze(0)
                 x_k_split = self.UR_DMU(x_split)
                 x_k = torch.cat((x_k, x_k_split["x"]), 0)
-            x_t = x_k
+            x = x_k
         
-        x_t = self.norm(x_t).permute(0, 2, 1)
+        # x = self.norm(x)
         # self_att = self.norm(self_att)
         # x = self.cat(torch.cat((x, self_att), -1))
         # x = self.norm(x)

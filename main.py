@@ -98,8 +98,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             # scheduler.step()
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 25
-            if (epoch >= turn_point and (idx+1) % 5 == 0):
+            turn_point = 27
+            if (epoch >= turn_point and (idx+1) % 1 == 0):
                 auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
                 if auc >= best_auc:
                     best_auc = auc
@@ -109,8 +109,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
                 log_writer.add_scalar('AUC', auc, epoch)
 
                 lr = optimizer.param_groups[0]['lr']
-                logger.info('[Epoch:{}/{}, Batch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-                    epoch + 1, cfg.max_epoch, idx, len(train_nloader), lr, loss1, loss2, cost, auc, ab_auc))
+                logger.info('[Epoch:{}/{}, Batch:{}/{}]: loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+                    epoch + 1, cfg.max_epoch, idx, len(train_nloader), loss1, loss2, cost, auc, ab_auc))
 
                 logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
