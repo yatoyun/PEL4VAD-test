@@ -19,22 +19,21 @@ def build_config(dataset):
         cfg.t_step = 9
         # training settings
         cfg.temp = 0.09
-        cfg.lamda = 0.288#1.0
+        # cfg.lamda = 0.288#1.0
         cfg.seed = 2023 #9
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
         cfg.kappa = 5  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
+        cfg.ckpt_pretrain_path = './ckpt/cbest__8701.pkl'
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         
         # ur dmu
         cfg.a_nums = 30
         cfg.n_nums = 30
 
-        # # bert
-        # cfg.bert = True
-        # cfg.beta = 0.5
+        cfg.generate_pesudo = True
 
     elif dataset in ['xd', 'xd-violence']:
         cfg.dataset = 'xd-violence'
@@ -94,7 +93,7 @@ def build_config(dataset):
     cfg.head_num = 1
     cfg.hid_dim = 128
     cfg.out_dim = 300
-    cfg.lr = 1e-4
+    cfg.lr = 1e-5
     cfg.dropout = 0.1
     cfg.train_bs = 64
     cfg.max_seqlen = 200

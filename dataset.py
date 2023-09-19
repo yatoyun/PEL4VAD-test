@@ -5,7 +5,7 @@ import os
 
 
 class UCFDataset(data.Dataset):
-    def __init__(self, cfg, transform=None, test_mode=False, is_abnormal=False, pre_process=False):
+    def __init__(self, cfg, transform=None, test_mode=False, is_abnormal=False, pre_process=False, pesudo_label=False):
         self.feat_prefix = cfg.feat_prefix
         if test_mode:
             self.list_file = cfg.test_list
@@ -23,6 +23,7 @@ class UCFDataset(data.Dataset):
         self.t_features = np.array(np.load(cfg.token_feat))
         self._parse_list()
         self.pre_process = pre_process
+        self.pesudo_label = pesudo_label
 
     def _parse_list(self):
         self.list = list(open(self.list_file))
@@ -36,7 +37,10 @@ class UCFDataset(data.Dataset):
         # video_name = self.list[index].strip('\n').split('/')[-1][:-4]
         feat_path = os.path.join(self.feat_prefix, self.list[index].strip('\n'))
         if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
-            feat_path = feat_path.replace('train', 'train-200')
+            if self.pesudo_label:
+                feat_path = feat_path.replace('train', 'train-pesudo')
+            else:
+                feat_path = feat_path.replace('train', 'train-200')
             
         video_idx = self.list[index].strip('\n').split('/')[-1].split('_')[0]
         if self.normal_flag in self.list[index]:

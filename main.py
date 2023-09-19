@@ -11,7 +11,7 @@ from log import get_logger
 from model import XModel
 from dataset import *
 
-from train import train_func
+from train_epoch import train_func
 from test import test_func
 from infer import infer_func
 import argparse
@@ -52,7 +52,7 @@ def load_checkpoint(model, ckpt_path, logger):
     else:
         logger.info('Not found pretrained checkpoint file.')
 
-def make_new_label(model, pesudo=True):
+def make_new_label(model, pesudo=True, threshold = 0.2):
     # load pesudo label
     output_dir = "train-pesudo"
 
@@ -77,9 +77,7 @@ def make_new_label(model, pesudo=True):
                     pred = logits.squeeze().cpu().detach().numpy()
 
                     # max_len = cfg.max_seqlen if cfg.max_seqlen < pred.shape[0] else int(pred.shape[0]*0.8)
-                    if num > 5:
-                        num = 4
-                    selected_indices = np.where(pred >= (num-1)/10)[0]
+                    selected_indices = np.where(pred >= threshold)[0]
                     # selected_indices.sort()
             
             v_feat = v_feat.squeeze().cpu().detach().numpy()
@@ -97,7 +95,6 @@ def make_new_label(model, pesudo=True):
 
 def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 # def train(model, train_loader, test_loader, gt, logger):
-    make_new_label(idx, model)
     
     if not os.path.exists(cfg.save_dir):
         os.makedirs(cfg.save_dir)
@@ -105,27 +102,33 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
     criterion3 = AD_Loss()
-    # PEL_params = [p for n, p in model.named_parameters() if 'UR_DMU' or '2feat' not in n]
-    # UR_DMU_params = [p for n, p in model.named_parameters() if 'UR_DMU' in n]
-    # Cat_2feat_params = model.self_attention.cat_2feat.parameters()
+    #################### separete lr ####################
+    # TCA_params_list = list(model.self_attention.self_attn.parameters()) + list(model.self_attention.loc_adj.parameters())
+    # TCA_params_set = set(TCA_params_list)
+
+    # other_params_list = [p for p in model.parameters() if p not in TCA_params_set]
         
-    # # optimizer = optim.Adam([
-    # # {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
-    # # {'params': UR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
-    # # ])
-    # lamda = 0.982#0.492
-    # alpha = 0.432#0.489#0.127
+    # optimizer = optim.AdamW([
+    # {'params': other_params_list, 'lr': cfg.lr},
+    # # {'params': TCA_params_list, 'lr': cfg.lr*0.1}
+    # ])
+    
+    #################### one lr ####################
     optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
-    # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
-    #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
+    # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
+    scheduler = CosineLRScheduler(optimizer, t_initial=100, lr_min=1e-6, 
+                                  warmup_t=3, warmup_lr_init=1e-6, warmup_prefix=True)
 
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
 
     initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
-    logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
+    logger.info('Load model initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
+    
+    # make new dataset
+    if cfg.generate_pesudo:
+        make_new_label(model, threshold = args.threshold)
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
@@ -143,7 +146,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             # scheduler.step()
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 27
+            turn_point = 50
             if (epoch >= turn_point and (idx+1) % 1 == 0):
                 auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
                 if auc >= best_auc:
@@ -168,7 +171,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
         log_writer.add_scalar('AUC', auc, epoch)
 
         lr = optimizer.param_groups[0]['lr']
-        logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+        logger.info('[Epoch:{}/{}]: lr:{:.5e} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
             epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
 
         logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
@@ -190,13 +193,13 @@ def main(cfg):
     if args.mode == 'train':
         global logger_wandb
         name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
-        logger_wandb = wandb.init(project=args.dataset, name=name, group="epoch-"+args.dataset+args.version+"(UR-DMU-plus)")
+        logger_wandb = wandb.init(project=args.dataset, name=name, group="TransferSelf"+args.dataset+args.version+"(UR-DMU-plus)")
         logger_wandb.config.update(args)
         logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
     if cfg.dataset == 'ucf-crime':
         train_normal_data = UCFDataset(cfg, test_mode=False, pre_process=True)
-        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
+        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True, pesudo_label=True)
         # train_data = UCFDataset(cfg, test_mode=False)
         test_data = UCFDataset(cfg, test_mode=True)
         
@@ -233,7 +236,7 @@ def main(cfg):
     if args.mode == 'train':
         logger.info('Training Mode')
         
-        load_checkpoint(model, cfg.ckpt_path, logger)
+        load_checkpoint(model, cfg.ckpt_pretrain_path, logger)
         train(model, train_nloader, train_aloader, test_loader, gt, logger)
         # train(model, train_loader, test_loader, gt, logger)
 
@@ -258,6 +261,7 @@ if __name__ == '__main__':
     parser.add_argument('--UR_DMU_lr', default=1e-4, type=float, help='learning rate')
     parser.add_argument('--lamda', default=1, type=float, help='lamda')
     parser.add_argument('--alpha', default=1, type=float, help='alpha')
+    parser.add_argument('--threshold', default=0.2, type=float, help='threshold')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)
