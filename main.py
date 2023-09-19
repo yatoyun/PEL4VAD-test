@@ -79,8 +79,8 @@ def make_new_label(train_indices, num, model, pesudo=True):
                     pred = logits.squeeze().cpu().detach().numpy()
 
                     # max_len = cfg.max_seqlen if cfg.max_seqlen < pred.shape[0] else int(pred.shape[0]*0.8)
-                    if num > 6:
-                        num = 7
+                    if num > 5:
+                        num = 4
                     selected_indices = np.where(pred >= (num-1)/10)[0]
                     # selected_indices.sort()
             
