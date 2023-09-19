@@ -19,7 +19,7 @@ class XEncoder(nn.Module):
         self.dropout2 = nn.Dropout(dropout)
         self.norm = nn.LayerNorm(d_model)
         self.loc_adj = DistanceAdj(gamma, bias)
-        self.DR_DMU = WSAD(d_model, a_nums = a_nums, n_nums = n_nums)
+        self.DR_DMU = WSAD(d_model, a_nums = a_nums, n_nums = n_nums, dropout = dropout)
 
     def forward(self, x, seq_len):
         adj = self.loc_adj(x.shape[0], x.shape[1])

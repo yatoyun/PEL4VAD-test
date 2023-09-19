@@ -98,7 +98,7 @@ def build_config(dataset):
     cfg.dropout = 0.1
     cfg.train_bs = 64
     cfg.max_seqlen = 200
-    cfg.max_epoch = 100
+    cfg.max_epoch = 50
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'

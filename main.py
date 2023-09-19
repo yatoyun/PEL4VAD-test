@@ -122,11 +122,12 @@ def main(cfg):
     setup_seed(cfg.seed)
     logger.info('Config:{}'.format(cfg.__dict__))
     
-    global logger_wandb
-    name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
-    logger_wandb = wandb.init(project=args.dataset, name=name, group=args.dataset+"UR-DMU-plus")
-    logger_wandb.config.update(args)
-    logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
+    if args.mode == 'train':
+        global logger_wandb
+        name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
+        logger_wandb = wandb.init(project=args.dataset, name=name, group=args.dataset+args.version+"(UR-DMU-plus)")
+        logger_wandb.config.update(args)
+        logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
     if cfg.dataset == 'ucf-crime':
         train_normal_data = UCFDataset(cfg, test_mode=False, pre_process=True)

@@ -30,7 +30,7 @@ class ADCLS_head(Module):
         return self.mlp(x)
 
 class WSAD(Module):
-    def __init__(self, input_size, a_nums, n_nums):
+    def __init__(self, input_size, a_nums, n_nums, dropout=0.1):
         super().__init__()
         self.a_nums = a_nums
         self.n_nums = n_nums
@@ -40,7 +40,7 @@ class WSAD(Module):
         # self.cls_head = ADCLS_head(1024, 1)
         self.Amemory = Memory_Unit(nums=a_nums, dim=512)
         self.Nmemory = Memory_Unit(nums=n_nums, dim=512)
-        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = 0.1)
+        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = dropout)
         self.encoder_mu = nn.Sequential(nn.Linear(512, 512))
         self.encoder_var = nn.Sequential(nn.Linear(512, 512))
         self.relu = nn.ReLU()
