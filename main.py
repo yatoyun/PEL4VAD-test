@@ -5,13 +5,13 @@ import time
 import numpy as np
 import random
 from configs import build_config
-from utils import setup_seed
+from utils import setup_seed, process_feat2, process_feat
 from log import get_logger
 
 from model import XModel
 from dataset import *
 
-from train_epoch import train_func
+from train import train_func
 from test import test_func
 from infer import infer_func
 import argparse
@@ -23,13 +23,14 @@ from timm.scheduler import CosineLRScheduler
 
 # tune
 import optuna
+from tqdm import tqdm
 
 import wandb
 import os
 from tensorboardX import SummaryWriter
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
-from torch.cuda.amp import GradScaler
+from torch.cuda.amp import GradScaler, autocast
 
 
 def load_checkpoint(model, ckpt_path, logger):
@@ -51,9 +52,53 @@ def load_checkpoint(model, ckpt_path, logger):
     else:
         logger.info('Not found pretrained checkpoint file.')
 
+def make_new_label(model, pesudo=True):
+    # load pesudo label
+    output_dir = "train-pesudo"
+
+    
+    # load original video feature
+    for idx, video_name in enumerate(list(open(cfg.train_list))[:8100]):
+        feat_path = os.path.join(cfg.feat_prefix, video_name.strip('\n'))
+        
+        v_feat = np.array(np.load(feat_path), dtype=np.float32)
+        
+        
+        # select feature according to label
+        if v_feat.shape[0] > cfg.max_seqlen//2 and pesudo:
+            model.eval()
+            with torch.no_grad():
+                with autocast():
+                    v_feat = torch.from_numpy(v_feat).unsqueeze(0)
+                    v_feat = v_feat.float().cuda(non_blocking=True)
+                    seq_len = torch.sum(torch.max(torch.abs(v_feat), dim=2)[0] > 0, 1)
+
+                    logits, _ = model(v_feat, seq_len)
+                    pred = logits.squeeze().cpu().detach().numpy()
+
+                    # max_len = cfg.max_seqlen if cfg.max_seqlen < pred.shape[0] else int(pred.shape[0]*0.8)
+                    if num > 5:
+                        num = 4
+                    selected_indices = np.where(pred >= (num-1)/10)[0]
+                    # selected_indices.sort()
+            
+            v_feat = v_feat.squeeze().cpu().detach().numpy()
+            if len(selected_indices) >= 10:
+                v_feat = v_feat[selected_indices]
+            # print(v_feat.shape)
+        
+        # process feature
+        v_feat = process_feat(v_feat, cfg.max_seqlen, is_random=False)
+        
+        # save feature
+        save_path = feat_path.replace("train", output_dir)
+        np.save(save_path, v_feat)
+        
 
 def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 # def train(model, train_loader, test_loader, gt, logger):
+    make_new_label(idx, model)
+    
     if not os.path.exists(cfg.save_dir):
         os.makedirs(cfg.save_dir)
 
@@ -176,7 +221,7 @@ def main(cfg):
 
     test_loader = DataLoader(test_data, batch_size=cfg.test_bs, shuffle=False,
                              num_workers=cfg.workers, pin_memory=True)
-
+    
     model = XModel(cfg)
     gt = np.load(cfg.gt)
     device = torch.device("cuda")
@@ -188,6 +233,7 @@ def main(cfg):
     if args.mode == 'train':
         logger.info('Training Mode')
         
+        load_checkpoint(model, cfg.ckpt_path, logger)
         train(model, train_nloader, train_aloader, test_loader, gt, logger)
         # train(model, train_loader, test_loader, gt, logger)
 
