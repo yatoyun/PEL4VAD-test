@@ -20,7 +20,7 @@ def build_config(dataset):
         # training settings
         cfg.temp = 0.09
         cfg.lamda = 0.288#1.0
-        cfg.seed = 55 #9
+        cfg.seed = 2023 #9
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
@@ -99,7 +99,7 @@ def build_config(dataset):
     cfg.dropout = 0.1
     cfg.train_bs = 64
     cfg.max_seqlen = 200
-    cfg.max_epoch = 100
+    cfg.max_epoch = 50
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'

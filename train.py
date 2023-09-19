@@ -2,6 +2,29 @@ import torch
 from loss import *
 from utils import *
 
+def interpolate_frames(x, seq_len):
+    bs, max_len, _ = x.size()
+
+    for idx in range(bs):
+        valid_length = seq_len[idx]
+
+        # padding部分のフレーム数を計算
+        padding_frames_count = max_len - valid_length
+
+        # 補間フレームを生成
+        if padding_frames_count > 0:
+            last_valid_frame = x[idx, valid_length - 1]
+            second_last_valid_frame = x[idx, valid_length - 2]
+            
+            alpha = torch.linspace(0, 1, padding_frames_count + 2, device=x.device)[1:-1].unsqueeze(1)
+            
+            interpolated = alpha * last_valid_frame + (1 - alpha) * second_last_valid_frame
+            
+            # padding部分を補間フレームで置き換え
+            x[idx, valid_length:] = interpolated
+
+    return x
+
 # def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, lamda=0):
 def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, lamda=0, alpha=0):
 # def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
@@ -26,12 +49,13 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             t_input = t_input.float().cuda(non_blocking=True)
             label = label.float().cuda(non_blocking=True)
             multi_label = multi_label.cuda(non_blocking=True)
+            
+            v_input = interpolate_frames(v_input, seq_len)
 
             logits, x_k, output_MSNSD = model(v_input, seq_len)
             
-            # v_feat = x_k["x"]
-            # x_k["frame"] = logits
-            v_feat = x_k
+            v_feat = x_k["x"]
+            x_k["frame"] = logits
             
             # Prompt-Enhanced Learning
             logit_scale = model.logit_scale.exp()
@@ -43,7 +67,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             loss1 = CLAS2(logits, label, seq_len, criterion)
             
-            # UR_loss = criterion3(x_k, label, seq_len)[0]
+            UR_loss = criterion3(x_k, label, seq_len)[0]
             # UR_loss = torch.tensor(0).float()
             
             loss_criterion = mgfn_loss()
@@ -52,9 +76,9 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             mg_loss = loss_criterion(output_MSNSD, nlabel, alabel)
             loss1 = loss1 + mg_loss
             
-            loss = lamda * loss2 + loss1
+            loss = lamda * loss2 + alpha * UR_loss + loss1
             
-            logger_wandb.log({"loss": loss.item(), "loss1":loss1.item(), "loss2": loss2.item()})
+            logger_wandb.log({"loss": loss.item(), "loss1":loss1.item(), "loss2": loss2.item(), "loss3": UR_loss.item()})
 
             optimizer.zero_grad()
             loss.backward()
@@ -62,7 +86,7 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
 
             t_loss.append(loss1)
             s_loss.append(loss2)
-            u_loss.append(0)
+            u_loss.append(UR_loss)
 
     return sum(t_loss) / len(t_loss), sum(s_loss) / len(s_loss), sum(u_loss) / len(u_loss)
 
