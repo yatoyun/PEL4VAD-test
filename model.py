@@ -47,7 +47,7 @@ class XModel(nn.Module):
 
         return logits, x_v
 
-def MSNSD(features,scores,bs,batch_size,drop_out,ncrops,k=3):
+def MSNSD(features,scores,bs,batch_size,drop_out,ncrops,k=20):
     #magnitude selection and score prediction
     features = features  # (B*10crop,32,1024)
     bc, t, f = features.size()
