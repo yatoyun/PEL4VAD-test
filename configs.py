@@ -9,7 +9,7 @@ def build_config(dataset):
         cfg.train_list = './list/ucf/train.list'
         cfg.test_list = './list/ucf/test.list'
         cfg.token_feat = './list/ucf/ucf-prompt.npy'
-        cfg.gt = './list/ucf/ucf-gt.npy'
+        cfg.gt = '../CLIP-TSA/list/gt-ucf.npy' #./list/ucf/ucf-gt.npy'
         # TCA settings
         cfg.win_size = 9
         cfg.gamma = 0.6
@@ -22,7 +22,7 @@ def build_config(dataset):
         cfg.lamda = 0.288#1.0
         cfg.seed = 2023 #9
         # test settings
-        cfg.test_bs = 10
+        cfg.test_bs = 1
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
         cfg.kappa = 5  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
@@ -90,15 +90,15 @@ def build_config(dataset):
         cfg.ckpt_path = './ckpt/SH__98.pkl'
 
     # base settings
-    cfg.feat_dim = 1024
+    cfg.feat_dim = 512
     cfg.head_num = 1
-    cfg.hid_dim = 128
-    cfg.out_dim = 300
+    cfg.hid_dim = 64
+    cfg.out_dim = 150
     cfg.lr = 1e-4
     cfg.dropout = 0.1
     cfg.train_bs = 64
     cfg.max_seqlen = 200
-    cfg.max_epoch = 50
+    cfg.max_epoch = 100
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'

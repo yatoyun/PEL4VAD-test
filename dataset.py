@@ -28,9 +28,9 @@ class UCFDataset(data.Dataset):
         self.list = list(open(self.list_file))
         if not self.test_mode:
             if self.is_abnormal:
-                self.list = self.list[:8100]
+                self.list = self.list[:810]
             else:
-                self.list = self.list[8100:]
+                self.list = self.list[810:]
 
     def __getitem__(self, index):
         # video_name = self.list[index].strip('\n').split('/')[-1][:-4]

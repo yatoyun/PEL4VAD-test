@@ -32,6 +32,7 @@ def test_func(dataloader, model, gt, dataset):
         for i, (v_input, label) in enumerate(dataloader):
             with autocast():
                 v_input = v_input.float().cuda(non_blocking=True)
+                print(v_input.shape)
                 seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
 
                 logits, _ = model(v_input, seq_len)

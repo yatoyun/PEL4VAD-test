@@ -48,8 +48,8 @@ class XEncoder(nn.Module):
         # x = x + self.self_attn(x, mask, adj)
         
         x = self.norm(x).permute(0, 2, 1)
-        x = self.dropout1(F.gelu(self.linear1(x)))
-        x_e = self.dropout2(F.gelu(self.linear2(x)))
+        x_e = self.dropout1(F.gelu(self.linear1(x)))
+        x_e = self.dropout2(F.gelu(self.linear2(x_e)))
         
         # x_k = dict()
         

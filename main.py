@@ -98,7 +98,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             # scheduler.step()
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 27
+            turn_point = 50
             if (epoch >= turn_point and (idx+1) % 1 == 0):
                 auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
                 if auc >= best_auc:
@@ -145,13 +145,13 @@ def main(cfg):
     if args.mode == 'train':
         global logger_wandb
         name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
-        logger_wandb = wandb.init(project=args.dataset, name=name, group="epoch-"+args.dataset+args.version+"(UR-DMU-plus)")
+        logger_wandb = wandb.init(project=args.dataset+"-clip", name=name, group="epoch-"+args.version+"(clip-pel-ur)")
         logger_wandb.config.update(args)
         logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
     if cfg.dataset == 'ucf-crime':
-        train_normal_data = UCFDataset(cfg, test_mode=False, pre_process=True)
-        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
+        train_normal_data = UCFDataset(cfg, test_mode=False)
+        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True)
         # train_data = UCFDataset(cfg, test_mode=False)
         test_data = UCFDataset(cfg, test_mode=True)
         
@@ -179,6 +179,7 @@ def main(cfg):
 
     model = XModel(cfg)
     gt = np.load(cfg.gt)
+    print("sum gt:", sum(gt))
     device = torch.device("cuda")
     model = model.to(device)
 
