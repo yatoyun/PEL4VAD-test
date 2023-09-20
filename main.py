@@ -70,7 +70,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     # # ])
     # lamda = 0.982#0.492
     # alpha = 0.432#0.489#0.127
-    optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)#lr=cfg.lr)
+    optimizer = optim.Adam(model.parameters(), lr=cfg.lr, weight_decay=0.005)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
     # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
@@ -98,7 +98,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             # scheduler.step()
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 50
+            turn_point = 14
             if (epoch >= turn_point and (idx+1) % 1 == 0):
                 auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
                 if auc >= best_auc:

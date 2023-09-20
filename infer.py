@@ -11,6 +11,8 @@ def infer_func(model, dataloader, gt, logger, cfg):
         pred = torch.zeros(0).cuda()
         normal_preds = torch.zeros(0).cuda()
         normal_labels = torch.zeros(0).cuda()
+        abnormal_labels = torch.zeros(0).cuda()
+        abnormal_preds = torch.zeros(0).cuda()
         gt_tmp = torch.tensor(gt.copy()).cuda()
 
         for i, (v_input, name) in enumerate(dataloader):
@@ -34,15 +36,24 @@ def infer_func(model, dataloader, gt, logger, cfg):
             if torch.sum(labels) == 0:
                 normal_labels = torch.cat((normal_labels, labels))
                 normal_preds = torch.cat((normal_preds, logits))
+            else:
+                abnormal_labels = torch.cat((abnormal_labels, labels))
+                abnormal_preds = torch.cat((abnormal_preds, logits))
             gt_tmp = gt_tmp[seq_len[0]*16:]
 
         pred = list(pred.cpu().detach().numpy())
+        abnormal_preds = list(abnormal_preds.cpu().detach().numpy())
+        
         far = cal_false_alarm(normal_labels, normal_preds)
+        # all
         fpr, tpr, _ = roc_curve(list(gt), np.repeat(pred, 16))
         roc_auc = auc(fpr, tpr)
+        # anomaly
+        fpr, tpr, _ = roc_curve(list(gt)[:len(abnormal_preds)*16], np.repeat(abnormal_preds, 16))
+        ab_roc_auc = auc(fpr, tpr)
         pre, rec, _ = precision_recall_curve(list(gt), np.repeat(pred, 16))
         pr_auc = auc(rec, pre)
 
     time_elapsed = time.time() - st
-    logger.info('offline AUC:{:.4f} AP:{:.4f} FAR:{:.4f} | Complete in {:.0f}m {:.0f}s\n'.format(
-        roc_auc, pr_auc, far, time_elapsed // 60, time_elapsed % 60))
+    logger.info('offline AUC:{:.4f} Anomaly-AUC:{:.4f} AP:{:.4f} FAR:{:.4f} | Complete in {:.0f}m {:.0f}s\n'.format(
+        roc_auc, ab_roc_auc, pr_auc, far, time_elapsed // 60, time_elapsed % 60))

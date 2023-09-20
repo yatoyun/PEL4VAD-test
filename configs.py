@@ -24,13 +24,13 @@ def build_config(dataset):
         # test settings
         cfg.test_bs = 1
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
-        cfg.kappa = 5  # smooth window
+        cfg.kappa = 10  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         
         # ur dmu
-        cfg.a_nums = 30
-        cfg.n_nums = 30
+        cfg.a_nums = 60
+        cfg.n_nums = 60
 
         # # bert
         # cfg.bert = True
@@ -93,10 +93,10 @@ def build_config(dataset):
     cfg.feat_dim = 512
     cfg.head_num = 1
     cfg.hid_dim = 64
-    cfg.out_dim = 150
-    cfg.lr = 1e-4
-    cfg.dropout = 0.1
-    cfg.train_bs = 64
+    cfg.out_dim = 300
+    cfg.lr = 3e-4
+    cfg.dropout = 0.5
+    cfg.train_bs = 16
     cfg.max_seqlen = 200
     cfg.max_epoch = 100
     cfg.workers = 8

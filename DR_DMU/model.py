@@ -35,14 +35,14 @@ class WSAD(Module):
         self.a_nums = a_nums
         self.n_nums = n_nums
 
-        self.embedding = Temporal(input_size,256)
+        self.embedding = Temporal(input_size,512)
         self.triplet = nn.TripletMarginLoss(margin=1)
         # self.cls_head = ADCLS_head(1024, 1)
-        self.Amemory = Memory_Unit(nums=a_nums, dim=256)
-        self.Nmemory = Memory_Unit(nums=n_nums, dim=256)
-        self.selfatt = Transformer(256, 2, 4, 128, 256, dropout = dropout)
-        self.encoder_mu = nn.Sequential(nn.Linear(256, 256))
-        self.encoder_var = nn.Sequential(nn.Linear(256, 256))
+        self.Amemory = Memory_Unit(nums=a_nums, dim=512)
+        self.Nmemory = Memory_Unit(nums=n_nums, dim=512)
+        self.selfatt = Transformer(512, 2, 4, 128, 512, dropout = dropout)
+        self.encoder_mu = nn.Sequential(nn.Linear(512, 512))
+        self.encoder_var = nn.Sequential(nn.Linear(512, 512))
         self.relu = nn.ReLU()
         
     def _reparameterize(self, mu, logvar):

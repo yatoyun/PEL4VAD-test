@@ -5,6 +5,7 @@ import torch.nn as nn
 from layers import *
 
 from DR_DMU.model import WSAD
+from CLIP_TSA.hard_attention import HardAttention
 
 
 class XEncoder(nn.Module):
@@ -13,19 +14,27 @@ class XEncoder(nn.Module):
         self.n_heads = n_heads
         self.win_size = win_size
         self.self_attn = TCA(d_model, hid_dim, hid_dim, n_heads, norm)
-        self.linear1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
-        self.linear2 = nn.Conv1d(d_model // 2, out_dim, kernel_size=1)
+        self.linear1 = nn.Conv1d(d_model * 2, d_model, kernel_size=1)
+        self.linear2 = nn.Conv1d(d_model, out_dim, kernel_size=1)
         self.dropout1 = nn.Dropout(dropout)
         self.dropout2 = nn.Dropout(dropout)
-        self.norm = nn.LayerNorm(d_model)
+        self.norm = nn.LayerNorm(d_model * 2)
         self.loc_adj = DistanceAdj(gamma, bias)
-        self.UR_DMU = WSAD(d_model, a_nums = a_nums, n_nums = n_nums, dropout = dropout)
+        self.UR_DMU = WSAD(d_model * 2, a_nums = a_nums, n_nums = n_nums, dropout = dropout)
+        self.hard_atten = HardAttention(k=0.95, num_samples=100, input_dim=d_model)
+        
+        # self.concat_feat = nn.Linear(d_model * 2, d_model)
 
     def forward(self, x, seq_len):
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
+        
+        x_h = self.hard_atten(x)
 
         x = x + self.self_attn(x, mask, adj)
+        
+        x = torch.cat((x, x_h), -1)
+        
         # self_att = x + self.self_attn(x, mask, adj)
         # x = torch.cat((x, x+self.self_attn(x, mask, adj)), -1)
         
@@ -48,8 +57,8 @@ class XEncoder(nn.Module):
         # x = x + self.self_attn(x, mask, adj)
         
         x = self.norm(x).permute(0, 2, 1)
-        x_e = self.dropout1(F.gelu(self.linear1(x)))
-        x_e = self.dropout2(F.gelu(self.linear2(x_e)))
+        x = self.dropout1(F.gelu(self.linear1(x)))
+        x_e = self.dropout2(F.gelu(self.linear2(x)))
         
         # x_k = dict()
         
