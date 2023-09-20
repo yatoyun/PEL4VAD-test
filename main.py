@@ -117,36 +117,43 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
-    scheduler = CosineLRScheduler(optimizer, t_initial=100, lr_min=1e-6, 
-                                  warmup_t=3, warmup_lr_init=1e-6, warmup_prefix=True)
+    # scheduler = CosineLRScheduler(optimizer, t_initial=100, lr_min=1e-6, 
+    #                               warmup_t=3, warmup_lr_init=1e-6, warmup_prefix=True)
 
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
 
     initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
     logger.info('Load model initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
-    
-    # make new dataset
-    if cfg.generate_pesudo:
-        make_new_label(model, threshold = args.threshold)
+
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
     auc_ab_auc = 0.0
+    
+    optimizer.zero_grad()
     # cfg.max_epoch *= len(train_nloader)
 
     st = time.time()
     print(len(train_nloader), len(train_aloader))
     for epoch in range(cfg.max_epoch):
+        sum_total_loss = 0
         for idx, (n_input, a_input) in enumerate(zip(train_nloader, train_aloader)):
-        
-            loss1, loss2, cost = train_func(n_input, a_input, model, optimizer, criterion, criterion2,  criterion3, logger_wandb, args.lamda, args.alpha)
-            # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
-            # scheduler.step(epoch + 1)
-            # scheduler.step()
+            
+            with torch.set_grad_enabled(True):
+                loss1, loss2, cost, total_loss = train_func(n_input, a_input, model, optimizer, criterion, criterion2,  criterion3, logger_wandb, args.lamda, args.alpha)
+                # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
+                # scheduler.step(epoch + 1)
+                # scheduler.step()
+                sum_total_loss += total_loss
+                if (idx+1) % cfg.train_bs == 0:
+                    sum_total_loss.backward()
+                    optimizer.step()
+                    optimizer.zero_grad()
+                    sum_total_loss = 0
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 50
+            turn_point = 30
             if (epoch >= turn_point and (idx+1) % 1 == 0):
                 auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
                 if auc >= best_auc:
@@ -193,13 +200,13 @@ def main(cfg):
     if args.mode == 'train':
         global logger_wandb
         name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
-        logger_wandb = wandb.init(project=args.dataset, name=name, group="TransferSelf"+args.dataset+args.version+"(UR-DMU-plus)")
+        logger_wandb = wandb.init(project=args.dataset, name=name, group="One-Epoch"+args.dataset+args.version+"(UR-DMU-plus)")
         logger_wandb.config.update(args)
         logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
     if cfg.dataset == 'ucf-crime':
-        train_normal_data = UCFDataset(cfg, test_mode=False, pre_process=True)
-        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True, pesudo_label=True)
+        train_normal_data = UCFDataset(cfg, test_mode=False, )
+        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True)
         # train_data = UCFDataset(cfg, test_mode=False)
         test_data = UCFDataset(cfg, test_mode=True)
         
@@ -214,9 +221,9 @@ def main(cfg):
     
     print(len(train_normal_data), len(train_anomaly_data), len(test_data))
 
-    train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
+    train_nloader = DataLoader(train_normal_data, batch_size=1, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
-    train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
+    train_aloader = DataLoader(train_anomaly_data, batch_size=1, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
     
     # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
@@ -236,7 +243,6 @@ def main(cfg):
     if args.mode == 'train':
         logger.info('Training Mode')
         
-        load_checkpoint(model, cfg.ckpt_pretrain_path, logger)
         train(model, train_nloader, train_aloader, test_loader, gt, logger)
         # train(model, train_loader, test_loader, gt, logger)
 
@@ -261,7 +267,6 @@ if __name__ == '__main__':
     parser.add_argument('--UR_DMU_lr', default=1e-4, type=float, help='learning rate')
     parser.add_argument('--lamda', default=1, type=float, help='lamda')
     parser.add_argument('--alpha', default=1, type=float, help='alpha')
-    parser.add_argument('--threshold', default=0.2, type=float, help='threshold')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)

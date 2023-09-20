@@ -31,6 +31,24 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
 
     v_ninput, t_ninput, nlabel, multi_nlabel = normal_iter #next(normal_iter)
     v_ainput, t_ainput, alabel, multi_alabel = anomaly_iter #next(anomaly_iter)
+    # print(v_ninput.shape, v_ainput.shape, t_ninput.shape, t_ainput.shape, nlabel.shape, alabel.shape, multi_nlabel.shape, multi_alabel.shape)
+    
+    # arrange into anoamly
+    # v_ninput, v_ainput = torch.from_numpy(v_ninput), torch.from_numpy(v_ainput)
+    
+    max_len = 1000
+    if v_ainput.size(1) > max_len:
+        v_ainput = process_feat(v_ainput.squeeze(), max_len)
+        if not isinstance(v_ainput, torch.Tensor):
+            v_ainput = torch.from_numpy(v_ainput)
+        v_ainput = v_ainput.unsqueeze(0)
+
+    v_ninput = process_feat(v_ninput.squeeze(), v_ainput.size(1))
+    if not isinstance(v_ninput, torch.Tensor):
+        v_ninput = torch.from_numpy(v_ninput)
+    v_ninput = v_ninput.unsqueeze(0)
+    
+    # print(v_ninput.shape, v_ainput.shape, t_ninput.shape, t_ainput.shape, nlabel.shape, alabel.shape, multi_nlabel.shape, multi_alabel.shape)
     with torch.set_grad_enabled(True):
         model.train()
         # for i, ((v_ninput, t_ninput, nlabel, multi_nlabel), (v_ainput, t_ainput, alabel, multi_alabel)) \
@@ -49,6 +67,7 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
         t_input = t_input.float().cuda(non_blocking=True)
         label = label.float().cuda(non_blocking=True)
         multi_label = multi_label.cuda(non_blocking=True)
+        
         v_input = interpolate_frames(v_input, seq_len)
 
         logits, x_k, output_MSNSD = model(v_input, seq_len)
@@ -77,12 +96,7 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
         
         logger_wandb.log({"loss": loss.item(), "loss1":loss1.item(), "loss2": loss2.item(), "loss3": UR_loss.item()})
 
-
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-
-    return loss1, loss2, UR_loss
+    return loss1, loss2, UR_loss, loss
 
 class ContrastiveLoss(nn.Module):
     def __init__(self, margin=100.0):

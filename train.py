@@ -26,7 +26,7 @@ def interpolate_frames(x, seq_len):
     return x
 
 # def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, lamda=0):
-def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, lamda=0, alpha=0):
+def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, accum_step, lamda=0, alpha=0):
 # def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
     t_loss = []
     s_loss = []

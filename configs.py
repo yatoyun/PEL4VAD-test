@@ -33,7 +33,7 @@ def build_config(dataset):
         cfg.a_nums = 30
         cfg.n_nums = 30
 
-        cfg.generate_pesudo = True
+        # cfg.generate_pesudo = True
 
     elif dataset in ['xd', 'xd-violence']:
         cfg.dataset = 'xd-violence'
@@ -93,7 +93,7 @@ def build_config(dataset):
     cfg.head_num = 1
     cfg.hid_dim = 128
     cfg.out_dim = 300
-    cfg.lr = 1e-5
+    cfg.lr = 1e-4
     cfg.dropout = 0.1
     cfg.train_bs = 64
     cfg.max_seqlen = 200

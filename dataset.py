@@ -67,8 +67,8 @@ class UCFDataset(data.Dataset):
             # v_feat = np.concatenate((v_feat,mag),axis = 1)
             return v_feat, label  # ano_idx , video_name
         else:
-            if not self.pre_process or self.max_seqlen != 200:
-                v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
+            # if not self.pre_process or self.max_seqlen != 200:
+            #     v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
             # mag = np.linalg.norm(v_feat, axis=1)[:, np.newaxis]
             # v_feat = np.concatenate((v_feat,mag),axis = 1)
             return v_feat, t_feat, label, ano_idx
