@@ -29,17 +29,23 @@ def test_func(dataloader, model, gt, dataset):
         gt_tmp = torch.tensor(gt.copy()).cuda()
         ab_pred = torch.zeros(0).cuda()
 
-        for i, (v_input, label) in enumerate(dataloader):
+        tmp_pred = torch.zeros(0).cuda()
+        for i, (v_input, clip_input, label) in enumerate(dataloader):
             with autocast():
                 v_input = v_input.float().cuda(non_blocking=True)
                 # print(v_input.shape)
                 seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
+                clip_input = clip_input[:, :torch.max(seq_len), :]
+                clip_input = clip_input.float().cuda(non_blocking=True)
 
-                logits, _ = model(v_input, seq_len)
-                logits = torch.mean(logits, 0)
-                pred = torch.cat((pred, logits))
-                if sum(label) == len(label):
-                    ab_pred = torch.cat((ab_pred, logits))
+                logits, _ = model(v_input, clip_input, seq_len)
+                tmp_pred = torch.cat((tmp_pred, logits))
+                if (i+1) % 10 == 0:
+                    tmp_pred = torch.mean(tmp_pred, 0)
+                    pred = torch.cat((pred, tmp_pred))
+                    if sum(label) == len(label):
+                        ab_pred = torch.cat((ab_pred, tmp_pred))
+                    tmp_pred = torch.zeros(0).cuda()
             # labels = gt_tmp[: seq_len[0] * 16]
             # if torch.sum(labels) == 0:
             #     normal_labels = torch.cat((normal_labels, labels))

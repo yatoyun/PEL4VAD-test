@@ -29,8 +29,8 @@ def interpolate_frames(x, seq_len):
 def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion2, criterion3, logger_wandb, lamda=0, alpha=0):
 # def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
 
-    v_ninput, t_ninput, nlabel, multi_nlabel = normal_iter #next(normal_iter)
-    v_ainput, t_ainput, alabel, multi_alabel = anomaly_iter #next(anomaly_iter)
+    v_ninput, clip_ninput, t_ninput, nlabel, multi_nlabel = normal_iter #next(normal_iter)
+    v_ainput, clip_ainput, t_ainput, alabel, multi_alabel = anomaly_iter #next(anomaly_iter)
     with torch.set_grad_enabled(True):
         model.train()
         # for i, ((v_ninput, t_ninput, nlabel, multi_nlabel), (v_ainput, t_ainput, alabel, multi_alabel)) \
@@ -38,6 +38,7 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
         # cat
         v_input = torch.cat((v_ninput, v_ainput), 0)
         t_input = torch.cat((t_ninput, t_ainput), 0)
+        clip_input = torch.cat((clip_ninput, clip_ainput), 0)
         label = torch.cat((nlabel, alabel), 0)
         multi_label = torch.cat((multi_nlabel, multi_alabel), 0)
     # for i, (v_input, t_input, label, multi_label) in enumerate(dataloader):
@@ -46,12 +47,16 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
         seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
         v_input = v_input[:, :torch.max(seq_len), :]
         v_input = v_input.float().cuda(non_blocking=True)
+        clip_input = clip_input[:, :torch.max(seq_len), :]
+        clip_input = clip_input.float().cuda(non_blocking=True)
         t_input = t_input.float().cuda(non_blocking=True)
         label = label.float().cuda(non_blocking=True)
         multi_label = multi_label.cuda(non_blocking=True)
+        
         v_input = interpolate_frames(v_input, seq_len)
+        clip_input = interpolate_frames(clip_input, seq_len)
 
-        logits, x_k, output_MSNSD = model(v_input, seq_len)
+        logits, x_k, output_MSNSD = model(v_input, clip_input, seq_len)
         
         v_feat = x_k["x"]
         x_k["frame"] = logits

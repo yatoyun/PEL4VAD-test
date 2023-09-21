@@ -11,7 +11,7 @@ class UCFDataset(data.Dataset):
             self.list_file = cfg.test_list
         else:
             self.list_file = cfg.train_list
-        
+                    
         self.is_abnormal = is_abnormal
         self.max_seqlen = cfg.max_seqlen
         self.tranform = transform
@@ -23,14 +23,15 @@ class UCFDataset(data.Dataset):
         self.t_features = np.array(np.load(cfg.token_feat))
         self._parse_list()
         self.pre_process = pre_process
+        self.clip_feat_prefix = cfg.clip_feat_prefix
 
     def _parse_list(self):
         self.list = list(open(self.list_file))
         if not self.test_mode:
             if self.is_abnormal:
-                self.list = self.list[:810]
+                self.list = self.list[:8100]
             else:
-                self.list = self.list[810:]
+                self.list = self.list[8100:]
 
     def __getitem__(self, index):
         # video_name = self.list[index].strip('\n').split('/')[-1][:-4]
@@ -43,10 +44,12 @@ class UCFDataset(data.Dataset):
             video_ano = video_idx
             ano_idx = self.abnormal_dict[video_ano]
             label = 0.0
+            video_class_name = video_ano.lower()
         else:
             video_ano = video_idx[:-3]
             ano_idx = self.abnormal_dict[video_ano]
             label = 1.0
+            video_class_name = video_ano
 
         v_feat = np.array(np.load(feat_path), dtype=np.float32)
         fg_feat = np.array(self.t_features[ano_idx, :], dtype=np.float16)
@@ -54,6 +57,15 @@ class UCFDataset(data.Dataset):
         fg_feat = fg_feat.reshape(1, 512)
         bg_feat = bg_feat.reshape(1, 512)
         t_feat = np.concatenate((bg_feat, fg_feat), axis=0)
+        
+        # load clip
+        clip_path_name = self.list[index].strip('\n').split('_x264')[0].replace('/', '/'+video_class_name+'/') + '_x264.npy'
+        clip_path = os.path.join(self.clip_feat_prefix, clip_path_name)
+        if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
+            clip_path = clip_path.replace('train', 'train-200')
+        
+        clip_feat = np.array(np.load(clip_path), dtype=np.float32)
+        
         if self.tranform is not None:
             v_feat = self.tranform(v_feat)
             t_feat = self.tranform(t_feat)
@@ -61,13 +73,13 @@ class UCFDataset(data.Dataset):
         if self.test_mode:
             # mag = np.linalg.norm(v_feat, axis=1)[:, np.newaxis]
             # v_feat = np.concatenate((v_feat,mag),axis = 1)
-            return v_feat, label  # ano_idx , video_name
+            return v_feat, clip_feat, label  # ano_idx , video_name
         else:
             if not self.pre_process or self.max_seqlen != 200:
                 v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
             # mag = np.linalg.norm(v_feat, axis=1)[:, np.newaxis]
             # v_feat = np.concatenate((v_feat,mag),axis = 1)
-            return v_feat, t_feat, label, ano_idx
+            return v_feat, clip_feat, t_feat, label, ano_idx
 
     def __len__(self):
         return len(self.list)

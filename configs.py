@@ -9,7 +9,7 @@ def build_config(dataset):
         cfg.train_list = './list/ucf/train.list'
         cfg.test_list = './list/ucf/test.list'
         cfg.token_feat = './list/ucf/ucf-prompt.npy'
-        cfg.gt = '../CLIP-TSA/list/gt-ucf.npy' #./list/ucf/ucf-gt.npy'
+        cfg.gt =  './list/ucf/ucf-gt.npy'
         # TCA settings
         cfg.win_size = 9
         cfg.gamma = 0.6
@@ -29,12 +29,10 @@ def build_config(dataset):
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         
         # ur dmu
-        cfg.a_nums = 60
-        cfg.n_nums = 60
+        cfg.a_nums = 50
+        cfg.n_nums = 50
 
-        # # bert
-        # cfg.bert = True
-        # cfg.beta = 0.5
+        cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/ucf/features/'
 
     elif dataset in ['xd', 'xd-violence']:
         cfg.dataset = 'xd-violence'
@@ -90,13 +88,13 @@ def build_config(dataset):
         cfg.ckpt_path = './ckpt/SH__98.pkl'
 
     # base settings
-    cfg.feat_dim = 512
+    cfg.feat_dim = 1024
     cfg.head_num = 1
-    cfg.hid_dim = 64
+    cfg.hid_dim = 128
     cfg.out_dim = 300
-    cfg.lr = 3e-4
+    cfg.lr = 1e-4
     cfg.dropout = 0.5
-    cfg.train_bs = 16
+    cfg.train_bs = 64
     cfg.max_seqlen = 200
     cfg.max_epoch = 100
     cfg.workers = 8

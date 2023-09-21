@@ -95,7 +95,6 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             loss1, loss2, cost = train_func(n_input, a_input, model, optimizer, criterion, criterion2,  criterion3, logger_wandb, args.lamda, args.alpha)
             # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
             # scheduler.step(epoch + 1)
-            # scheduler.step()
 
             log_writer.add_scalar('loss', loss1, epoch)
             turn_point = 100
@@ -114,6 +113,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
                 logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
+        # scheduler.step()
         auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
         if auc >= best_auc:
             best_auc = auc
@@ -145,13 +145,13 @@ def main(cfg):
     if args.mode == 'train':
         global logger_wandb
         name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
-        logger_wandb = wandb.init(project=args.dataset+"-clip", name=name, group="epoch-"+args.version+"(clip-pel-ur)")
+        logger_wandb = wandb.init(project=args.dataset+"(clip+i3d)", name=name, group="epoch-"+args.version+"(clip-pel-ur)")
         logger_wandb.config.update(args)
         logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
     if cfg.dataset == 'ucf-crime':
-        train_normal_data = UCFDataset(cfg, test_mode=False)
-        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True)
+        train_normal_data = UCFDataset(cfg, test_mode=False, pre_process=True)
+        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
         # train_data = UCFDataset(cfg, test_mode=False)
         test_data = UCFDataset(cfg, test_mode=True)
         
@@ -179,7 +179,7 @@ def main(cfg):
 
     model = XModel(cfg)
     gt = np.load(cfg.gt)
-    print("sum gt:", sum(gt))
+    print("len gt:{}, sum gt:{}".format(len(gt), sum(gt)))
     device = torch.device("cuda")
     model = model.to(device)
 

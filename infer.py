@@ -14,32 +14,41 @@ def infer_func(model, dataloader, gt, logger, cfg):
         abnormal_labels = torch.zeros(0).cuda()
         abnormal_preds = torch.zeros(0).cuda()
         gt_tmp = torch.tensor(gt.copy()).cuda()
+        
+        tmp_pred = torch.zeros(0).cuda()
 
-        for i, (v_input, name) in enumerate(dataloader):
+        for i, (v_input, clip_input, name) in enumerate(dataloader):
             v_input = v_input.float().cuda(non_blocking=True)
             seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
-            logits, _ = model(v_input, seq_len)
-            logits = torch.mean(logits, 0)
-            logits = logits.squeeze(dim=-1)
+            clip_input = clip_input[:, :torch.max(seq_len), :]
+            clip_input = clip_input.float().cuda(non_blocking=True)
+            logits, _ = model(v_input, clip_input, seq_len)
+            tmp_pred = torch.cat((tmp_pred, logits))
+            if (i+1) % 10 == 0:
+                logits = tmp_pred   
+                logits = torch.mean(logits, 0)
+                logits = logits.squeeze(dim=-1)
 
-            seq = len(logits)
-            if cfg.smooth == 'fixed':
-                logits = fixed_smooth(logits, cfg.kappa)
-            elif cfg.smooth == 'slide':
-                logits = slide_smooth(logits, cfg.kappa)
-            else:
-                pass
-            logits = logits[:seq]
+                seq = len(logits)
+                if cfg.smooth == 'fixed':
+                    logits = fixed_smooth(logits, cfg.kappa)
+                elif cfg.smooth == 'slide':
+                    logits = slide_smooth(logits, cfg.kappa)
+                else:
+                    pass
+                logits = logits[:seq]
 
-            pred = torch.cat((pred, logits))
-            labels = gt_tmp[: seq_len[0]*16]
-            if torch.sum(labels) == 0:
-                normal_labels = torch.cat((normal_labels, labels))
-                normal_preds = torch.cat((normal_preds, logits))
-            else:
-                abnormal_labels = torch.cat((abnormal_labels, labels))
-                abnormal_preds = torch.cat((abnormal_preds, logits))
-            gt_tmp = gt_tmp[seq_len[0]*16:]
+                pred = torch.cat((pred, logits))
+                labels = gt_tmp[: seq_len[0]*16]
+                if torch.sum(labels) == 0:
+                    normal_labels = torch.cat((normal_labels, labels))
+                    normal_preds = torch.cat((normal_preds, logits))
+                else:
+                    abnormal_labels = torch.cat((abnormal_labels, labels))
+                    abnormal_preds = torch.cat((abnormal_preds, logits))
+                gt_tmp = gt_tmp[seq_len[0]*16:]
+                
+                tmp_pred = torch.zeros(0).cuda()
 
         pred = list(pred.cpu().detach().numpy())
         abnormal_preds = list(abnormal_preds.cpu().detach().numpy())

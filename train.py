@@ -33,10 +33,11 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
     u_loss = []
     with torch.set_grad_enabled(True):
         model.train()
-        for i, ((v_ninput, t_ninput, nlabel, multi_nlabel), (v_ainput, t_ainput, alabel, multi_alabel)) \
+        for i, ((v_ninput, clip_ninput, t_ninput, nlabel, multi_nlabel), (v_ainput, clip_ainput, t_ainput, alabel, multi_alabel)) \
                                                     in enumerate(zip(normal_dataloader, anomaly_dataloader)):
             # cat
             v_input = torch.cat((v_ninput, v_ainput), 0)
+            clip_input = torch.cat((clip_ninput, clip_ainput), 0)
             t_input = torch.cat((t_ninput, t_ainput), 0)
             label = torch.cat((nlabel, alabel), 0)
             multi_label = torch.cat((multi_nlabel, multi_alabel), 0)
@@ -46,13 +47,15 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
             v_input = v_input[:, :torch.max(seq_len), :]
             v_input = v_input.float().cuda(non_blocking=True)
+            clip_input = clip_input[:, :torch.max(seq_len), :]
+            clip_input = clip_input.float().cuda(non_blocking=True)
             t_input = t_input.float().cuda(non_blocking=True)
             label = label.float().cuda(non_blocking=True)
             multi_label = multi_label.cuda(non_blocking=True)
             
             v_input = interpolate_frames(v_input, seq_len)
 
-            logits, x_k, output_MSNSD = model(v_input, seq_len)
+            logits, x_k, output_MSNSD = model(v_input, clip_input, seq_len)
             
             v_feat = x_k["x"]
             x_k["frame"] = logits
