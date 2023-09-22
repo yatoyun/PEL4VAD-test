@@ -18,7 +18,7 @@ def cal_false_alarm(gt, preds, threshold=0.5):
     return far
 
 
-def test_func(dataloader, model, gt, dataset):
+def test_func(dataloader, model, gt, dataset, test_bs):
     with torch.no_grad():
         model.eval()
         pred = torch.zeros(0).cuda()
@@ -40,7 +40,7 @@ def test_func(dataloader, model, gt, dataset):
 
                 logits, _ = model(v_input, clip_input, seq_len)
                 tmp_pred = torch.cat((tmp_pred, logits))
-                if (i+1) % 10 == 0:
+                if (i+1) % test_bs == 0:
                     tmp_pred = torch.mean(tmp_pred, 0)
                     pred = torch.cat((pred, tmp_pred))
                     if sum(label) == len(label):

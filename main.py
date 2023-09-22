@@ -79,7 +79,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
 
-    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
     logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
     best_model_wts = copy.deepcopy(model.state_dict())
@@ -99,7 +99,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             log_writer.add_scalar('loss', loss1, epoch)
             turn_point = 100
             if (epoch >= turn_point and (idx+1) % 1 == 0):
-                auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+                auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
                 if auc >= best_auc:
                     best_auc = auc
                     auc_ab_auc = ab_auc
@@ -114,7 +114,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
                 logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
         # scheduler.step()
-        auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+        auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
         if auc >= best_auc:
             best_auc = auc
             auc_ab_auc = ab_auc

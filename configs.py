@@ -38,7 +38,7 @@ def build_config(dataset):
         cfg.dataset = 'xd-violence'
         cfg.model_name = 'xd_'
         cfg.metrics = 'AP'
-        cfg.feat_prefix = './data/pyj/feat/xd-i3d'
+        cfg.feat_prefix = './data/xd-i3d'
         cfg.train_list = './list/xd/train.list'
         cfg.test_list = './list/xd/test.list'
         cfg.token_feat = './list/xd/xd-prompt.npy'
@@ -59,6 +59,7 @@ def build_config(dataset):
         cfg.smooth = 'fixed'  # ['fixed': 8, slide': 3]
         cfg.kappa = 8  # smooth window
         cfg.ckpt_path = './ckpt/xd__8584.pkl'
+        cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/xd/features/'
 
     elif dataset in ['sh', 'SHTech']:
         cfg.dataset = 'shanghaiTech'

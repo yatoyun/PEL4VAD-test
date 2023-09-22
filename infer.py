@@ -24,7 +24,7 @@ def infer_func(model, dataloader, gt, logger, cfg):
             clip_input = clip_input.float().cuda(non_blocking=True)
             logits, _ = model(v_input, clip_input, seq_len)
             tmp_pred = torch.cat((tmp_pred, logits))
-            if (i+1) % 10 == 0:
+            if (i+1) % cfg.test_bs == 0:
                 logits = tmp_pred   
                 logits = torch.mean(logits, 0)
                 logits = logits.squeeze(dim=-1)
