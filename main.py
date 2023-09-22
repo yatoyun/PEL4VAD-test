@@ -85,48 +85,36 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
     auc_ab_auc = 0.0
-    # cfg.max_epoch *= len(train_nloader)
+    cfg.max_epoch *= len(train_nloader)
 
     st = time.time()
+    turn_step = 500
     print(len(train_nloader), len(train_aloader))
     for epoch in range(cfg.max_epoch):
-        for idx, (n_input, a_input) in enumerate(zip(train_nloader, train_aloader)):
+        if (epoch) % len(train_nloader) == 0:
+            n_input = iter(train_nloader)
+
+        if (epoch) % len(train_aloader) == 0:
+            a_input = iter(train_aloader)
+
         
-            loss1, loss2, cost = train_func(n_input, a_input, model, optimizer, criterion, criterion2,  criterion3, logger_wandb, args.lamda, args.alpha)
-            # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
-            # scheduler.step(epoch + 1)
-
-            log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 100
-            if (epoch >= turn_point and (idx+1) % 1 == 0):
-                auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
-                if auc >= best_auc:
-                    best_auc = auc
-                    auc_ab_auc = ab_auc
-                    best_model_wts = copy.deepcopy(model.state_dict())
-                    torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
-                log_writer.add_scalar('AUC', auc, epoch)
-
-                lr = optimizer.param_groups[0]['lr']
-                logger.info('[Epoch:{}/{}, Batch:{}/{}]: loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-                    epoch + 1, cfg.max_epoch, idx, len(train_nloader), loss1, loss2, cost, auc, ab_auc))
-
-                logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
+        loss1, loss2, cost = train_func(n_input, a_input, model, optimizer, criterion, criterion2,  criterion3, logger_wandb, args.lamda, args.alpha)
 
         # scheduler.step()
-        auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
-        if auc >= best_auc:
-            best_auc = auc
-            auc_ab_auc = ab_auc
-            best_model_wts = copy.deepcopy(model.state_dict())
-            torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
-        log_writer.add_scalar('AUC', auc, epoch)
+        if epoch > turn_step and (epoch + 1) % 5 == 0:
+            auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
+            if auc >= best_auc:
+                best_auc = auc
+                auc_ab_auc = ab_auc
+                best_model_wts = copy.deepcopy(model.state_dict())
+                torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
+            log_writer.add_scalar('AUC', auc, epoch)
 
-        lr = optimizer.param_groups[0]['lr']
-        logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-            epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
+            lr = optimizer.param_groups[0]['lr']
+            logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+                epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
 
-        logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
+            logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
 
 
@@ -174,7 +162,7 @@ def main(cfg):
     # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
     #                           num_workers=cfg.workers, pin_memory=True)
 
-    test_loader = DataLoader(test_data, batch_size=cfg.test_bs, shuffle=False,
+    test_loader = DataLoader(test_data, batch_size=1, shuffle=False,
                              num_workers=cfg.workers, pin_memory=True)
 
     model = XModel(cfg)
