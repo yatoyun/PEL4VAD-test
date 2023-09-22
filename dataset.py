@@ -86,7 +86,7 @@ class UCFDataset(data.Dataset):
 
 
 class XDataset(data.Dataset):
-    def __init__(self, cfg, transform=None, test_mode=False):
+    def __init__(self, cfg, transform=None, test_mode=False, pre_process=False):
         self.feat_prefix = cfg.feat_prefix
         if test_mode:
             self.list_file = cfg.test_list
@@ -99,10 +99,16 @@ class XDataset(data.Dataset):
         self.t_features = np.load(cfg.token_feat)
         self.normal_flag = '_label_A'
         self.abnormal_dict = {'A': 0, 'B5': 1, 'B6': 2, 'G': 3, 'B1': 4, 'B4': 5, 'B2': 6}
+        self.pre_process = pre_process
         self._parse_list()
 
     def _parse_list(self):
         self.list = list(open(self.list_file))
+        if not self.test_mode:
+            if self.is_abnormal:
+                self.list = self.list[:1905]
+            else:
+                self.list = self.list[1905:]
 
     def __getitem__(self, index):
         if self.normal_flag in self.list[index]:
@@ -111,20 +117,38 @@ class XDataset(data.Dataset):
             label = 1.0
 
         feat_path = os.path.join(self.feat_prefix, self.list[index].strip('\n'))
+        if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
+            feat_path = feat_path.replace('train', 'train-200')
+        
         v_feat = np.array(np.load(feat_path), dtype=np.float32)
         tokens = self.list[index].strip('\n').split('_label_')[-1].split('__')[0].split('-')
         idx = self.abnormal_dict[tokens[0]]
         fg_feat = self.t_features[idx, :].reshape(1, 512)
         bg_feat = self.t_features[0, :].reshape(1, 512)
         t_feat = np.concatenate((bg_feat, fg_feat), axis=0)
+        
+        # load clip
+        video_name = self.list[index].strip('\n')[:-7]
+        if video_name[-1] == 'A':
+            video_class_name = 'normal'
+        else:
+            video_class_name = 'abnormal'
+            
+        clip_path_name = video_name.replace('/', '/'+video_class_name+'/') + '.npy'
+        clip_path = os.path.join(self.clip_feat_prefix, clip_path_name)
+        if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
+            clip_path = clip_path.replace('train', 'train-200')
+        
+        clip_feat = np.array(np.load(clip_path), dtype=np.float32)
+        
         if self.tranform is not None:
             v_feat = self.tranform(v_feat)
             t_feat = self.tranform(t_feat)
         if self.test_mode:
-            return v_feat, self.list[index]  #, idx
+            return v_feat, clip_feat, self.list[index]  #, idx
         else:
             v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
-            return v_feat, t_feat, label, idx
+            return v_feat, clip_feat, t_feat, label, idx
 
     def __len__(self):
         return len(self.list)
