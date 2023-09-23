@@ -168,7 +168,7 @@ def main(cfg):
 
     train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
-    train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
+    train_aloader = DataLoader(train_anomaly_data, batch_size=1, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
     
     # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,

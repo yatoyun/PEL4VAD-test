@@ -22,7 +22,7 @@ def build_config(dataset):
         cfg.lamda = 0.288#1.0
         cfg.seed = 2023 #9
         # test settings
-        cfg.test_bs = 1
+        cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
         cfg.kappa = 10  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
