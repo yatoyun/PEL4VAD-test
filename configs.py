@@ -20,7 +20,7 @@ def build_config(dataset):
         # training settings
         cfg.temp = 0.09
         cfg.lamda = 0.288#1.0
-        cfg.seed = 2023 #9
+        cfg.seed = 42 #9
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
