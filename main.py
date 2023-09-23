@@ -97,8 +97,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             # scheduler.step(epoch + 1)
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 100
-            if (epoch >= turn_point and (idx+1) % 1 == 0):
+            turn_point = 9
+            if (epoch >= turn_point and (idx+1) % 5 == 0):
                 auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
                 if auc >= best_auc:
                     best_auc = auc
@@ -168,13 +168,13 @@ def main(cfg):
 
     train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
-    train_aloader = DataLoader(train_anomaly_data, batch_size=1, shuffle=True,
+    train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
     
     # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
     #                           num_workers=cfg.workers, pin_memory=True)
 
-    test_loader = DataLoader(test_data, batch_size=cfg.test_bs, shuffle=False,
+    test_loader = DataLoader(test_data, batch_size=1, shuffle=False,
                              num_workers=cfg.workers, pin_memory=True)
 
     model = XModel(cfg)
