@@ -56,8 +56,8 @@ def build_config(dataset):
         cfg.seed = 42
         # test settings
         cfg.test_bs = 5
-        cfg.smooth = 'fixed'  # ['fixed': 8, slide': 3]
-        cfg.kappa = 8  # smooth window
+        cfg.smooth = 'slide'  # ['fixed': 8, slide': 3]
+        cfg.kappa = 2  # smooth window
         cfg.ckpt_path = './ckpt/xd__current.pkl'
         
         cfg.a_nums = 60

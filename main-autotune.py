@@ -63,21 +63,17 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
     criterion3 = AD_Loss()
-    PEL_params = [p for n, p in model.named_parameters() if 'UR_DMU' not in n and '2feat' not in n]
-    UR_DMU_params = [p for n, p in model.named_parameters() if 'UR_DMU' in n]
-    Cat_2feat_params = model.self_attention.cat_2feat.parameters()
-    
-    # optimizer = optim.Adam([
-    # {'params': PEL_params, 'lr': 0.001},
-    # {'params': DR_DMU_params, 'lr': 0.0005, 'weight_decay': 5e-5}
-    # ])
-    
-    # optimizer = optim.Adam([
-    # {'params': PEL_params, 'lr': args.PEL_lr},
-    # {'params': UR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},
-    # {'params': Cat_2feat_params, 'lr': args.lr}
-    # ])
-    optimizer = optim.Adam(model.parameters(), lr=0.0009, weight_decay=5e-5)#lr=cfg.lr)
+    # PEL_params = [p for n, p in model.named_parameters() if 'UR_DMU' or '2feat' not in n]
+    # UR_DMU_params = [p for n, p in model.named_parameters() if 'UR_DMU' in n]
+    # Cat_2feat_params = model.self_attention.cat_2feat.parameters()
+        
+    # # optimizer = optim.Adam([
+    # # {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
+    # # {'params': UR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
+    # # ])
+    # lamda = 0.982#0.492
+    # alpha = 0.432#0.489#0.127
+    optimizer = optim.Adam(model.parameters(), lr=cfg.lr, weight_decay=0.005)#lr=cfg.lr)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=60, eta_min=0)
     # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
@@ -136,7 +132,9 @@ def main(cfg):
         test_data = UCFDataset(cfg, test_mode=True)
         
     elif cfg.dataset == 'xd-violence':
-        train_data = XDataset(cfg, test_mode=False)
+        train_normal_data = XDataset(cfg, test_mode=False, pre_process=True)
+        train_anomaly_data = XDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
+        # train_data = XDataset(cfg, test_mode=False)
         test_data = XDataset(cfg, test_mode=True)
     elif cfg.dataset == 'shanghaiTech':
         train_data = SHDataset(cfg, test_mode=False)
@@ -155,14 +153,14 @@ def main(cfg):
     # print(len(train_normal_data), len(train_anomaly_data), len(test_data))
 
     train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
-                              num_workers=cfg.workers, pin_memory=True)
+                              num_workers=cfg.workers, pin_memory=True, drop_last=True)
     train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
-                              num_workers=cfg.workers, pin_memory=True)
+                              num_workers=cfg.workers, pin_memory=True, drop_last=True)
     
     # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
     #                           num_workers=cfg.workers, pin_memory=True)
 
-    test_loader = DataLoader(test_data, batch_size=cfg.test_bs, shuffle=False,
+    test_loader = DataLoader(test_data, batch_size=1, shuffle=False,
                              num_workers=cfg.workers, pin_memory=True)
 
     model = XModel(cfg)

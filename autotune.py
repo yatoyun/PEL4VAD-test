@@ -14,6 +14,7 @@ def objective(trial):
     possible_values = [i/10 for i in range(1, 10)] + [i/100 for i in range(1, 10)] + [i/1000 for i in range(1, 10)] + [1]
     lamda = trial.suggest_categorical('lamda', possible_values)
     alpha = trial.suggest_categorical('alpha', possible_values)
+    k = trial.suggest_categorical('k', range(10, 25))
     # lr = trial.suggest_float('lr', 1e-4, 1e-3, step=1e-4)
     
     
