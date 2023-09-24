@@ -55,21 +55,27 @@ def test_func(dataloader, model, gt, dataset, test_bs):
             #     abnormal_preds = torch.cat((abnormal_preds, logits))
             # gt_tmp = gt_tmp[seq_len[0] * 16:]
 
+        # ALL
         pred = list(pred.cpu().detach().numpy())
         # n_far = cal_false_alarm(normal_labels, normal_preds)
         fpr, tpr, _ = roc_curve(list(gt), np.repeat(pred, 16))
         roc_auc = auc(fpr, tpr)
-        # pre, rec, _ = precision_recall_curve(list(gt), np.repeat(pred, 16))
-        # pr_auc = auc(rec, pre)
         
+        pre, rec, _ = precision_recall_curve(list(gt), np.repeat(pred, 16))
+        pr_auc = auc(rec, pre)
+        
+        # Anomaly
         ab_pred = list(ab_pred.cpu().detach().numpy())
         fpr, tpr, _ = roc_curve(list(gt)[:len(ab_pred)*16], np.repeat(ab_pred, 16))
         ab_roc_auc = auc(fpr, tpr)
+        
+        pre, rec, _ = precision_recall_curve(list(gt)[:len(ab_pred)*16], np.repeat(ab_pred, 16))
+        ab_pr_auc = auc(rec, pre)
 
         if dataset == 'ucf-crime':
             return roc_auc, ab_roc_auc
-        # elif dataset == 'xd-violence':
-        #     return pr_auc, n_far
+        elif dataset == 'xd-violence':
+            return pr_auc, ab_pr_auc
         # elif dataset == 'shanghaiTech':
         #     return roc_auc, n_far
         # else:

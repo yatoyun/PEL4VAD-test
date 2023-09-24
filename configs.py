@@ -53,12 +53,15 @@ def build_config(dataset):
         # training settings
         cfg.temp = 0.05
         cfg.lamda = 0.5
-        cfg.seed = 4
+        cfg.seed = 42
         # test settings
         cfg.test_bs = 5
         cfg.smooth = 'fixed'  # ['fixed': 8, slide': 3]
         cfg.kappa = 8  # smooth window
-        cfg.ckpt_path = './ckpt/xd__8584.pkl'
+        cfg.ckpt_path = './ckpt/xd__current.pkl'
+        
+        cfg.a_nums = 60
+        cfg.n_nums = 60
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/xd/features/'
 
     elif dataset in ['sh', 'SHTech']:

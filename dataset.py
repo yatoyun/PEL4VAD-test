@@ -86,7 +86,7 @@ class UCFDataset(data.Dataset):
 
 
 class XDataset(data.Dataset):
-    def __init__(self, cfg, transform=None, test_mode=False, pre_process=False):
+    def __init__(self, cfg, transform=None, test_mode=False, is_abnormal=False, pre_process=False):
         self.feat_prefix = cfg.feat_prefix
         if test_mode:
             self.list_file = cfg.test_list
@@ -100,21 +100,25 @@ class XDataset(data.Dataset):
         self.normal_flag = '_label_A'
         self.abnormal_dict = {'A': 0, 'B5': 1, 'B6': 2, 'G': 3, 'B1': 4, 'B4': 5, 'B2': 6}
         self.pre_process = pre_process
+        self.is_abnormal = is_abnormal
+        self.clip_feat_prefix = cfg.clip_feat_prefix
         self._parse_list()
 
     def _parse_list(self):
         self.list = list(open(self.list_file))
         if not self.test_mode:
             if self.is_abnormal:
-                self.list = self.list[:1905]
+                self.list = self.list[:9525]
             else:
-                self.list = self.list[1905:]
+                self.list = self.list[9525:]
 
     def __getitem__(self, index):
         if self.normal_flag in self.list[index]:
             label = 0.0
+            video_class_name = 'normal'
         else:
             label = 1.0
+            video_class_name = 'abnormal'
 
         feat_path = os.path.join(self.feat_prefix, self.list[index].strip('\n'))
         if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
@@ -129,10 +133,6 @@ class XDataset(data.Dataset):
         
         # load clip
         video_name = self.list[index].strip('\n')[:-7]
-        if video_name[-1] == 'A':
-            video_class_name = 'normal'
-        else:
-            video_class_name = 'abnormal'
             
         clip_path_name = video_name.replace('/', '/'+video_class_name+'/') + '.npy'
         clip_path = os.path.join(self.clip_feat_prefix, clip_path_name)
@@ -145,7 +145,7 @@ class XDataset(data.Dataset):
             v_feat = self.tranform(v_feat)
             t_feat = self.tranform(t_feat)
         if self.test_mode:
-            return v_feat, clip_feat, self.list[index]  #, idx
+            return v_feat, clip_feat, label #self.list[index]  #, idx
         else:
             v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
             return v_feat, clip_feat, t_feat, label, idx

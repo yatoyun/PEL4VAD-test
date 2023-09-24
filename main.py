@@ -85,48 +85,41 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0
     auc_ab_auc = 0.0
-    # cfg.max_epoch *= len(train_nloader)
+    cfg.max_epoch *= len(train_nloader)
 
     st = time.time()
     print(len(train_nloader), len(train_aloader))
     for epoch in range(cfg.max_epoch):
-        for idx, (n_input, a_input) in enumerate(zip(train_nloader, train_aloader)):
+        if (epoch) % len(train_nloader) == 0:
+            n_input = iter(train_nloader)
+
+        if (epoch) % len(train_aloader) == 0:
+            a_input = iter(train_aloader)
+
         
-            loss1, loss2, cost = train_func(n_input, a_input, model, optimizer, criterion, criterion2,  criterion3, logger_wandb, args.lamda, args.alpha)
+        loss1, loss2, cost = train_func(n_input, a_input, model, optimizer, criterion, criterion2,  criterion3, logger_wandb, args.lamda, args.alpha)
             # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
             # scheduler.step(epoch + 1)
 
-            log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 9
-            if (epoch >= turn_point and (idx+1) % 5 == 0):
-                auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
-                if auc >= best_auc:
-                    best_auc = auc
-                    auc_ab_auc = ab_auc
-                    best_model_wts = copy.deepcopy(model.state_dict())
-                    torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
-                log_writer.add_scalar('AUC', auc, epoch)
+        log_writer.add_scalar('loss', loss1, epoch)
+        turn_point = 500
+        if (epoch >= turn_point and (epoch+1) % 5 == 0):
 
-                lr = optimizer.param_groups[0]['lr']
-                logger.info('[Epoch:{}/{}, Batch:{}/{}]: loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-                    epoch + 1, cfg.max_epoch, idx, len(train_nloader), loss1, loss2, cost, auc, ab_auc))
-
-                logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
         # scheduler.step()
-        auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
-        if auc >= best_auc:
-            best_auc = auc
-            auc_ab_auc = ab_auc
-            best_model_wts = copy.deepcopy(model.state_dict())
-            torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
-        log_writer.add_scalar('AUC', auc, epoch)
+            auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
+            if auc >= best_auc:
+                best_auc = auc
+                auc_ab_auc = ab_auc
+                best_model_wts = copy.deepcopy(model.state_dict())
+                torch.save(model.state_dict(), cfg.save_dir + cfg.model_name + '_current' + '.pkl')        
+            log_writer.add_scalar('AUC', auc, epoch)
 
-        lr = optimizer.param_groups[0]['lr']
-        logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-            epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
+            lr = optimizer.param_groups[0]['lr']
+            logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+                epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
 
-        logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
+            logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
 
 
@@ -156,7 +149,9 @@ def main(cfg):
         test_data = UCFDataset(cfg, test_mode=True)
         
     elif cfg.dataset == 'xd-violence':
-        train_data = XDataset(cfg, test_mode=False)
+        train_normal_data = XDataset(cfg, test_mode=False, pre_process=True)
+        train_anomaly_data = XDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
+        # train_data = XDataset(cfg, test_mode=False)
         test_data = XDataset(cfg, test_mode=True)
     elif cfg.dataset == 'shanghaiTech':
         train_data = SHDataset(cfg, test_mode=False)
@@ -167,9 +162,9 @@ def main(cfg):
     print(len(train_normal_data), len(train_anomaly_data), len(test_data))
 
     train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
-                              num_workers=cfg.workers, pin_memory=True)
+                              num_workers=cfg.workers, pin_memory=True, drop_last=True)
     train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
-                              num_workers=cfg.workers, pin_memory=True)
+                              num_workers=cfg.workers, pin_memory=True, drop_last=True)
     
     # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
     #                           num_workers=cfg.workers, pin_memory=True)
