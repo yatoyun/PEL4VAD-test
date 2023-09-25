@@ -24,13 +24,15 @@ def build_config(dataset):
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
-        cfg.kappa = 10  # smooth window
+        cfg.kappa = 5  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         
         # ur dmu
         cfg.a_nums = 50
         cfg.n_nums = 50
+        
+        cfg.k = 20
 
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/ucf/features/'
 
@@ -95,9 +97,9 @@ def build_config(dataset):
     cfg.out_dim = 300
     cfg.lr = 1e-4
     cfg.dropout = 0.5
-    cfg.train_bs = 64
+    cfg.train_bs = 32
     cfg.max_seqlen = 200
-    cfg.max_epoch = 30
+    cfg.max_epoch = 15
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'

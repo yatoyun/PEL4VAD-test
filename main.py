@@ -97,7 +97,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             # scheduler.step(epoch + 1)
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 9
+            turn_point = 3
             if (epoch >= turn_point and (idx+1) % 5 == 0):
                 auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
                 if auc >= best_auc:
@@ -213,9 +213,23 @@ if __name__ == '__main__':
     parser.add_argument('--UR_DMU_lr', default=1e-4, type=float, help='learning rate')
     parser.add_argument('--lamda', default=1, type=float, help='lamda')
     parser.add_argument('--alpha', default=1, type=float, help='alpha')
+    parser.add_argument('--t_step', default=9, type=int, help='t_step')
+    parser.add_argument('--k', default=20, type=int, help='k')
+    parser.add_argument('--win_size', default=9, type=int, help='win_size')
+    parser.add_argument('--gamma', default=0.6, type=float, help='gamma')
+    parser.add_argument('--bias', default=0.2, type=float, help='bias')
+    parser.add_argument('--mem_num', default=50, type=int, help='mem_num')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)
+    
+    cfg.k = args.k
+    cfg.t_step = args.t_step
+    cfg.win_size = args.win_size
+    cfg.gamma = args.gamma
+    cfg.bias = args.bias
+    cfg.a_nums = args.mem_num
+    cfg.n_nums = args.mem_num
 
     savepath = './logs/{}_{}_{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs)
     os.makedirs(savepath,exist_ok=True)
