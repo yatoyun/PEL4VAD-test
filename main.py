@@ -97,8 +97,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             # scheduler.step(epoch + 1)
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 3
-            if (epoch >= turn_point and (idx+1) % 5 == 0):
+            turn_point = 1
+            if (epoch >= turn_point and (idx+1) % 10 == 0):
                 auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
                 if auc >= best_auc:
                     best_auc = auc

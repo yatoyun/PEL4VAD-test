@@ -87,7 +87,7 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
         loss.backward()
         optimizer.step()
 
-    return loss1, loss2, UR_loss
+    return loss1.item(), loss2.item(), UR_loss.item()
 
 class ContrastiveLoss(nn.Module):
     def __init__(self, margin=100.0):
