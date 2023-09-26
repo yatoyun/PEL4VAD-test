@@ -8,9 +8,9 @@ import numpy as np
 import math
 
 
-class DistanceAdj(nn.Module):
+class DistanceAdj_PEL(nn.Module):
     def __init__(self, sigma, bias):
-        super(DistanceAdj, self).__init__()
+        super(DistanceAdj_PEL, self).__init__()
         # self.sigma = sigma
         # self.bias = bias
         self.w = nn.Parameter(torch.FloatTensor(1))

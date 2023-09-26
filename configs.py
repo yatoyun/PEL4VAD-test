@@ -104,5 +104,19 @@ def build_config(dataset):
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'
-
+    
+    # for Hyper
+    cfg.model = 'HyboNet'
+    cfg.manifold = 'Lorentz'
+    cfg.c = None
+    cfg.act = 'leaky_relu'
+    cfg.dim = 32
+    cfg.bias = 1
+    cfg.num_layers = 2
+    cfg.use_att = 0
+    cfg.local_agg = 0
+    cfg.feat_dim_hyp = 512
+    cfg.num_classes = 1
+    cfg.device = 'cuda'
+    
     return cfg

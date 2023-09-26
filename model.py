@@ -24,25 +24,26 @@ class XModel(nn.Module):
             dropout=cfg.dropout,
             gamma=cfg.gamma,
             bias=cfg.bias,
-            a_nums=cfg.a_nums,
-            n_nums=cfg.n_nums,
+            cfg=cfg,
             norm=cfg.norm,
         )
-        self.classifier = nn.Conv1d(cfg.out_dim, 1, self.t, padding=0)
+        # self.classifier = nn.Conv1d(cfg.out_dim, 1, self.t, padding=0)
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / cfg.temp))
         self.dropout = nn.Dropout(cfg.dropout)
-        self.apply(weight_init)
+        # self.apply(weight_init)
 
     def forward(self, x, c_x, seq_len):
         x_e, x_v = self.self_attention(x, c_x, seq_len)
-        logits = F.pad(x_e, (self.t - 1, 0))
-        logits = self.classifier(logits)
+        # logits = F.pad(x_e, (self.t - 1, 0))
+        # logits = self.classifier(logits)
 
-        logits = logits.permute(0, 2, 1)
+        # logits = logits.permute(0, 2, 1)
+        logits = x_e
         logits = torch.sigmoid(logits)
         
+        print(logits.shape, x_v.shape)
         if self.training:
-            output = MSNSD(x_v["x"].permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1)
+            output = MSNSD(x_v.permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1)
             return logits, x_v, output
 
         return logits, x_v

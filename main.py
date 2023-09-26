@@ -92,7 +92,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     for epoch in range(cfg.max_epoch):
         for idx, (n_input, a_input) in enumerate(zip(train_nloader, train_aloader)):
         
-            loss1, loss2, cost = train_func(n_input, a_input, model, optimizer, criterion, criterion2,  criterion3, logger_wandb, args.lamda, args.alpha)
+            loss1, loss2 = train_func(n_input, a_input, model, optimizer, criterion, criterion2,  criterion3, logger_wandb, args.lamda, args.alpha)
             # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
             # scheduler.step(epoch + 1)
 
@@ -108,8 +108,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
                 log_writer.add_scalar('AUC', auc, epoch)
 
                 lr = optimizer.param_groups[0]['lr']
-                logger.info('[Epoch:{}/{}, Batch:{}/{}]: loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-                    epoch + 1, cfg.max_epoch, idx, len(train_nloader), loss1, loss2, cost, auc, ab_auc))
+                logger.info('[Epoch:{}/{}, Batch:{}/{}]: loss1:{:.4f} loss2:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+                    epoch + 1, cfg.max_epoch, idx, len(train_nloader), loss1, loss2, auc, ab_auc))
 
                 logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
@@ -123,8 +123,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
         log_writer.add_scalar('AUC', auc, epoch)
 
         lr = optimizer.param_groups[0]['lr']
-        logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} loss3:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
-            epoch + 1, cfg.max_epoch, lr, loss1, loss2, cost, auc, ab_auc))
+        logger.info('[Epoch:{}/{}]: lr:{:.5f} | loss1:{:.4f} loss2:{:.4f} | AUC:{:.4f} Anomaly AUC:{:.4f}'.format(
+            epoch + 1, cfg.max_epoch, lr, loss1, loss2, auc, ab_auc))
 
         logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
@@ -145,7 +145,7 @@ def main(cfg):
     if args.mode == 'train':
         global logger_wandb
         name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
-        logger_wandb = wandb.init(project=args.dataset+"(clip+i3d)", name=name, group="epoch-"+args.version+"(clip-pel-ur)")
+        logger_wandb = wandb.init(project=args.dataset+"(clip+i3d)", name=name, group="epoch-"+args.version+"(clip-pel-hyper)")
         logger_wandb.config.update(args)
         logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
