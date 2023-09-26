@@ -110,12 +110,12 @@ def build_config(dataset):
     cfg.manifold = 'Lorentz'
     cfg.c = None
     cfg.act = 'leaky_relu'
-    cfg.dim = 32
+    cfg.dim = 256
     cfg.bias = 1
     cfg.num_layers = 2
     cfg.use_att = 0
     cfg.local_agg = 0
-    cfg.feat_dim_hyp = 512
+    cfg.feat_dim_hyp = 1024
     cfg.num_classes = 1
     cfg.device = 'cuda'
     

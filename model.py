@@ -34,7 +34,7 @@ class XModel(nn.Module):
 
     def forward(self, x, c_x, seq_len):
         x_e, x_v = self.self_attention(x, c_x, seq_len)
-        x_v = x_v.permute(0, 2, 1)
+        # x_v = x_v.permute(0, 2, 1)
         # logits = F.pad(x_e, (self.t - 1, 0))
         # logits = self.classifier(logits)
 

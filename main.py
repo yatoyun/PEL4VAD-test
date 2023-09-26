@@ -79,8 +79,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
 
-    # initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
-    # logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
+    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
+    logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_auc = 0.0

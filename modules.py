@@ -15,13 +15,14 @@ class XEncoder(nn.Module):
         self.n_heads = n_heads
         self.win_size = win_size
         self.self_attn = TCA(d_model, hid_dim, hid_dim, n_heads, norm)
-        self.linear1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
-        self.linear2 = nn.Conv1d(d_model // 2, out_dim, kernel_size=1)
+        self.linear1 = nn.Conv1d(d_model // 2, d_model // 2, kernel_size=1)
+        # self.linear2 = nn.Conv1d(d_model // 2, out_dim, kernel_size=1)
         self.dropout1 = nn.Dropout(dropout)
         self.dropout2 = nn.Dropout(dropout)
-        self.norm = nn.LayerNorm(d_model)
+        self.norm = nn.LayerNorm(d_model // 2)
         self.loc_adj = DistanceAdj_PEL(gamma, bias)
-        self.hard_atten = HardAttention(k=0.95, num_samples=100, input_dim=d_model//2)
+        # self.hard_atten = HardAttention(k=0.95, num_samples=100, input_dim=d_model//4)
+        # self.hard_atten2 = HardAttention(k=0.95, num_samples=100, input_dim=d_model//4)
         self.conv1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
         self.dropout = nn.Dropout(dropout)
         
@@ -46,7 +47,7 @@ class XEncoder(nn.Module):
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
         
-        x_h = self.hard_atten(c_x)
+        x_h = c_x # self.hard_atten(c_x)
 
         x = x + self.self_attn(x, mask, adj)
         
@@ -57,12 +58,7 @@ class XEncoder(nn.Module):
                 
         x = torch.cat((x, x_h), -1)
         
-        
-        # x = self.norm(x).permute(0, 2, 1)
-        x = x.permute(0, 2, 1)
-        x = self.dropout1(F.gelu(self.linear1(x)))
-        x = x.permute(0, 2, 1)
-        
+        ############# hyper ###########
         disadj = self.disAdj(x.shape[0], x.shape[1], self.args).to(x.device)
         proj_x = self.expm(x)
         if not self.training:
@@ -71,10 +67,19 @@ class XEncoder(nn.Module):
         adj = self.adj(proj_x, seq_len)
 
         x1 = self.relu(self.HFSGCN.encode(proj_x, adj))
+        # x1 = self.hard_atten2(x1)
         x1 = self.dropout(x1)
         x2 = self.relu(self.HTRGCN.encode(proj_x, disadj))
+        # x2 = self.hard_atten2(x2)
         x2 = self.dropout(x2)
-        x_e = torch.cat((x1, x2), 2)
+        x = torch.cat((x1, x2), 2)
+        
+        x = self.norm(x).permute(0, 2, 1)
+        # x = x.permute(0, 2, 1)
+        x = self.dropout1(F.gelu(self.linear1(x)))
+        # x_e = self.dropout2(F.gelu(self.linear2(x)))
+        x_e = x.permute(0, 2, 1)
+        
         x_e = self.HyperCLS(x_e)
         
 
