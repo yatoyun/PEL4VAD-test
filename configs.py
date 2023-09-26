@@ -98,7 +98,7 @@ def build_config(dataset):
     cfg.out_dim = 300
     cfg.lr = 1e-4
     cfg.dropout = 0.5
-    cfg.train_bs = 64
+    cfg.train_bs = 32
     cfg.max_seqlen = 200
     cfg.max_epoch = 30
     cfg.workers = 8
