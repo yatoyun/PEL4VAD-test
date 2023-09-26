@@ -103,8 +103,6 @@ def get_cas(x_v, x_t, logits, labels, scale=10):
     token_feat = torch.zeros(0).cuda()  # tensor([])
     video_labels = torch.zeros(0).cuda()  # tensor([])
     bg_label = torch.tensor([0]).cuda()
-    
-    print(x_v.shape, x_t.shape, logits.shape, labels.shape)
 
     abn_logits = (scale * logits).exp() - 1
     abn_logits = F.normalize(abn_logits, p=1, dim=1)

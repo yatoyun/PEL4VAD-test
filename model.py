@@ -34,6 +34,7 @@ class XModel(nn.Module):
 
     def forward(self, x, c_x, seq_len):
         x_e, x_v = self.self_attention(x, c_x, seq_len)
+        x_v = x_v.permute(0, 2, 1)
         # logits = F.pad(x_e, (self.t - 1, 0))
         # logits = self.classifier(logits)
 
@@ -41,9 +42,9 @@ class XModel(nn.Module):
         logits = x_e
         logits = torch.sigmoid(logits)
         
-        print(logits.shape, x_v.shape)
         if self.training:
-            output = MSNSD(x_v.permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1)
+            output = MSNSD(x_v.permute(0, 2, 1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1)
+            
             return logits, x_v, output
 
         return logits, x_v

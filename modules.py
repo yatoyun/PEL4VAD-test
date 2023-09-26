@@ -58,7 +58,8 @@ class XEncoder(nn.Module):
         x = torch.cat((x, x_h), -1)
         
         
-        x = self.norm(x).permute(0, 2, 1)
+        # x = self.norm(x).permute(0, 2, 1)
+        x = x.permute(0, 2, 1)
         x = self.dropout1(F.gelu(self.linear1(x)))
         x = x.permute(0, 2, 1)
         
