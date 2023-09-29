@@ -42,6 +42,8 @@ class XEncoder(nn.Module):
         x = self.dropout(x)
         x = x.permute(0, 2, 1)
         
+        x = torch.cat((x, x_h), -1)
+        
         # self_att = x + self.self_attn(x, mask, adj)
         # x = torch.cat((x, x+self.self_attn(x, mask, adj)), -1)
         
