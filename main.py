@@ -97,7 +97,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             # scheduler.step(epoch + 1)
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 1
+            turn_point = 100
             if (epoch >= turn_point and (idx+1) % 10 == 0):
                 auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
                 if auc >= best_auc:
@@ -156,7 +156,9 @@ def main(cfg):
         test_data = UCFDataset(cfg, test_mode=True)
         
     elif cfg.dataset == 'xd-violence':
-        train_data = XDataset(cfg, test_mode=False)
+        train_normal_data = XDataset(cfg, test_mode=False, pre_process=True)
+        train_anomaly_data = XDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
+        # train_data = XDataset(cfg, test_mode=False)
         test_data = XDataset(cfg, test_mode=True)
     elif cfg.dataset == 'shanghaiTech':
         train_data = SHDataset(cfg, test_mode=False)
@@ -167,9 +169,9 @@ def main(cfg):
     print(len(train_normal_data), len(train_anomaly_data), len(test_data))
 
     train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
-                              num_workers=cfg.workers, pin_memory=True)
+                              num_workers=cfg.workers, pin_memory=True, drop_last=True)
     train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
-                              num_workers=cfg.workers, pin_memory=True)
+                              num_workers=cfg.workers, pin_memory=True, drop_last=True)
     
     # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
     #                           num_workers=cfg.workers, pin_memory=True)
@@ -212,7 +214,7 @@ if __name__ == '__main__':
     parser.add_argument('--PEL_lr', default=5e-4, type=float, help='learning rate')
     parser.add_argument('--UR_DMU_lr', default=1e-4, type=float, help='learning rate')
     parser.add_argument('--lamda', default=1, type=float, help='lamda')
-    parser.add_argument('--alpha', default=1, type=float, help='alpha')
+    parser.add_argument('--alpha', default=0.5, type=float, help='alpha')
     parser.add_argument('--t_step', default=9, type=int, help='t_step')
     parser.add_argument('--k', default=20, type=int, help='k')
     parser.add_argument('--win_size', default=9, type=int, help='win_size')

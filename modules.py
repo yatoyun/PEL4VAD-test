@@ -14,6 +14,7 @@ class XEncoder(nn.Module):
         self.n_heads = n_heads
         self.win_size = win_size
         self.self_attn = TCA(d_model, hid_dim, hid_dim, n_heads, norm)
+            
         self.linear1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
         self.linear2 = nn.Conv1d(d_model // 2, out_dim, kernel_size=1)
         self.dropout1 = nn.Dropout(dropout)
@@ -24,6 +25,7 @@ class XEncoder(nn.Module):
         self.hard_atten = HardAttention(k=0.95, num_samples=100, input_dim=d_model//2)
         self.conv1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
         self.dropout = nn.Dropout(dropout)
+        self.mode = mode
         assert d_model // 2 == 512
         
         # self.concat_feat = nn.Linear(d_model * 2, d_model)
@@ -40,8 +42,6 @@ class XEncoder(nn.Module):
         x = F.relu(self.conv1(x))
         x = self.dropout(x)
         x = x.permute(0, 2, 1)
-                
-        x = torch.cat((x, x_h), -1)
         
         # self_att = x + self.self_attn(x, mask, adj)
         # x = torch.cat((x, x+self.self_attn(x, mask, adj)), -1)
