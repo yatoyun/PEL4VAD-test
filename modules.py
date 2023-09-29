@@ -25,7 +25,6 @@ class XEncoder(nn.Module):
         self.hard_atten = HardAttention(k=0.95, num_samples=100, input_dim=d_model//2)
         self.conv1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
         self.dropout = nn.Dropout(dropout)
-        self.mode = mode
         assert d_model // 2 == 512
         
         # self.concat_feat = nn.Linear(d_model * 2, d_model)
