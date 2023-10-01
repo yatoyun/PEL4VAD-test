@@ -34,8 +34,8 @@ class PerturbedTopKFunction(torch.autograd.Function):
             k = 1
 
         # k = max(3, k)
-        if not train_mode:
-            k = min(800, k)
+        # if not train_mode:
+        k = min(500, k)
 
         topk_results = torch.topk(perturbed_x, k=k, dim=-1, sorted=False)
         indices = topk_results.indices # b, # of samples , k

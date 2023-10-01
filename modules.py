@@ -24,7 +24,7 @@ class XEncoder(nn.Module):
         self.UR_DMU = WSAD(d_model, a_nums = a_nums, n_nums = n_nums, dropout = dropout)
         self.hard_atten = HardAttention(k=0.95, num_samples=100, input_dim=d_model//2)
         self.conv1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
-        self.dropout = nn.Dropout(dropout)
+        self.dropout = nn.Dropout(0.1)
         assert d_model // 2 == 512
         
         # self.concat_feat = nn.Linear(d_model * 2, d_model)
@@ -36,6 +36,7 @@ class XEncoder(nn.Module):
         x_h = self.hard_atten(c_x)
 
         x = x + self.self_attn(x, mask, adj)
+        x_t = x
         
         x = x.permute(0, 2, 1)
         x = F.relu(self.conv1(x))
@@ -64,6 +65,7 @@ class XEncoder(nn.Module):
         # x = self.cat(torch.cat((x, self_att), -1))
         # x = self.norm(x)
         # x = x + self.self_attn(x, mask, adj)
+        x = x + x_t
         
         x = self.norm(x).permute(0, 2, 1)
         x = self.dropout1(F.gelu(self.linear1(x)))
