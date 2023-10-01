@@ -9,7 +9,7 @@ def build_config(dataset):
         cfg.train_list = './list/ucf/train.list'
         cfg.test_list = './list/ucf/test.list'
         cfg.token_feat = './list/ucf/ucf-prompt.npy'
-        cfg.gt = './list/ucf/ucf-gt.npy'
+        cfg.gt =  './list/ucf/ucf-gt.npy'
         # TCA settings
         cfg.win_size = 9
         cfg.gamma = 0.6
@@ -24,24 +24,24 @@ def build_config(dataset):
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
-        cfg.kappa = 7  # smooth window
+        cfg.kappa = 5  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         cfg.pesudo_label = "../VAE/pesudo_label.pkl"
         
         # ur dmu
-        cfg.a_nums = 30
-        cfg.n_nums = 30
+        cfg.a_nums = 50
+        cfg.n_nums = 50
+        
+        cfg.k = 15
 
-        # # bert
-        # cfg.bert = True
-        # cfg.beta = 0.5
+        cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/ucf/features/'
 
     elif dataset in ['xd', 'xd-violence']:
         cfg.dataset = 'xd-violence'
         cfg.model_name = 'xd_'
         cfg.metrics = 'AP'
-        cfg.feat_prefix = './data/pyj/feat/xd-i3d'
+        cfg.feat_prefix = './data/xd-i3d'
         cfg.train_list = './list/xd/train.list'
         cfg.test_list = './list/xd/test.list'
         cfg.token_feat = './list/xd/xd-prompt.npy'
@@ -56,12 +56,18 @@ def build_config(dataset):
         # training settings
         cfg.temp = 0.05
         cfg.lamda = 0.5
-        cfg.seed = 4
+        cfg.seed = 42
         # test settings
         cfg.test_bs = 5
-        cfg.smooth = 'fixed'  # ['fixed': 8, slide': 3]
-        cfg.kappa = 8  # smooth window
-        cfg.ckpt_path = './ckpt/xd__8584.pkl'
+        cfg.smooth = 'slide'  # ['fixed': 8, slide': 3]
+        cfg.kappa = 3  # smooth window
+        cfg.ckpt_path = './ckpt/xd__current.pkl'
+        
+        # ur dmu
+        cfg.a_nums = 50
+        cfg.n_nums = 50
+        cfg.k = 10
+        cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/xd/features/'
 
     elif dataset in ['sh', 'SHTech']:
         cfg.dataset = 'shanghaiTech'
@@ -96,10 +102,10 @@ def build_config(dataset):
     cfg.hid_dim = 128
     cfg.out_dim = 300
     cfg.lr = 1e-4
-    cfg.dropout = 0.1
-    cfg.train_bs = 64
+    cfg.dropout = 0.5
+    cfg.train_bs = 32
     cfg.max_seqlen = 200
-    cfg.max_epoch = 50
+    cfg.max_epoch = 15
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'

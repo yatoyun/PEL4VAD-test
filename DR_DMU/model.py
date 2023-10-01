@@ -45,9 +45,6 @@ class WSAD(Module):
         self.encoder_var = nn.Sequential(nn.Linear(512, 512))
         self.relu = nn.ReLU()
         
-        # self.embedding2 = Temporal(2048,1024)
-        # self.selfatt2 = Transformer(1024, 2, 4, 128, 1024, dropout = 0.1)
-                
     def _reparameterize(self, mu, logvar):
         std = torch.exp(logvar).sqrt()
         epsilon = torch.randn_like(std)

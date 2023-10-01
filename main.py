@@ -11,14 +11,14 @@ from log import get_logger
 from model import XModel
 from dataset import *
 
-from train import train_func
+from train_epoch import train_func
 from test import test_func
 from infer import infer_func
 import argparse
 import copy
 
 from DR_DMU.loss import AD_Loss
-# from pytorch_lamb import Lamb
+from pytorch_lamb import Lamb
 from timm.scheduler import CosineLRScheduler
 
 # tune
@@ -145,18 +145,19 @@ def train(model, all_train_normal_data, all_train_anomaly_data, test_loader, gt,
         criterion = torch.nn.BCELoss()
         criterion2 = torch.nn.KLDivLoss(reduction='batchmean')
         criterion3 = AD_Loss()
-        # PEL_params = [p for n, p in model.named_parameters() if 'DR_DMU' not in n]
-        # DR_DMU_params = model.self_attention.DR_DMU.parameters()
-        
-        # optimizer = optim.Adam([
-        # {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
-        # {'params': DR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
-        # ])
+        # PEL_params = [p for n, p in model.named_parameters() if 'UR_DMU' or '2feat' not in n]
+        # UR_DMU_params = [p for n, p in model.named_parameters() if 'UR_DMU' in n]
+        # Cat_2feat_params = model.self_attention.cat_2feat.parameters()
+            
+        # # optimizer = optim.Adam([
+        # # {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
+        # # {'params': UR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
+        # # ])
         # lamda = 0.982#0.492
         # alpha = 0.432#0.489#0.127
-        #lr=cfg.lr)
+        optimizer = optim.Adam(model.parameters(), lr=cfg.lr, weight_decay=0.005)#lr=cfg.lr)
         # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
-        # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
+        scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
         # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
         #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
 
@@ -216,7 +217,7 @@ def main(cfg):
     if args.mode == 'train':
         global logger_wandb
         name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
-        logger_wandb = wandb.init(project=args.dataset, name=name, group=args.dataset+"MS"+args.version+"(UR-DMU-plus)")
+        logger_wandb = wandb.init(project=args.dataset+"(clip+i3d)", name=name, group="MS"+args.version+"(clip-pel-ur)")
         logger_wandb.config.update(args)
         logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
@@ -227,7 +228,9 @@ def main(cfg):
         test_data = UCFDataset(cfg, test_mode=True)
         
     elif cfg.dataset == 'xd-violence':
-        train_data = XDataset(cfg, test_mode=False)
+        train_normal_data = XDataset(cfg, test_mode=False, pre_process=True)
+        train_anomaly_data = XDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
+        # train_data = XDataset(cfg, test_mode=False)
         test_data = XDataset(cfg, test_mode=True)
     elif cfg.dataset == 'shanghaiTech':
         train_data = SHDataset(cfg, test_mode=False)
@@ -245,6 +248,7 @@ def main(cfg):
 
     model = XModel(cfg)
     gt = np.load(cfg.gt)
+    print("len gt:{}, sum gt:{}".format(len(gt), sum(gt)))
     device = torch.device("cuda")
     model = model.to(device)
 
@@ -277,10 +281,24 @@ if __name__ == '__main__':
     parser.add_argument('--PEL_lr', default=5e-4, type=float, help='learning rate')
     parser.add_argument('--UR_DMU_lr', default=1e-4, type=float, help='learning rate')
     parser.add_argument('--lamda', default=1, type=float, help='lamda')
-    parser.add_argument('--alpha', default=1, type=float, help='alpha')
+    parser.add_argument('--alpha', default=0.5, type=float, help='alpha')
+    parser.add_argument('--t_step', default=9, type=int, help='t_step')
+    parser.add_argument('--k', default=20, type=int, help='k')
+    parser.add_argument('--win_size', default=9, type=int, help='win_size')
+    parser.add_argument('--gamma', default=0.6, type=float, help='gamma')
+    parser.add_argument('--bias', default=0.2, type=float, help='bias')
+    parser.add_argument('--mem_num', default=50, type=int, help='mem_num')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)
+    
+    cfg.k = args.k
+    cfg.t_step = args.t_step
+    cfg.win_size = args.win_size
+    cfg.gamma = args.gamma
+    cfg.bias = args.bias
+    cfg.a_nums = args.mem_num
+    cfg.n_nums = args.mem_num
 
     savepath = './logs/{}_{}_{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs)
     os.makedirs(savepath,exist_ok=True)
@@ -288,3 +306,6 @@ if __name__ == '__main__':
             
 
     main(cfg)
+
+#0.8592009087263632 and parameters: {'pel_lr': 0.0007000000000000001, 'ur_lr': 0.001}.
+#0.8584976052870801 and parameters: {'pel_lr': 0.0008, 'ur_lr': 0.0007000000000000001}

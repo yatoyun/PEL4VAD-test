@@ -15,6 +15,7 @@ class XModel(nn.Module):
     def __init__(self, cfg):
         super(XModel, self).__init__()
         self.t = cfg.t_step
+        self.k = cfg.k
         self.self_attention = XEncoder(
             d_model=cfg.feat_dim,
             hid_dim=cfg.hid_dim,
@@ -33,8 +34,8 @@ class XModel(nn.Module):
         self.dropout = nn.Dropout(cfg.dropout)
         self.apply(weight_init)
 
-    def forward(self, x, seq_len):
-        x_e, x_v = self.self_attention(x, seq_len)
+    def forward(self, x, c_x, seq_len):
+        x_e, x_v = self.self_attention(x, c_x, seq_len)
         logits = F.pad(x_e, (self.t - 1, 0))
         logits = self.classifier(logits)
 
@@ -42,12 +43,12 @@ class XModel(nn.Module):
         logits = torch.sigmoid(logits)
         
         if self.training:
-            output = MSNSD(x_v["x"].permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1)
+            output = MSNSD(x_v["x"].permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1, k=self.k)
             return logits, x_v, output
 
         return logits, x_v
 
-def MSNSD(features,scores,bs,batch_size,drop_out,ncrops,k=3):
+def MSNSD(features,scores,bs,batch_size,drop_out,ncrops,k=20):
     #magnitude selection and score prediction
     features = features  # (B*10crop,32,1024)
     bc, t, f = features.size()
