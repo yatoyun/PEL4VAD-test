@@ -1,6 +1,7 @@
 import torch
 from loss import *
 from utils import *
+import gc
 
 def interpolate_frames(x, seq_len):
     bs, max_len, _ = x.size()
@@ -25,8 +26,13 @@ def interpolate_frames(x, seq_len):
 
     return x
 
+def check_gpu_memory():
+    allocated = torch.cuda.memory_allocated() / 1e9  # GB単位
+    cached = torch.cuda.memory_reserved() / 1e9  # GB単位
+    print(f"Memory Allocated: {allocated} GB, Memory Cached: {cached} GB")
+
 # def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, lamda=0):
-def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, lamda=0, alpha=0):
+def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, logger_wandb, bce_flag, lamda=0, alpha=0):
 # def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
     t_loss = []
     s_loss = []
@@ -43,7 +49,6 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             multi_label = torch.cat((multi_nlabel, multi_alabel), 0)
         # for i, (v_input, t_input, label, multi_label) in enumerate(dataloader):
             
-            
             seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
             v_input = v_input[:, :torch.max(seq_len), :]
             v_input = v_input.float().cuda(non_blocking=True)
@@ -54,7 +59,10 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             multi_label = multi_label.cuda(non_blocking=True)
             
             v_input = interpolate_frames(v_input, seq_len)
-
+            clip_input = interpolate_frames(clip_input, seq_len)
+            
+            gc.collect()
+            torch.cuda.empty_cache()
             logits, x_k, output_MSNSD = model(v_input, clip_input, seq_len)
             
             v_feat = x_k["x"]
@@ -79,20 +87,32 @@ def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterio
             mg_loss = loss_criterion(output_MSNSD, nlabel, alabel)
             loss1 = loss1 + mg_loss
             
-            loss = lamda * loss2 + alpha * UR_loss + loss1
+            bce_loss = bce_criterion(logits, label, seq_len)
             
-            logger_wandb.log({"loss": loss.item(), "loss1":loss1.item(), "loss2": loss2.item(), "loss3": UR_loss.item()})
+            loss = (1 - bce_flag) * (lamda * loss2 + alpha * UR_loss) + (1 + bce_flag * 3) * loss1
+            
+            logger_wandb.log({"loss": loss.item(), "bce loss":bce_loss.item(), "loss1":loss1.item(), "loss2": loss2.item(), "loss3": UR_loss.item()})
 
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
 
-            t_loss.append(loss1)
-            s_loss.append(loss2)
-            u_loss.append(UR_loss)
+            t_loss.append(loss1.item())
+            s_loss.append(loss2.item())
+            u_loss.append(UR_loss.item())
 
     return sum(t_loss) / len(t_loss), sum(s_loss) / len(s_loss), sum(u_loss) / len(u_loss)
 
+
+def bce_criterion(logits, labels, seq_len):
+    loss = torch.nn.BCELoss()
+    
+    logits = logits.squeeze()
+    total_loss = torch.tensor(0).float().cuda()
+    for i in range(logits.shape[0]):
+        total_loss += loss(logits[i][:seq_len[i]], labels[i]*torch.ones(seq_len[i]).cuda())
+    
+    return total_loss / logits.shape[0]
 
 class ContrastiveLoss(nn.Module):
     def __init__(self, margin=100.0):

@@ -66,7 +66,10 @@ class UCFDataset(data.Dataset):
         clip_path_name = self.list[index].strip('\n').split('_x264')[0].replace('/', '/'+video_class_name+'/') + '_x264.npy'
         clip_path = os.path.join(self.clip_feat_prefix, clip_path_name)
         if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
-            clip_path = clip_path.replace('train', 'train-200')
+            if self.pesudo_label:
+                clip_path = clip_path.replace('train', 'train-pesudo')
+            else:
+                clip_path = clip_path.replace('train', 'train-200')
         
         clip_feat = np.array(np.load(clip_path), dtype=np.float32)
         

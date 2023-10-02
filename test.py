@@ -38,7 +38,7 @@ def test_func(dataloader, model, gt, dataset):
             clip_input = clip_input[:, :torch.max(seq_len), :]
             clip_input = clip_input.float().cuda(non_blocking=True)
 
-            if max(seq_len) < 800:
+            if max(seq_len) < 500:
                 logits, _ = model(v_input, clip_input, seq_len)
                 
                 logits = torch.mean(logits, 0)

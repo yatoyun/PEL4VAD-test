@@ -33,7 +33,11 @@ class XEncoder(nn.Module):
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
         
-        x_h = self.hard_atten(c_x)
+        x_h = torch.zeros(0).cuda()
+        for x_split in c_x:
+            x_split = x_split.unsqueeze(0)
+            tmp = self.hard_atten(x_split)
+            x_h = torch.cat((x_h, tmp), 0)
 
         x = x + self.self_attn(x, mask, adj)
         x_t = x
