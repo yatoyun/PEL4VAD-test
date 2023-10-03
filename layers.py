@@ -70,3 +70,96 @@ class TCA(nn.Module):
             tmp = F.normalize(tmp)  # l2 norm
         tmp = self.o(tmp).view(-1, x.shape[1], x.shape[2])
         return tmp
+
+
+class Pdropout(nn.Module):
+    """"
+    reference:
+    https://github.com/ChongQingNoSubway/PDL
+    """
+    def __init__(self,p=0):
+        super(Pdropout,self).__init__()
+        if not(0 <= p <= 1):
+            raise ValueError("Drop rate must be in range [0,1]")
+        self.p = p 
+        #self.embedding = NLBlockND(in_channels=ic,dimension=1,bn_layer=True)
+        #self.embedding = NONLocalBlock1D(in_channels=1,bn_layer=False)
+    def forward(self,input):
+        if not self.training:
+            return input
+        else:
+            b, n, f = input.shape
+            input = input.view(-1,f)
+            importances = torch.mean(input,dim=1,keepdim=True)
+            importances = torch.sigmoid(importances)
+            #print(importances)
+            mask = self.generate_mask(importances,input)
+            
+            #print(mask)
+            input = input*mask
+            
+            input = input.view(b,n,f)
+            return input
+        
+    def generate_mask(self,importance,input):
+        n,f = input.shape
+        #print(self.p)
+        #interpolation = torch.linspace(0,self.p,steps=n).view(-1,1).to(input.device)
+        interpolation = self.non_linear_interpolation(self.p,0,n).to(input.device)
+        #print(interpolation)
+        mask = torch.zeros_like(importance)
+        mask = mask.to(input.device)
+        _, indx = torch.sort(importance,dim=0)
+        #print(indx)
+        idx = indx.view(-1)
+        # Ensure the shapes match before the index_add_ operation
+        interpolation = interpolation.view(-1, 1)  # Adjust shape to match mask's
+        mask.index_add_(0, idx, interpolation)
+        #print(mask)
+        
+        #mask 
+        sampler = torch.rand(mask.shape[0],mask.shape[1]).to(input.device)
+        #sampler = torch.rand_like(mask.shape[0],mask.shape[1])
+        #mask = torch.bernoulli(mask)
+        mask = (sampler < mask).float()
+        mask = 1 - mask
+        return mask
+    
+    def non_linear_interpolation(self,max,min,num):
+        e_base = 20
+        log_e = 1.5
+        res = (max - min)/log_e* np.log10((np.linspace(0, np.power(10,(log_e)) - 1, num)+ 1)) + min
+        #res = (max-min)/e_base *(np.power(10,(np.linspace(0, np.log10(e_base+1), num))) - 1) + min
+        #res = (max - min)*(0.5*(1-np.cos(np.linspace(0, math.pi, num)))) + min
+        res = torch.from_numpy(res).float()
+        return res
+    
+class InstanceLevelDropout(nn.Module):
+    def __init__(self, dropout_prob):
+        super(InstanceLevelDropout, self).__init__()
+        self.dropout_prob = dropout_prob
+
+    def forward(self, x):
+        """
+        Forward pass for instance-level dropout.
+
+        Parameters:
+            x (Tensor): Input tensor of shape (batch_size, frames, features).
+
+        Returns:
+            Tensor: Output tensor after instance-level dropout.
+        """
+        if self.training:
+            # Create a binary mask with shape (batch_size, frames)
+            mask = torch.rand(x.size(0), x.size(1)) < (1 - self.dropout_prob)
+
+            # Move mask to the same device as the input tensor
+            mask = mask.to(x.device).float()
+
+            # Expand mask to have the same shape as x
+            mask = mask.unsqueeze(-1).expand_as(x)
+
+            # Apply mask
+            x = x * mask
+
+        return x
