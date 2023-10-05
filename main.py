@@ -79,7 +79,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     logger.info('Model:{}\n'.format(model))
     logger.info('Optimizer:{}\n'.format(optimizer))
 
-    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+    initial_auc, initial_ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
     logger.info('Random initialize AUC{}:{:.4f} Anomaly AUC:{:.5f}'.format(cfg.metrics, initial_auc, initial_ab_auc))
 
     best_model_wts = copy.deepcopy(model.state_dict())
@@ -98,9 +98,9 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             # scheduler.step()
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 100
-            if (epoch >= turn_point and (idx+1) % 1 == 0):
-                auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+            turn_point = 1
+            if (epoch >= turn_point and (idx+1) % 10 == 0):
+                auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
                 if auc >= best_auc:
                     best_auc = auc
                     auc_ab_auc = ab_auc
@@ -114,7 +114,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
 
                 logger_wandb.log({"AUC": auc, "Anomaly AUC": ab_auc})
 
-        auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset)
+        # scheduler.step()
+        auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
         if auc >= best_auc:
             best_auc = auc
             auc_ab_auc = ab_auc
@@ -145,18 +146,20 @@ def main(cfg):
     if args.mode == 'train':
         global logger_wandb
         name = '{}_{}_{}_{}_Mem{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs, cfg.a_nums, cfg.n_nums)
-        logger_wandb = wandb.init(project=args.dataset+"-clip", name=name, group="epoch-"+args.version+"(clip-pel-ur)")
+        logger_wandb = wandb.init(project=args.dataset+"(clip)", name=name, group="epoch-"+args.version+"(clip-pel-ur)")
         logger_wandb.config.update(args)
         logger_wandb.config.update(cfg.__dict__, allow_val_change=True)
 
     if cfg.dataset == 'ucf-crime':
-        train_normal_data = UCFDataset(cfg, test_mode=False)
-        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True)
+        train_normal_data = UCFDataset(cfg, test_mode=False, pre_process=True)
+        train_anomaly_data = UCFDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
         # train_data = UCFDataset(cfg, test_mode=False)
         test_data = UCFDataset(cfg, test_mode=True)
         
     elif cfg.dataset == 'xd-violence':
-        train_data = XDataset(cfg, test_mode=False)
+        train_normal_data = XDataset(cfg, test_mode=False, pre_process=True)
+        train_anomaly_data = XDataset(cfg, test_mode=False, is_abnormal=True, pre_process=True)
+        # train_data = XDataset(cfg, test_mode=False)
         test_data = XDataset(cfg, test_mode=True)
     elif cfg.dataset == 'shanghaiTech':
         train_data = SHDataset(cfg, test_mode=False)
@@ -167,9 +170,9 @@ def main(cfg):
     print(len(train_normal_data), len(train_anomaly_data), len(test_data))
 
     train_nloader = DataLoader(train_normal_data, batch_size=cfg.train_bs, shuffle=True,
-                              num_workers=cfg.workers, pin_memory=True)
+                              num_workers=cfg.workers, pin_memory=True, drop_last=True)
     train_aloader = DataLoader(train_anomaly_data, batch_size=cfg.train_bs, shuffle=True,
-                              num_workers=cfg.workers, pin_memory=True)
+                              num_workers=cfg.workers, pin_memory=True, drop_last=True)
     
     # train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
     #                           num_workers=cfg.workers, pin_memory=True)
@@ -179,7 +182,7 @@ def main(cfg):
 
     model = XModel(cfg)
     gt = np.load(cfg.gt)
-    print("sum gt:", sum(gt))
+    print("len gt:{}, sum gt:{}".format(len(gt), sum(gt)))
     device = torch.device("cuda")
     model = model.to(device)
 
@@ -212,7 +215,7 @@ if __name__ == '__main__':
     parser.add_argument('--PEL_lr', default=5e-4, type=float, help='learning rate')
     parser.add_argument('--UR_DMU_lr', default=1e-4, type=float, help='learning rate')
     parser.add_argument('--lamda', default=1, type=float, help='lamda')
-    parser.add_argument('--alpha', default=1, type=float, help='alpha')
+    parser.add_argument('--alpha', default=0.5, type=float, help='alpha')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)

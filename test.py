@@ -18,7 +18,7 @@ def cal_false_alarm(gt, preds, threshold=0.5):
     return far
 
 
-def test_func(dataloader, model, gt, dataset):
+def test_func(dataloader, model, gt, dataset, test_bs):
     with torch.no_grad():
         model.eval()
         pred = torch.zeros(0).cuda()
@@ -29,17 +29,21 @@ def test_func(dataloader, model, gt, dataset):
         gt_tmp = torch.tensor(gt.copy()).cuda()
         ab_pred = torch.zeros(0).cuda()
 
+        tmp_pred = torch.zeros(0).cuda()
         for i, (v_input, label) in enumerate(dataloader):
-            with autocast():
-                v_input = v_input.float().cuda(non_blocking=True)
-                # print(v_input.shape)
-                seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
+            # with autocast():
+            v_input = v_input.float().cuda(non_blocking=True)
+            # print(v_input.shape)
+            seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
 
-                logits, _ = model(v_input, seq_len)
-                logits = torch.mean(logits, 0)
-                pred = torch.cat((pred, logits))
-                if sum(label) == len(label):
-                    ab_pred = torch.cat((ab_pred, logits))
+            logits, _ = model(v_input, seq_len)
+            
+            logits = torch.mean(logits, 0)
+            logits = logits.squeeze(dim=-1)
+            pred = torch.cat((pred, logits))
+            if sum(label) == len(label):
+                ab_pred = torch.cat((ab_pred, logits))
+            
             # labels = gt_tmp[: seq_len[0] * 16]
             # if torch.sum(labels) == 0:
             #     normal_labels = torch.cat((normal_labels, labels))
@@ -53,8 +57,8 @@ def test_func(dataloader, model, gt, dataset):
         # n_far = cal_false_alarm(normal_labels, normal_preds)
         fpr, tpr, _ = roc_curve(list(gt), np.repeat(pred, 16))
         roc_auc = auc(fpr, tpr)
-        # pre, rec, _ = precision_recall_curve(list(gt), np.repeat(pred, 16))
-        # pr_auc = auc(rec, pre)
+        pre, rec, _ = precision_recall_curve(list(gt), np.repeat(pred, 16))
+        pr_auc = auc(rec, pre)
         
         ab_pred = list(ab_pred.cpu().detach().numpy())
         fpr, tpr, _ = roc_curve(list(gt)[:len(ab_pred)*16], np.repeat(ab_pred, 16))
@@ -62,8 +66,8 @@ def test_func(dataloader, model, gt, dataset):
 
         if dataset == 'ucf-crime':
             return roc_auc, ab_roc_auc
-        # elif dataset == 'xd-violence':
-        #     return pr_auc, n_far
+        elif dataset == 'xd-violence':
+            return pr_auc, roc_auc
         # elif dataset == 'shanghaiTech':
         #     return roc_auc, n_far
         # else:

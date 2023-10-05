@@ -31,6 +31,8 @@ def build_config(dataset):
         # ur dmu
         cfg.a_nums = 60
         cfg.n_nums = 60
+        
+        cfg.k = 15
 
         # # bert
         # cfg.bert = True
@@ -40,11 +42,11 @@ def build_config(dataset):
         cfg.dataset = 'xd-violence'
         cfg.model_name = 'xd_'
         cfg.metrics = 'AP'
-        cfg.feat_prefix = './data/pyj/feat/xd-i3d'
+        cfg.feat_prefix = './data/xd-i3d'
         cfg.train_list = './list/xd/train.list'
         cfg.test_list = './list/xd/test.list'
         cfg.token_feat = './list/xd/xd-prompt.npy'
-        cfg.gt = './list/xd/xd-gt.npy'
+        cfg.gt = '../CLIP-TSA/list/gt-xd.npy'
         # TCA settings
         cfg.win_size = 9
         cfg.gamma = 0.06
@@ -57,10 +59,14 @@ def build_config(dataset):
         cfg.lamda = 0.5
         cfg.seed = 4
         # test settings
-        cfg.test_bs = 5
+        cfg.test_bs = 1
         cfg.smooth = 'fixed'  # ['fixed': 8, slide': 3]
         cfg.kappa = 8  # smooth window
         cfg.ckpt_path = './ckpt/xd__8584.pkl'
+        cfg.a_nums = 50
+        cfg.n_nums = 50
+        
+        cfg.k = 15
 
     elif dataset in ['sh', 'SHTech']:
         cfg.dataset = 'shanghaiTech'

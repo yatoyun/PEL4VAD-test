@@ -32,6 +32,7 @@ class XModel(nn.Module):
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / cfg.temp))
         self.dropout = nn.Dropout(cfg.dropout)
         self.apply(weight_init)
+        self.k = cfg.k
 
     def forward(self, x, seq_len):
         x_e, x_v = self.self_attention(x, seq_len)
@@ -42,7 +43,7 @@ class XModel(nn.Module):
         logits = torch.sigmoid(logits)
         
         if self.training:
-            output = MSNSD(x_v["x"].permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1)
+            output = MSNSD(x_v["x"].permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1, k=self.k)
             return logits, x_v, output
 
         return logits, x_v
