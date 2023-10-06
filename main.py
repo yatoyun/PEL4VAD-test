@@ -93,12 +93,23 @@ def main(cfg):
     logger = get_logger(cfg.logs_dir)
     setup_seed(cfg.seed)
     logger.info('Config:{}'.format(cfg.__dict__))
+    
 
-    train_data = UCFDataset(cfg, test_mode=False, pre_process=True)
+    if cfg.dataset == 'ucf-crime':
+        train_data = UCFDataset(cfg, test_mode=False)
+        test_data = UCFDataset(cfg, test_mode=True)
+    elif cfg.dataset == 'xd-violence':
+        train_data = XDataset(cfg, test_mode=False)
+        test_data = XDataset(cfg, test_mode=True)
+    elif cfg.dataset == 'shanghaiTech':
+        train_data = SHDataset(cfg, test_mode=False)
+        test_data = SHDataset(cfg, test_mode=True)
+    else:
+        raise RuntimeError("Do not support this dataset!")
+
     train_loader = DataLoader(train_data, batch_size=cfg.train_bs, shuffle=True,
                               num_workers=cfg.workers, pin_memory=True)
 
-    test_data = UCFDataset(cfg, test_mode=True)
     test_loader = DataLoader(test_data, batch_size=cfg.test_bs, shuffle=False,
                              num_workers=cfg.workers, pin_memory=True)
 

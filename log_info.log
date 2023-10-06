@@ -13151,3 +13151,429 @@ Parameter Group 0
 )
 
 [2023-08-23 11:46:29,722][main.py][line:60][INFO] Random initialize AUCAUC:0.5444 Anomaly AUC:0.53443
+[2023-10-06 02:12:50,118][main.py][line:95][INFO] Config:{'dataset': 'ucf-crime', 'model_name': 'ucf_', 'metrics': 'AUC', 'feat_prefix': './data/ucf-i3d', 'train_list': './list/ucf/train.list', 'test_list': './list/ucf/test.list', 'token_feat': './list/ucf/ucf-prompt.npy', 'gt': './list/ucf/ucf-gt.npy', 'win_size': 9, 'gamma': 0.6, 'bias': 0.2, 'norm': True, 't_step': 9, 'temp': 0.09, 'lamda': 1.0, 'seed': 9, 'test_bs': 10, 'smooth': 'slide', 'kappa': 7, 'ckpt_path': './ckpt/ucf__8636.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-10-06 02:12:50,210][main.py][line:111][INFO] total params:1.2091M
+[2023-10-06 02:12:50,210][main.py][line:114][INFO] Training Mode
+[2023-10-06 02:12:50,210][main.py][line:55][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(9,), stride=(1,))
+)
+
+[2023-10-06 02:12:50,210][main.py][line:56][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-10-06 02:12:55,606][main.py][line:59][INFO] Random initialize AUCAUC:0.5444 Anomaly AUC:0.53443
+[2023-10-06 02:13:46,597][main.py][line:81][INFO] [Epoch:1/50]: loss1:0.3876 loss2:1.1033 | AUC:0.8392 Anomaly AUC:0.6487
+[2023-10-06 02:14:37,780][main.py][line:81][INFO] [Epoch:2/50]: loss1:0.1549 loss2:0.8760 | AUC:0.8480 Anomaly AUC:0.6696
+[2023-10-06 02:15:02,734][main.py][line:95][INFO] Config:{'dataset': 'xd-violence', 'model_name': 'xd_', 'metrics': 'AP', 'feat_prefix': './data/pyj/feat/xd-i3d', 'train_list': './list/xd/train.list', 'test_list': './list/xd/test.list', 'token_feat': './list/xd/xd-prompt.npy', 'gt': './list/xd/xd-gt.npy', 'win_size': 9, 'gamma': 0.06, 'bias': 0.02, 'norm': False, 't_step': 3, 'temp': 0.05, 'lamda': 0.5, 'seed': 4, 'test_bs': 5, 'smooth': 'fixed', 'kappa': 8, 'ckpt_path': './ckpt/xd__8584.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-10-06 02:15:02,822][main.py][line:111][INFO] total params:1.2073M
+[2023-10-06 02:15:02,822][main.py][line:114][INFO] Training Mode
+[2023-10-06 02:15:02,822][main.py][line:55][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(3,), stride=(1,))
+)
+
+[2023-10-06 02:15:02,823][main.py][line:56][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-10-06 02:16:08,394][main.py][line:95][INFO] Config:{'dataset': 'xd-violence', 'model_name': 'xd_', 'metrics': 'AP', 'feat_prefix': './data/xd-i3d', 'train_list': './list/xd/train.list', 'test_list': './list/xd/test.list', 'token_feat': './list/xd/xd-prompt.npy', 'gt': './list/xd/xd-gt.npy', 'win_size': 9, 'gamma': 0.06, 'bias': 0.02, 'norm': False, 't_step': 3, 'temp': 0.05, 'lamda': 0.5, 'seed': 4, 'test_bs': 5, 'smooth': 'fixed', 'kappa': 8, 'ckpt_path': './ckpt/xd__8584.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-10-06 02:16:08,510][main.py][line:111][INFO] total params:1.2073M
+[2023-10-06 02:16:08,510][main.py][line:114][INFO] Training Mode
+[2023-10-06 02:16:08,510][main.py][line:55][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(3,), stride=(1,))
+)
+
+[2023-10-06 02:16:08,510][main.py][line:56][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-10-06 02:17:53,198][main.py][line:95][INFO] Config:{'dataset': 'xd-violence', 'model_name': 'xd_', 'metrics': 'AP', 'feat_prefix': './data/xd-i3d', 'train_list': './list/xd/train.list', 'test_list': './list/xd/test.list', 'token_feat': './list/xd/xd-prompt.npy', 'gt': './list/xd/xd-gt.npy', 'win_size': 9, 'gamma': 0.06, 'bias': 0.02, 'norm': False, 't_step': 3, 'temp': 0.05, 'lamda': 0.5, 'seed': 4, 'test_bs': 5, 'smooth': 'fixed', 'kappa': 8, 'ckpt_path': './ckpt/xd__8584.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-10-06 02:17:53,274][main.py][line:111][INFO] total params:1.2073M
+[2023-10-06 02:17:53,274][main.py][line:114][INFO] Training Mode
+[2023-10-06 02:17:53,274][main.py][line:55][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(3,), stride=(1,))
+)
+
+[2023-10-06 02:17:53,274][main.py][line:56][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-10-06 02:18:03,331][main.py][line:95][INFO] Config:{'dataset': 'xd-violence', 'model_name': 'xd_', 'metrics': 'AP', 'feat_prefix': './data/xd-i3d', 'train_list': './list/xd/train.list', 'test_list': './list/xd/test.list', 'token_feat': './list/xd/xd-prompt.npy', 'gt': './list/xd/xd-gt.npy', 'win_size': 9, 'gamma': 0.06, 'bias': 0.02, 'norm': False, 't_step': 3, 'temp': 0.05, 'lamda': 0.5, 'seed': 4, 'test_bs': 5, 'smooth': 'fixed', 'kappa': 8, 'ckpt_path': './ckpt/xd__8584.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-10-06 02:18:03,412][main.py][line:111][INFO] total params:1.2073M
+[2023-10-06 02:18:03,412][main.py][line:114][INFO] Training Mode
+[2023-10-06 02:18:03,412][main.py][line:55][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(3,), stride=(1,))
+)
+
+[2023-10-06 02:18:03,412][main.py][line:56][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-10-06 02:20:07,499][main.py][line:95][INFO] Config:{'dataset': 'xd-violence', 'model_name': 'xd_', 'metrics': 'AP', 'feat_prefix': './data/xd-i3d', 'train_list': './list/xd/train.list', 'test_list': './list/xd/test.list', 'token_feat': './list/xd/xd-prompt.npy', 'gt': './list/xd/xd-gt.npy', 'win_size': 9, 'gamma': 0.06, 'bias': 0.02, 'norm': False, 't_step': 3, 'temp': 0.05, 'lamda': 0.5, 'seed': 4, 'test_bs': 5, 'smooth': 'fixed', 'kappa': 8, 'ckpt_path': './ckpt/xd__8584.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-10-06 02:20:07,584][main.py][line:122][INFO] total params:1.2073M
+[2023-10-06 02:20:07,584][main.py][line:125][INFO] Training Mode
+[2023-10-06 02:20:07,584][main.py][line:55][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(3,), stride=(1,))
+)
+
+[2023-10-06 02:20:07,584][main.py][line:56][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-10-06 02:20:47,697][main.py][line:95][INFO] Config:{'dataset': 'xd-violence', 'model_name': 'xd_', 'metrics': 'AP', 'feat_prefix': './data/xd-i3d', 'train_list': './list/xd/train.list', 'test_list': './list/xd/test.list', 'token_feat': './list/xd/xd-prompt.npy', 'gt': './list/xd/xd-gt.npy', 'win_size': 9, 'gamma': 0.06, 'bias': 0.02, 'norm': False, 't_step': 3, 'temp': 0.05, 'lamda': 0.5, 'seed': 4, 'test_bs': 5, 'smooth': 'fixed', 'kappa': 8, 'ckpt_path': './ckpt/xd__8584.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-10-06 02:20:47,781][main.py][line:122][INFO] total params:1.2073M
+[2023-10-06 02:20:47,781][main.py][line:125][INFO] Training Mode
+[2023-10-06 02:20:47,781][main.py][line:55][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(3,), stride=(1,))
+)
+
+[2023-10-06 02:20:47,781][main.py][line:56][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-10-06 02:22:07,427][main.py][line:95][INFO] Config:{'dataset': 'xd-violence', 'model_name': 'xd_', 'metrics': 'AP', 'feat_prefix': './data/xd-i3d', 'train_list': './list/xd/train.list', 'test_list': './list/xd/test.list', 'token_feat': './list/xd/xd-prompt.npy', 'gt': './list/xd/xd-gt.npy', 'win_size': 9, 'gamma': 0.06, 'bias': 0.02, 'norm': False, 't_step': 3, 'temp': 0.05, 'lamda': 0.5, 'seed': 4, 'test_bs': 5, 'smooth': 'fixed', 'kappa': 8, 'ckpt_path': './ckpt/xd__8584.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-10-06 02:22:07,517][main.py][line:122][INFO] total params:1.2073M
+[2023-10-06 02:22:07,517][main.py][line:125][INFO] Training Mode
+[2023-10-06 02:22:07,517][main.py][line:55][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(3,), stride=(1,))
+)
+
+[2023-10-06 02:22:07,517][main.py][line:56][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-10-06 02:22:47,571][main.py][line:95][INFO] Config:{'dataset': 'xd-violence', 'model_name': 'xd_', 'metrics': 'AP', 'feat_prefix': './data/xd-i3d', 'train_list': './list/xd/train.list', 'test_list': './list/xd/test.list', 'token_feat': './list/xd/xd-prompt.npy', 'gt': './list/xd/xd-gt.npy', 'win_size': 9, 'gamma': 0.06, 'bias': 0.02, 'norm': False, 't_step': 3, 'temp': 0.05, 'lamda': 0.5, 'seed': 4, 'test_bs': 5, 'smooth': 'fixed', 'kappa': 8, 'ckpt_path': './ckpt/xd__8584.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-10-06 02:22:47,657][main.py][line:122][INFO] total params:1.2073M
+[2023-10-06 02:22:47,657][main.py][line:125][INFO] Training Mode
+[2023-10-06 02:22:47,657][main.py][line:55][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(3,), stride=(1,))
+)
+
+[2023-10-06 02:22:47,657][main.py][line:56][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-10-06 02:24:17,983][main.py][line:95][INFO] Config:{'dataset': 'xd-violence', 'model_name': 'xd_', 'metrics': 'AP', 'feat_prefix': './data/xd-i3d', 'train_list': './list/xd/train.list', 'test_list': './list/xd/test.list', 'token_feat': './list/xd/xd-prompt.npy', 'gt': './list/xd/xd-gt.npy', 'win_size': 9, 'gamma': 0.06, 'bias': 0.02, 'norm': False, 't_step': 3, 'temp': 0.05, 'lamda': 0.5, 'seed': 4, 'test_bs': 5, 'smooth': 'fixed', 'kappa': 8, 'ckpt_path': './ckpt/xd__8584.pkl', 'feat_dim': 1024, 'head_num': 1, 'hid_dim': 128, 'out_dim': 300, 'lr': 0.0005, 'dropout': 0.1, 'train_bs': 128, 'max_seqlen': 200, 'max_epoch': 50, 'workers': 8, 'save_dir': './ckpt/', 'logs_dir': './log_info.log'}
+[2023-10-06 02:24:18,070][main.py][line:122][INFO] total params:1.2073M
+[2023-10-06 02:24:18,070][main.py][line:125][INFO] Training Mode
+[2023-10-06 02:24:18,071][main.py][line:55][INFO] Model:XModel(
+  (self_attention): XEncoder(
+    (self_attn): TCA(
+      (q): Linear(in_features=1024, out_features=128, bias=True)
+      (k): Linear(in_features=1024, out_features=128, bias=True)
+      (v): Linear(in_features=1024, out_features=128, bias=True)
+      (o): Linear(in_features=128, out_features=1024, bias=True)
+      (act): Softmax(dim=-1)
+    )
+    (linear1): Conv1d(1024, 512, kernel_size=(1,), stride=(1,))
+    (linear2): Conv1d(512, 300, kernel_size=(1,), stride=(1,))
+    (dropout1): Dropout(p=0.1, inplace=False)
+    (dropout2): Dropout(p=0.1, inplace=False)
+    (norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (loc_adj): DistanceAdj()
+  )
+  (classifier): Conv1d(300, 1, kernel_size=(3,), stride=(1,))
+)
+
+[2023-10-06 02:24:18,071][main.py][line:56][INFO] Optimizer:Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0005
+    lr: 0.0005
+    maximize: False
+    weight_decay: 0
+)
+
+[2023-10-06 02:24:24,915][main.py][line:59][INFO] Random initialize AUCAP:0.2741 Anomaly AUC:nan
+[2023-10-06 02:25:24,526][main.py][line:81][INFO] [Epoch:1/50]: loss1:0.3242 loss2:0.6189 | AUC:0.8180 Anomaly AUC:nan
+[2023-10-06 02:26:23,833][main.py][line:81][INFO] [Epoch:2/50]: loss1:0.1771 loss2:0.3887 | AUC:0.8223 Anomaly AUC:nan
+[2023-10-06 02:27:25,647][main.py][line:81][INFO] [Epoch:3/50]: loss1:0.1234 loss2:0.3204 | AUC:0.7941 Anomaly AUC:nan
+[2023-10-06 02:28:27,965][main.py][line:81][INFO] [Epoch:4/50]: loss1:0.0894 loss2:0.2739 | AUC:0.8006 Anomaly AUC:nan
+[2023-10-06 02:29:25,915][main.py][line:81][INFO] [Epoch:5/50]: loss1:0.0573 loss2:0.2336 | AUC:0.8234 Anomaly AUC:nan
+[2023-10-06 02:30:26,902][main.py][line:81][INFO] [Epoch:6/50]: loss1:0.0543 loss2:0.2169 | AUC:0.8053 Anomaly AUC:nan
+[2023-10-06 02:31:26,022][main.py][line:81][INFO] [Epoch:7/50]: loss1:0.0363 loss2:0.1885 | AUC:0.8289 Anomaly AUC:nan
+[2023-10-06 02:32:24,379][main.py][line:81][INFO] [Epoch:8/50]: loss1:0.0282 loss2:0.1629 | AUC:0.7852 Anomaly AUC:nan
+[2023-10-06 02:33:26,942][main.py][line:81][INFO] [Epoch:9/50]: loss1:0.0341 loss2:0.1458 | AUC:0.7796 Anomaly AUC:nan
+[2023-10-06 02:34:25,801][main.py][line:81][INFO] [Epoch:10/50]: loss1:0.0274 loss2:0.1247 | AUC:0.7931 Anomaly AUC:nan
+[2023-10-06 02:35:26,819][main.py][line:81][INFO] [Epoch:11/50]: loss1:0.0119 loss2:0.0973 | AUC:0.8230 Anomaly AUC:nan
+[2023-10-06 02:36:24,033][main.py][line:81][INFO] [Epoch:12/50]: loss1:0.0178 loss2:0.0934 | AUC:0.8005 Anomaly AUC:nan
+[2023-10-06 02:37:25,474][main.py][line:81][INFO] [Epoch:13/50]: loss1:0.0171 loss2:0.0694 | AUC:0.7789 Anomaly AUC:nan
+[2023-10-06 02:38:32,883][main.py][line:81][INFO] [Epoch:14/50]: loss1:0.0324 loss2:0.0521 | AUC:0.8107 Anomaly AUC:nan
+[2023-10-06 02:39:38,015][main.py][line:81][INFO] [Epoch:15/50]: loss1:0.0145 loss2:0.0884 | AUC:0.7859 Anomaly AUC:nan
+[2023-10-06 02:40:50,147][main.py][line:81][INFO] [Epoch:16/50]: loss1:0.0144 loss2:0.0657 | AUC:0.8005 Anomaly AUC:nan
+[2023-10-06 02:42:07,541][main.py][line:81][INFO] [Epoch:17/50]: loss1:0.0054 loss2:0.0547 | AUC:0.8226 Anomaly AUC:nan
+[2023-10-06 02:43:21,286][main.py][line:81][INFO] [Epoch:18/50]: loss1:0.0046 loss2:0.0249 | AUC:0.8060 Anomaly AUC:nan
+[2023-10-06 02:44:26,429][main.py][line:81][INFO] [Epoch:19/50]: loss1:0.0032 loss2:0.0184 | AUC:0.8127 Anomaly AUC:nan
+[2023-10-06 02:45:44,616][main.py][line:81][INFO] [Epoch:20/50]: loss1:0.0016 loss2:0.0000 | AUC:0.8263 Anomaly AUC:nan
+[2023-10-06 02:47:05,634][main.py][line:81][INFO] [Epoch:21/50]: loss1:0.0017 loss2:0.0000 | AUC:0.8107 Anomaly AUC:nan
+[2023-10-06 02:48:15,848][main.py][line:81][INFO] [Epoch:22/50]: loss1:0.0016 loss2:0.0000 | AUC:0.8160 Anomaly AUC:nan
+[2023-10-06 02:49:33,327][main.py][line:81][INFO] [Epoch:23/50]: loss1:0.0117 loss2:0.0140 | AUC:0.8001 Anomaly AUC:nan
+[2023-10-06 02:50:46,400][main.py][line:81][INFO] [Epoch:24/50]: loss1:0.0327 loss2:0.0355 | AUC:0.8148 Anomaly AUC:nan
+[2023-10-06 02:51:56,497][main.py][line:81][INFO] [Epoch:25/50]: loss1:0.0075 loss2:0.0020 | AUC:0.8178 Anomaly AUC:nan
+[2023-10-06 02:53:12,810][main.py][line:81][INFO] [Epoch:26/50]: loss1:0.0022 loss2:0.0000 | AUC:0.8250 Anomaly AUC:nan
+[2023-10-06 02:54:24,688][main.py][line:81][INFO] [Epoch:27/50]: loss1:0.0014 loss2:0.0000 | AUC:0.8234 Anomaly AUC:nan
+[2023-10-06 02:55:39,868][main.py][line:81][INFO] [Epoch:28/50]: loss1:0.0057 loss2:0.0012 | AUC:0.7805 Anomaly AUC:nan
+[2023-10-06 02:56:54,249][main.py][line:81][INFO] [Epoch:29/50]: loss1:0.0012 loss2:0.0000 | AUC:0.7987 Anomaly AUC:nan
+[2023-10-06 02:57:58,723][main.py][line:81][INFO] [Epoch:30/50]: loss1:0.0008 loss2:0.0000 | AUC:0.8042 Anomaly AUC:nan
+[2023-10-06 02:59:11,977][main.py][line:81][INFO] [Epoch:31/50]: loss1:0.0008 loss2:0.0000 | AUC:0.7857 Anomaly AUC:nan
+[2023-10-06 03:00:22,657][main.py][line:81][INFO] [Epoch:32/50]: loss1:0.0007 loss2:0.0000 | AUC:0.8073 Anomaly AUC:nan
+[2023-10-06 03:01:35,266][main.py][line:81][INFO] [Epoch:33/50]: loss1:0.0006 loss2:0.0000 | AUC:0.8062 Anomaly AUC:nan
+[2023-10-06 03:02:46,145][main.py][line:81][INFO] [Epoch:34/50]: loss1:0.0006 loss2:0.0000 | AUC:0.8041 Anomaly AUC:nan
+[2023-10-06 03:03:58,132][main.py][line:81][INFO] [Epoch:35/50]: loss1:0.0016 loss2:0.0000 | AUC:0.8087 Anomaly AUC:nan
+[2023-10-06 03:05:04,816][main.py][line:81][INFO] [Epoch:36/50]: loss1:0.0008 loss2:0.0000 | AUC:0.8061 Anomaly AUC:nan
+[2023-10-06 03:06:23,263][main.py][line:81][INFO] [Epoch:37/50]: loss1:0.0006 loss2:0.0000 | AUC:0.8075 Anomaly AUC:nan
+[2023-10-06 03:07:36,224][main.py][line:81][INFO] [Epoch:38/50]: loss1:0.0006 loss2:0.0000 | AUC:0.7997 Anomaly AUC:nan
+[2023-10-06 03:08:48,144][main.py][line:81][INFO] [Epoch:39/50]: loss1:0.0008 loss2:0.0000 | AUC:0.8123 Anomaly AUC:nan
+[2023-10-06 03:10:01,370][main.py][line:81][INFO] [Epoch:40/50]: loss1:0.0006 loss2:0.0000 | AUC:0.8044 Anomaly AUC:nan
+[2023-10-06 03:11:21,911][main.py][line:81][INFO] [Epoch:41/50]: loss1:0.0005 loss2:0.0000 | AUC:0.8067 Anomaly AUC:nan
+[2023-10-06 03:12:29,578][main.py][line:81][INFO] [Epoch:42/50]: loss1:0.0005 loss2:0.0000 | AUC:0.8078 Anomaly AUC:nan
+[2023-10-06 03:13:48,708][main.py][line:81][INFO] [Epoch:43/50]: loss1:0.0005 loss2:0.0000 | AUC:0.8067 Anomaly AUC:nan
+[2023-10-06 03:14:58,169][main.py][line:81][INFO] [Epoch:44/50]: loss1:0.0005 loss2:0.0000 | AUC:0.8058 Anomaly AUC:nan
+[2023-10-06 03:16:05,856][main.py][line:81][INFO] [Epoch:45/50]: loss1:0.0005 loss2:0.0000 | AUC:0.8054 Anomaly AUC:nan
+[2023-10-06 03:17:12,472][main.py][line:81][INFO] [Epoch:46/50]: loss1:0.0005 loss2:0.0000 | AUC:0.8061 Anomaly AUC:nan
+[2023-10-06 03:18:14,984][main.py][line:81][INFO] [Epoch:47/50]: loss1:0.0005 loss2:0.0000 | AUC:0.8043 Anomaly AUC:nan
+[2023-10-06 03:19:31,541][main.py][line:81][INFO] [Epoch:48/50]: loss1:0.0005 loss2:0.0000 | AUC:0.8046 Anomaly AUC:nan
+[2023-10-06 03:20:36,994][main.py][line:81][INFO] [Epoch:49/50]: loss1:0.0005 loss2:0.0000 | AUC:0.8043 Anomaly AUC:nan
+[2023-10-06 03:21:45,784][main.py][line:81][INFO] [Epoch:50/50]: loss1:0.0005 loss2:0.0000 | AUC:0.8049 Anomaly AUC:nan
+[2023-10-06 03:21:45,801][main.py][line:88][INFO] Training completes in 57m 21s | best AUCAP:0.8289 Anomaly AUC:nan
+

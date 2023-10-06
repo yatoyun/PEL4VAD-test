@@ -98,7 +98,7 @@ class XDataset(data.Dataset):
             v_feat = self.tranform(v_feat)
             t_feat = self.tranform(t_feat)
         if self.test_mode:
-            return v_feat, self.list[index]  #, idx
+            return v_feat, label  #, idx
         else:
             v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
             return v_feat, t_feat, label, idx

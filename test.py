@@ -47,7 +47,7 @@ def test_func(dataloader, model, gt, dataset):
             # gt_tmp = gt_tmp[seq_len[0] * 16:]
 
         pred = list(pred.cpu().detach().numpy())
-        # n_far = cal_false_alarm(normal_labels, normal_preds)
+        n_far = cal_false_alarm(normal_labels, normal_preds)
         fpr, tpr, _ = roc_curve(list(gt), np.repeat(pred, 16))
         roc_auc = auc(fpr, tpr)
         pre, rec, _ = precision_recall_curve(list(gt), np.repeat(pred, 16))
@@ -59,8 +59,8 @@ def test_func(dataloader, model, gt, dataset):
 
         if dataset == 'ucf-crime':
             return roc_auc, ab_roc_auc
-        # elif dataset == 'xd-violence':
-        #     return pr_auc, n_far
+        elif dataset == 'xd-violence':
+            return pr_auc, n_far
         # elif dataset == 'shanghaiTech':
         #     return roc_auc, n_far
         # else:
