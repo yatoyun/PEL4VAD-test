@@ -97,7 +97,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
             # scheduler.step(epoch + 1)
 
             log_writer.add_scalar('loss', loss1, epoch)
-            turn_point = 1
+            turn_point = 1 if not args.fast else cfg.max_epoch
             if (epoch >= turn_point and (idx+1) % 10 == 0):
                 auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
                 if auc >= best_auc:
@@ -221,6 +221,7 @@ if __name__ == '__main__':
     parser.add_argument('--gamma', default=0.6, type=float, help='gamma')
     parser.add_argument('--bias', default=0.2, type=float, help='bias')
     parser.add_argument('--mem_num', default=50, type=int, help='mem_num')
+    parser.add_argument('--fast', action='store_true', help='fast mode')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)

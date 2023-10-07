@@ -42,32 +42,18 @@ class XEncoder(nn.Module):
         x = F.relu(self.conv1(x))
         x = self.dropout(x)
         x = x.permute(0, 2, 1)
+        x_v = x
+        
         x = torch.cat((x, x_h), -1)
         
-        # self_att = x + self.self_attn(x, mask, adj)
-        # x = torch.cat((x, x+self.self_attn(x, mask, adj)), -1)
-        
         # x = self.norm(x)
-        if self.training:
-            x_k = self.UR_DMU(x)
-            x = x_k["x"]
-        else:
-            x_k = torch.zeros(0).cuda()
-            for x_split in x:
-                x_split = x_split.unsqueeze(0)
-                x_k_split = self.UR_DMU(x_split)
-                x_k = torch.cat((x_k, x_k_split["x"]), 0)
-            x = x_k
-        
-        # x = self.norm(x)
-        # self_att = self.norm(self_att)
-        # x = self.cat(torch.cat((x, self_att), -1))
-        # x = self.norm(x)
-        # x = x + self.self_attn(x, mask, adj)
+        x_k = self.UR_DMU(x)
+        x = x_k["x"]
+    
         x = x + x_t
         
         x = self.norm(x).permute(0, 2, 1)
-        x = self.dropout1(F.gelu(self.linear1(x)))
+        x = self.dropout1(F.gelu(self.linear1(x) + x_v.permute(0, 2, 1)))
         x_e = self.dropout2(F.gelu(self.linear2(x)))
         
         # x_k = dict()
