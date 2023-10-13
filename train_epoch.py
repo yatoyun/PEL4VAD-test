@@ -53,10 +53,10 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
         label = label.float().cuda(non_blocking=True)
         multi_label = multi_label.cuda(non_blocking=True)
         
-        v_input = interpolate_frames(v_input, seq_len)
-        clip_input = interpolate_frames(clip_input, seq_len)
+        # v_input = interpolate_frames(v_input, seq_len)
+        # clip_input = interpolate_frames(clip_input, seq_len)
 
-        logits, x_k, output_MSNSD = model(v_input, clip_input, seq_len)
+        logits, x_k, output_MSNSD, output_MSNSD2 = model(v_input, clip_input, seq_len)
         
         v_feat = x_k["x"]
         x_k["frame"] = logits
@@ -76,7 +76,8 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
         nlabel = label[:label.shape[0] // 2]
         alabel = label[label.shape[0] // 2:]
         mg_loss = loss_criterion(output_MSNSD, nlabel, alabel)
-        loss1 = loss1 + mg_loss
+        mg_loss2 = loss_criterion(output_MSNSD2, nlabel, alabel)
+        loss1 = loss1 + mg_loss + mg_loss2
 
         loss = loss1 + lamda * loss2 + alpha * UR_loss
         
@@ -123,6 +124,7 @@ class mgfn_loss(torch.nn.Module):
         # score = score.squeeze()
         # label = label.cuda()
         # seperate = len(abn_feamagnitude) / 2
+        loss_normal = self.criterion(score_normal.squeeze(), nlabel.cuda())
 
         # loss_cls = self.criterion(score_abnormal.squeeze(), alabel.cuda())
         loss_con = self.contrastive(torch.norm(abn_feamagnitude, p=1, dim=2), torch.norm(nor_feamagnitude, p=1, dim=2),
@@ -132,7 +134,7 @@ class mgfn_loss(torch.nn.Module):
         #                               0)  # try to cluster the same class
         # loss_con_a = self.contrastive(torch.norm(abn_feamagnitude[int(seperate):], p=1, dim=2),
         #                               torch.norm(abn_feamagnitude[:int(seperate)], p=1, dim=2), 1)
-        loss_total = 0.001 * (0.01 * loss_con) #loss_con_n )
+        loss_total = loss_normal + 0.001 * (0.01 * loss_con) #loss_con_n )
         
         return loss_total
 

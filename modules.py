@@ -45,21 +45,23 @@ class XEncoder(nn.Module):
         x_v = x
         
         x = torch.cat((x, x_h), -1)
+        v_feat = x
         
         # x = self.norm(x)
         x_k = self.UR_DMU(x)
         x = x_k["x"]
-    
+        
         x = x + x_t
         
         x = self.norm(x).permute(0, 2, 1)
-        x = self.dropout1(F.gelu(self.linear1(x) + x_v.permute(0, 2, 1)))
+        x = self.dropout1(F.gelu(self.linear1(x)))
         x_e = self.dropout2(F.gelu(self.linear2(x)))
         
         # x_k = dict()
         
         if self.training:
             x_k["x"] = x
+            # x_k["x_2"] = v_feat 
 
         return x_e, x_k
 

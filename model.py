@@ -16,6 +16,7 @@ class XModel(nn.Module):
         super(XModel, self).__init__()
         self.t = cfg.t_step
         self.k = cfg.k
+        self.k2 = cfg.k2
         self.self_attention = XEncoder(
             d_model=cfg.feat_dim,
             hid_dim=cfg.hid_dim,
@@ -43,8 +44,9 @@ class XModel(nn.Module):
         logits = torch.sigmoid(logits)
         
         if self.training:
-            output = MSNSD(x_v["x"].permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1, k=self.k)
-            return logits, x_v, output
+            output = MSNSD(x_e.permute(0,2,1), logits, x.shape[0], x.shape[0] // 2, self.dropout, 1, k=self.k)
+            output2 = MSNSD(x_v["x_2"], logits, x.shape[0], x.shape[0] // 2, self.dropout, 1, k=self.k2)
+            return logits, x_v, output, output2
 
         return logits, x_v
 

@@ -66,6 +66,7 @@ class WSAD(Module):
         # x = self.selfatt2(x)
         
         x = self.embedding(x)
+        x_2 = x
         x = self.selfatt(x)
         if self.training:
             N_x = x[:b*n//2]                  #### Normal part
@@ -119,7 +120,8 @@ class WSAD(Module):
                     "A_Natt": A_Natt.reshape((b//2, n, -1)).mean(1),
                     "N_Aatt": N_Aatt.reshape((b//2, n, -1)).mean(1),
                     "cos_loss": cos_loss,
-                    "x":x
+                    "x":x,
+                    "x_2":x_2
                 }
         else:           
             _, A_aug = self.Amemory(x)
