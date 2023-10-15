@@ -55,7 +55,7 @@ class AD_Loss(nn.Module):
             A_Nloss += self.bce(valid_A_Natt, target)
         A_Nloss = A_Nloss / A_Natt.shape[0]
 
-        cost = 0.1 * (A_loss + panomaly_loss + N_loss + A_Nloss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance + 0.1 * cos_loss
+        cost = 0.1 * (A_loss + panomaly_loss + N_loss + A_Nloss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance + 0.5 * cos_loss
         # cost = 0.1 * (A_loss + N_loss + panomaly_loss) + 0.1 * triplet + 0.001 * kl_loss + 0.0001 * distance
 
         loss['total_loss'] = cost
