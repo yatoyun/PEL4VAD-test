@@ -71,6 +71,9 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
     # lamda = 0.982#0.492
     # alpha = 0.432#0.489#0.127
     optimizer = optim.Adam(model.parameters(), lr=cfg.lr, weight_decay=0.005)#lr=cfg.lr)
+    # optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)
+    # optimizer = optim.RMSprop(model.parameters(), lr=cfg.lr, weight_decay=0.005)
+    # optimizer = optim.NAdam(model.parameters(), lr=cfg.lr, weight_decay=0.005)
     # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
     # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4, 
@@ -215,25 +218,11 @@ if __name__ == '__main__':
     parser.add_argument('--UR_DMU_lr', default=1e-4, type=float, help='learning rate')
     parser.add_argument('--lamda', default=1, type=float, help='lamda')
     parser.add_argument('--alpha', default=0.5, type=float, help='alpha')
-    parser.add_argument('--t_step', default=9, type=int, help='t_step')
-    parser.add_argument('--k', default=20, type=int, help='k')
-    parser.add_argument('--win_size', default=9, type=int, help='win_size')
-    parser.add_argument('--gamma', default=0.6, type=float, help='gamma')
-    parser.add_argument('--bias', default=0.2, type=float, help='bias')
-    parser.add_argument('--mem_num', default=50, type=int, help='mem_num')
     parser.add_argument('--fast', action='store_true', help='fast mode')
     
     args = parser.parse_args()
     cfg = build_config(args.dataset)
     
-    cfg.k = args.k
-    cfg.t_step = args.t_step
-    cfg.win_size = args.win_size
-    cfg.gamma = args.gamma
-    cfg.bias = args.bias
-    cfg.a_nums = args.mem_num
-    cfg.n_nums = args.mem_num
-
     savepath = './logs/{}_{}_{}_{}'.format(args.dataset, args.version, cfg.lr, cfg.train_bs)
     os.makedirs(savepath,exist_ok=True)
     log_writer = SummaryWriter(savepath)

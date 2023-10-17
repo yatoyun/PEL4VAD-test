@@ -24,7 +24,7 @@ def build_config(dataset):
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
-        cfg.kappa = 5  # smooth window
+        cfg.kappa = 9  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         
@@ -32,7 +32,7 @@ def build_config(dataset):
         cfg.a_nums = 50
         cfg.n_nums = 50
         
-        cfg.k = 15
+        cfg.k = 20
 
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/ucf/features/'
 
@@ -65,7 +65,7 @@ def build_config(dataset):
         # ur dmu
         cfg.a_nums = 50
         cfg.n_nums = 50
-        cfg.k = 10
+        cfg.k = 20
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/xd/features/'
 
     elif dataset in ['sh', 'SHTech']:
