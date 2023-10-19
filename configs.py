@@ -32,6 +32,7 @@ def build_config(dataset):
         cfg.a_nums = 50
         cfg.n_nums = 50
         
+        # contrasive
         cfg.k = 20
 
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/ucf/features/'
@@ -65,6 +66,8 @@ def build_config(dataset):
         # ur dmu
         cfg.a_nums = 50
         cfg.n_nums = 50
+        
+        # contrasive
         cfg.k = 20
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/xd/features/'
 
@@ -72,7 +75,7 @@ def build_config(dataset):
         cfg.dataset = 'shanghaiTech'
         cfg.model_name = 'SH_'
         cfg.metrics = 'AUC'
-        cfg.feat_prefix = '/data/pyj/feat/SHTech-i3d'
+        cfg.feat_prefix = './data/sh-i3d'
         cfg.train_list = './list/sh/train.list'
         cfg.test_list = './list/sh/test.list'
         cfg.token_feat = './list/sh/sh-prompt.npy'
@@ -87,13 +90,21 @@ def build_config(dataset):
         cfg.t_step = 3
         # training settings
         cfg.temp = 0.2
-        cfg.lamda = 9
+        # cfg.lamda = 9
         cfg.seed = 0
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 5, slide': 3]
-        cfg.kappa = 3  # smooth window
-        cfg.ckpt_path = './ckpt/SH__98.pkl'
+        cfg.kappa = 4  # smooth window
+        cfg.ckpt_path = './ckpt/SH__current.pkl'
+        
+        # ur dmu
+        cfg.a_nums = 50
+        cfg.n_nums = 50
+        
+        # contrasive
+        cfg.k = 20
+        cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/sh/features/'
 
     # base settings
     cfg.feat_dim = 1024
@@ -104,7 +115,7 @@ def build_config(dataset):
     cfg.dropout = 0.5
     cfg.train_bs = 32
     cfg.max_seqlen = 200
-    cfg.max_epoch = 15
+    cfg.max_epoch = 50
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'

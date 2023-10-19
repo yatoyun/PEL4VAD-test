@@ -164,7 +164,9 @@ def main(cfg):
         # train_data = XDataset(cfg, test_mode=False)
         test_data = XDataset(cfg, test_mode=True)
     elif cfg.dataset == 'shanghaiTech':
-        train_data = SHDataset(cfg, test_mode=False)
+        train_normal_data = SHDataset(cfg, test_mode=False)
+        train_anomaly_data = SHDataset(cfg, test_mode=False, is_abnormal=True)
+        # train_data = SHDataset(cfg, test_mode=False)
         test_data = SHDataset(cfg, test_mode=True)
     else:
         raise RuntimeError("Do not support this dataset!")

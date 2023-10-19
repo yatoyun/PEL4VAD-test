@@ -3,6 +3,11 @@ import time
 from utils import fixed_smooth, slide_smooth
 from test import *
 
+def pad_tensor(tensor, max_seqlen):
+    batch_size, num_frames, feature_dim = tensor.size()
+    padding_length = max_seqlen - num_frames
+    padded_tensor = torch.cat([tensor, torch.zeros(batch_size, padding_length, feature_dim)], dim=1)
+    return padded_tensor
 
 def infer_func(model, dataloader, gt, logger, cfg):
     st = time.time()
@@ -21,6 +26,8 @@ def infer_func(model, dataloader, gt, logger, cfg):
             v_input = v_input.float().cuda(non_blocking=True)
             seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
             clip_input = clip_input[:, :torch.max(seq_len), :]
+            clip_input = pad_tensor(clip_input, torch.max(seq_len))
+            
             clip_input = clip_input.float().cuda(non_blocking=True)
             
             if max(seq_len) < 1200:
