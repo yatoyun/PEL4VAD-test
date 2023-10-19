@@ -125,7 +125,7 @@ class mgfn_loss(torch.nn.Module):
         # seperate = len(abn_feamagnitude) / 2
         
         # normal loss
-        loss_cls = self.criterion(score_normal.squeeze(), nlabel.cuda())
+        # loss_cls = self.criterion(score_normal.squeeze(), nlabel.cuda())
 
         # loss_cls = self.criterion(score_abnormal.squeeze(), alabel.cuda())
         loss_con = self.contrastive(torch.norm(abn_feamagnitude, p=1, dim=2), torch.norm(nor_feamagnitude, p=1, dim=2),

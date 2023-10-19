@@ -19,7 +19,7 @@ def build_config(dataset):
         cfg.t_step = 9
         # training settings
         cfg.temp = 0.09
-        cfg.lamda = 0.288#1.0
+        # cfg.lamda = #1.0
         cfg.seed = 2023 #9
         # test settings
         cfg.test_bs = 10
@@ -54,12 +54,12 @@ def build_config(dataset):
         cfg.t_step = 3
         # training settings
         cfg.temp = 0.05
-        cfg.lamda = 0.5
-        cfg.seed = 42
+        # cfg.lamda = 0.5
+        cfg.seed = 2 # 42
         # test settings
         cfg.test_bs = 5
         cfg.smooth = 'slide'  # ['fixed': 8, slide': 3]
-        cfg.kappa = 3  # smooth window
+        cfg.kappa = 4  # smooth window
         cfg.ckpt_path = './ckpt/xd__current.pkl'
         
         # ur dmu
