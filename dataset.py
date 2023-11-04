@@ -37,7 +37,10 @@ class UCFDataset(data.Dataset):
         # video_name = self.list[index].strip('\n').split('/')[-1][:-4]
         feat_path = os.path.join(self.feat_prefix, self.list[index].strip('\n'))
         if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
-            feat_path = feat_path.replace('train', 'train-200')
+            feat_path = feat_path.replace('train', 'train-200-s')
+            
+        if self.test_mode:
+            feat_path = feat_path.replace('test', 'test-s')
             
         video_idx = self.list[index].strip('\n').split('/')[-1].split('_')[0]
         if self.normal_flag in self.list[index]:

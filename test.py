@@ -41,7 +41,7 @@ def test_func(dataloader, model, gt, dataset, test_bs):
             # print(v_input.shape)
             seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
             clip_input = clip_input[:, :torch.max(seq_len), :]
-            clip_input = pad_tensor(clip_input, torch.max(seq_len))
+            # clip_input = pad_tensor(clip_input, torch.max(seq_len))
             
             clip_input = clip_input.float().cuda(non_blocking=True)
             

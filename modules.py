@@ -15,23 +15,24 @@ class XEncoder(nn.Module):
         self.win_size = win_size
         self.self_attn = TCA(d_model, hid_dim, hid_dim, n_heads, norm)
             
-        self.linear1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
-        self.linear2 = nn.Conv1d(d_model // 2, out_dim, kernel_size=1)
+        self.linear1 = nn.Conv1d(1024, 512, kernel_size=1)
+        self.linear2 = nn.Conv1d(512, out_dim, kernel_size=1)
         self.dropout1 = Pdropout(dropout)
         self.dropout2 = Pdropout(dropout)
-        self.norm = nn.LayerNorm(d_model)
+        self.norm = nn.LayerNorm(1024)
         self.loc_adj = DistanceAdj(gamma, bias)
-        self.UR_DMU = WSAD(d_model, a_nums = a_nums, n_nums = n_nums, dropout = dropout)
-        self.hard_atten = HardAttention(k=0.95, num_samples=100, input_dim=d_model//2)
-        self.conv1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
+        self.UR_DMU = WSAD(1024, a_nums = a_nums, n_nums = n_nums, dropout = dropout)
+        self.hard_atten = HardAttention(k=0.95, num_samples=100, input_dim=512)
+        self.conv1 = nn.Conv1d(d_model, 512, kernel_size=1)
         self.dropout = nn.Dropout(0.05)
-        assert d_model // 2 == 512
         
         # self.concat_feat = nn.Linear(d_model * 2, d_model)
 
     def forward(self, x, c_x, seq_len):
         adj = self.loc_adj(x.shape[0], x.shape[1])
         mask = self.get_mask(self.win_size, x.shape[1], seq_len)
+        
+        # print(x.shape, c_x.shape)
         
         x_h = self.hard_atten(c_x)
 
@@ -50,7 +51,7 @@ class XEncoder(nn.Module):
         x_k = self.UR_DMU(x)
         x = x_k["x"]
     
-        x = x + x_t
+        # x = x + x_t
         
         x = self.norm(x).permute(0, 2, 1)
         x = self.dropout1(F.gelu(self.linear1(x) + x_v.permute(0, 2, 1)))

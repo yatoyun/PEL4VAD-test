@@ -9,7 +9,7 @@ def build_config(dataset):
         cfg.train_list = './list/ucf/train.list'
         cfg.test_list = './list/ucf/test.list'
         cfg.token_feat = './list/ucf/ucf-prompt.npy'
-        cfg.gt =  './list/ucf/ucf-gt.npy'
+        cfg.gt = '../CLIP-TSA/list/gt-ucf.npy' #'./list/ucf/ucf-gt.npy'
         # TCA settings
         cfg.win_size = 9
         cfg.gamma = 0.6
@@ -107,7 +107,7 @@ def build_config(dataset):
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/sh/features/'
 
     # base settings
-    cfg.feat_dim = 1024
+    cfg.feat_dim = 2048
     cfg.head_num = 1
     cfg.hid_dim = 128
     cfg.out_dim = 300
