@@ -24,7 +24,7 @@ def build_config(dataset):
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
-        cfg.kappa = 9  # smooth window
+        cfg.kappa = 8  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         
@@ -34,6 +34,10 @@ def build_config(dataset):
         
         # contrasive
         cfg.k = 20
+        
+        # margin
+        cfg.margin = 100
+        cfg.max_epoch = 6
 
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/ucf/features/'
 
@@ -60,7 +64,7 @@ def build_config(dataset):
         # test settings
         cfg.test_bs = 5
         cfg.smooth = 'slide'  # ['fixed': 8, slide': 3]
-        cfg.kappa = 4  # smooth window
+        cfg.kappa = 2  # smooth window
         cfg.ckpt_path = './ckpt/xd__current.pkl'
         
         # ur dmu
@@ -69,6 +73,11 @@ def build_config(dataset):
         
         # contrasive
         cfg.k = 20
+        
+        # margin
+        cfg.margin = 100
+        cfg.max_epoch = 20
+        
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/xd/features/'
 
     elif dataset in ['sh', 'SHTech']:
@@ -80,7 +89,7 @@ def build_config(dataset):
         cfg.test_list = './list/sh/test.list'
         cfg.token_feat = './list/sh/sh-prompt.npy'
         cfg.abn_label = './list/sh/relabel.list'
-        cfg.gt = './list/sh/sh-gt.npy'
+        cfg.gt = '/home/yukaneko/dev/AbnormalDetection/RTFM/list/gt-sh.npy' #./list/sh/sh-gt.npy'
         # TCA settings
         cfg.win_size = 5
         cfg.gamma = 0.08
@@ -95,7 +104,7 @@ def build_config(dataset):
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 5, slide': 3]
-        cfg.kappa = 4  # smooth window
+        cfg.kappa = 3 # smooth window
         cfg.ckpt_path = './ckpt/SH__current.pkl'
         
         # ur dmu
@@ -104,6 +113,11 @@ def build_config(dataset):
         
         # contrasive
         cfg.k = 20
+        
+        # margin
+        cfg.margin = 100#210
+        cfg.max_epoch = 250
+        
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/sh/features/'
 
     # base settings
@@ -115,7 +129,7 @@ def build_config(dataset):
     cfg.dropout = 0.5
     cfg.train_bs = 32
     cfg.max_seqlen = 200
-    cfg.max_epoch = 50
+    
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'

@@ -25,8 +25,18 @@ def interpolate_frames(x, seq_len):
 
     return x
 
+
+def to_cuda(v_input, clip_input, t_input, label, multi_label):
+    v_input = v_input.float().cuda(non_blocking=True)
+    clip_input = clip_input.float().cuda(non_blocking=True)
+    t_input = t_input.float().cuda(non_blocking=True)
+    label = label.float().cuda(non_blocking=True)
+    multi_label = multi_label.cuda(non_blocking=True)
+    
+    return v_input, clip_input, t_input, label, multi_label
+    
 # def train_func(normal_dataloader, anomaly_dataloader, model, optimizer, criterion, criterion2, criterion3, lamda=0):
-def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion2, criterion3, logger_wandb, lamda=0, alpha=0):
+def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion2, criterion3, logger_wandb, lamda=0, alpha=0, margin=100.0):
 # def train_func(dataloader, model, optimizer, criterion, criterion2, lamda=0):
 
     v_ninput, clip_ninput, t_ninput, nlabel, multi_nlabel = normal_iter #next(normal_iter)
@@ -35,6 +45,9 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
         model.train()
         # for i, ((v_ninput, t_ninput, nlabel, multi_nlabel), (v_ainput, t_ainput, alabel, multi_alabel)) \
         #                                             in enumerate(zip(normal_dataloader, anomaly_dataloader)):
+        
+        v_ninput, clip_ninput, t_ninput, nlabel, multi_nlabel = to_cuda(v_ninput, clip_ninput, t_ninput, nlabel, multi_nlabel)
+        v_ainput, clip_ainput, t_ainput, alabel, multi_alabel = to_cuda(v_ainput, clip_ainput, t_ainput, alabel, multi_alabel)
         # cat
         v_input = torch.cat((v_ninput, v_ainput), 0)
         t_input = torch.cat((t_ninput, t_ainput), 0)
@@ -46,12 +59,9 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
         
         seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
         v_input = v_input[:, :torch.max(seq_len), :]
-        v_input = v_input.float().cuda(non_blocking=True)
         clip_input = clip_input[:, :torch.max(seq_len), :]
-        clip_input = clip_input.float().cuda(non_blocking=True)
-        t_input = t_input.float().cuda(non_blocking=True)
-        label = label.float().cuda(non_blocking=True)
-        multi_label = multi_label.cuda(non_blocking=True)
+        
+        # v_input, clip_input, t_input, label, multi_label = to_cuda(v_input, clip_input, t_input, label, multi_label)
         
         v_input = interpolate_frames(v_input, seq_len)
         clip_input = interpolate_frames(clip_input, seq_len)
@@ -72,7 +82,7 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
         loss1 = CLAS2(logits, label, seq_len, criterion)
         
         UR_loss = criterion3(x_k, label, seq_len)[0]
-        loss_criterion = mgfn_loss()
+        loss_criterion = mgfn_loss(margin)
         nlabel = label[:label.shape[0] // 2]
         alabel = label[label.shape[0] // 2:]
         mg_loss = loss_criterion(output_MSNSD, nlabel, alabel)
@@ -102,10 +112,10 @@ class ContrastiveLoss(nn.Module):
 
 
 class mgfn_loss(torch.nn.Module):
-    def __init__(self):
+    def __init__(self, margin):
         super(mgfn_loss, self).__init__()
         self.criterion = torch.nn.BCELoss()
-        self.contrastive = ContrastiveLoss()
+        self.contrastive = ContrastiveLoss(margin)
 
 
 

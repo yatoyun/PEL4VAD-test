@@ -26,14 +26,15 @@ class AD_Loss(nn.Module):
         distance = result["distance"]
         cos_loss = result["cos_loss"]
         b = _label.size(0)//2
-        t = att.size(1)      
+        t = att.size(1)     
+        k = 20 # t//16 + 1
         # anomaly = torch.topk(att, t//16 + 1, dim=-1)[0].mean(-1)
         # anomaly_loss = self.bce(anomaly, _label)
 
-        panomaly = torch.topk(1 - N_Aatt, t//16 + 1, dim=-1)[0].mean(-1)
+        panomaly = torch.topk(1 - N_Aatt,k, dim=-1)[0].mean(-1)
         panomaly_loss = self.bce(panomaly, torch.ones((b)).cuda())
         
-        A_att = torch.topk(A_att, t//16 + 1, dim = -1)[0].mean(-1)
+        A_att = torch.topk(A_att,k, dim = -1)[0].mean(-1)
         A_loss = self.bce(A_att, torch.ones((b)).cuda())
 
         # N_loss = self.bce(N_att, torch.ones_like((N_att)).cuda())    
