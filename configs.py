@@ -19,12 +19,12 @@ def build_config(dataset):
         cfg.t_step = 9
         # training settings
         cfg.temp = 0.09
-        cfg.lamda = 0.288#1.0
+        # cfg.lamda = #1.0
         cfg.seed = 2023 #9
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
-        cfg.kappa = 5  # smooth window
+        cfg.kappa = 8  # smooth window
         cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         cfg.pesudo_label = "../VAE/pesudo_label.pkl"
@@ -33,7 +33,12 @@ def build_config(dataset):
         cfg.a_nums = 50
         cfg.n_nums = 50
         
-        cfg.k = 15
+        # contrasive
+        cfg.k = 20
+        
+        # margin
+        cfg.margin = 100
+        cfg.max_epoch = 6
 
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/ucf/features/'
 
@@ -55,30 +60,37 @@ def build_config(dataset):
         cfg.t_step = 3
         # training settings
         cfg.temp = 0.05
-        cfg.lamda = 0.5
-        cfg.seed = 42
+        # cfg.lamda = 0.5
+        cfg.seed = 2 # 42
         # test settings
         cfg.test_bs = 5
         cfg.smooth = 'slide'  # ['fixed': 8, slide': 3]
-        cfg.kappa = 3  # smooth window
+        cfg.kappa = 2  # smooth window
         cfg.ckpt_path = './ckpt/xd__current.pkl'
         
         # ur dmu
         cfg.a_nums = 50
         cfg.n_nums = 50
-        cfg.k = 10
+        
+        # contrasive
+        cfg.k = 20
+        
+        # margin
+        cfg.margin = 100
+        cfg.max_epoch = 20
+        
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/xd/features/'
 
     elif dataset in ['sh', 'SHTech']:
         cfg.dataset = 'shanghaiTech'
         cfg.model_name = 'SH_'
         cfg.metrics = 'AUC'
-        cfg.feat_prefix = '/data/pyj/feat/SHTech-i3d'
+        cfg.feat_prefix = './data/sh-i3d'
         cfg.train_list = './list/sh/train.list'
         cfg.test_list = './list/sh/test.list'
         cfg.token_feat = './list/sh/sh-prompt.npy'
         cfg.abn_label = './list/sh/relabel.list'
-        cfg.gt = './list/sh/sh-gt.npy'
+        cfg.gt = '/home/yukaneko/dev/AbnormalDetection/RTFM/list/gt-sh.npy' #./list/sh/sh-gt.npy'
         # TCA settings
         cfg.win_size = 5
         cfg.gamma = 0.08
@@ -88,13 +100,26 @@ def build_config(dataset):
         cfg.t_step = 3
         # training settings
         cfg.temp = 0.2
-        cfg.lamda = 9
+        # cfg.lamda = 9
         cfg.seed = 0
         # test settings
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 5, slide': 3]
-        cfg.kappa = 3  # smooth window
-        cfg.ckpt_path = './ckpt/SH__98.pkl'
+        cfg.kappa = 3 # smooth window
+        cfg.ckpt_path = './ckpt/SH__current.pkl'
+        
+        # ur dmu
+        cfg.a_nums = 50
+        cfg.n_nums = 50
+        
+        # contrasive
+        cfg.k = 20
+        
+        # margin
+        cfg.margin = 100#210
+        cfg.max_epoch = 250
+        
+        cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/sh/features/'
 
     # base settings
     cfg.feat_dim = 1024
@@ -105,7 +130,7 @@ def build_config(dataset):
     cfg.dropout = 0.5
     cfg.train_bs = 32
     cfg.max_seqlen = 200
-    cfg.max_epoch = 30
+    
     cfg.workers = 8
     cfg.save_dir = './ckpt/'
     cfg.logs_dir = './log_info.log'

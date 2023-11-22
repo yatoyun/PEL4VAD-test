@@ -10,6 +10,13 @@ def weight_init(m):
         torch_init.xavier_uniform_(m.weight)
         # m.bias.data.fill_(0.1)
 
+# def weight_init(m):
+#     classname = m.__class__.__name__
+#     if classname.find('Conv') != -1 or classname.find('Linear') != -1:
+#         torch_init.kaiming_uniform_(m.weight)
+#         if type(m.bias)!=type(None):
+#             m.bias.data.fill_(0)
+
 
 class XModel(nn.Module):
     def __init__(self, cfg):

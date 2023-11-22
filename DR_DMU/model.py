@@ -22,12 +22,12 @@ class Temporal(Module):
         x = x.permute(0, 2, 1)
         return x
 
-class ADCLS_head(Module):
-    def __init__(self, in_dim, out_dim):
-        super().__init__()
-        self.mlp = nn.Sequential(nn.Linear(in_dim,128), nn.ReLU(), nn.Linear(128,out_dim), nn.Sigmoid())
-    def forward(self, x):
-        return self.mlp(x)
+# class ADCLS_head(Module):
+#     def __init__(self, in_dim, out_dim):
+#         super().__init__()
+#         self.mlp = nn.Sequential(nn.Linear(in_dim,128), nn.ReLU(), nn.Linear(128,out_dim), nn.Sigmoid())
+#     def forward(self, x):
+#         return self.mlp(x)
 
 class WSAD(Module):
     def __init__(self, input_size, a_nums, n_nums, dropout=0.1):

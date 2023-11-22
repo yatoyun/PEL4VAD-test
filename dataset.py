@@ -39,7 +39,7 @@ class UCFDataset(data.Dataset):
         feat_path = os.path.join(self.feat_prefix, self.list[index].strip('\n'))
         if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
             if self.pesudo_label:
-                feat_path = feat_path.replace('train', 'train-pesudo')
+                feat_path = feat_path.replace('train', 'train-pseudo')
             else:
                 feat_path = feat_path.replace('train', 'train-200')
             
@@ -67,7 +67,7 @@ class UCFDataset(data.Dataset):
         clip_path = os.path.join(self.clip_feat_prefix, clip_path_name)
         if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
             if self.pesudo_label:
-                clip_path = clip_path.replace('train', 'train-pesudo')
+                clip_path = clip_path.replace('train', 'train-pseudo')
             else:
                 clip_path = clip_path.replace('train', 'train-200')
         
@@ -84,6 +84,7 @@ class UCFDataset(data.Dataset):
         else:
             if not self.pre_process or self.max_seqlen != 200:
                 v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
+                clip_feat = process_feat(clip_feat, self.max_seqlen, is_random=False)
             # mag = np.linalg.norm(v_feat, axis=1)[:, np.newaxis]
             # v_feat = np.concatenate((v_feat,mag),axis = 1)
             return v_feat, clip_feat, t_feat, label, ano_idx
@@ -154,7 +155,9 @@ class XDataset(data.Dataset):
         if self.test_mode:
             return v_feat, clip_feat, label #self.list[index]  #, idx
         else:
-            v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
+            if not self.pre_process or self.max_seqlen != 200:
+                v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
+                clip_feat = process_feat(clip_feat, self.max_seqlen, is_random=False)
             return v_feat, clip_feat, t_feat, label, idx
 
     def __len__(self):
@@ -162,7 +165,7 @@ class XDataset(data.Dataset):
 
 
 class SHDataset(data.Dataset):
-    def __init__(self, cfg, transform=None, test_mode=False):
+    def __init__(self, cfg, transform=None, test_mode=False, is_abnormal=False, pre_process=False):
         self.feat_prefix = cfg.feat_prefix
         if test_mode:
             self.list_file = cfg.test_list
@@ -177,6 +180,9 @@ class SHDataset(data.Dataset):
                          'vehicle': 6, 'running': 7, 'jumping': 8, 'wandering': 9, 'lifting': 10,
                          'robbery': 11, 'climbing_over': 12, 'throwing': 13}
         self.tokens = np.array(np.load(cfg.token_feat))
+        self.pre_process = pre_process
+        self.is_abnormal = is_abnormal
+        self.clip_feat_prefix = cfg.clip_feat_prefix
         self._parse_list()
 
     def _parse_list(self):
@@ -192,12 +198,32 @@ class SHDataset(data.Dataset):
                 action = label.split(',')
                 self.abn_dict[name] = action
                 self.abn_list.append(name)
+        
+        if not self.test_mode:
+            if self.is_abnormal:
+                self.list = [path for path in self.list if int(float(path.split(' ')[1].rstrip())) == 1]
+                assert len(self.list) == 630
+            else:
+                self.list = [path for path in self.list if int(float(path.split(' ')[1].rstrip())) == 0]
+                assert len(self.list) == 1750
 
     def __getitem__(self, index):
         video_name = self.list[index].strip('\n').split(' ')[0].split('/')[-1][:-6]
         video_path = os.path.join(self.feat_prefix, self.list[index].strip('\n').split(' ')[0])
+        if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
+            video_path = video_path.replace('train', 'train-200')
+            
         v_feat = np.array(np.load(video_path), dtype=np.float32)
+        
+        # load clip
+        video_class_name = video_name.split('_')[0]
+        clip_path_name = self.list[index].strip('\n').split(' ')[0][:-6].replace('/', '/'+video_class_name+'/') + '.npy'
+        clip_path = os.path.join(self.clip_feat_prefix, clip_path_name)
+        if self.pre_process and self.max_seqlen == 200 and not self.test_mode:
+            clip_path = clip_path.replace('train', 'train-200')
 
+        clip_feat = np.array(np.load(clip_path), dtype=np.float32)
+        
         if self.tranform is not None:
             v_feat = self.tranform(v_feat)
 
@@ -211,13 +237,15 @@ class SHDataset(data.Dataset):
             fg_feat = np.mean(fg_feat, axis=0).reshape(1, 512)
             bg_feat = np.array(self.tokens[0, :]).reshape(1, 512)
             t_feat = np.concatenate((bg_feat, fg_feat), axis=0)
-
+            
             label = float(self.list[index].strip('\n').split(' ')[1])
-            v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
-            return v_feat, t_feat, label, abn_idx[0]
+            if not self.pre_process or self.max_seqlen != 200:
+                v_feat = process_feat(v_feat, self.max_seqlen, is_random=False)
+                clip_feat = process_feat(clip_feat, self.max_seqlen, is_random=False)
+            return v_feat, clip_feat, t_feat, label, abn_idx[0]
 
         else:
-            return v_feat, video_name
+            return v_feat, clip_feat, video_name
 
     def __len__(self):
         return len(self.list)
