@@ -2,6 +2,7 @@ import torch
 import time
 from utils import fixed_smooth, slide_smooth
 from test import *
+from research import *
 
 def pad_tensor(tensor, max_seqlen):
     batch_size, num_frames, feature_dim = tensor.size()
@@ -21,14 +22,18 @@ def infer_func(model, dataloader, gt, logger, cfg):
         gt_tmp = torch.tensor(gt.copy()).cuda()
         
         tmp_pred = torch.zeros(0).cuda()
+        
+        seq_len_list = []
 
-        for i, (v_input, clip_input, name) in enumerate(dataloader):
+        for i, (v_input, clip_input, _) in enumerate(dataloader):
             v_input = v_input.float().cuda(non_blocking=True)
             seq_len = torch.sum(torch.max(torch.abs(v_input), dim=2)[0] > 0, 1)
             clip_input = clip_input[:, :torch.max(seq_len), :]
             clip_input = pad_tensor(clip_input, torch.max(seq_len))
             
             clip_input = clip_input.float().cuda(non_blocking=True)
+            
+            seq_len_list.append(seq_len[0])
             
             if max(seq_len) < 1200:
                 logits, _ = model(v_input, clip_input, seq_len)
@@ -69,6 +74,11 @@ def infer_func(model, dataloader, gt, logger, cfg):
 
         pred = list(pred.cpu().detach().numpy())
         abnormal_preds = list(abnormal_preds.cpu().detach().numpy())
+        
+        # plot result graph
+        plot_video_prediction(np.repeat(pred, 16), list(gt), cfg.result_dir + 'result.png')
+        # make csv file
+        make_csv(np.repeat(pred, 16), list(gt), cfg.result_dir + 'result.csv', seq_len_list)
         
         far = cal_false_alarm(normal_labels, normal_preds)
         # all

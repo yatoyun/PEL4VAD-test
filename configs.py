@@ -25,7 +25,7 @@ def build_config(dataset):
         cfg.test_bs = 10
         cfg.smooth = 'slide'  # ['fixed': 10, slide': 7]
         cfg.kappa = 8  # smooth window
-        cfg.ckpt_path = './ckpt/ucf__current.pkl'#'./ckpt/ucf__8636.pkl'
+        cfg.ckpt_path = './ckpt/ucf__8968.pkl'#'./ckpt/ucf__current.pkl'#'./ckpt/ucf__8968.pkl'
         # cfg.ckpt_bert_path = './ckpt/bert_current.pkl'
         
         # ur dmu
@@ -40,6 +40,8 @@ def build_config(dataset):
         cfg.max_epoch = 6
 
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/ucf/features/'
+        
+        cfg.result_dir = './result/ucf/'
 
     elif dataset in ['xd', 'xd-violence']:
         cfg.dataset = 'xd-violence'
@@ -79,6 +81,8 @@ def build_config(dataset):
         cfg.max_epoch = 20
         
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/xd/features/'
+        
+        cfg.result_dir = './result/xd/'
 
     elif dataset in ['sh', 'SHTech']:
         cfg.dataset = 'shanghaiTech'
@@ -119,6 +123,8 @@ def build_config(dataset):
         cfg.max_epoch = 250
         
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/sh/features/'
+        
+        cfg.result_dir = './result/sh/'
 
     # base settings
     cfg.feat_dim = 1024
