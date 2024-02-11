@@ -38,13 +38,13 @@ class XEncoder(nn.Module):
         x = x + self.self_attn(x, mask, adj)
         x_t = x
         
-        x = x.permute(0, 2, 1)
-        x = F.relu(self.conv1(x))
-        x = x.permute(0, 2, 1)
-        x = self.dropout(x)
-        x_v = x
+        # x = x.permute(0, 2, 1)
+        # x = F.relu(self.conv1(x))
+        # x = x.permute(0, 2, 1)
+        # x = self.dropout(x)
+        # x_v = x
         
-        x = torch.cat((x, x_h), -1)
+        # x = torch.cat((x, x_h), -1)
         
         # x = self.norm(x)
         x_k = self.UR_DMU(x)
@@ -53,7 +53,7 @@ class XEncoder(nn.Module):
         x = x + x_t
         
         x = self.norm(x).permute(0, 2, 1)
-        x = self.dropout1(F.gelu(self.linear1(x) + x_v.permute(0, 2, 1)))
+        x = self.dropout1(F.gelu(self.linear1(x)))
         x_e = self.dropout2(F.gelu(self.linear2(x)))
         
         # x_k = dict()
