@@ -95,8 +95,8 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
                 criterion2,
                 criterion3,
                 logger_wandb,
-                args.lamda,
-                args.alpha,
+                lamda,
+                alpha,
                 cfg.margin,
             )
             # loss1, loss2, cost = train_func(train_loader, model, optimizer, criterion, criterion2, cfg.lamda)
@@ -280,12 +280,15 @@ if __name__ == "__main__":
         "--mode", default="train", help="model status: (train or infer)"
     )
     parser.add_argument("--version", default="original", help="change log path name")
-    parser.add_argument("--lamda", default=1, type=float, help="lamda")
-    parser.add_argument("--alpha", default=0.5, type=float, help="alpha")
+    parser.add_argument("--lamda", default=None, type=float, help="lamda")
+    parser.add_argument("--alpha", default=None, type=float, help="alpha")
     parser.add_argument("--fast", action="store_true", help="fast mode")
 
     args = parser.parse_args()
     cfg = build_config(args.dataset)
+    
+    lamda = args.lamda if args.lamda is not None else cfg.lamda
+    alpha = args.alpha if args.alpha is not None else cfg.alpha
 
     savepath = "./logs/{}_{}_{}_{}".format(
         args.dataset, args.version, cfg.lr, cfg.train_bs

@@ -35,6 +35,9 @@ def build_config(dataset):
         # contrasive
         cfg.k = 20
         
+        cfg.lamda = 1.1
+        cfg.alpha = 0.5
+        
         # margin
         cfg.margin = 100
         cfg.max_epoch = 6
@@ -76,6 +79,9 @@ def build_config(dataset):
         # contrasive
         cfg.k = 20
         
+        cfg.lamda = 0.6
+        cfg.alpha = 0.6
+        
         # margin
         cfg.margin = 100
         cfg.max_epoch = 20
@@ -114,6 +120,9 @@ def build_config(dataset):
         # ur dmu
         cfg.a_nums = 50
         cfg.n_nums = 50
+        
+        cfg.lamda = 1.2
+        cfg.alpha = 0.4
         
         # contrasive
         cfg.k = 20
