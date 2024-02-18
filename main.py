@@ -54,33 +54,16 @@ def load_checkpoint(model, ckpt_path, logger):
 
 
 def train(model, train_nloader, train_aloader, test_loader, gt, logger):
-    # def train(model, train_loader, test_loader, gt, logger):
     if not os.path.exists(cfg.save_dir):
         os.makedirs(cfg.save_dir)
 
     criterion = torch.nn.BCELoss()
     criterion2 = torch.nn.KLDivLoss(reduction="batchmean")
     criterion3 = AD_Loss()
-    # PEL_params = [p for n, p in model.named_parameters() if 'UR_DMU' or '2feat' not in n]
-    # UR_DMU_params = [p for n, p in model.named_parameters() if 'UR_DMU' in n]
-    # Cat_2feat_params = model.self_attention.cat_2feat.parameters()
 
-    # # optimizer = optim.Adam([
-    # # {'params': PEL_params, 'lr': args.PEL_lr},#0.0004},
-    # # {'params': UR_DMU_params, 'lr': args.UR_DMU_lr, 'weight_decay': 5e-5},#0.00030000000000000003, 'weight_decay': 5e-5}
-    # # ])
-    # lamda = 0.982#0.492
-    # alpha = 0.432#0.489#0.127
     optimizer = optim.Adam(
         model.parameters(), lr=cfg.lr, weight_decay=0.005
-    )  # lr=cfg.lr)
-    # optimizer = optim.AdamW(model.parameters(), lr=cfg.lr)
-    # optimizer = optim.RMSprop(model.parameters(), lr=cfg.lr, weight_decay=0.005)
-    # optimizer = optim.NAdam(model.parameters(), lr=cfg.lr, weight_decay=0.005)
-    # optimizer = Lamb(model.parameters(), lr=0.0025, weight_decay=0.01, betas=(.9, .999))
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
-    # scheduler = CosineLRScheduler(optimizer, t_initial=200, lr_min=1e-4,
-    #                               warmup_t=20, warmup_lr_init=5e-5, warmup_prefix=True)
+    )
 
     logger.info("Model:{}\n".format(model))
     logger.info("Optimizer:{}\n".format(optimizer))
@@ -297,8 +280,6 @@ if __name__ == "__main__":
         "--mode", default="train", help="model status: (train or infer)"
     )
     parser.add_argument("--version", default="original", help="change log path name")
-    parser.add_argument("--PEL_lr", default=5e-4, type=float, help="learning rate")
-    parser.add_argument("--UR_DMU_lr", default=1e-4, type=float, help="learning rate")
     parser.add_argument("--lamda", default=1, type=float, help="lamda")
     parser.add_argument("--alpha", default=0.5, type=float, help="alpha")
     parser.add_argument("--fast", action="store_true", help="fast mode")
@@ -313,6 +294,3 @@ if __name__ == "__main__":
     log_writer = SummaryWriter(savepath)
 
     main(cfg)
-
-# 0.8592009087263632 and parameters: {'pel_lr': 0.0007000000000000001, 'ur_lr': 0.001}.
-# 0.8584976052870801 and parameters: {'pel_lr': 0.0008, 'ur_lr': 0.0007000000000000001}
