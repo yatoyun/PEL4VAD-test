@@ -119,7 +119,7 @@ def build_config(dataset):
         cfg.k = 20
         
         # margin
-        cfg.margin = 100#210
+        cfg.margin = 210
         cfg.max_epoch = 250
         
         cfg.clip_feat_prefix = '/home/yukaneko/dev/CLIP-TSA_dataset/sh/features/'
