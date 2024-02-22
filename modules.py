@@ -21,7 +21,7 @@ class XEncoder(nn.Module):
         self.dropout2 = Pdropout(dropout)
         self.norm = nn.LayerNorm(d_model)
         self.loc_adj = DistanceAdj(gamma, bias)
-        self.UR_DMU = WSAD(d_model, a_nums = a_nums, n_nums = n_nums, dropout = dropout)
+        # self.UR_DMU = WSAD(d_model, a_nums = a_nums, n_nums = n_nums, dropout = dropout)
         self.hard_atten = HardAttention(k=0.95, num_samples=100, input_dim=d_model//2)
         self.conv1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
         self.dropout = nn.Dropout(0.05)
@@ -47,8 +47,8 @@ class XEncoder(nn.Module):
         x = torch.cat((x, x_h), -1)
         
         # x = self.norm(x)
-        x_k = self.UR_DMU(x)
-        x = x_k["x"]
+        # x_k = self.UR_DMU(x)
+        # x = x_k["x"]
     
         x = x + x_t
         
@@ -56,7 +56,7 @@ class XEncoder(nn.Module):
         x = self.dropout1(F.gelu(self.linear1(x) + x_v.permute(0, 2, 1)))
         x_e = self.dropout2(F.gelu(self.linear2(x)))
         
-        # x_k = dict()
+        x_k = dict()
         
         if self.training:
             x_k["x"] = x
