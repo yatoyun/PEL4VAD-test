@@ -53,15 +53,15 @@ def convert_gt(ins_logits, video_label, beta=0.1):
 
 
 def KLV_loss(preds, label, criterion):
-    preds = F.softmax(preds, dim=1)
-    preds = torch.log(preds)
-    if torch.isnan(preds).any():
-        loss = 0
-    else:
-        # preds = F.log_softmax(preds, dim=1)
-        target = F.softmax(label * 10, dim=1)
-        loss = criterion(preds, target)
-
+    preds = F.log_softmax(preds, dim=1)  # log_softmaxを使用
+    
+    target = F.softmax(label * 10, dim=1)  # これが意図した動作であればそのまま
+    loss = criterion(preds, target)
+    # if torch.isnan(preds).any():
+    #     loss = torch.tensor(0.0).to(preds.device)  # float型のテンソルを使用
+    # else:
+    #     target = F.softmax(label * 10, dim=1)  # これが意図した動作であればそのまま
+    #     loss = criterion(preds, target)
     return loss
 
 

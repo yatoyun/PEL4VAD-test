@@ -12,7 +12,7 @@ def setup_seed(seed):
     torch.cuda.manual_seed_all(seed)
     np.random.seed(seed)
     random.seed(seed)
-    torch.backends.cudnn.deterministic = True
+    # torch.backends.cudnn.deterministic = True
 
 
 def random_extract(feat, t_max):
@@ -63,14 +63,16 @@ def process_feat2_torch(feat, length, is_random=False):
     return new_feat
 
 def gen_label(labels):
-    num = len(labels)
-    gt = np.zeros(shape=(num, num))
-    for i, label in enumerate(labels):
-        for k in range(num):
-            if labels[k] == label:
-                gt[i, k] = 1
+    # num = len(labels)
+    # gt = np.zeros(shape=(num, num))
+    # for i, label in enumerate(labels):
+    #     for k in range(num):
+    #         if labels[k] == label:
+    #             gt[i, k] = 1
+    # return gt
+    labels = labels.view(-1, 1)
+    gt = (labels == labels.t()).float()
     return gt
-
 
 def create_logits(x1, x2, logit_scale):
     x2 = x2.squeeze(dim=1)
@@ -106,7 +108,8 @@ def get_cas(x_v, x_t, logits, labels, scale=10):
     abn_logits = F.normalize(abn_logits, p=1, dim=1)
     nor_logits = (scale * (1. - logits)).exp() - 1
     nor_logits = F.normalize(nor_logits, p=1, dim=1)
-
+    # print(abn_logits.shape, nor_logits.shape, x_v.shape, x_t.shape, labels.shape)
+    
     abn_feat = torch.matmul(abn_logits.permute(0, 2, 1), x_v)
     nor_feat = torch.matmul(nor_logits.permute(0, 2, 1), x_v)
 
