@@ -51,6 +51,7 @@ def build_config(dataset):
         cfg.model_name = 'xd_'
         cfg.metrics = 'AP'
         cfg.feat_prefix = './data/xd-i3d'
+        cfg.feat_prefix = './data/xd-i3d'
         cfg.train_list = './list/xd/train.list'
         cfg.test_list = './list/xd/test.list'
         cfg.token_feat = './list/xd/xd-prompt.npy'

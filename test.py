@@ -33,6 +33,7 @@ def test_func(dataloader, model, gt, dataset, test_bs):
         normal_labels = torch.zeros(0).cuda()
         gt_tmp = torch.tensor(gt.copy()).cuda()
         ab_pred = torch.zeros(0).cuda()
+        ab_pred = torch.zeros(0).cuda()
 
         tmp_pred = torch.zeros(0).cuda()
         for i, (v_input, clip_input, label) in enumerate(dataloader):
@@ -91,8 +92,13 @@ def test_func(dataloader, model, gt, dataset, test_bs):
         ab_pred = list(ab_pred.cpu().detach().numpy())
         fpr, tpr, _ = roc_curve(list(gt)[:len(ab_pred)*16], np.repeat(ab_pred, 16))
         ab_roc_auc = auc(fpr, tpr)
+        
+        ab_pred = list(ab_pred.cpu().detach().numpy())
+        fpr, tpr, _ = roc_curve(list(gt)[:len(ab_pred)*16], np.repeat(ab_pred, 16))
+        ab_roc_auc = auc(fpr, tpr)
 
         if dataset == 'ucf-crime':
+            return roc_auc, ab_roc_auc
             return roc_auc, ab_roc_auc
         elif dataset == 'xd-violence':
             return pr_auc, roc_auc#n_far
