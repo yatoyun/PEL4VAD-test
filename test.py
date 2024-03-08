@@ -93,7 +93,6 @@ def test_func(dataloader, model, gt, dataset, test_bs):
         fpr, tpr, _ = roc_curve(list(gt)[:len(ab_pred)*16], np.repeat(ab_pred, 16))
         ab_roc_auc = auc(fpr, tpr)
         
-        ab_pred = list(ab_pred.cpu().detach().numpy())
         fpr, tpr, _ = roc_curve(list(gt)[:len(ab_pred)*16], np.repeat(ab_pred, 16))
         ab_roc_auc = auc(fpr, tpr)
 
