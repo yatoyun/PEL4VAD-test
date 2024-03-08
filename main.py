@@ -9,6 +9,8 @@ from utils import setup_seed
 from log import get_logger
 
 from model import XModel
+
+from model import XModel
 from dataset import *
 
 from train_epoch import train_func
@@ -139,6 +141,7 @@ def train(model, train_nloader, train_aloader, test_loader, gt, logger):
         auc, ab_auc = test_func(test_loader, model, gt, cfg.dataset, cfg.test_bs)
         if auc >= best_auc:
             best_auc = auc
+            auc_ab_auc = ab_auc
             auc_ab_auc = ab_auc
             best_model_wts = copy.deepcopy(model.state_dict())
             torch.save(
