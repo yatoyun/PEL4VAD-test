@@ -81,23 +81,23 @@ def train_func(normal_iter, anomaly_iter, model, optimizer, criterion, criterion
 
         loss1 = CLAS2(logits, label, seq_len, criterion)
         
-        UR_loss = criterion3(x_k, label, seq_len)[0]
+        # UR_loss = criterion3(x_k, label, seq_len)[0]
         loss_criterion = mgfn_loss(margin)
         nlabel = label[:label.shape[0] // 2]
         alabel = label[label.shape[0] // 2:]
         mg_loss = loss_criterion(output_MSNSD, nlabel, alabel)
         loss1 = loss1 + mg_loss
 
-        loss = loss1 + lamda * loss2 + alpha * UR_loss
+        loss = loss1 + lamda * loss2 #+ alpha * UR_loss
         
-        logger_wandb.log({"loss": loss.item(), "loss1":loss1.item(), "loss2": loss2.item(), "loss3": UR_loss.item()})
+        logger_wandb.log({"loss": loss.item(), "loss1":loss1.item(), "loss2": loss2.item(), })# "loss3": UR_loss.item()})
 
 
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
-    return loss1.item(), loss2.item(), UR_loss.item()
+    return loss1.item(), loss2.item(), 0 # UR_loss.item()
 
 class ContrastiveLoss(nn.Module):
     def __init__(self, margin=100.0):

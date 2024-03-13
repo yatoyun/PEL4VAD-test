@@ -8,6 +8,22 @@ from DR_DMU.model import WSAD
 from CLIP_TSA.hard_attention import HardAttention
 
 
+class FC_layer(nn.Module):
+    def __init__(self, input_dim, output_dim, dropout=0.1):
+        super(FC_layer, self).__init__()
+        self.fc = nn.Sequential(
+            nn.Conv1d(input_dim, output_dim, kernel_size=1),
+            nn.ReLU(),
+        )
+        self.dropout = nn.Dropout(dropout)
+    
+    def forward(self, x):
+        x = x.permute(0, 2, 1)
+        x = self.fc(x)
+        x = x.permute(0, 2, 1)
+        x = self.dropout(x)
+        return x
+
 class XEncoder(nn.Module):
     def __init__(self, d_model, hid_dim, out_dim, n_heads, win_size, dropout, gamma, bias, a_nums=10, n_nums=10, norm=None):
         super(XEncoder, self).__init__()
@@ -23,8 +39,8 @@ class XEncoder(nn.Module):
         self.loc_adj = DistanceAdj(gamma, bias)
         self.UR_DMU = WSAD(d_model, a_nums = a_nums, n_nums = n_nums, dropout = dropout)
         self.hard_atten = HardAttention(k=0.95, num_samples=100, input_dim=d_model//2)
-        self.conv1 = nn.Conv1d(d_model, d_model // 2, kernel_size=1)
-        self.dropout = nn.Dropout(0.05)
+        self.fc1 = FC_layer(d_model, d_model//2, dropout=0.05)
+        # self.dropout = nn.Dropout(0.05)
         assert d_model // 2 == 512
         
         # self.lstm = LSTMModel(d_model, d_model // 2)
@@ -38,10 +54,7 @@ class XEncoder(nn.Module):
         x = x + self.self_attn(x, mask, adj)
         x_t = x
         
-        x = x.permute(0, 2, 1)
-        x = F.relu(self.conv1(x))
-        x = x.permute(0, 2, 1)
-        x = self.dropout(x)
+        x = self.fc1(x)
         x_v = x
         
         x = torch.cat((x, x_h), -1)
@@ -57,7 +70,6 @@ class XEncoder(nn.Module):
         x_e = self.dropout2(F.gelu(self.linear2(x)))
         
         # x_k = dict()
-        
         if self.training:
             x_k["x"] = x
 
